@@ -75,8 +75,6 @@ toast.configure({
   hideProgressBar: true,
 });
 
-
-
 const ConnectedApp = ({ Component }: Props) => (
   <Provider store={store}>
     <MaterialThemeProvider theme={mainTheme}>
