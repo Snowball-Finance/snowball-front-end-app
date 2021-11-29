@@ -8,7 +8,6 @@
 
 import { Helmet } from 'react-helmet-async';
 import { Switch, Route } from 'react-router-dom';
-import { GlobalStyle } from '../styles/global-styles';
 
 import { HomePage } from './containers/HomePage/Loadable';
 import { NotFoundPage } from './containers/NotFoundPage/Loadable';
@@ -25,7 +24,6 @@ export function App() {
   const router = useSelector(selectRouter);
   const { t } = useTranslation();
   const { location } = router
-
   return (
     <ConnectedRouter history={history}>
       <Helmet
@@ -34,12 +32,10 @@ export function App() {
       >
         <meta name="description" content="Skeleton" />
       </Helmet>
-
       <Switch>
-        <Route path={AppPages.RootPage} component={HomePage} />
+        <Route exact path={AppPages.RootPage} component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>
-      <GlobalStyle />
     </ConnectedRouter>
   );
 }
