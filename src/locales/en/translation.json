@@ -1,6 +1,7 @@
 {
   "ExamplePage": {
-    "GetAsyncData": "Get Async Data"
+    "GetAsyncData": "Get Async Data",
+    "AddSnobToWallet": "Add Snob to Wallet"
   },
   "HomePage": {
     "home": "Home",

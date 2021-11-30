@@ -14,8 +14,7 @@ import { NotFoundPage } from './containers/NotFoundPage/Loadable';
 import { AppPages } from './constants';
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from 'utils/history';
-import { useSelector } from 'react-redux';
-import { selectRouter } from './appSelectors';
+
 
 import { useTranslation } from 'react-i18next';
 import { translations } from 'locales/i18n';
@@ -23,23 +22,18 @@ import { Example } from "./containers/Example/Loadable";
 import { IS_DEV } from "utils/sharedData";
 
 export function App() {
-  const router = useSelector(selectRouter);
   const { t } = useTranslation();
-  const { location } = router
   return (
     <ConnectedRouter history={history}>
       <Helmet
-        titleTemplate="%s - Skeleton"
+        titleTemplate="%s - Snowball"
         defaultTitle={t(translations.HomePage.home())}
       >
-        <meta name="description" content="Skeleton" />
+        <meta name="description" content="Snowball" />
       </Helmet>
       <Switch>
         <Route exact path={AppPages.RootPage} component={HomePage} />
-        {
-          IS_DEV &&
-          <Route exact path={AppPages.Example} component={Example} />
-        }
+        {IS_DEV && <Route exact path={AppPages.Example} component={Example} />}
         <Route component={NotFoundPage} />
       </Switch>
     </ConnectedRouter>

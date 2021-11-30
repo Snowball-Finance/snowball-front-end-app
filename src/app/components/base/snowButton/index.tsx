@@ -29,4 +29,5 @@ export const SnowButton: FC<SnowButtonProps> = ({ ...props }) => {
 const StyledButton = styled(Button)<SnowButtonProps>(({ height, width, theme }) => ({
   ...(height && { height }),
   ...(width && { width }),
+  textTransform: 'none',
 }))

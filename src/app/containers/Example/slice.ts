@@ -7,20 +7,26 @@ import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { exampleSaga } from './saga';
 
 // The initial state of the Example container
-export const initialState: ContainerState = {};
+export const initialState: ContainerState = {
+  isLoadingAsyncData: false,
+  isAddingSnobToWallet: false,
+};
 
 const exampleSlice = createSlice({
   name: 'example',
   initialState,
   reducers: {
-    someAction(state, action: PayloadAction<any>) {},
+    addSnobToWallet(state, action: PayloadAction<void>) { },
+    setIsAddingSnobToWallet(state, action: PayloadAction<boolean>) {
+      state.isAddingSnobToWallet = action.payload;
+    }
   },
 });
 
-export const { actions:ExampleActions, reducer:ExampleReducer, name: sliceKey } = exampleSlice;
+export const { actions: ExampleActions, reducer: ExampleReducer, name: sliceKey } = exampleSlice;
 
-export const useExampleSlice=()=>{
-useInjectReducer({ key: sliceKey, reducer: ExampleReducer });
-useInjectSaga({ key: sliceKey, saga: exampleSaga });
-return { ExampleActions }
+export const useExampleSlice = () => {
+  useInjectReducer({ key: sliceKey, reducer: ExampleReducer });
+  useInjectSaga({ key: sliceKey, saga: exampleSaga });
+  return { ExampleActions }
 }
