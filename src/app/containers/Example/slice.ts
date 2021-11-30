@@ -19,7 +19,11 @@ const exampleSlice = createSlice({
     addSnobToWallet(state, action: PayloadAction<void>) { },
     setIsAddingSnobToWallet(state, action: PayloadAction<boolean>) {
       state.isAddingSnobToWallet = action.payload;
-    }
+    },
+    getAsyncData(state, action: PayloadAction<void>) { },
+    setIsLoadingAsyncData(state, action: PayloadAction<boolean>) {
+      state.isLoadingAsyncData = action.payload;
+    },
   },
 });
 

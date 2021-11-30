@@ -18,7 +18,7 @@ export const SnowButton: FC<SnowButtonProps> = ({ ...props }) => {
     <StyledButton {...props} >
       {
         isLoading ?
-          <CircularProgress size={props.size ?? "small"} /> :
+          <CircularProgress style={{ color: 'white' }} size={22} /> :
           children
       }
     </StyledButton>
