@@ -7,6 +7,7 @@ import {
 import { queryStringer } from 'utils/formatters';
 
 import { MessageService, MessageNames } from './message_service';
+import { IS_DEV } from "utils/sharedData";
 
 export class ApiService {
   private static instance: ApiService;
@@ -26,7 +27,7 @@ export class ApiService {
     this.token = localStorage[LocalStorageKeys.ACCESS_TOKEN]
       ? localStorage[LocalStorageKeys.ACCESS_TOKEN]
       : '';
-    if (process.env.NODE_ENV !== 'production') {
+    if (IS_DEV) {
       console.log(
         `🚀 %c${params.requestType} %crequest to: %c${this.baseUrl}${params.url}\n✉%c:`,
         'color:green;',
@@ -77,7 +78,7 @@ export class ApiService {
         // toast.error('connection failed');
       }
     }
-    if (process.env.NODE_ENV !== 'production') {
+    if (IS_DEV) {
       if (rawResponse.ok) {
         rawResponse
           .clone()
