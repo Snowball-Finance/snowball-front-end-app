@@ -14,8 +14,9 @@ export function* getBalance(action: { type: string, payload: ethers.Contract }) 
   const contract = action.payload
   try {
     const response = yield call(contract['balanceOf(address)'], account)
-    const snowballBalanceValue = BNToFloat(response, 18);
-    console.log(snowballBalanceValue)
+    console.log(response)
+    const balanceValue = BNToFloat(response, 18);
+    console.log(balanceValue)
   } catch (error) {
   }
 }
