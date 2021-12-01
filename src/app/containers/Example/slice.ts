@@ -24,6 +24,7 @@ const exampleSlice = createSlice({
     setIsLoadingAsyncData(state, action: PayloadAction<boolean>) {
       state.isLoadingAsyncData = action.payload;
     },
+    connectToMetamask(state, action: PayloadAction<void>) { },
   },
 });
 

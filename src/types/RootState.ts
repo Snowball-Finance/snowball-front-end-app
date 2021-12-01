@@ -1,6 +1,7 @@
 import { RouterState } from 'connected-react-router';
 import { HomePageState } from 'app/containers/HomePage/types';
 import { ExampleState } from 'app/containers/Example/types';
+import { Web3State } from 'app/containers/Web3/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -14,5 +15,6 @@ export interface RootState {
   homePage?: HomePageState;
   router?: RouterState;
   example?: ExampleState;
+  web3?: Web3State;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

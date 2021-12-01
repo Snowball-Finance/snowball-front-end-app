@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectIsAddingSnobToMetamask } from "./selectors";
 import { AddSnowballToMetamaskButton } from "./components/addSnobToMetamaskButton";
 import { GetAsyncDataButton } from "./components/getAsyncDataButton";
+import { ConnectToWalletButton } from "./components/connetcToWalletButton";
+import { Wallet } from "./components/wallet";
 
 interface Props { }
 
@@ -33,18 +35,25 @@ export function Example(props: Props) {
       </Helmet>
       <Wrapper>
         <Grid container p={5}>
-          <Grid item xs={1}>
+          <Grid item xs={2}>
             <GetAsyncDataButton />
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={2}>
             <AddSnowballToMetamaskButton />
           </Grid>
+          <Grid item xs={2}>
+            <ConnectToWalletButton />
+            <Wallet />
+          </Grid>
+
         </Grid>
       </Wrapper>
     </>
   );
 
 };
+
+
 
 const Wrapper = styled('div')`
 

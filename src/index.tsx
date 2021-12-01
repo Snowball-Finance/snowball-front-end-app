@@ -27,6 +27,10 @@ import { configureAppStore } from 'store/configureStore';
 import { ThemeProvider as MaterialThemeProvider } from '@mui/material';
 import { toast, Zoom } from 'react-toastify';
 import { theme } from "styles/theme";
+import { Web3ReactProvider } from "@web3-react/core";
+import { provider } from 'web3-core';
+
+import Web3 from "web3";
 // Observe loading of Inter (to remove 'Inter', remove the <link> tag in
 // the index.html file and this observer)
 const openSansObserver = new FontFaceObserver('Open Sans', {});
@@ -55,16 +59,21 @@ toast.configure({
   hideProgressBar: true,
 });
 
-
+const getLibrary = (provider: provider) => {
+  return new Web3(provider);
+}
 
 const ConnectedApp = ({ Component }: Props) => (
   <Provider store={store}>
-    <MaterialThemeProvider theme={theme}>
-      <HelmetProvider>
-        <Component />
-      </HelmetProvider>
-    </MaterialThemeProvider>
+    <Web3ReactProvider {...{ getLibrary }}>
+      <MaterialThemeProvider theme={theme}>
+        <HelmetProvider>
+          <Component />
+        </HelmetProvider>
+      </MaterialThemeProvider>
+    </Web3ReactProvider>
   </Provider>
+
 );
 
 const render = (Component: typeof App) => {

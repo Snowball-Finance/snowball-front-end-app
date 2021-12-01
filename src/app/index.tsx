@@ -20,22 +20,26 @@ import { useTranslation } from 'react-i18next';
 import { translations } from 'locales/i18n';
 import { Example } from "./containers/Example/Loadable";
 import { IS_DEV } from "utils/sharedData";
+import { Web3 } from "./containers/Web3";
 
 export function App() {
   const { t } = useTranslation();
   return (
-    <ConnectedRouter history={history}>
-      <Helmet
-        titleTemplate="%s - Snowball"
-        defaultTitle={t(translations.HomePage.home())}
-      >
-        <meta name="description" content="Snowball" />
-      </Helmet>
-      <Switch>
-        <Route exact path={AppPages.RootPage} component={HomePage} />
-        {IS_DEV && <Route exact path={AppPages.Example} component={Example} />}
-        <Route component={NotFoundPage} />
-      </Switch>
-    </ConnectedRouter>
+    <>
+      <Web3 />
+      <ConnectedRouter history={history}>
+        <Helmet
+          titleTemplate="%s - Snowball"
+          defaultTitle={t(translations.HomePage.home())}
+        >
+          <meta name="description" content="Snowball" />
+        </Helmet>
+        <Switch>
+          <Route exact path={AppPages.RootPage} component={HomePage} />
+          {IS_DEV && <Route exact path={AppPages.Example} component={Example} />}
+          <Route component={NotFoundPage} />
+        </Switch>
+      </ConnectedRouter>
+    </>
   );
 }

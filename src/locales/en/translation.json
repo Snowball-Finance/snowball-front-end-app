@@ -1,10 +1,14 @@
 {
   "ExamplePage": {
     "GetAsyncData": "Get Async Data",
-    "AddSnobToWallet": "Add Snob to Wallet"
+    "AddSnobToWallet": "Add Snob to Wallet",
+    "ConnectToWallet": "Connect to Wallet"
   },
   "HomePage": {
     "home": "Home",
     "description": "Home Page"
+  },
+  "Common": {
+    "NoConnectedWallet": "No Connected Wallet"
   }
 }
