@@ -14,7 +14,7 @@ import { useWeb3React } from "@web3-react/core";
 
 
 
-export function Web3() {
+export const Web3 = () => {
   useWeb3Slice()
 
   const dispatch = useDispatch()

@@ -17,7 +17,7 @@ export const initialState: ContainerState = {
 
 const web3Slice = createSlice({
   name: 'web3',
-  initialState,
+  initialState: initialState,
   reducers: {
     setWeb3Methods(state, action: PayloadAction<Web3Interface>) {
       state.library = action.payload.library;

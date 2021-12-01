@@ -15,7 +15,7 @@ export const initialState: ContainerState = {
 
 const ethersSlice = createSlice({
   name: 'ethers',
-  initialState,
+  initialState: initialState,
   reducers: {
     checkIfNodeIsHealthy(state, action: PayloadAction<void>) { },
     setIsCheckingNodeHealth(state, action: PayloadAction<boolean>) {

@@ -4,7 +4,8 @@ import { RootState } from 'types';
 import { initialState } from './slice';
 
 export const selectWeb3Domain = (state: RootState) => state.web3 || initialState;
-const selectAccountDomain = (state: RootState) => state.web3?.account || undefined;
+export const selectAccountDomain = (state: RootState) => state.web3?.account || undefined;
+export const selectLibraryDomain = (state: RootState) => state.web3?.library || undefined;
 
 export const selectWeb3 = createSelector(
   [selectWeb3Domain],
