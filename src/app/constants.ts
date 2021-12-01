@@ -3,6 +3,6 @@ export enum AppPages {
   RootPage = '/',
   HomePage = '/home',
   Example = '/example',
-  Web3 = '/web3',
+  BlockChain = '/blockChain',
   // [INSERT NEW PAGE PATH ABOVE] < Needed for generating containers seamlessly
 }

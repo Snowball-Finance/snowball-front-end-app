@@ -1,13 +1,12 @@
 import {
   RequestTypes,
   RequestParameters,
-  LocalStorageKeys,
   BaseUrl,
 } from './constants';
 import { queryStringer } from 'utils/formatters';
 
 import { MessageService, MessageNames } from './message_service';
-import { IS_DEV } from "utils/sharedData";
+
 
 export class ApiService {
   private static instance: ApiService;
@@ -24,12 +23,11 @@ export class ApiService {
   public async fetchData(params: RequestParameters) {
 
     const url = params.isRawUrl ? params.url : this.baseUrl + params.url;
-    this.token = localStorage[LocalStorageKeys.ACCESS_TOKEN]
-      ? localStorage[LocalStorageKeys.ACCESS_TOKEN]
-      : '';
-    if (IS_DEV) {
+
+    if (process.env.NODE_ENV !== 'production') {
+      const uri = `${params.isRawUrl ? '' : this.baseUrl}${params.url}`
       console.log(
-        `🚀 %c${params.requestType} %crequest to: %c${this.baseUrl}${params.url}\n✉%c:`,
+        `🚀 %c${params.requestType} %crequest to: %c${uri}\n✉%c:`,
         'color:green;',
         'color:black;',
         'color:green;',
@@ -45,18 +43,22 @@ export class ApiService {
         }
         const rawRes = await fetch(url + query, {
           method: 'GET',
-          headers: this.setHeaders(),
+          // credentials: 'include',
+          headers: this.getHeaders(),
         });
         return await this.handleRawResponse(rawRes, params);
       default:
         const rawResponse = await fetch(url, {
           method: params.requestType,
-          headers: this.setHeaders(),
+          headers: this.getHeaders(),
+          // credentials: 'include',
+          redirect: 'follow',
           body: JSON.stringify(params.data),
         });
         return await this.handleRawResponse(rawResponse, params);
     }
   }
+
   handleRawResponse(rawResponse: Response, params: RequestParameters) {
     // let c = rawResponse
     //   .clone()
@@ -72,20 +74,21 @@ export class ApiService {
       }
       if (rawResponse.status === 401) {
         //toast.error('Authentication Failed');
-        MessageService.send({ name: MessageNames.SETLOADING, payload: false });
         MessageService.send({ name: MessageNames.AUTH_ERROR_EVENT });
+
       } else if (rawResponse.status === 500) {
         // toast.error('connection failed');
       }
     }
-    if (IS_DEV) {
+    if (process.env.NODE_ENV !== 'production') {
+      const uri = `${params.isRawUrl ? '' : this.baseUrl}${params.url}`
       if (rawResponse.ok) {
         rawResponse
           .clone()
           .json()
           .then(response => {
             console.log(
-              `✅ %csuccess %c${params.requestType} %crequest to: %c${this.baseUrl}${params.url}\n✉%c:`,
+              `✅ %csuccess %c${params.requestType} %crequest to: %c${uri}\n✉%c:`,
               'color:green;font-size:15px;',
               'color:blue;',
               'color:black;',
@@ -99,7 +102,7 @@ export class ApiService {
           });
       } else {
         console.log(
-          `⛔ %cError %c${params.requestType} %crequest to: %c${this.baseUrl}${params.url}\n✉%c:`,
+          `⛔ %cError %c${params.requestType} %crequest to: %c${uri}\n✉%c:`,
           'color:red;font-size:15px;',
           'color:green;',
           'color:black;',
@@ -107,7 +110,7 @@ export class ApiService {
           'color:black;',
           params.data,
         );
-        return new Error(`❌ Error calling ${this.baseUrl}${params.url}`);
+        return new Error(`❌ Error calling ${uri}`);
       }
     }
     return rawResponse.json();
@@ -123,7 +126,7 @@ export class ApiService {
   //     // }
   //   }
   // }
-  public setHeaders():
+  private getHeaders():
     | Headers
     | string[][]
     | Record<string, string>
@@ -135,7 +138,6 @@ export class ApiService {
     }
     return {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.token}`,
     };
   }
 }

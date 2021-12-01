@@ -25,7 +25,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import { configureAppStore } from 'store/configureStore';
 
 import { ThemeProvider as MaterialThemeProvider } from '@mui/material';
-import { toast, Zoom } from 'react-toastify';
+import { toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+
 import { theme } from "styles/theme";
 import { Web3ReactProvider } from "@web3-react/core";
 import { provider } from 'web3-core';
@@ -42,21 +44,18 @@ openSansObserver.load().then(() => {
 
 const store = configureAppStore({}, history);
 const MOUNT_NODE = document.getElementById('Skeleton') as HTMLElement;
-
 interface Props {
   Component: typeof App;
 }
-
-
 
 toast.configure({
   autoClose: 6000,
   draggable: true,
   pauseOnHover: true,
   rtl: false,
-  transition: Zoom,
-  position: 'bottom-right',
-  hideProgressBar: true,
+  // transition: Slide,
+  position: 'top-right',
+  // hideProgressBar: true,
 });
 
 const getLibrary = (provider: provider) => {

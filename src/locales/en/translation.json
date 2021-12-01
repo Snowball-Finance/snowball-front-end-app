@@ -2,7 +2,8 @@
   "ExamplePage": {
     "GetAsyncData": "Get Async Data",
     "AddSnobToWallet": "Add Snob to Wallet",
-    "ConnectToWallet": "Connect to Wallet"
+    "ConnectToWallet": "Connect to Wallet",
+    "DisconnectFromWallet": "Disconnect from Wallet"
   },
   "HomePage": {
     "home": "Home",

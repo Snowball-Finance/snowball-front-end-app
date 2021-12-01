@@ -1,5 +1,5 @@
 import { styled } from "@mui/material"
-import { selectAccount } from "app/containers/Web3/selectors"
+import { selectAccount } from "app/containers/BlockChain/containers/Web3/selectors"
 import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"

@@ -20,13 +20,14 @@ import { useTranslation } from 'react-i18next';
 import { translations } from 'locales/i18n';
 import { Example } from "./containers/Example/Loadable";
 import { IS_DEV } from "utils/sharedData";
-import { Web3 } from "./containers/Web3";
+import { BlockChain } from "./containers/BlockChain/Loadable";
+
 
 export function App() {
   const { t } = useTranslation();
   return (
     <>
-      <Web3 />
+      <BlockChain />
       <ConnectedRouter history={history}>
         <Helmet
           titleTemplate="%s - Snowball"

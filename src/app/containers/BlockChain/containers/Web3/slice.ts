@@ -28,6 +28,7 @@ const web3Slice = createSlice({
       state.deactivate = action.payload.deactivate;
     },
     connectToWallet(state, action: PayloadAction<void>) { },
+    disconnectFromWallet(state, action: PayloadAction<void>) { },
     setIsConnectingToWallet(state, action: PayloadAction<boolean>) {
       state.isConnectingToWallet = action.payload;
     }
