@@ -11,8 +11,9 @@ import { BNToFloat } from "utils/format";
 
 export function* getBalance(action: { type: string, payload: ethers.Contract }) {
   const account = yield select(selectAccountDomain)
+  const contract = action.payload
   try {
-    const response = yield call(action.payload['balanceOf(address)'], account)
+    const response = yield call(contract['balanceOf(address)'], account)
     const snowballBalanceValue = BNToFloat(response, 18);
     console.log(snowballBalanceValue)
   } catch (error) {
