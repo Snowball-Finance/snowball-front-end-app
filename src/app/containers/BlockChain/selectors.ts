@@ -17,6 +17,27 @@ export const selectBlockChain = createSelector(
   blockChainState => blockChainState,
 );
 
+export const selectSnobBalance = createSelector(
+  [selectDomain],
+  blockChainState => blockChainState.snowballBalance,
+);
+
+export const selectIsLoadingSnobBalance = createSelector(
+  [selectDomain],
+  blockChainState => blockChainState.isGettingSnobBalance,
+);
+
+export const selectIsLoadingSnowConeBalance = createSelector(
+  [selectDomain],
+  blockChainState => blockChainState.isGettingSnowConeBalance,
+);
+
+
+export const selectSnowConeBalance = createSelector(
+  [selectDomain],
+  blockChainState => blockChainState.snowConeBalance,
+);
+
 export const selectContracts = createSelector(
   [selectPrivateProviderDomain, selectLibraryDomain],
   (provider, library) => {

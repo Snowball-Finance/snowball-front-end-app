@@ -31,7 +31,7 @@ export const ConnectToWalletButton: FC = () => {
     if (storage.read(LocalStorageKeys.CONNECTED_TO_WALLET_ONCE)) {
       setTimeout(() => {
         dispatch(Web3Actions.connectToWallet())
-      }, 1000);
+      }, 100);
     }
   }, [])
 

@@ -14,6 +14,7 @@ import { AddSnowballToMetamaskButton } from "./components/addSnobToMetamaskButto
 import { GetAsyncDataButton } from "./components/getAsyncDataButton";
 import { ConnectToWalletButton } from "./components/connetcToWalletButton";
 import { Wallet } from "./components/wallet";
+import { Balances } from "./components/balances";
 
 interface Props { }
 
@@ -40,7 +41,9 @@ export function Example(props: Props) {
             <ConnectToWalletButton />
             <Wallet />
           </Grid>
-
+          <Grid item xs={2}>
+            <Balances />
+          </Grid>
         </Grid>
       </Wrapper>
     </>

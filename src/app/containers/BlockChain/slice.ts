@@ -6,14 +6,15 @@ import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 
 import { blockChainSaga } from './saga';
 import { Contract } from "app/types";
+import { BigNumber } from "@ethersproject/bignumber";
 
 // The initial state of the BlockChain container
 export const initialState: ContainerState = {
-  snowConeBalance: '',
-  snowballBalance: '',
+  snowConeBalance: undefined,
+  snowballBalance: undefined,
+  isGettingSnobBalance: true,
+  isGettingSnowConeBalance: true,
   totalSnowConeValue: '',
-  snobContract: undefined,
-  snowConeContract: undefined,
 };
 
 const blockChainSlice = createSlice({
@@ -23,7 +24,19 @@ const blockChainSlice = createSlice({
     getBalance(state, action: PayloadAction<Contract>) {
     },
     getSnobBalance(state, action: PayloadAction<Contract>) { },
-
+    getSnowConeBalance(state, action: PayloadAction<Contract>) { },
+    setIsGettingSnobBalance(state, action: PayloadAction<boolean>) {
+      state.isGettingSnobBalance = action.payload;
+    },
+    setIsGettingSnowConeBalance(state, action: PayloadAction<boolean>) {
+      state.isGettingSnowConeBalance = action.payload;
+    },
+    setSnobBalance(state, action: PayloadAction<BigNumber>) {
+      state.snowballBalance = action.payload;
+    },
+    setSnowConeBalance(state, action: PayloadAction<BigNumber>) {
+      state.snowConeBalance = action.payload;
+    },
   },
 });
 
