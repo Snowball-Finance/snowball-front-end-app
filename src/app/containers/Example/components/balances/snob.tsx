@@ -1,4 +1,4 @@
-import { CircularProgress, styled, Typography } from "@mui/material";
+import { CircularProgress, styled } from "@mui/material";
 import { selectIsLoadingSnobBalance, selectSnobBalance } from "app/containers/BlockChain/selectors";
 import { FC } from "react";
 import { useSelector } from "react-redux";
@@ -11,11 +11,11 @@ export const SnobBalance: FC = () => {
 
   return (
     <Wrapper>
-      {(isLoading) ? <CircularProgress /> : <Typography variant="h5">{BNToFloat(balance)}</Typography>}
+      {(isLoading) ? <CircularProgress /> : <h5>SNOB: {balance ? BNToFloat(balance) : '-'}</h5>}
     </Wrapper>
   )
 }
 
 const Wrapper = styled('div')({
-  background: 'blue',
+  background: 'magenta',
 })

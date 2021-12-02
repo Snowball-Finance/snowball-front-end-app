@@ -22,7 +22,6 @@ interface Props { }
 export function Example(props: Props) {
   useExampleSlice()
 
-
   return (
     <>
       <Helmet>
