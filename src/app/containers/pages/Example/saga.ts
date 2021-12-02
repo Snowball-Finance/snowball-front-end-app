@@ -23,7 +23,6 @@ export function* getAsyncData() {
   try {
     yield put(ExampleActions.setIsLoadingAsyncData(true));
     yield delay(1000)
-
   }
   catch (error) {
     toast.error("failed to add snob to wallet");

@@ -17,7 +17,7 @@ const ethersSlice = createSlice({
   name: 'ethers',
   initialState: initialState,
   reducers: {
-    checkIfNodeIsHealthy(state, action: PayloadAction<void>) { },
+    getAndSetProvider(state, action: PayloadAction<void>) { },
     setIsCheckingNodeHealth(state, action: PayloadAction<boolean>) {
       state.isCheckingNodeHealth = action.payload;
     },

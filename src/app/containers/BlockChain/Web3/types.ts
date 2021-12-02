@@ -1,6 +1,5 @@
 import { AbstractConnector } from '@web3-react/abstract-connector';
 
-
 export interface Web3Interface {
   active: boolean;
   activate?: (connector: AbstractConnector, onError?: ((error: Error) => void) | undefined, throwErrors?: boolean | undefined) => Promise<void>;

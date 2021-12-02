@@ -9,19 +9,16 @@
 import { Helmet } from 'react-helmet-async';
 import { Switch, Route } from 'react-router-dom';
 
-import { HomePage } from './containers/HomePage/Loadable';
-import { NotFoundPage } from './containers/NotFoundPage/Loadable';
+import { HomePage } from './containers/pages/Home/Loadable';
+import { NotFoundPage } from './containers/pages/NotFound/Loadable';
 import { AppPages } from './constants';
 import { ConnectedRouter } from 'connected-react-router';
 import { history } from 'utils/history';
-
-
 import { useTranslation } from 'react-i18next';
 import { translations } from 'locales/i18n';
-import { Example } from "./containers/Example/Loadable";
+import { Example } from "./containers/pages/Example/Loadable";
 import { IS_DEV } from "utils/sharedData";
 import { BlockChain } from "./containers/BlockChain/Loadable";
-
 
 export function App() {
   const { t } = useTranslation();

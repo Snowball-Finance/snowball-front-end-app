@@ -2,8 +2,6 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { ContainerState, Web3Interface } from './types';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-
-
 import { web3Saga } from './saga';
 import { storage } from "utils/storage";
 import { LocalStorageKeys } from "services/constants";

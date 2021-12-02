@@ -5,11 +5,9 @@
  */
 
 import React, { memo } from 'react';
-
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { HomePageReducer, sliceKey } from './slice';
 import { homePageSaga } from './saga';
-
 
 interface Props { }
 

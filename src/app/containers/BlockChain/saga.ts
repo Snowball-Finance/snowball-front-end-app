@@ -1,12 +1,8 @@
-// import { take, call, put, select, takeLatest } from 'redux-saga/effects';
-// import { actions } from './slice';
-
 import { call, put, select, takeLatest } from "redux-saga/effects";
-import { selectAccountDomain } from "./containers/Web3/selectors";
+import { selectAccountDomain } from "./Web3/selectors";
 import { BlockChainActions } from "./slice";
-
 import { ethers } from 'ethers'
-import { balanceProvider } from "./providers/balanceProvider";
+import { balanceProvider } from "./providers/balanceAPI";
 import { toast } from "react-toastify";
 
 export function* getSnowConeBalance(action: { type: string, payload: ethers.Contract }) {

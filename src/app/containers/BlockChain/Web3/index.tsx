@@ -6,13 +6,8 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
-
 import { useWeb3Slice, Web3Actions } from './slice';
-
 import { useWeb3React } from "@web3-react/core";
-
-
 
 export const Web3 = () => {
   useWeb3Slice()

@@ -1,9 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from 'types';
-import { selectPrivateProviderDomain } from "./containers/Ethers/selectors";
-import { selectLibraryDomain } from "./containers/Web3/selectors";
+import { selectPrivateProviderDomain } from "./Ethers/selectors";
+import { selectLibraryDomain } from "./Web3/selectors";
 import { initialState } from './slice';
-
 import { ethers } from 'ethers'
 import { CONTRACTS } from "config";
 import SNOWBALL_ABI from 'libs/abis/snowball.json'
@@ -31,7 +30,6 @@ export const selectIsLoadingSnowConeBalance = createSelector(
   [selectDomain],
   blockChainState => blockChainState.isGettingSnowConeBalance,
 );
-
 
 export const selectSnowConeBalance = createSelector(
   [selectDomain],

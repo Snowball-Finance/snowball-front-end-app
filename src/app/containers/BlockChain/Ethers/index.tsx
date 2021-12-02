@@ -15,7 +15,7 @@ export function Ethers() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(EthersActions.checkIfNodeIsHealthy())
+    dispatch(EthersActions.getAndSetProvider())
   }, [])
 
   return (

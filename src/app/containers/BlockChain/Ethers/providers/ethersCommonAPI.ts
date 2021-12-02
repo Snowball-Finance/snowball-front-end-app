@@ -1,8 +1,6 @@
 import { apiService } from "services/api_service";
 import { RequestTypes } from "services/constants";
 
-
-
 export const checkIfNodeIsHealthyAPI = (url: any) => {
   const data = { "jsonrpc": "2.0", "id": 1, "method": "health.getLiveness" };
   return apiService.fetchData({

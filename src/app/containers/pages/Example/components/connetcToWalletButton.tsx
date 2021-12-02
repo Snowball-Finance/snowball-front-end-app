@@ -1,6 +1,6 @@
 import { ContainedButton } from "app/components/common/buttons/containedButton";
-import { selectAccount, selectIsConnectingToWallet } from "app/containers/BlockChain/containers/Web3/selectors";
-import { Web3Actions } from "app/containers/BlockChain/containers/Web3/slice";
+import { selectAccount, selectIsConnectingToWallet } from "app/containers/BlockChain/Web3/selectors";
+import { Web3Actions } from "app/containers/BlockChain/Web3/slice";
 import { translations } from "locales/i18n";
 import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";

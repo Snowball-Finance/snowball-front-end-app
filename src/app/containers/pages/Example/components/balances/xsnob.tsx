@@ -8,7 +8,6 @@ export const XSnobBalance: FC = () => {
   const isLoading = useSelector(selectIsLoadingSnowConeBalance)
   const balance = useSelector(selectSnowConeBalance)
 
-
   return (
     <Wrapper>
       <h5>XSNOB: {isLoading ? <CircularProgress /> : balance ? BNToFloat(balance) : '-'}</h5>
