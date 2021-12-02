@@ -3,7 +3,7 @@ import Button, { ButtonProps } from '@mui/material/Button'
 import { FC } from "react";
 
 type CommonButtonProps = {
-  isLoading?: boolean,
+  loading?: boolean,
   height?: number,
   width?: number,
 
@@ -13,11 +13,11 @@ export type SnowButtonProps = ButtonProps & CommonButtonProps
 
 
 export const SnowButton: FC<SnowButtonProps> = ({ ...props }) => {
-  const { isLoading, children } = props
+  const { loading, children, ...rest } = props
   return (
-    <StyledButton {...props} >
+    <StyledButton {...rest}  >
       {
-        isLoading ?
+        loading ?
           <CircularProgress style={{ color: 'white' }} size={22} /> :
           children
       }

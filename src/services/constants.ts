@@ -12,7 +12,7 @@ export interface RequestParameters {
   requestName?: string;
 }
 export enum LocalStorageKeys {
-  ACCESS_TOKEN = 'access_token',
+  CONNECTED_TO_WALLET_ONCE = 'CONNECTED_TO_WALLET_ONCE',
 }
 
 export enum SessionStorageKeys {

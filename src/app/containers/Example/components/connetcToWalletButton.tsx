@@ -2,9 +2,11 @@ import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { selectAccount, selectIsConnectingToWallet } from "app/containers/BlockChain/containers/Web3/selectors";
 import { Web3Actions } from "app/containers/BlockChain/containers/Web3/slice";
 import { translations } from "locales/i18n";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import { LocalStorageKeys } from "services/constants";
+import { storage } from "utils/storage";
 
 
 
@@ -19,13 +21,22 @@ export const ConnectToWalletButton: FC = () => {
   const handleButtonClick = () => {
     if (account) {
       dispatch(Web3Actions.disconnectFromWallet())
+      storage.delete(LocalStorageKeys.CONNECTED_TO_WALLET_ONCE)
       return
     }
     dispatch(Web3Actions.connectToWallet())
   }
 
+  useEffect(() => {
+    if (storage.read(LocalStorageKeys.CONNECTED_TO_WALLET_ONCE)) {
+      setTimeout(() => {
+        dispatch(Web3Actions.connectToWallet())
+      }, 1000);
+    }
+  }, [])
+
   return (
-    <ContainedButton color="primary" height={36} width={220} isLoading={isConnecting} onClick={handleButtonClick}>
+    <ContainedButton color="primary" height={36} width={220} loading={isConnecting} onClick={handleButtonClick}>
       {account ? t(translations.ExamplePage.DisconnectFromWallet()) : t(translations.ExamplePage.ConnectToWallet())}
     </ContainedButton>
   )

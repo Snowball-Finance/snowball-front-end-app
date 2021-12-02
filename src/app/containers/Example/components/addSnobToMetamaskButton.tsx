@@ -19,7 +19,7 @@ export const AddSnowballToMetamaskButton: FC = () => {
   }
 
   return (
-    <ContainedButton isLoading={isAddingSnobToMetamask} color="primary" width={170} onClick={handleAddSnobToMetamaskClick} >
+    <ContainedButton loading={isAddingSnobToMetamask} color="primary" width={170} onClick={handleAddSnobToMetamaskClick} >
       {t(translations.ExamplePage.AddSnobToWallet())}
     </ContainedButton>
   )

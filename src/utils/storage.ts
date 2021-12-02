@@ -4,6 +4,9 @@ export const storage = {
   write: (key: LocalStorageKeys, data: any) => {
     localStorage[key] = JSON.stringify(data);
   },
+  delete: (key: LocalStorageKeys) => {
+    localStorage.removeItem(key);
+  },
   read: (key: LocalStorageKeys, ifDoesntExist?: any) => {
     try {
       return JSON.parse(localStorage[key]);

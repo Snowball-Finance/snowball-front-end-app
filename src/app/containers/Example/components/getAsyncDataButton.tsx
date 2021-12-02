@@ -16,7 +16,7 @@ export const GetAsyncDataButton: FC = () => {
   const isLoading = useSelector(selectIsLoadingAsyncData)
 
   return (
-    <ContainedButton color="primary" width={140} height={36} isLoading={isLoading} onClick={handleButtonClick}>
+    <ContainedButton color="primary" width={140} height={36} loading={isLoading} onClick={handleButtonClick}>
       {t(translations.ExamplePage.GetAsyncData())}
     </ContainedButton>
   )

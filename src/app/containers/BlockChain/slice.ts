@@ -3,24 +3,27 @@ import { createSlice } from 'utils/@reduxjs/toolkit';
 import { ContainerState } from './types';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 
-import { ethers } from 'ethers'
 
 import { blockChainSaga } from './saga';
+import { Contract } from "app/types";
 
 // The initial state of the BlockChain container
 export const initialState: ContainerState = {
   snowConeBalance: '',
   snowballBalance: '',
   totalSnowConeValue: '',
+  snobContract: undefined,
+  snowConeContract: undefined,
 };
 
 const blockChainSlice = createSlice({
   name: 'blockChain',
   initialState,
   reducers: {
-    getBalance(state, action: PayloadAction<ethers.Contract>) {
+    getBalance(state, action: PayloadAction<Contract>) {
     },
-    getSnobBalance(state, action: PayloadAction<void>) { }
+    getSnobBalance(state, action: PayloadAction<Contract>) { },
+
   },
 });
 

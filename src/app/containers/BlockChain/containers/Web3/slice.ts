@@ -5,6 +5,8 @@ import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 
 
 import { web3Saga } from './saga';
+import { storage } from "utils/storage";
+import { LocalStorageKeys } from "services/constants";
 
 // The initial state of the Web3 container
 export const initialState: ContainerState = {
@@ -26,6 +28,9 @@ const web3Slice = createSlice({
       state.account = action.payload.account;
       state.activate = action.payload.activate;
       state.deactivate = action.payload.deactivate;
+      if (action.payload.account) {
+        storage.write(LocalStorageKeys.CONNECTED_TO_WALLET_ONCE, true)
+      }
     },
     connectToWallet(state, action: PayloadAction<void>) { },
     disconnectFromWallet(state, action: PayloadAction<void>) { },

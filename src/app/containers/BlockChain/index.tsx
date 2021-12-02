@@ -21,43 +21,45 @@ export function BlockChain() {
   const { snob, snowCone } = useSelector(selectContracts)
   const account = useSelector(selectAccount)
 
-  useEffect(() => {
-    if (snob) {
-      dispatch(BlockChainActions.getBalance(snob))
-    }
-  }, [snob])
-
-  useEffect(() => {
-    if (snowCone) {
-      dispatch(BlockChainActions.getBalance(snowCone))
-    }
-  }, [snowCone])
-
-  // const getThem = async () => {
-  //   if (snob && snowCone && account) {
-  //     console.log(snob)
-  //     const [
-  //       snowballBalance,
-  //       snowconeBalance,
-  //       totalSnowconeValue
-  //     ] = await Promise.all([
-  //       snob['balanceOf(address)'](account),
-  //       // snowCone['balanceOf(address)'](account),
-  //       // snowCone['totalSupply()'](),
-  //     ]);
-  //     console.log({
-  //       snowballBalance,
-  //       snowconeBalance,
-  //       totalSnowconeValue
-  //     })
-  //   }
-  // }
   // useEffect(() => {
-  //   getThem()
-  //   return () => {
-
+  //   if (snob) {
+  //     dispatch(BlockChainActions.getSnobBalance(snob))
   //   }
   // }, [snob])
+
+
+
+  const getThem = async () => {
+    if (snob && snowCone && account) {
+
+
+      // const result = await snob.balanceOf(
+      //   account
+      // );
+      // console.log(result)
+
+      const [
+        snowballBalance,
+        // snowconeBalance,
+        // totalSnowconeValue
+      ] = await Promise.all([
+        snob['balanceOf(address)'](account),
+        // snowCone['balanceOf(address)'](account),
+        // snowCone['totalSupply()'](),
+      ]);
+      console.log({
+        snowballBalance,
+        // snowconeBalance,
+        // totalSnowconeValue
+      })
+    }
+  }
+  useEffect(() => {
+    getThem()
+    return () => {
+
+    }
+  }, [snob])
 
 
   return (
