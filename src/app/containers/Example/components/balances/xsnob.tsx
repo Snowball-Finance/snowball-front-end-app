@@ -11,7 +11,7 @@ export const XSnobBalance: FC = () => {
 
   return (
     <Wrapper>
-      {isLoading ? <CircularProgress /> : <h5>XSNOB: {balance ? BNToFloat(balance) : '-'}</h5>}
+      <h5>XSNOB: {isLoading ? <CircularProgress /> : balance ? BNToFloat(balance) : '-'}</h5>
     </Wrapper>
   )
 }

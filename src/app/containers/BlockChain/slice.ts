@@ -12,8 +12,8 @@ import { BigNumber } from "@ethersproject/bignumber";
 export const initialState: ContainerState = {
   snowConeBalance: undefined,
   snowballBalance: undefined,
-  isGettingSnobBalance: true,
-  isGettingSnowConeBalance: true,
+  isGettingSnobBalance: false,
+  isGettingSnowConeBalance: false,
   totalSnowConeValue: '',
 };
 

@@ -8,10 +8,9 @@ export const SnobBalance: FC = () => {
   const isLoading = useSelector(selectIsLoadingSnobBalance)
   const balance = useSelector(selectSnobBalance)
 
-
   return (
     <Wrapper>
-      {(isLoading) ? <CircularProgress /> : <h5>SNOB: {balance ? BNToFloat(balance) : '-'}</h5>}
+      <h5>SNOB: {isLoading ? <CircularProgress /> : balance ? BNToFloat(balance) : '-'}</h5>
     </Wrapper>
   )
 }
