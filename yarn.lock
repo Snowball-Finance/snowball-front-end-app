@@ -2506,6 +2506,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/coingecko-api@1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@types/coingecko-api/-/coingecko-api-1.0.5.tgz#7c919e99db76f77578c33f26b747d02729b171fb"
+  integrity sha512-HJC4JrdjkUUVRvE/9kZgYAM+sCowEOpsjOfuOKw1wtuqAokMAycE+OQ+mF8BL3xxYBB1brbjnSgPlwlBCrfqFw==
+
 "@types/eslint@^7.28.2":
   version "7.29.0"
   resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-7.29.0.tgz#e56ddc8e542815272720bb0b4ccc2aff9c3e1c78"
@@ -4667,6 +4672,11 @@ coa@^2.0.2:
     "@types/q" "^1.5.1"
     chalk "^2.4.1"
     q "^1.1.2"
+
+coingecko-api@1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/coingecko-api/-/coingecko-api-1.0.10.tgz#ac8694d5999f00727fe55f0078ce2917603076b2"
+  integrity sha512-7YLLC85+daxAw5QlBWoHVBVpJRwoPr4HtwanCr8V/WRjoyHTa1Lb9DQAvv4MDJZHiz4no6HGnDQnddtjV35oRA==
 
 collect-v8-coverage@^1.0.0:
   version "1.0.1"

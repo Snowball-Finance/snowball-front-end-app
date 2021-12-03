@@ -11,10 +11,16 @@ import GAUGE_PROXY_ABI from 'libs/abis/gauge-proxy.json'
 
 const selectDomain = (state: RootState) => state.blockChain || initialState;
 export const selectContractsDomain = (state: RootState) => state.blockChain?.contracts || { ...initialState.contracts };
+export const selectPricesDomain = (state: RootState) => state.blockChain?.prices || { ...initialState.prices };
 
 export const selectBlockChain = createSelector(
   [selectDomain],
   blockChainState => blockChainState,
+);
+
+export const selectPrices = createSelector(
+  [selectPricesDomain],
+  prices => prices,
 );
 
 export const selectSnobBalance = createSelector(

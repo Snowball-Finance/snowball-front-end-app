@@ -11,7 +11,9 @@ export const initialState: ContainerState = {
   isLoadingAsyncData: false,
   isAddingSnobToWallet: false,
   isLoadingLastSnowballInfo: false,
-  LastSnowballInfo: undefined
+  LastSnowballInfo: undefined,
+  pools: {},
+  gauges: []
 };
 
 const exampleSlice = createSlice({
@@ -27,11 +29,17 @@ const exampleSlice = createSlice({
     },
     connectToMetamask(state, action: PayloadAction<void>) { },
     getLastSnowballInfo(state, action: PayloadAction<void>) { },
-    setLastSnowballInfo(state, action: PayloadAction<LastSnowballInfo>) { 
+    setLastSnowballInfo(state, action: PayloadAction<LastSnowballInfo>) {
       state.LastSnowballInfo = action.payload;
+    },
+    setPools(state, action: PayloadAction<ContainerState['pools']>) {
+      state.pools = action.payload;
     },
     setIsLoadingLastSnowballInfo(state, action: PayloadAction<boolean>) {
       state.isLoadingLastSnowballInfo = action.payload;
+    },
+    setGauges(state, action: PayloadAction<ContainerState['gauges']>) {
+      state.gauges = action.payload;
     }
   },
 });

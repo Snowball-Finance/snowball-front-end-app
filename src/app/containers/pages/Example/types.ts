@@ -1,3 +1,18 @@
+import { BigNumber } from "ethers"
+
+export interface GaugeItem {
+  address: string
+  balance: BigNumber
+  depositTokenName: string
+  fullApy: number
+  gaugeAddress: string
+  harvestable: BigNumber
+  poolName: string
+  staked: BigNumber
+  token: string
+  totalSupply: BigNumber
+  totalWeight: number
+}
 export interface GaugeInfo {
   address: string
   fullDailyAPY: number
@@ -60,6 +75,9 @@ export interface ExampleState {
   isAddingSnobToWallet: boolean;
   isLoadingLastSnowballInfo: boolean;
   LastSnowballInfo: LastSnowballInfo | undefined
+  pools: { [key: string]: PoolInfoItem }
+  gauges: GaugeItem[]
+
 }
 
 export type ContainerState = ExampleState;

@@ -1,5 +1,7 @@
 import { Multicall } from 'ethereum-multicall';
 import { ethers } from 'ethers';
+import { BNToFloat, floatToBN } from "utils/format";
+import { isEmpty } from "utils/utility";
 
 class ContractCall {
     contractAddress = "";
@@ -57,6 +59,102 @@ const getMultiContractData = async (provider, contractArray) => {
         throw new Error(`Multicall failed => ${error.message}`)
     }
 }
+
+
+export const generatePoolInfo = ({ item, gauges, contractData, prices }) => {
+    const lpData = contractData[item.lpAddress];
+    const snowglobeData = contractData[item.address];
+    const gauge = gauges.find(gauge => gauge.address.toLowerCase() === item.gaugeInfo.address.toLowerCase());
+
+    let totalSupply = 0,
+        userDepositedLP = 0,
+        SNOBHarvestable = 0,
+        SNOBValue = 0,
+        underlyingTokens,
+        userBalanceSnowglobe,
+        userLPBalance,
+        lpDecimals = 18;
+
+    if (!isEmpty(gauge)) {
+        SNOBHarvestable = gauge.harvestable / 1e18;
+        SNOBValue = SNOBHarvestable * prices?.SNOB;
+    }
+
+    userLPBalance = lpData.balanceOf;
+    lpDecimals = lpData.decimals;
+    let snowglobeRatio = floatToBN(1, 18);
+    switch (item.kind) {
+        case 'Snowglobe':
+            userBalanceSnowglobe = snowglobeData.balanceOf;
+            if (+userBalanceSnowglobe <= 0 && gauge.staked <= 0) {
+                break;
+            }
+
+            totalSupply = snowglobeData.totalSupply;
+
+            const snowglobeTotalBalance = snowglobeData.balance;
+            if (snowglobeTotalBalance > 0) {
+                snowglobeRatio = snowglobeData.getRatio;
+            } else {
+                snowglobeRatio = floatToBN(1, 18);
+            }
+            if (userBalanceSnowglobe.gt('0x0') && userLPBalance.eq('0x0')) {
+                userLPBalance = userLPBalance.add(userBalanceSnowglobe);
+            }
+            userDepositedLP = BNToFloat(userBalanceSnowglobe, lpDecimals) * BNToFloat(snowglobeRatio, 18);
+
+            if (!isEmpty(gauge)) {
+                userDepositedLP += (gauge.staked / 10 ** lpDecimals) * BNToFloat(snowglobeRatio, 18);
+            }
+
+            if (userDepositedLP > 0 && item.token1.address) {
+                let reserves = lpData.getReserves;
+                let totalSupplyPGL = BNToFloat(lpData.totalSupply, 18);
+
+                const r0 = BNToFloat(reserves[0], item.token0.decimals);
+                const r1 = BNToFloat(reserves[1], item.token1.decimals);
+                let reserve0Owned = (userDepositedLP * r0) / totalSupplyPGL;
+                let reserve1Owned = (userDepositedLP * r1) / totalSupplyPGL;
+                underlyingTokens = {
+                    token0: {
+                        address: item.token0.address,
+                        symbol: item.token0.symbol,
+                        reserveOwned: reserve0Owned,
+                    },
+                    token1: {
+                        address: item.token1.address,
+                        symbol: item.token1.symbol,
+                        reserveOwned: reserve1Owned,
+                    },
+                };
+            }
+            break;
+        case 'Stablevault':
+            if (!isEmpty(gauge)) {
+                userDepositedLP = gauge.staked / 1e18;
+                totalSupply = gauge.totalSupply;
+            }
+            break;
+        default:
+            break
+    }
+
+    return {
+        ...item,
+        address: item.address,
+        userLPBalance,
+        lpDecimals,
+        userDepositedLP: userDepositedLP,
+        usdValue: userDepositedLP * item.pricePoolToken,
+        totalSupply,
+        SNOBHarvestable,
+        SNOBValue,
+        underlyingTokens,
+        userBalanceSnowglobe,
+        userBalanceGauge: gauge ? gauge.staked : 0,
+        snowglobeRatio,
+    };
+};
 
 //convert Multicall BN to Ethers BN
 const convertMBNtoEthersBN = (retArray) => {

@@ -4,7 +4,7 @@ import LP_ABI from 'libs/abis/lp-token.json';
 import { ContractCall } from 'libs/services/multicall';
 
 
-const getPoolCalls = (item, account) => {
+const getPoolCalls = ({ item, account }) => {
   const lpContractCalls = new ContractCall(item.lpAddress, LP_ABI);
   const snowglobeContractCalls = new ContractCall(item.address, SNOWGLOBE_ABI);
   lpContractCalls.setCall("balanceOf", [account]);
@@ -44,7 +44,7 @@ const getDeprecatedCalls = (pool, account) => {
   gaugeCalls.setCall("balanceOf", [account]);
   gaugeCalls.setCall("earned", [account]);
 
-  return [snowglobeCalls,gaugeCalls];
+  return [snowglobeCalls, gaugeCalls];
 }
 
 export {

@@ -13,6 +13,10 @@ export const initialState: ContainerState = {
   isGettingSnobBalance: false,
   isGettingSnowConeBalance: false,
   totalSnowConeValue: '',
+  prices: {
+    SNOB: 0,
+    SNOB24HChange: 0,
+  },
   contracts: {
     snob: undefined,
     snowCone: undefined,
@@ -43,6 +47,10 @@ const blockChainSlice = createSlice({
     setSnowConeBalance(state, action: PayloadAction<BigNumber>) {
       state.snowConeBalance = action.payload;
     },
+    getPrices(state, action: PayloadAction<void>) { },
+    setPrices(state, action: PayloadAction<ContainerState['prices']>) {
+      state.prices = action.payload;
+    }
   },
 });
 

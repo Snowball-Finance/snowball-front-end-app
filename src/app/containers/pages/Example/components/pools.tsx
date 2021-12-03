@@ -2,26 +2,31 @@ import { useEffect } from "react"
 import { ExampleActions } from "../slice";
 import { useDispatch, useSelector } from "react-redux";
 import { CircularProgress, styled } from "@mui/material";
-import { selectIsLoadingPools, selectPools } from "../selectors";
+import { selectIsLoadingPools, selectPoolsArray } from "../selectors";
+import { selectAccount } from "app/containers/BlockChain/Web3/selectors";
+import { selectPrivateProvider } from "app/containers/BlockChain/Ethers/selectors";
 
 
 export const Pools = () => {
-
   const dispatch = useDispatch();
 
-  const pools = useSelector(selectPools)
+  const pools = useSelector(selectPoolsArray)
   const isLoading = useSelector(selectIsLoadingPools)
+  const account = useSelector(selectAccount)
+  const provider = useSelector(selectPrivateProvider)
 
   useEffect(() => {
-    dispatch(ExampleActions.getLastSnowballInfo())
-  }, [])
+    if (account && provider) {
+      dispatch(ExampleActions.getLastSnowballInfo())
+    }
+  }, [account, provider])
 
   return (
     <Wrapper>
       {isLoading && <CircularProgress />}
       {pools.map(pool => {
         return (
-          <Item key={pool.name}>
+          <Item key={pool.address}>
             <p>{pool.name}</p>
           </Item>
         )

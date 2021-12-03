@@ -8,6 +8,10 @@ export interface BlockChainState {
   snowballBalance: BigNumber | undefined
   snowConeBalance: BigNumber | undefined
   totalSnowConeValue: string,
+  prices: {
+    SNOB: number,
+    SNOB24HChange: number,
+  }
   contracts: {
     snob: Contract | undefined,
     snowCone: Contract | undefined,
