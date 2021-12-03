@@ -40,6 +40,8 @@ const exampleSlice = createSlice({
     },
     setGauges(state, action: PayloadAction<ContainerState['gauges']>) {
       state.gauges = action.payload;
+    },
+    getAndSetUserPools(state, action: PayloadAction<void>) {
     }
   },
 });
