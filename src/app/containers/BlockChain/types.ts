@@ -1,3 +1,4 @@
+import { Contract } from "app/types";
 import { BigNumber } from "ethers";
 
 /* --- STATE --- */
@@ -6,7 +7,12 @@ export interface BlockChainState {
   isGettingSnowConeBalance: boolean;
   snowballBalance: BigNumber | undefined
   snowConeBalance: BigNumber | undefined
-  totalSnowConeValue: string
+  totalSnowConeValue: string,
+  contracts: {
+    snob: Contract | undefined,
+    snowCone: Contract | undefined,
+    gaugeProxy: Contract | undefined
+  }
 }
 
 export type ContainerState = BlockChainState;

@@ -37,6 +37,11 @@ export const selectSnowConeBalance = createSelector(
 );
 
 export const selectContracts = createSelector(
+  [selectDomain],
+  blockChainState => blockChainState.contracts,
+);
+
+export const selectCalculatedContracts = createSelector(
   [selectPrivateProviderDomain, selectLibraryDomain],
   (provider, library) => {
     if (provider && library) {

@@ -13,6 +13,11 @@ export const initialState: ContainerState = {
   isGettingSnobBalance: false,
   isGettingSnowConeBalance: false,
   totalSnowConeValue: '',
+  contracts: {
+    snob: undefined,
+    snowCone: undefined,
+    gaugeProxy: undefined,
+  }
 };
 
 const blockChainSlice = createSlice({
@@ -22,6 +27,9 @@ const blockChainSlice = createSlice({
     getBalance(state, action: PayloadAction<Contract>) {
     },
     getSnobBalance(state, action: PayloadAction<Contract>) { },
+    setContracts(state, action: PayloadAction<any>) {
+      state.contracts = action.payload;
+    },
     getSnowConeBalance(state, action: PayloadAction<Contract>) { },
     setIsGettingSnobBalance(state, action: PayloadAction<boolean>) {
       state.isGettingSnobBalance = action.payload;

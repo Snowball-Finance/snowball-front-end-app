@@ -1,9 +1,10 @@
-import { call, put, select, takeLatest } from "redux-saga/effects";
+import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import { selectAccountDomain } from "./Web3/selectors";
 import { BlockChainActions } from "./slice";
 import { ethers } from 'ethers'
 import { balanceProvider } from "./providers/balanceAPI";
 import { toast } from "react-toastify";
+import { ContainerState } from "./types";
 
 export function* getSnowConeBalance(action: { type: string, payload: ethers.Contract }) {
   yield put(BlockChainActions.setIsGettingSnowConeBalance(true));
@@ -33,7 +34,16 @@ export function* getSnobBalance(action: { type: string, payload: ethers.Contract
   }
 }
 
+//get balances whenever contract is set
+export function* setContracts(action: { type: string, payload: ContainerState['contracts'] }) {
+  yield all([
+    (action.payload.snob && put(BlockChainActions.getSnobBalance(action.payload.snob))),
+    (action.payload.snowCone && put(BlockChainActions.getSnowConeBalance(action.payload.snowCone))),
+  ])
+}
+
 export function* blockChainSaga() {
   yield takeLatest(BlockChainActions.getSnowConeBalance.type, getSnowConeBalance);
   yield takeLatest(BlockChainActions.getSnobBalance.type, getSnobBalance);
+  yield takeLatest(BlockChainActions.setContracts.type, setContracts);
 }
