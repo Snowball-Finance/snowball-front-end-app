@@ -26,11 +26,11 @@ const blockChainSlice = createSlice({
   reducers: {
     getBalance(state, action: PayloadAction<Contract>) {
     },
-    getSnobBalance(state, action: PayloadAction<Contract>) { },
+    getSnobBalance(state, action: PayloadAction<void>) { },
     setContracts(state, action: PayloadAction<any>) {
       state.contracts = action.payload;
     },
-    getSnowConeBalance(state, action: PayloadAction<Contract>) { },
+    getSnowConeBalance(state, action: PayloadAction<void>) { },
     setIsGettingSnobBalance(state, action: PayloadAction<boolean>) {
       state.isGettingSnobBalance = action.payload;
     },

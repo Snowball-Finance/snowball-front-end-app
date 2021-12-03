@@ -10,6 +10,7 @@ import SNOWCONE_ABI from 'libs/abis/snowcone.json'
 import GAUGE_PROXY_ABI from 'libs/abis/gauge-proxy.json'
 
 const selectDomain = (state: RootState) => state.blockChain || initialState;
+export const selectContractsDomain = (state: RootState) => state.blockChain?.contracts || { ...initialState.contracts };
 
 export const selectBlockChain = createSelector(
   [selectDomain],
