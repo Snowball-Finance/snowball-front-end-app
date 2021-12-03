@@ -5,7 +5,7 @@ import {
 } from './constants';
 import { queryStringer } from 'utils/formatters';
 
-import { MessageService, MessageNames } from './message_service';
+import { MessageService, MessageNames } from './message';
 
 
 export class ApiService {

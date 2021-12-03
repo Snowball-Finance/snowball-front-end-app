@@ -1,4 +1,4 @@
-import { apiService } from "services/api_service";
+import { apiService } from "services/api";
 import { RequestTypes } from "services/constants";
 
 export const checkIfNodeIsHealthyAPI = (url: any) => {

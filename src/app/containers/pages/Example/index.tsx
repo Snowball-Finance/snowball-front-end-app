@@ -11,10 +11,10 @@ import { useExampleSlice } from './slice';
 
 import { Grid, styled } from "@mui/material";
 import { AddSnowballToMetamaskButton } from "./components/addSnobToMetamaskButton";
-import { GetAsyncDataButton } from "./components/getAsyncDataButton";
 import { ConnectToWalletButton } from "./components/connetcToWalletButton";
 import { Wallet } from "./components/wallet";
 import { Balances } from "./components/balances";
+import { Pools } from "./components/pools";
 
 interface Props { }
 
@@ -30,9 +30,7 @@ export function Example(props: Props) {
       </Helmet>
       <Wrapper>
         <Grid container p={5}>
-          <Grid item xs={2}>
-            <GetAsyncDataButton />
-          </Grid>
+
           <Grid item xs={2}>
             <AddSnowballToMetamaskButton />
           </Grid>
@@ -42,6 +40,9 @@ export function Example(props: Props) {
           </Grid>
           <Grid item xs={2}>
             <Balances />
+          </Grid>
+          <Grid item xs={12}>
+            <Pools />
           </Grid>
         </Grid>
       </Wrapper>

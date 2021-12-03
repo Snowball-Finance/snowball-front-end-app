@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
-import { ContainerState } from './types';
+import { ContainerState, LastSnowballInfo } from './types';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 
 
@@ -10,6 +10,8 @@ import { exampleSaga } from './saga';
 export const initialState: ContainerState = {
   isLoadingAsyncData: false,
   isAddingSnobToWallet: false,
+  isLoadingLastSnowballInfo: false,
+  LastSnowballInfo: undefined
 };
 
 const exampleSlice = createSlice({
@@ -20,11 +22,17 @@ const exampleSlice = createSlice({
     setIsAddingSnobToWallet(state, action: PayloadAction<boolean>) {
       state.isAddingSnobToWallet = action.payload;
     },
-    getAsyncData(state, action: PayloadAction<void>) { },
     setIsLoadingAsyncData(state, action: PayloadAction<boolean>) {
       state.isLoadingAsyncData = action.payload;
     },
     connectToMetamask(state, action: PayloadAction<void>) { },
+    getLastSnowballInfo(state, action: PayloadAction<void>) { },
+    setLastSnowballInfo(state, action: PayloadAction<LastSnowballInfo>) { 
+      state.LastSnowballInfo = action.payload;
+    },
+    setIsLoadingLastSnowballInfo(state, action: PayloadAction<boolean>) {
+      state.isLoadingLastSnowballInfo = action.payload;
+    }
   },
 });
 

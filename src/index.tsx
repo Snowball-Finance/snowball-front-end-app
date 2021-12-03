@@ -33,6 +33,8 @@ import { Web3ReactProvider } from "@web3-react/core";
 import { provider } from 'web3-core';
 
 import Web3 from "web3";
+import { ApolloProvider } from "@apollo/client";
+import { apolloClient } from "services/apollo/client";
 // Observe loading of Inter (to remove 'Inter', remove the <link> tag in
 // the index.html file and this observer)
 const openSansObserver = new FontFaceObserver('Open Sans', {});
@@ -62,15 +64,18 @@ const getLibrary = (provider: provider) => {
   return new Web3(provider);
 }
 
+
 const ConnectedApp = ({ Component }: Props) => (
   <Provider store={store}>
-    <Web3ReactProvider {...{ getLibrary }}>
-      <MaterialThemeProvider theme={theme}>
-        <HelmetProvider>
-          <Component />
-        </HelmetProvider>
-      </MaterialThemeProvider>
-    </Web3ReactProvider>
+    <ApolloProvider client={apolloClient}>
+      <Web3ReactProvider {...{ getLibrary }}>
+        <MaterialThemeProvider theme={theme}>
+          <HelmetProvider>
+            <Component />
+          </HelmetProvider>
+        </MaterialThemeProvider>
+      </Web3ReactProvider>
+    </ApolloProvider>
   </Provider>
 
 );
