@@ -32,7 +32,14 @@ export function* getLastSnowballInfo() {
     const { data } = yield call(query, { query: LAST_SNOWBALL_INFO })
     yield put(ExampleActions.setLastSnowballInfo(data.LastSnowballInfo));
     const lastSnowballInfo: LastSnowballInfo = data.LastSnowballInfo
-    const pools = lastSnowballInfo.poolsInfo
+    const pools = lastSnowballInfo.poolsInfo.map(pool => {
+      return (
+        {
+          ...pool,
+          userLPBalance: 0
+        }
+      )
+    })
     const tmp = {}
     pools.forEach(item => {
       tmp[item.address] = item
@@ -47,36 +54,41 @@ export function* getLastSnowballInfo() {
   }
 }
 
-
 export function* getAndSetUserPools() {
-  const { gaugeProxy } = yield select(selectContractsDomain)
-  const account = yield select(selectAccountDomain)
-  const provider = yield select(selectPrivateProviderDomain)
-  const prices = yield select(selectPricesDomain)
-  const pools = yield select(selectPoolsArrayDomain)
-  const gaugeProxyContract = gaugeProxy
-
-  let poolsCalls = [];
-  let contractCalls = [];
-  pools.forEach(item => {
+  try {
+    yield put(ExampleActions.setIsGettingUserPools(true));
+    const { gaugeProxy } = yield select(selectContractsDomain)
+    const account = yield select(selectAccountDomain)
+    const provider = yield select(selectPrivateProviderDomain)
+    const prices = yield select(selectPricesDomain)
+    const pools = yield select(selectPoolsArrayDomain)
+    const gaugeProxyContract = gaugeProxy
+    let poolsCalls = [];
+    let contractCalls = [];
+    pools.forEach(item => {
+      //@ts-ignore
+      poolsCalls = poolsCalls.concat(getPoolCalls({ item, account }));
+    });
     //@ts-ignore
-    poolsCalls = poolsCalls.concat(getPoolCalls({ item, account }));
-  });
-  //@ts-ignore
-  pools.forEach(item => { contractCalls = contractCalls.concat(getGaugeCalls(item, account)) });
-  const [gaugesData, poolsData, totalWeight] = yield all([
-    call(getMultiContractData, provider, contractCalls),
-    call(getMultiContractData, provider, poolsCalls),
-    call(gaugeProxyContract.totalWeight)
-  ]);
-  const gauges = pools.map((item) => retrieveGauge({ pool: item, gaugesData, totalWeight }))
-  const poolInfo = pools.map(item => generatePoolInfo({ item, gauges, contractData: poolsData, prices }));
-  yield put(ExampleActions.setGauges(gauges))
-  const tmp = {}
-  poolInfo.forEach(item => {
-    tmp[item.address] = item
-  })
-  yield put(ExampleActions.setPools(tmp))
+    pools.forEach(item => { contractCalls = contractCalls.concat(getGaugeCalls(item, account)) });
+    const [gaugesData, poolsData, totalWeight] = yield all([
+      call(getMultiContractData, provider, contractCalls),
+      call(getMultiContractData, provider, poolsCalls),
+      call(gaugeProxyContract.totalWeight)
+    ]);
+    const gauges = pools.map((item) => retrieveGauge({ pool: item, gaugesData, totalWeight }))
+    const poolInfo = pools.map(item => generatePoolInfo({ item, gauges, contractData: poolsData, prices }));
+    yield put(ExampleActions.setGauges(gauges))
+    const tmp = {}
+    poolInfo.forEach(item => {
+      tmp[item.address] = item
+    })
+    yield put(ExampleActions.setPools(tmp))
+  } catch (error) {
+    toast.error("failed to get user pools");
+  } finally {
+    yield put(ExampleActions.setIsGettingUserPools(false));
+  }
 }
 
 

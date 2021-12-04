@@ -3,7 +3,8 @@
     "GetAsyncData": "Get Async Data",
     "AddSnobToWallet": "Add Snob to Wallet",
     "ConnectToWallet": "Connect to Wallet",
-    "DisconnectFromWallet": "Disconnect from Wallet"
+    "DisconnectFromWallet": "Disconnect from Wallet",
+    "GettingUserPools": "Getting User Pools..."
   },
   "HomePage": {
     "home": "Home",

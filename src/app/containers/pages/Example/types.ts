@@ -77,7 +77,8 @@ export interface ExampleState {
   isLoadingLastSnowballInfo: boolean;
   LastSnowballInfo: LastSnowballInfo | undefined
   pools: { [key: string]: PoolInfoItem }
-  gauges: GaugeItem[]
+  gauges: GaugeItem[],
+  isGettingUserPools: boolean,
 
 }
 

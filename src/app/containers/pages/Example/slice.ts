@@ -11,6 +11,7 @@ export const initialState: ContainerState = {
   isLoadingAsyncData: false,
   isAddingSnobToWallet: false,
   isLoadingLastSnowballInfo: false,
+  isGettingUserPools: false,
   LastSnowballInfo: undefined,
   pools: {},
   gauges: []
@@ -42,6 +43,9 @@ const exampleSlice = createSlice({
       state.gauges = action.payload;
     },
     getAndSetUserPools(state, action: PayloadAction<void>) {
+    },
+    setIsGettingUserPools(state, action: PayloadAction<boolean>) {
+      state.isGettingUserPools = action.payload;
     }
   },
 });

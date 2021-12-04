@@ -19,6 +19,8 @@ export const selectExample = createSelector(
   exampleState => exampleState,
 );
 
+export const selectIsGettingUserPools = createSelector([selectDomain], state => state.isGettingUserPools);
+
 export const selectGauges = createSelector(
   [selectGaugesDomain],
   gauges => gauges,
