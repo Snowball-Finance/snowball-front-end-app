@@ -8,7 +8,7 @@ import { ExampleActions } from "../../slice"
 export const SearchInput = () => {
   const dispatch = useDispatch()
 
-  const { } = useTranslation()
+  const { t } = useTranslation()
 
   const searchValue = useSelector(selectSearchInput)
 
