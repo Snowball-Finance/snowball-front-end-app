@@ -7,13 +7,13 @@ import { PoolsList } from "./poolsList";
 import { SearchInput } from "./search";
 import { styled } from "@mui/material";
 import { PoolSelect } from "./poolSelect";
+import { SortSelect } from "./sortSelect";
 
 
 export const Pools = () => {
   const dispatch = useDispatch();
 
-  const pools = useSelector(selectPoolsToShow)
-  const isLoading = useSelector(selectIsLoadingPools)
+
   const provider = useSelector(selectPrivateProvider)
   const isReadyToGetUserPools = useSelector(selectIsReadyToGetUserData)
 
@@ -37,8 +37,9 @@ export const Pools = () => {
       <FiltersWrapper>
         <SearchInput />
         <PoolSelect />
+        <SortSelect />
       </FiltersWrapper>
-      <PoolsList isLoading={isLoading} pools={pools} />
+      <PoolsList />
     </>
   )
 
@@ -46,4 +47,6 @@ export const Pools = () => {
 
 const FiltersWrapper = styled('div')({
   display: 'flex',
+  gap: '12px',
+  marginBottom: '12px'
 })

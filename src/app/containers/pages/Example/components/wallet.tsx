@@ -20,4 +20,5 @@ const Wrapper = styled('div')`
 width:100%;
 padding:12px 16px;
 background-color:red;
+font-size:8px;
 `

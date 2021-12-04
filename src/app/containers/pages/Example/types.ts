@@ -86,7 +86,8 @@ export interface ExampleState {
   isGettingUserPools: boolean,
   searchInput: string,
   poolOptions: PoolOption[]
-  selectedPool: string
+  selectedPool: string,
+  selectedSort: string
 }
 
 export type ContainerState = ExampleState;

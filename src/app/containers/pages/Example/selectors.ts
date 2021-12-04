@@ -5,6 +5,7 @@ import { selectAccountDomain } from "app/containers/BlockChain/Web3/selectors";
 import { RootState } from 'types';
 import { BNToFloat } from "utils/format";
 import { initialState } from './slice';
+import { PoolInfoItem } from "./types";
 
 const selectDomain = (state: RootState) => state.example || initialState;
 const selectIsAddingSnobToMetamaskDomain = (state: RootState) => state.example?.isAddingSnobToWallet || false;
@@ -15,7 +16,8 @@ const selectIsGettingPoolsDomain = (state: RootState) => state.example?.isLoadin
 const selectGaugesDomain = (state: RootState) => state.example?.gauges || [];
 const selectSearchInputDomain = (state: RootState) => state.example?.searchInput || '';
 const selectPoolOptionsDomain = (state: RootState) => state.example?.poolOptions || [...initialState.poolOptions];
-const selectSelectedPollDomain = (state: RootState) => state.example?.selectedPool || initialState.selectedPool;
+const selectSelectedPoolDomain = (state: RootState) => state.example?.selectedPool || initialState.selectedPool;
+const selectSelectedSortDomain = (state: RootState) => state.example?.selectedSort || initialState.selectedSort;
 
 export const selectExample = createSelector(
   [selectDomain],
@@ -28,7 +30,12 @@ export const selectPoolOptions = createSelector(
 );
 
 export const selectSelectedPool = createSelector(
-  [selectSelectedPollDomain],
+  [selectSelectedPoolDomain],
+  v => v,
+);
+
+export const selectSelectedSort = createSelector(
+  [selectSelectedSortDomain],
   v => v,
 );
 
@@ -80,40 +87,67 @@ export const selectIsReadyToGetUserData = createSelector([
   )
 })
 
-export const selectPoolsToShow = createSelector([selectPoolsObjDomain, selectSearchInputDomain, selectSelectedPollDomain], (pools, search, selectedPool) => {
-  const poolsArray = Object.values(pools)
-  let filteredAndSorted = [...poolsArray]
-  filteredAndSorted.sort((a, b) => {
-    const aBalance = a.userLPBalance ? BNToFloat(a.userLPBalance) ?? 0 : 0
-    const bBalance = b.userLPBalance ? BNToFloat(b.userLPBalance) ?? 0 : 0
-    if (aBalance > bBalance) {
-      return -1;
-    }
-    if (aBalance < bBalance) {
-      return 1;
-    }
-    return 0;
-  }
-  )
-  if (search) {
-    filteredAndSorted = filteredAndSorted.filter(pool => {
-      const poolName = pool.name.toLowerCase()
-      const searchInput = search.toLowerCase()
-      return poolName.includes(searchInput)
-    })
-  }
-  if (selectedPool !== initialState.selectedPool && selectedPool !== 'myPools') {
-    filteredAndSorted = filteredAndSorted.filter(pool => {
-      return pool.source === selectedPool
-    })
-  } else if (selectedPool === 'myPools') {
-    filteredAndSorted = filteredAndSorted.filter(pool => {
-      return pool.userLPBalance && pool.userLPBalance.gt(0)
-    })
-  }
-  /**
-   * TODO: Do filters and so on here
-   */
+export const selectPoolsToShow = createSelector(
+  [selectPoolsObjDomain,
+    selectSearchInputDomain,
+    selectSelectedPoolDomain,
+    selectSelectedSortDomain,
+  ], (pools, search, selectedPool, sort) => {
+    const poolsArray = Object.values(pools)
+    let filteredAndSorted = [...poolsArray]
 
-  return filteredAndSorted
-})
+    if (search) {
+      filteredAndSorted = filteredAndSorted.filter(pool => {
+        const poolName = pool.name.toLowerCase()
+        const searchInput = search.toLowerCase()
+        return poolName.includes(searchInput)
+      })
+    }
+    if (selectedPool !== initialState.selectedPool && selectedPool !== 'myPools') {
+      filteredAndSorted = filteredAndSorted.filter(pool => {
+        return pool.source === selectedPool
+      })
+    } else if (selectedPool === 'myPools') {
+      filteredAndSorted = filteredAndSorted.filter(pool => {
+        return pool.userLPBalance && pool.userLPBalance.gt(0)
+      })
+    }
+    if (sort === 'apy') {
+      filteredAndSorted.sort((a, b) => {
+        return b.weeklyAPY - a.weeklyAPY
+      })
+    }
+    if (sort === 'tvl') {
+      filteredAndSorted.sort((a, b) => {
+        return b.tvlStaked - a.tvlStaked
+      })
+    }
+    if (sort === 'claimable') {
+      filteredAndSorted.sort((a, b) => {
+        const aBalance = a.userLPBalance ? BNToFloat(a.userLPBalance) ?? 0 : 0
+        const bBalance = b.userLPBalance ? BNToFloat(b.userLPBalance) ?? 0 : 0
+        if (aBalance > bBalance) {
+          return -1;
+        }
+        if (aBalance < bBalance) {
+          return 1;
+        }
+        return 0;
+      }
+      )
+    }
+
+    const withBalance: PoolInfoItem[] = []
+    const withoutBalance: PoolInfoItem[] = []
+
+    filteredAndSorted.forEach(pool => {
+      if (pool.userLPBalance && pool.userLPBalance.gt(0)) {
+        withBalance.push(pool)
+      }
+      else {
+        withoutBalance.push(pool)
+      }
+    })
+
+    return [...withBalance, ...withoutBalance]
+  })

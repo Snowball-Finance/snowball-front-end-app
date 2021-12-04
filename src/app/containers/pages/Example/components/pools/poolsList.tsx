@@ -1,55 +1,66 @@
-import { CircularProgress, ListItem, ListItemButton, ListItemText, styled } from "@mui/material"
-import { Box } from "@mui/system";
-import { ColDef, GridApi, GridParams, GridReadyEvent, RowClickedEvent } from "ag-grid-community";
+import { ListItem, ListItemButton, ListItemText, styled } from "@mui/material"
+import { ColDef, GridApi, GridReadyEvent, RowClickedEvent } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.min.css'
 import { useRef } from "react";
-import { ListChildComponentProps, VariableSizeList } from 'react-window';
 import { BNToFloat } from "utils/format"
 import { PoolInfoItem } from "../../types";
 import { IsGettingUserPoolsIndicator } from "./isGettingUserPoolsIndicator";
+import { useSelector } from "react-redux";
+import { selectIsLoadingPools, selectPoolsToShow } from "../../selectors";
+import { SnowPaper } from "app/components/base/SnowPaper";
+import { SnowPairsIcon } from "app/components/base/snowPairsIcon";
+import { ContainedButton } from "app/components/common/buttons/containedButton";
+import { ItemContainer, Left, PoolName, PoolNameAndProvider, PoolProvider, Right, StyledSnowPaper } from "./components";
 
 interface GridConfigTypes {
   columnDefs: ColDef[];
   rowData: PoolInfoItem[];
 }
 
-const renderRow = (props: ListChildComponentProps) => {
-  const { index, style, data } = props;
-  const pool = data[index]
 
-  return (
-    <ListItem style={style} key={index} component="div" disablePadding>
-      <ListItemButton>
-        <ListItemText >
-          {pool.name} {pool.userLPBalance && BNToFloat(pool.userLPBalance)}
-        </ListItemText>
-      </ListItemButton>
-    </ListItem>
-  );
-}
-
-const getItemSize = (i: number) => {
-  console.log({ i })
-  return 45
-}
 
 const PoolRow = (params) => {
-  const { data } = params
+  const { data }: { data: PoolInfoItem } = params
+  const toggleRowDetailsOpen = () => { }
+
   return (
-    <ListItem component="div" disablePadding>
-      <ListItemButton>
-        <ListItemText >
-          {data.name} {data.userLPBalance && BNToFloat(data.userLPBalance)}
-        </ListItemText>
-      </ListItemButton>
-    </ListItem>
+    <StyledSnowPaper>
+      <ItemContainer onClick={() => toggleRowDetailsOpen()}>
+        <Left>
+          <SnowPairsIcon
+            addresses={[
+              data.token0.address,
+              data.token1?.address ?? '',
+              data.token2?.address ?? '',
+              data.token3?.address ?? '',
+              data.token4?.address ?? ''
+            ]} />
+          <PoolNameAndProvider>
+            <PoolName>{data.name}</PoolName>
+            <PoolProvider name={data.source}>{data.source}</PoolProvider>
+          </PoolNameAndProvider>
+        </Left>
+        <Right>
+          <ContainedButton color="primary" >
+            Do Something
+          </ContainedButton>
+        </Right>
+      </ItemContainer>
+    </StyledSnowPaper>
   );
 
 }
 
-export const PoolsList = ({ isLoading, pools }) => {
+
+
+
+export const PoolsList = () => {
+
+  const pools = useSelector(selectPoolsToShow)
+  const isLoading = useSelector(selectIsLoadingPools)
+
   const gridApi = useRef<GridApi | null>(null);
   const GridData: PoolInfoItem[] = pools
 
@@ -58,7 +69,6 @@ export const PoolsList = ({ isLoading, pools }) => {
       headerName: 'Pair',
       field: 'name',
       cellStyle: {
-        'text-transform': 'uppercase',
         'padding-left': '0px'
       },
 
@@ -85,8 +95,6 @@ export const PoolsList = ({ isLoading, pools }) => {
     console.log(name)
   }
 
-
-
   return (
     <GridWrapper
       id='marketWatchGridWrapper'
@@ -98,7 +106,7 @@ export const PoolsList = ({ isLoading, pools }) => {
         onRowClicked={handleRowClick}
         animateRows
         headerHeight={0}
-        rowHeight={45}
+        rowHeight={135}
         columnDefs={gridConfig.columnDefs}
         rowData={gridConfig.rowData}
         defaultColDef={{
@@ -118,33 +126,12 @@ export const PoolsList = ({ isLoading, pools }) => {
         }
       />
     </GridWrapper>
-
-    // <Wrapper
-    //   sx={{ bgcolor: 'background.paper' }}
-    // >
-    //   {isLoading && <CircularProgress />}
-    //   <List
-    //     height={window.innerHeight - 310}
-    //     width={'100%'}
-    //     itemSize={getItemSize}
-    //     itemCount={pools.length}
-    //     overscanCount={5}
-    //     itemData={pools}
-    //   >
-    //     {renderRow}
-    //   </List>
-    // </Wrapper>
   )
 }
 
-const Wrapper = styled(Box)({
-  border: '1px solid aqua',
-  borderRadius: '8px',
-  width: '100%',
-})
 
 const GridWrapper = styled('div')({
-  height: 'calc(100vh - 380px)',
+  height: 'calc(100vh - 310px)',
   '.ag-header,.ag-row': {
     border: 'none !important',
   },
@@ -154,5 +141,8 @@ const GridWrapper = styled('div')({
   },
   '.ag-root-wrapper': {
     border: 'none !important',
+  },
+  '.ag-row-hover': {
+    backgroundColor: 'transparent !important',
   }
 })

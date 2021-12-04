@@ -17,6 +17,7 @@ export const initialState: ContainerState = {
   LastSnowballInfo: undefined,
   pools: {},
   gauges: [],
+  selectedSort: 'apy',
   poolOptions: [
     {
       value: 'all',
@@ -60,6 +61,9 @@ const exampleSlice = createSlice({
     },
     setPoolOptions(state, action: PayloadAction<ContainerState['poolOptions']>) {
       state.poolOptions = action.payload;
+    },
+    setSelectedSort(state, action: PayloadAction<string>) {
+      state.selectedSort = action.payload;
     },
     setSelectedPool(state, action: PayloadAction<string>) {
       state.selectedPool = action.payload;
