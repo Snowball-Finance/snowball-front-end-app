@@ -2,7 +2,7 @@ import { styled } from "@mui/material"
 import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
-import { selectIsGettingUserPools } from "../selectors"
+import { selectIsGettingUserPools } from "../../selectors"
 
 export const IsGettingUserPoolsIndicator = () => {
   const { t } = useTranslation()

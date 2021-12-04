@@ -1,9 +1,10 @@
 import { useEffect } from "react"
-import { ExampleActions } from "../slice";
+import { ExampleActions } from "../../slice";
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsLoadingPools, selectIsReadyToGetUserData, selectPoolsToShow } from "../selectors";
+import { selectIsLoadingPools, selectIsReadyToGetUserData, selectPoolsToShow } from "../../selectors";
 import { selectPrivateProvider } from "app/containers/BlockChain/Ethers/selectors";
 import { PoolsList } from "./poolsList";
+import { SearchInput } from "./search";
 
 
 export const Pools = () => {
@@ -30,7 +31,10 @@ export const Pools = () => {
   }, [provider])
 
   return (
-    <PoolsList isLoading={isLoading} pools={pools} />
+    <>
+      <SearchInput />
+      <PoolsList isLoading={isLoading} pools={pools} />
+    </>
   )
 
 }

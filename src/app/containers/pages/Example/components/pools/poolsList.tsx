@@ -5,9 +5,9 @@ import { AgGridReact } from "ag-grid-react";
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.min.css'
 import { useRef } from "react";
-import { ListChildComponentProps, VariableSizeList as List } from 'react-window';
+import { ListChildComponentProps, VariableSizeList } from 'react-window';
 import { BNToFloat } from "utils/format"
-import { PoolInfoItem } from "../types";
+import { PoolInfoItem } from "../../types";
 import { IsGettingUserPoolsIndicator } from "./isGettingUserPoolsIndicator";
 
 interface GridConfigTypes {
@@ -144,12 +144,15 @@ const Wrapper = styled(Box)({
 })
 
 const GridWrapper = styled('div')({
-  height: 'calc(100vh - 310px)',
+  height: 'calc(100vh - 330px)',
   '.ag-header,.ag-row': {
     border: 'none !important',
   },
   '.ag-cell': {
     outline: 'none !important',
+    border: 'none !important',
+  },
+  '.ag-root-wrapper': {
     border: 'none !important',
   }
 })

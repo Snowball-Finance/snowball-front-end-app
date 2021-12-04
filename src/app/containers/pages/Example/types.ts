@@ -79,6 +79,7 @@ export interface ExampleState {
   pools: { [key: string]: PoolInfoItem }
   gauges: GaugeItem[],
   isGettingUserPools: boolean,
+  searchInput: string
 
 }
 

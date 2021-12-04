@@ -13,11 +13,18 @@ export const selectPoolsArrayDomain = (state: RootState) => state.example?.LastS
 const selectPoolsObjDomain = (state: RootState) => state.example?.pools || [];
 const selectIsGettingPoolsDomain = (state: RootState) => state.example?.isLoadingLastSnowballInfo || false;
 const selectGaugesDomain = (state: RootState) => state.example?.gauges || [];
+const selectSearchInputDomain = (state: RootState) => state.example?.searchInput || '';
 
 export const selectExample = createSelector(
   [selectDomain],
   exampleState => exampleState,
 );
+
+export const selectSearchInput = createSelector(
+  [selectSearchInputDomain],
+  v => v,
+);
+
 
 export const selectIsGettingUserPools = createSelector([selectDomain], state => state.isGettingUserPools);
 
@@ -61,7 +68,7 @@ export const selectIsReadyToGetUserData = createSelector([
   )
 })
 
-export const selectPoolsToShow = createSelector([selectPoolsObjDomain], pools => {
+export const selectPoolsToShow = createSelector([selectPoolsObjDomain, selectSearchInputDomain], (pools, search) => {
   const poolsArray = Object.values(pools)
   const filteredAndSorted = [...poolsArray]
   filteredAndSorted.sort((a, b) => {
@@ -76,6 +83,15 @@ export const selectPoolsToShow = createSelector([selectPoolsObjDomain], pools =>
     return 0;
   }
   )
+  if (search) {
+    return filteredAndSorted.filter(pool => {
+      const poolName = pool.name.toLowerCase()
+      const searchInput = search.toLowerCase()
+      return poolName.includes(searchInput)
+    })
+  }
+
+
   /**
    * TODO: Do filters and so on here
    */

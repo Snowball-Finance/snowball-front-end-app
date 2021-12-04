@@ -12,6 +12,7 @@ export const initialState: ContainerState = {
   isAddingSnobToWallet: false,
   isLoadingLastSnowballInfo: false,
   isGettingUserPools: false,
+  searchInput: '',
   LastSnowballInfo: undefined,
   pools: {},
   gauges: []
@@ -46,6 +47,9 @@ const exampleSlice = createSlice({
     },
     setIsGettingUserPools(state, action: PayloadAction<boolean>) {
       state.isGettingUserPools = action.payload;
+    },
+    setSearchInput(state, action: PayloadAction<string>) {
+      state.searchInput = action.payload;
     }
   },
 });

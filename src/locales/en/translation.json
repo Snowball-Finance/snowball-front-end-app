@@ -4,7 +4,8 @@
     "AddSnobToWallet": "Add Snob to Wallet",
     "ConnectToWallet": "Connect to Wallet",
     "DisconnectFromWallet": "Disconnect from Wallet",
-    "GettingUserPools": "Getting User Pools..."
+    "GettingUserPools": "Getting User Pools...",
+    "SearchPoolName": "Search Pool Name..."
   },
   "HomePage": {
     "home": "Home",

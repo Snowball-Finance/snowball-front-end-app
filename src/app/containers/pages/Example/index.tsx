@@ -14,7 +14,7 @@ import { AddSnowballToMetamaskButton } from "./components/addSnobToMetamaskButto
 import { ConnectToWalletButton } from "./components/connetcToWalletButton";
 import { Wallet } from "./components/wallet";
 import { Balances } from "./components/balances";
-import { Pools } from "./components/pools";
+import { Pools } from "./components/pools/pools";
 
 interface Props { }
 
