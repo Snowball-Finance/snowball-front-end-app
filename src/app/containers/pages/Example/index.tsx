@@ -8,7 +8,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { useExampleSlice } from './slice';
-
+import 'ag-grid-community/dist/styles/ag-grid.css'
+import 'ag-grid-community/dist/styles/ag-theme-balham.min.css'
 import { Grid, styled } from "@mui/material";
 import { AddSnowballToMetamaskButton } from "./components/addSnobToMetamaskButton";
 import { ConnectToWalletButton } from "./components/connetcToWalletButton";
@@ -30,7 +31,6 @@ export function Example(props: Props) {
       </Helmet>
       <Wrapper>
         <Grid container p={5}>
-
           <Grid item xs={2}>
             <AddSnowballToMetamaskButton />
           </Grid>

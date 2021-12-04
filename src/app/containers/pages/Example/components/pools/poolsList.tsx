@@ -1,15 +1,11 @@
-import { ListItem, ListItemButton, ListItemText, styled } from "@mui/material"
+import { styled } from "@mui/material"
 import { ColDef, GridApi, GridReadyEvent, RowClickedEvent } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import 'ag-grid-community/dist/styles/ag-grid.css'
-import 'ag-grid-community/dist/styles/ag-theme-balham.min.css'
 import { useEffect, useRef } from "react";
-import { BNToFloat } from "utils/format"
 import { PoolInfoItem } from "../../types";
 import { IsGettingUserPoolsIndicator } from "./isGettingUserPoolsIndicator";
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsLoadingPools, selectIsReadyToGetUserData, selectPoolsToShow } from "../../selectors";
-import { SnowPaper } from "app/components/base/SnowPaper";
+import { selectGotUserPools, selectIsLoadingPools, selectIsReadyToGetUserData, selectPoolsToShow } from "../../selectors";
 import { SnowPairsIcon } from "app/components/base/snowPairsIcon";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { ItemContainer, Left, PoolName, PoolNameAndProvider, PoolProvider, Right, StyledSnowPaper } from "./components";
@@ -65,20 +61,21 @@ export const PoolsList = () => {
 
   const provider = useSelector(selectPrivateProvider)
   const isReadyToGetUserPools = useSelector(selectIsReadyToGetUserData)
+  const alreadyGotUserPools = useSelector(selectGotUserPools)
 
   useEffect(() => {
-    if (isReadyToGetUserPools) {
+    if (isReadyToGetUserPools && !alreadyGotUserPools) {
       dispatch(ExampleActions.getAndSetUserPools())
     }
     return () => {
     }
-  }, [isReadyToGetUserPools])
+  }, [isReadyToGetUserPools, alreadyGotUserPools])
 
   useEffect(() => {
-    if (provider) {
+    if (provider && !alreadyGotUserPools) {
       dispatch(ExampleActions.getLastSnowballInfo())
     }
-  }, [provider])
+  }, [provider, alreadyGotUserPools])
 
 
 

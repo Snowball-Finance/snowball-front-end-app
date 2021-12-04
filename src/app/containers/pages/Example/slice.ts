@@ -12,6 +12,7 @@ export const initialState: ContainerState = {
   isAddingSnobToWallet: false,
   isLoadingLastSnowballInfo: false,
   isGettingUserPools: false,
+  gotUserPools: false,
   searchInput: '',
   selectedPool: 'all',
   LastSnowballInfo: undefined,
@@ -55,6 +56,9 @@ const exampleSlice = createSlice({
     },
     setIsGettingUserPools(state, action: PayloadAction<boolean>) {
       state.isGettingUserPools = action.payload;
+    },
+    setGotUserPools(state, action: PayloadAction<boolean>) {
+      state.gotUserPools = action.payload;
     },
     setSearchInput(state, action: PayloadAction<string>) {
       state.searchInput = action.payload;

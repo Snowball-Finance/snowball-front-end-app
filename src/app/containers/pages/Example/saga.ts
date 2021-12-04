@@ -103,6 +103,7 @@ export function* getAndSetUserPools() {
     })
     yield all([
       put(ExampleActions.setPools(tmp)),
+      put(ExampleActions.setGotUserPools(true)),
       put(ExampleActions.setPoolOptions(Object.values(poolOptionsObj))),
     ])
   } catch (error) {

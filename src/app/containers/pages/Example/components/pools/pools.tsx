@@ -9,12 +9,7 @@ import { styled } from "@mui/material";
 import { PoolSelect } from "./poolSelect";
 import { SortSelect } from "./sortSelect";
 
-
 export const Pools = () => {
-  const dispatch = useDispatch();
-
-
-
   return (
     <>
       <FiltersWrapper>
@@ -25,7 +20,6 @@ export const Pools = () => {
       <PoolsList />
     </>
   )
-
 }
 
 const FiltersWrapper = styled('div')({

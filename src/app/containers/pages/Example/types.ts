@@ -84,10 +84,11 @@ export interface ExampleState {
   pools: { [key: string]: PoolInfoItem }
   gauges: GaugeItem[],
   isGettingUserPools: boolean,
+  gotUserPools: boolean,
   searchInput: string,
   poolOptions: PoolOption[]
   selectedPool: string,
-  selectedSort: string
+  selectedSort: string,
 }
 
 export type ContainerState = ExampleState;

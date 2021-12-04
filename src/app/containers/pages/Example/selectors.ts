@@ -18,6 +18,7 @@ const selectSearchInputDomain = (state: RootState) => state.example?.searchInput
 const selectPoolOptionsDomain = (state: RootState) => state.example?.poolOptions || [...initialState.poolOptions];
 const selectSelectedPoolDomain = (state: RootState) => state.example?.selectedPool || initialState.selectedPool;
 const selectSelectedSortDomain = (state: RootState) => state.example?.selectedSort || initialState.selectedSort;
+const selectGotUserPoolsDomain = (state: RootState) => state.example?.gotUserPools || initialState.gotUserPools;
 
 export const selectExample = createSelector(
   [selectDomain],
@@ -33,6 +34,12 @@ export const selectSelectedPool = createSelector(
   [selectSelectedPoolDomain],
   v => v,
 );
+
+export const selectGotUserPools = createSelector(
+  [selectGotUserPoolsDomain],
+  v => v,
+);
+
 
 export const selectSelectedSort = createSelector(
   [selectSelectedSortDomain],
