@@ -14,23 +14,6 @@ export const Pools = () => {
   const dispatch = useDispatch();
 
 
-  const provider = useSelector(selectPrivateProvider)
-  const isReadyToGetUserPools = useSelector(selectIsReadyToGetUserData)
-
-  useEffect(() => {
-    if (isReadyToGetUserPools) {
-      dispatch(ExampleActions.getAndSetUserPools())
-    }
-    return () => {
-
-    }
-  }, [isReadyToGetUserPools])
-
-  useEffect(() => {
-    if (provider) {
-      dispatch(ExampleActions.getLastSnowballInfo())
-    }
-  }, [provider])
 
   return (
     <>

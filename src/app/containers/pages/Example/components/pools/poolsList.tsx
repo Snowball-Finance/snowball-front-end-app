@@ -3,16 +3,18 @@ import { ColDef, GridApi, GridReadyEvent, RowClickedEvent } from "ag-grid-commun
 import { AgGridReact } from "ag-grid-react";
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-balham.min.css'
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { BNToFloat } from "utils/format"
 import { PoolInfoItem } from "../../types";
 import { IsGettingUserPoolsIndicator } from "./isGettingUserPoolsIndicator";
-import { useSelector } from "react-redux";
-import { selectIsLoadingPools, selectPoolsToShow } from "../../selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsLoadingPools, selectIsReadyToGetUserData, selectPoolsToShow } from "../../selectors";
 import { SnowPaper } from "app/components/base/SnowPaper";
 import { SnowPairsIcon } from "app/components/base/snowPairsIcon";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { ItemContainer, Left, PoolName, PoolNameAndProvider, PoolProvider, Right, StyledSnowPaper } from "./components";
+import { selectPrivateProvider } from "app/containers/BlockChain/Ethers/selectors";
+import { ExampleActions } from "../../slice";
 
 interface GridConfigTypes {
   columnDefs: ColDef[];
@@ -57,8 +59,30 @@ const PoolRow = (params) => {
 
 
 export const PoolsList = () => {
+  const dispatch = useDispatch()
 
   const pools = useSelector(selectPoolsToShow)
+
+  const provider = useSelector(selectPrivateProvider)
+  const isReadyToGetUserPools = useSelector(selectIsReadyToGetUserData)
+
+  useEffect(() => {
+    if (isReadyToGetUserPools) {
+      dispatch(ExampleActions.getAndSetUserPools())
+    }
+    return () => {
+    }
+  }, [isReadyToGetUserPools])
+
+  useEffect(() => {
+    if (provider) {
+      dispatch(ExampleActions.getLastSnowballInfo())
+    }
+  }, [provider])
+
+
+
+
   const isLoading = useSelector(selectIsLoadingPools)
 
   const gridApi = useRef<GridApi | null>(null);
