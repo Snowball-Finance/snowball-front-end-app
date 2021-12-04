@@ -1,3 +1,4 @@
+import { BigNumber } from "@ethersproject/bignumber";
 import { selectPrivateProviderDomain } from "app/containers/BlockChain/Ethers/selectors";
 import { selectContractsDomain, selectPricesDomain } from "app/containers/BlockChain/selectors";
 import { selectAccountDomain } from "app/containers/BlockChain/Web3/selectors";
@@ -36,7 +37,7 @@ export function* getLastSnowballInfo() {
       return (
         {
           ...pool,
-          userLPBalance: 0
+          userLPBalance: BigNumber.from(0.0)
         }
       )
     })
