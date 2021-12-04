@@ -147,5 +147,9 @@ const GridWrapper = styled('div')({
   height: 'calc(100vh - 310px)',
   '.ag-header,.ag-row': {
     border: 'none !important',
+  },
+  '.ag-cell': {
+    outline: 'none !important',
+    border: 'none !important',
   }
 })
