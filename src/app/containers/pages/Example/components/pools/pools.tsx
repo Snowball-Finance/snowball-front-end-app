@@ -5,6 +5,8 @@ import { selectIsLoadingPools, selectIsReadyToGetUserData, selectPoolsToShow } f
 import { selectPrivateProvider } from "app/containers/BlockChain/Ethers/selectors";
 import { PoolsList } from "./poolsList";
 import { SearchInput } from "./search";
+import { styled } from "@mui/material";
+import { PoolSelect } from "./poolSelect";
 
 
 export const Pools = () => {
@@ -32,9 +34,16 @@ export const Pools = () => {
 
   return (
     <>
-      <SearchInput />
+      <FiltersWrapper>
+        <SearchInput />
+        <PoolSelect />
+      </FiltersWrapper>
       <PoolsList isLoading={isLoading} pools={pools} />
     </>
   )
 
 }
+
+const FiltersWrapper = styled('div')({
+  display: 'flex',
+})

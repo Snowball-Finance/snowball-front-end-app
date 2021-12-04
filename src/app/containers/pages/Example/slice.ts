@@ -13,9 +13,16 @@ export const initialState: ContainerState = {
   isLoadingLastSnowballInfo: false,
   isGettingUserPools: false,
   searchInput: '',
+  selectedPool: 'all',
   LastSnowballInfo: undefined,
   pools: {},
-  gauges: []
+  gauges: [],
+  poolOptions: [
+    {
+      value: 'all',
+      label: 'All Pools',
+    },
+  ]
 };
 
 const exampleSlice = createSlice({
@@ -50,6 +57,12 @@ const exampleSlice = createSlice({
     },
     setSearchInput(state, action: PayloadAction<string>) {
       state.searchInput = action.payload;
+    },
+    setPoolOptions(state, action: PayloadAction<ContainerState['poolOptions']>) {
+      state.poolOptions = action.payload;
+    },
+    setSelectedPool(state, action: PayloadAction<string>) {
+      state.selectedPool = action.payload;
     }
   },
 });

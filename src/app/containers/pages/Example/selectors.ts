@@ -14,10 +14,22 @@ const selectPoolsObjDomain = (state: RootState) => state.example?.pools || [];
 const selectIsGettingPoolsDomain = (state: RootState) => state.example?.isLoadingLastSnowballInfo || false;
 const selectGaugesDomain = (state: RootState) => state.example?.gauges || [];
 const selectSearchInputDomain = (state: RootState) => state.example?.searchInput || '';
+const selectPoolOptionsDomain = (state: RootState) => state.example?.poolOptions || [...initialState.poolOptions];
+const selectSelectedPollDomain = (state: RootState) => state.example?.selectedPool || initialState.selectedPool;
 
 export const selectExample = createSelector(
   [selectDomain],
   exampleState => exampleState,
+);
+
+export const selectPoolOptions = createSelector(
+  [selectPoolOptionsDomain],
+  options => options,
+);
+
+export const selectSelectedPool = createSelector(
+  [selectSelectedPollDomain],
+  v => v,
 );
 
 export const selectSearchInput = createSelector(
@@ -68,9 +80,9 @@ export const selectIsReadyToGetUserData = createSelector([
   )
 })
 
-export const selectPoolsToShow = createSelector([selectPoolsObjDomain, selectSearchInputDomain], (pools, search) => {
+export const selectPoolsToShow = createSelector([selectPoolsObjDomain, selectSearchInputDomain, selectSelectedPollDomain], (pools, search, selectedPool) => {
   const poolsArray = Object.values(pools)
-  const filteredAndSorted = [...poolsArray]
+  let filteredAndSorted = [...poolsArray]
   filteredAndSorted.sort((a, b) => {
     const aBalance = a.userLPBalance ? BNToFloat(a.userLPBalance) ?? 0 : 0
     const bBalance = b.userLPBalance ? BNToFloat(b.userLPBalance) ?? 0 : 0
@@ -84,14 +96,21 @@ export const selectPoolsToShow = createSelector([selectPoolsObjDomain, selectSea
   }
   )
   if (search) {
-    return filteredAndSorted.filter(pool => {
+    filteredAndSorted = filteredAndSorted.filter(pool => {
       const poolName = pool.name.toLowerCase()
       const searchInput = search.toLowerCase()
       return poolName.includes(searchInput)
     })
   }
-
-
+  if (selectedPool !== initialState.selectedPool && selectedPool !== 'myPools') {
+    filteredAndSorted = filteredAndSorted.filter(pool => {
+      return pool.source === selectedPool
+    })
+  } else if (selectedPool === 'myPools') {
+    filteredAndSorted = filteredAndSorted.filter(pool => {
+      return pool.userLPBalance && pool.userLPBalance.gt(0)
+    })
+  }
   /**
    * TODO: Do filters and so on here
    */

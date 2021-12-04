@@ -10,8 +10,8 @@ import { LAST_SNOWBALL_INFO } from "services/apollo/queries/snowballInfo";
 import { requestToAddSnobToMetamask } from "services/global_data";
 import { retrieveGauge } from "./components/providers/gauge";
 import { selectPoolsArrayDomain } from "./selectors";
-import { ExampleActions } from "./slice";
-import { LastSnowballInfo } from "./types";
+import { ExampleActions, initialState } from "./slice";
+import { LastSnowballInfo, PoolInfoItem } from "./types";
 
 export function* addSnobToWallet() {
   try {
@@ -41,10 +41,20 @@ export function* getLastSnowballInfo() {
       )
     })
     const tmp = {}
+    const poolOptionsObj = {
+      all: { ...initialState.poolOptions[0] },
+    }
     pools.forEach(item => {
+      if (!poolOptionsObj[item.source]) {
+        poolOptionsObj[item.source] = { value: item.source, label: item.source }
+      }
       tmp[item.address] = item
     })
-    yield put(ExampleActions.setPools(tmp))
+
+    yield all([
+      put(ExampleActions.setPools(tmp)),
+      put(ExampleActions.setPoolOptions(Object.values(poolOptionsObj))),
+    ])
   }
   catch (error) {
     toast.error("failed to get Snowball Info");
@@ -80,10 +90,20 @@ export function* getAndSetUserPools() {
     const poolInfo = pools.map(item => generatePoolInfo({ item, gauges, contractData: poolsData, prices }));
     yield put(ExampleActions.setGauges(gauges))
     const tmp = {}
-    poolInfo.forEach(item => {
+    const poolOptionsObj = {
+      all: { ...initialState.poolOptions[0] },
+      myPools: { value: 'myPools', label: 'My Pools' },
+    }
+    poolInfo.forEach((item: PoolInfoItem) => {
+      if (!poolOptionsObj[item.source]) {
+        poolOptionsObj[item.source] = { value: item.source, label: item.source }
+      }
       tmp[item.address] = item
     })
-    yield put(ExampleActions.setPools(tmp))
+    yield all([
+      put(ExampleActions.setPools(tmp)),
+      put(ExampleActions.setPoolOptions(Object.values(poolOptionsObj))),
+    ])
   } catch (error) {
     toast.error("failed to get user pools");
   } finally {

@@ -68,8 +68,13 @@ export interface LastSnowballInfo {
     supply: number
     totalSupply: number
   }
-
 }
+
+export interface PoolOption {
+  value: string,
+  label: string
+}
+
 /* --- STATE --- */
 export interface ExampleState {
   isLoadingAsyncData: boolean;
@@ -79,8 +84,9 @@ export interface ExampleState {
   pools: { [key: string]: PoolInfoItem }
   gauges: GaugeItem[],
   isGettingUserPools: boolean,
-  searchInput: string
-
+  searchInput: string,
+  poolOptions: PoolOption[]
+  selectedPool: string
 }
 
 export type ContainerState = ExampleState;
