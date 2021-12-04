@@ -144,7 +144,7 @@ const Wrapper = styled(Box)({
 })
 
 const GridWrapper = styled('div')({
-  height: 'calc(100vh - 330px)',
+  height: 'calc(100vh - 360px)',
   '.ag-header,.ag-row': {
     border: 'none !important',
   },
