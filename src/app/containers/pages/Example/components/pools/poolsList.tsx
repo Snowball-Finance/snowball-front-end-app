@@ -5,22 +5,68 @@ import { useEffect, useRef } from "react";
 import { PoolInfoItem } from "../../types";
 import { IsGettingUserPoolsIndicator } from "./isGettingUserPoolsIndicator";
 import { useDispatch, useSelector } from "react-redux";
-import { selectGotUserPools, selectIsLoadingPools, selectIsReadyToGetUserData, selectPoolsToShow } from "../../selectors";
+import { selectGauges, selectGotUserPools, selectIsLoadingPools, selectIsReadyToGetUserData, selectPoolsToShow } from "../../selectors";
 import { SnowPairsIcon } from "app/components/base/snowPairsIcon";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { ItemContainer, Left, PoolName, PoolNameAndProvider, PoolProvider, Right, StyledSnowPaper } from "./components";
 import { selectPrivateProvider } from "app/containers/BlockChain/Ethers/selectors";
 import { ExampleActions } from "../../slice";
+import { isEmpty } from "utils/utility";
+import getUserBoost from "../../helpers/getUserBoost";
+import { selectSnowConeBalance, selectTotalSnowConeSupply } from "app/containers/BlockChain/selectors";
+import { formatNumber } from "utils/format";
 
 interface GridConfigTypes {
   columnDefs: ColDef[];
   rowData: PoolInfoItem[];
 }
 
-
+const Col = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+})
 
 const PoolRow = (params) => {
   const { data }: { data: PoolInfoItem } = params
+  const gauges = useSelector(selectGauges)
+  const snowconeBalance = useSelector(selectSnowConeBalance)
+  const totalSnowcone = useSelector(selectTotalSnowConeSupply)
+
+  const selectedGauge = gauges.find((gauge) => {
+    if (data.gaugeInfo) {
+      return gauge.address.toLowerCase() === data.gaugeInfo.address.toLowerCase();
+    }
+  })
+
+
+  const boost = () => {
+    if (isEmpty(selectedGauge) || (selectedGauge?.staked || 0) <= 0) {
+      return 1.0
+    }
+    const boostValue = getUserBoost(
+      totalSnowcone.toNumber() / 1e18,
+      //@ts-ignore
+      selectedGauge.totalSupply / 1e18,
+      //@ts-ignore
+      selectedGauge.staked / 1e18,
+      snowconeBalance
+    );
+    return boostValue;
+  }
+
+  const userBoost = `${(boost() ? boost() * 1.0 : 1.0).toFixed(2)}x`;
+
+
+  const totalAPY = () => {
+    if (data.gaugeInfo) {
+      let total = (boost() * data.gaugeInfo.snobYearlyAPR) + data.yearlyAPY;
+      total = total > 999999 ? 999999 : total
+      return total
+    } else {
+      return 0
+    }
+  }
+
   return (
     <StyledSnowPaper isopen={data.isDetailsOpen ? 'open' : ''}>
       <ItemContainer >
@@ -37,6 +83,18 @@ const PoolRow = (params) => {
             <PoolName>{data.name}</PoolName>
             <PoolProvider name={data.source}>{data.source}</PoolProvider>
           </PoolNameAndProvider>
+          <Col>
+            <p> {data.kind === 'Snowglobe' ? 'APY ' : 'APR '}</p>
+            <p> {typeof totalAPY() === 'number' ? totalAPY()?.toFixed(2) : totalAPY()}%</p>
+          </Col>
+          <Col>
+            <p>TVL</p>
+            <p>{formatNumber(data.tvlStaked, 2)}</p>
+          </Col>
+          <Col>
+            <p>Boost</p>
+            <p>{userBoost}</p>
+          </Col>
         </Left>
         <Right>
           <ContainedButton color="primary" >
@@ -44,6 +102,7 @@ const PoolRow = (params) => {
           </ContainedButton>
         </Right>
       </ItemContainer>
+      {data.isDetailsOpen && <>Other contents</>}
     </StyledSnowPaper>
   );
 

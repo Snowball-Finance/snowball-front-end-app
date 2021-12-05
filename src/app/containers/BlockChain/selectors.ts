@@ -28,6 +28,11 @@ export const selectSnobBalance = createSelector(
   blockChainState => blockChainState.snowballBalance,
 );
 
+export const selectTotalSnowConeSupply = createSelector(
+  [selectDomain],
+  blockChainState => blockChainState.totalSnowConeSupply,
+);
+
 export const selectIsLoadingSnobBalance = createSelector(
   [selectDomain],
   blockChainState => blockChainState.isGettingSnobBalance,

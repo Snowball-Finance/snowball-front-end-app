@@ -7,6 +7,7 @@ export interface BlockChainState {
   isGettingSnowConeBalance: boolean;
   snowballBalance: BigNumber | undefined
   snowConeBalance: BigNumber | undefined
+  totalSnowConeSupply: BigNumber
   totalSnowConeValue: string,
   prices: {
     SNOB: number,

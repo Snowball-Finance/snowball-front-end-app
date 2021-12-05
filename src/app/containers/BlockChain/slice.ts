@@ -10,6 +10,7 @@ import { BigNumber } from "@ethersproject/bignumber";
 export const initialState: ContainerState = {
   snowConeBalance: undefined,
   snowballBalance: undefined,
+  totalSnowConeSupply: BigNumber.from(0),
   isGettingSnobBalance: false,
   isGettingSnowConeBalance: false,
   totalSnowConeValue: '',
@@ -48,6 +49,10 @@ const blockChainSlice = createSlice({
       state.snowConeBalance = action.payload;
     },
     getPrices(state, action: PayloadAction<void>) { },
+    getTotalSnowConeSupply(state, action: PayloadAction<void>) { },
+    setTotalSnowConeSupply(state, action: PayloadAction<BigNumber>) {
+      state.totalSnowConeSupply = action.payload;
+    },
     setPrices(state, action: PayloadAction<ContainerState['prices']>) {
       state.prices = action.payload;
     }

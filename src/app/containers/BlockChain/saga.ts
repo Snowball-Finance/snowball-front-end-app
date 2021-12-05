@@ -2,7 +2,7 @@ import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import { selectAccountDomain } from "./Web3/selectors";
 import { BlockChainActions } from "./slice";
 import { ethers } from 'ethers'
-import { balanceProvider } from "./providers/balanceAPI";
+import { balanceProvider, totalSupplyProvider } from "./providers/balanceAPI";
 import { toast } from "react-toastify";
 import { ContainerState } from "./types";
 import { selectContractsDomain } from "./selectors";
@@ -39,6 +39,13 @@ export function* getSnowConeBalance() {
   }
 }
 
+export function* getTotalSnowConeSupply() {
+  const { snowCone } = yield select(selectContractsDomain)
+  const contract = snowCone
+  const response = yield call(totalSupplyProvider, { contract })
+  yield put(BlockChainActions.setTotalSnowConeSupply(response))
+}
+
 export function* getPrices() {
 
   try {
@@ -70,7 +77,8 @@ export function* setContracts(action: { type: string, payload: ContainerState['c
   yield all([
     (action.payload.snob && put(BlockChainActions.getSnobBalance())),
     (action.payload.snowCone && put(BlockChainActions.getSnowConeBalance())),
-    put(BlockChainActions.getPrices())
+    put(BlockChainActions.getPrices()),
+    put(BlockChainActions.getTotalSnowConeSupply()),
   ])
 }
 
@@ -79,4 +87,5 @@ export function* blockChainSaga() {
   yield takeLatest(BlockChainActions.getSnobBalance.type, getSnobBalance);
   yield takeLatest(BlockChainActions.setContracts.type, setContracts);
   yield takeLatest(BlockChainActions.getPrices.type, getPrices);
+  yield takeLatest(BlockChainActions.getTotalSnowConeSupply.type, getTotalSnowConeSupply);
 }
