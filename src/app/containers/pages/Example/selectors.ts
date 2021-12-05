@@ -11,7 +11,7 @@ const selectDomain = (state: RootState) => state.example || initialState;
 const selectIsAddingSnobToMetamaskDomain = (state: RootState) => state.example?.isAddingSnobToWallet || false;
 const selectIsLoadingAsyncDataDomain = (state: RootState) => state.example?.isLoadingAsyncData || false;
 export const selectPoolsArrayDomain = (state: RootState) => state.example?.LastSnowballInfo?.poolsInfo || [];
-const selectPoolsObjDomain = (state: RootState) => state.example?.pools || [];
+export const selectPoolsObjDomain = (state: RootState) => state.example?.pools || {};
 const selectIsGettingPoolsDomain = (state: RootState) => state.example?.isLoadingLastSnowballInfo || false;
 const selectGaugesDomain = (state: RootState) => state.example?.gauges || [];
 const selectSearchInputDomain = (state: RootState) => state.example?.searchInput || '';
@@ -95,11 +95,18 @@ export const selectIsReadyToGetUserData = createSelector([
 })
 
 export const selectPoolsToShow = createSelector(
-  [selectPoolsObjDomain,
+  [
+    selectPoolsObjDomain,
     selectSearchInputDomain,
     selectSelectedPoolDomain,
     selectSelectedSortDomain,
-  ], (pools, search, selectedPool, sort) => {
+  ],
+  (
+    pools,
+    search,
+    selectedPool,
+    sort
+  ) => {
     const poolsArray = Object.values(pools)
     let filteredAndSorted = [...poolsArray]
 

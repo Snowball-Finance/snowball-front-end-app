@@ -71,6 +71,8 @@ const exampleSlice = createSlice({
     },
     setSelectedPool(state, action: PayloadAction<string>) {
       state.selectedPool = action.payload;
+    },
+    toggleIsDetailsOpen(state, action: PayloadAction<string>) {
     }
   },
 });

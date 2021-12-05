@@ -10,7 +10,7 @@ import { query } from "services/apollo/client";
 import { LAST_SNOWBALL_INFO } from "services/apollo/queries/snowballInfo";
 import { requestToAddSnobToMetamask } from "services/global_data";
 import { retrieveGauge } from "./components/providers/gauge";
-import { selectPoolsArrayDomain } from "./selectors";
+import { selectPoolsArrayDomain, selectPoolsObj, selectPoolsObjDomain } from "./selectors";
 import { ExampleActions, initialState } from "./slice";
 import { LastSnowballInfo, PoolInfoItem } from "./types";
 
@@ -113,10 +113,27 @@ export function* getAndSetUserPools() {
   }
 }
 
+export function* toggleIsDetailsOpen(action: {
+  type: string,
+  payload: string
+}) {
+  try {
+    const address = action.payload
+    const pools = { ...yield select(selectPoolsObjDomain) }
+    const selectedPool = { ...pools[address] }
+    selectedPool.isDetailsOpen = !pools[address].isDetailsOpen
+    pools[address] = selectedPool
+    yield put(ExampleActions.setPools(pools))
+  }
+  catch (error) {
+    console.log(error)
+  }
+  finally { }
+}
 
 export function* exampleSaga() {
   yield takeLatest(ExampleActions.addSnobToWallet.type, addSnobToWallet);
   yield takeLatest(ExampleActions.getLastSnowballInfo.type, getLastSnowballInfo);
   yield takeLatest(ExampleActions.getAndSetUserPools.type, getAndSetUserPools);
-
+  yield takeLatest(ExampleActions.toggleIsDetailsOpen.type, toggleIsDetailsOpen);
 }

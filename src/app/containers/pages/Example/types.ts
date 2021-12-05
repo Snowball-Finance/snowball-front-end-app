@@ -33,6 +33,7 @@ export interface PoolToken {
   symbol: string
 }
 export interface PoolInfoItem {
+  isDetailsOpen: boolean
   address: string
   dailyAPR: number
   dailyAPY: number

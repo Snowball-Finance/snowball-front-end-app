@@ -21,11 +21,14 @@ interface GridConfigTypes {
 
 const PoolRow = (params) => {
   const { data }: { data: PoolInfoItem } = params
-  const toggleRowDetailsOpen = () => { }
+  const dispatch = useDispatch()
+  const onClick = () => {
+    dispatch(ExampleActions.toggleIsDetailsOpen(data.address))
+  }
 
   return (
     <StyledSnowPaper>
-      <ItemContainer onClick={() => toggleRowDetailsOpen()}>
+      <ItemContainer onClick={onClick} >
         <Left>
           <SnowPairsIcon
             addresses={[
@@ -90,7 +93,7 @@ export const PoolsList = () => {
       headerName: 'Pair',
       field: 'name',
       cellStyle: {
-        'padding-left': '0px'
+        'padding-left': '0px',
       },
 
       flex: 1,
@@ -110,11 +113,6 @@ export const PoolsList = () => {
   };
 
 
-  const handleRowClick = (e: RowClickedEvent) => {
-    const { data }: { data: PoolInfoItem } = e
-    const { name } = data
-    console.log(name)
-  }
 
   return (
     <GridWrapper
@@ -124,7 +122,6 @@ export const PoolsList = () => {
       <IsGettingUserPoolsIndicator />
       <AgGridReact
         onGridReady={gridRendered}
-        onRowClicked={handleRowClick}
         animateRows
         headerHeight={0}
         rowHeight={135}
@@ -140,7 +137,7 @@ export const PoolsList = () => {
         }}
         immutableData
         getRowNodeId={(data: PoolInfoItem) => {
-          return data.address + data.userLPBalance;
+          return data.address + data.userLPBalance + data.isDetailsOpen;
         }}
         overlayNoRowsTemplate={
           `<div>loading...</div>`
