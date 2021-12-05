@@ -24,6 +24,9 @@ interface GridConfigTypes {
 const Col = styled('div')({
   display: 'flex',
   flexDirection: 'column',
+  'p': {
+    margin: 0,
+  }
 })
 
 const PoolRow = (params) => {
