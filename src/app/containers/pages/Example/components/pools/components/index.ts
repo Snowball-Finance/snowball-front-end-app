@@ -53,7 +53,13 @@ export const PoolProvider = styled('div')<{ name: string }>(({ name }) => {
     fontWeight: 600,
   };
 });
-export const StyledSnowPaper = styled(SnowPaper)({
-  marginLeft: '5px',
-  marginRight: '-5px'
+export const StyledSnowPaper = styled(SnowPaper)<{ isopen: string }>(({ isopen }) => {
+  return ({
+    marginLeft: '5px',
+    marginRight: '-5px',
+    transition: 'height 5s ease-in-out',
+    ...(isopen && {
+      height: '340px',
+    })
+  })
 })

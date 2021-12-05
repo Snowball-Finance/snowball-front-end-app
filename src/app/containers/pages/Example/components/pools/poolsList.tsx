@@ -21,14 +21,9 @@ interface GridConfigTypes {
 
 const PoolRow = (params) => {
   const { data }: { data: PoolInfoItem } = params
-  const dispatch = useDispatch()
-  const onClick = () => {
-    dispatch(ExampleActions.toggleIsDetailsOpen(data.address))
-  }
-
   return (
-    <StyledSnowPaper>
-      <ItemContainer onClick={onClick} >
+    <StyledSnowPaper isopen={data.isDetailsOpen ? 'open' : ''}>
+      <ItemContainer >
         <Left>
           <SnowPairsIcon
             addresses={[
@@ -113,6 +108,19 @@ export const PoolsList = () => {
   };
 
 
+  const handleRowClick = (e: RowClickedEvent) => {
+    const { data }: { data: PoolInfoItem } = e
+    const { address } = data
+    dispatch(ExampleActions.toggleIsDetailsOpen(address))
+    setTimeout(() => {
+      gridApi.current?.forEachNode((node, index) => {
+        if (node.data.address === address) {
+          node.setRowHeight(node.data.isDetailsOpen ? 350 : 135);
+          gridApi.current?.onRowHeightChanged();
+        }
+      });
+    }, 0);
+  }
 
   return (
     <GridWrapper
@@ -122,6 +130,7 @@ export const PoolsList = () => {
       <IsGettingUserPoolsIndicator />
       <AgGridReact
         onGridReady={gridRendered}
+        onRowClicked={handleRowClick}
         animateRows
         headerHeight={0}
         rowHeight={135}
