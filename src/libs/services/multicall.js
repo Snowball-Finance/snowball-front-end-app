@@ -149,6 +149,7 @@ export const generatePoolInfo = ({ item, gauges, contractData, prices }) => {
         totalSupply,
         SNOBHarvestable,
         SNOBValue,
+        gauge,
         underlyingTokens,
         userBalanceSnowglobe,
         userBalanceGauge: gauge ? gauge.staked : 0,

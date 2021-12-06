@@ -31,19 +31,10 @@ const Col = styled('div')({
 
 const PoolRow = (params) => {
   const { data }: { data: PoolInfoItem } = params
-  const gauges = useSelector(selectGauges)
   const snowconeBalance = useSelector(selectSnowConeBalance)
   const totalSnowcone = useSelector(selectTotalSnowConeSupply)
-
-  const selectedGauge = gauges.find((gauge) => {
-    if (data.gaugeInfo) {
-      return gauge.address.toLowerCase() === data.gaugeInfo.address.toLowerCase();
-    }
-  })
-
-
   const boost = () => {
-    if (isEmpty(selectedGauge) || (selectedGauge?.staked || 0) <= 0) {
+    if (isEmpty(data.gauge) || (data.gauge?.staked?.toNumber() || 0) <= 0) {
       return 1.0
     }
     const boostValue = getUserBoost(
@@ -68,6 +59,11 @@ const PoolRow = (params) => {
     } else {
       return 0
     }
+  }
+
+  const handleEndButtonClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation()
+    console.log('handle end button clicked')
   }
 
   return (
@@ -100,7 +96,7 @@ const PoolRow = (params) => {
           </Col>
         </Left>
         <Right>
-          <ContainedButton color="primary" >
+          <ContainedButton color="primary" onClick={handleEndButtonClick} >
             Do Something
           </ContainedButton>
         </Right>
@@ -108,7 +104,6 @@ const PoolRow = (params) => {
       {data.isDetailsOpen && <>Other contents</>}
     </StyledSnowPaper>
   );
-
 }
 
 

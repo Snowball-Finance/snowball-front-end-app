@@ -39,6 +39,7 @@ export interface PoolInfoItem {
   dailyAPY: number
   deprecated: boolean
   userLPBalance?: BigNumber
+  gauge: GaugeItem
   gaugeInfo: GaugeInfo
   kind: string
   lpAddress: string
