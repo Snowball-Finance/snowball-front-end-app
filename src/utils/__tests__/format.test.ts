@@ -16,6 +16,12 @@ describe('(utils/format.ts)', () => {
   })
 
   it('should format number', () => {
+    const number = 123456
+    const expected = '123,456.00'
+    expect(formatNumber(number, 2)).toBe(expected)
+  })
+
+  it('should format number with precision', () => {
     const number = 123456.789
     const expected = '123,456.79'
     expect(formatNumber(number, 2)).toBe(expected)
@@ -25,6 +31,12 @@ describe('(utils/format.ts)', () => {
     const number = 1000000000
     const expected = '1.00000e+9'
     expect(formatNumber(number, 1, true)).toBe(expected)
+  })
+
+  it('should format exponential with precision', () => {
+    const number = 1000000000.123
+    const expected = '1.00000e+9'
+    expect(formatNumber(number, 3, true)).toBe(expected)
   })
 
 })
