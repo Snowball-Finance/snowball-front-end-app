@@ -5,15 +5,15 @@ export const formatPercent = (decimal = 0) => {
   return (decimal * 100).toFixed(2);
 };
 
-export const formatAPY = (apy) => {
+export const formatAPY = (apy: number) => {
   if (apy === Number.POSITIVE_INFINITY) return "∞%";
   return apy.toFixed(2) + "%";
 };
 
-export const formatNumber = (num, precision, exponencial = false) =>
+export const formatNumber = (num: number, precision: number, exponential = false) =>
   num ?
-    //exponencial for numbers too big/too small
-    (exponencial && (num > 10 ** 5 || num < 1e-3)) ?
+    //exponential for numbers too big/too small
+    (exponential && (num > 10 ** 5 || num < 1e-3)) ?
       Number(num).toExponential(5)
       :
       num.toLocaleString(undefined, {
@@ -25,7 +25,7 @@ export const formatNumber = (num, precision, exponencial = false) =>
 
 //this function doesnt parse scientific notation floats, you need
 //to use toLocaleString if you want to avoid it
-export const floatToBN = (number, decimals = 18) => {
+export const floatToBN = (number: number, decimals = 18) => {
   try {
     if (!isEmpty(number)) {
       return ethers.utils.parseUnits(roundDown(number, decimals), decimals);
