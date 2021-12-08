@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { isEmpty, roundDown } from "./utility";
 
 export const formatPercent = (decimal = 0) => {
@@ -37,7 +37,7 @@ export const floatToBN = (number: number, decimals = 18) => {
   }
 }
 
-export const BNToString = (bn, decimals = 18) => {
+export const BNToString = (bn: BigNumber, decimals = 18) => {
   try {
     //@ts-ignore
     return ethers.utils.formatUnits(bn, decimals).toLocaleString(undefined, { minimumFractionDigits: decimals });
@@ -48,9 +48,9 @@ export const BNToString = (bn, decimals = 18) => {
 
 //be aware that converting too big or too small numbers to float will
 //cause it to be converted to scientific notation
-export const BNToFloat = (bn, decimals = 18) => {
+export const BNToFloat = (bn: BigNumber, decimals = 18) => {
   try {
-    return Number(bn / 10 ** decimals);
+    return Number(bn.div(10).pow(decimals));
   } catch (error: any) {
     console.error(error.message);
   }

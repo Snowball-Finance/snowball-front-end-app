@@ -1,7 +1,5 @@
 import { formatAPY, formatPercent, formatNumber } from 'utils/format'
 
-
-
 describe('(utils/format.ts)', () => {
   it('should formats decimal to percent', () => {
     const decimal = 0.01
