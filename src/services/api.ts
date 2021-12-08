@@ -6,6 +6,7 @@ import {
 import { queryStringer } from 'utils/qs';
 
 import { MessageService, MessageNames } from './message';
+import { toast } from "react-toastify";
 
 
 export class ApiService {
@@ -60,12 +61,6 @@ export class ApiService {
   }
 
   handleRawResponse(rawResponse: Response, params: RequestParameters) {
-    // let c = rawResponse
-    //   .clone()
-    //   .json()
-    //   .then(response => {
-    //     this.extractMessages(response);
-    //   });
     if (!rawResponse.ok) {
       console.log(`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`);
       console.log(rawResponse.status);
@@ -73,11 +68,10 @@ export class ApiService {
         return rawResponse.json();
       }
       if (rawResponse.status === 401) {
-        //toast.error('Authentication Failed');
         MessageService.send({ name: MessageNames.AUTH_ERROR_EVENT });
 
       } else if (rawResponse.status === 500) {
-        // toast.error('connection failed');
+        toast.error('connection failed');
       }
     }
     if (process.env.NODE_ENV !== 'production') {
@@ -115,17 +109,7 @@ export class ApiService {
     }
     return rawResponse.json();
   }
-  // async extractMessages(response) {
-  //   if (response.message) {
-  //     // if (response.message[i].type == 0 || response.message[i].type == 1) {
-  //     //   toast.success(response.message[i].text);
-  //     // } else if (response.message[i].type == 2) {
-  //     //   toast.warn(response.message[i].text);
-  //     // } else {
-  //     //   this.Alert(response.message, 'error');
-  //     // }
-  //   }
-  // }
+
   private getHeaders():
     | Headers
     | string[][]
