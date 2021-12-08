@@ -1,7 +1,7 @@
 import { JOE, PNG, WAVAX } from "./constants"
 
 
-const orderBasePair = (pairs: string[]) => {
+export const orderBasePair = (pairs: string[]) => {
   if (pairs.includes(WAVAX)) {
     if (pairs.indexOf(WAVAX) !== 0) {
       [pairs[0], pairs[1]] = [pairs[1], pairs[0]]
@@ -15,7 +15,6 @@ const orderBasePair = (pairs: string[]) => {
       [pairs[0], pairs[1]] = [pairs[1], pairs[0]]
     }
   }
-
   return pairs
 }
 

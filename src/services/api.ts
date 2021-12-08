@@ -3,7 +3,7 @@ import {
   RequestParameters,
   BaseUrl,
 } from './constants';
-import { queryStringer } from 'utils/formatters';
+import { queryStringer } from 'utils/qs';
 
 import { MessageService, MessageNames } from './message';
 
