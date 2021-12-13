@@ -6,10 +6,10 @@ const urlBase = env.ANALYTICS_ENDPOINT || 'implement_analytics_endpoint'
 
 const instance = createInstance({
   urlBase,
-  siteId: 3,
+  siteId: 1,
   // userId: 'UID76903202', // optional, default value: `undefined`.
-  trackerUrl: `${urlBase}/tracking.php`, // optional, default value: `${urlBase}matomo.php`
-  srcUrl: `${urlBase}/tracking.js`, // optional, default value: `${urlBase}matomo.js`
+  trackerUrl: `${urlBase}matomo.php`, // optional, default value: `${urlBase}matomo.php`
+  srcUrl: `${urlBase}matomo.js`, // optional, default value: `${urlBase}matomo.js`
   disabled: false, // optional, false by default. Makes all tracking calls no-ops if set to true.
   heartBeat: { // optional, enabled by default
     active: true, // optional, default value: true

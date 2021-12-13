@@ -12,6 +12,7 @@ import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 import { AppPages } from "app/constants";
+import { matomo } from "app/containers/Analytics/slice";
 
 interface Props { }
 
