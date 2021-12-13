@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "3.5.5",
+    "@datapunt/matomo-tracker-react": "0.5.1",
     "@emotion/babel-plugin": "11.3.0",
     "@emotion/react": "11.6.0",
     "@emotion/styled": "11.6.0",

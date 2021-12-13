@@ -19,12 +19,14 @@ import { translations } from 'locales/i18n';
 import { Example } from "./containers/pages/Example/Loadable";
 import { IS_DEV } from "utils/sharedData";
 import { BlockChain } from "./containers/BlockChain/Loadable";
+import { Analytics } from "./containers/Analytics/Loadable";
 
 export function App() {
   const { t } = useTranslation();
   return (
     <>
       <BlockChain />
+      <Analytics />
       <ConnectedRouter history={history}>
         <Helmet
           titleTemplate="%s - Snowball"
