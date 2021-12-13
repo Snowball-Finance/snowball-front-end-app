@@ -50,7 +50,8 @@ export const BNToString = (bn: BigNumber, decimals = 18) => {
 //cause it to be converted to scientific notation
 export const BNToFloat = (bn: BigNumber, decimals = 18) => {
   try {
-    return Number(bn.div(10).pow(decimals));
+    //@ts-ignore
+    return Number(bn / 10 ** decimals);
   } catch (error: any) {
     console.error(error.message);
   }
