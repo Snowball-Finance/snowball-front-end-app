@@ -1,4 +1,4 @@
-import { LocalStorageKeys, SessionStorageKeys } from 'services/constants';
+import { LocalStorageKeys, SessionStorageKeys } from 'services/types';
 
 export const storage = {
   write: (key: LocalStorageKeys, data: any) => {

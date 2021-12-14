@@ -1,4 +1,4 @@
-import { JOE, PNG, WAVAX } from "./constants"
+import { JOE, PNG, WAVAX } from "config"
 
 
 export const orderBasePair = (pairs: string[]) => {

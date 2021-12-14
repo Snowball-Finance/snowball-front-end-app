@@ -1,7 +1,7 @@
 
 
 import { call, put, select, takeLatest } from "redux-saga/effects";
-import { injected } from "utils/wallet/connectors";
+import { injected } from "app/containers/BlockChain/utils/wallet/connectors";
 import { selectWeb3Domain } from "./selectors";
 import { Web3Actions } from "./slice";
 import { Web3State } from "./types";

@@ -1,7 +1,7 @@
 
 import { Box, styled } from "@mui/material";
-import { generateIconSrcByAddress } from "utils/generateIconSrcByAddress";
-import orderBasePair from "utils/orderBasePair";
+import { generateIconSrcByAddress } from "common/generateIconSrcByAddress";
+import orderBasePair from "common/orderBasePair";
 
 const Wrapper = styled('div')<any>(({ theme, size, flat }) => ({
   width: `${size || 50}px`,

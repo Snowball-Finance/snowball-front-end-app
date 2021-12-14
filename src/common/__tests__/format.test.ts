@@ -1,4 +1,4 @@
-import { formatAPY, formatPercent, formatNumber } from 'utils/format'
+import { formatAPY, formatPercent, formatNumber } from 'common/format'
 
 describe('(utils/format.ts)', () => {
   it('should formats decimal to percent', () => {

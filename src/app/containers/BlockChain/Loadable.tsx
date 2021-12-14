@@ -4,6 +4,6 @@
 *
 */
 import React from 'react';
-import { lazyLoad } from 'utils/loadable';
+import { lazyLoad } from 'common/loadable';
 
 export const BlockChain = lazyLoad(() => import('./index'), module => module.BlockChain, { fallback: <></>, },);

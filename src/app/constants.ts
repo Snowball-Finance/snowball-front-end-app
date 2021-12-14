@@ -1,7 +1,5 @@
-/* eslint-disable */
-export enum AppPages {
-  RootPage = '/',
-  HomePage = '/home',
-  Example = '/example',
-  // [INSERT NEW PAGE PATH ABOVE] < Needed for generating containers seamlessly
-}
+
+
+export const AuthBaseUrl = `https://auth.Skeleton.io`
+
+export const BaseUrl = `https://base.Skeleton.io`

@@ -1,4 +1,4 @@
-import { env } from "utils/environment/variables"
+import { env } from "environment"
 
 const IS_MAINNET = env.NETWORK === 'mainnet'
 
@@ -46,9 +46,17 @@ const CONTRACTS = {
   }
 }
 
+const WAVAX = '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7';
+const PNG = '0x60781C2586D68229fde47564546784ab3fACA982';
+const JOE = '0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd';
+
 export {
   IS_MAINNET,
   C_CHAIN_ID,
   CONTRACTS,
-  MAX_RETRIES
+  MAX_RETRIES,
+  WAVAX,
+  PNG,
+  JOE
 }
+

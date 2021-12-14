@@ -1,5 +1,5 @@
-import { LocalStorageKeys } from "services/constants";
-import { storage } from "utils/storage";
+import { LocalStorageKeys } from "services/types";
+import { storage } from "store/storage";
 
 
 

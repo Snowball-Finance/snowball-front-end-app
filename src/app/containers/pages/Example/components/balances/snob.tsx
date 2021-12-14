@@ -2,7 +2,7 @@ import { CircularProgress, styled } from "@mui/material";
 import { selectIsLoadingSnobBalance, selectSnobBalance } from "app/containers/BlockChain/selectors";
 import { FC } from "react";
 import { useSelector } from "react-redux";
-import { BNToFloat } from "utils/format";
+import { BNToFloat } from "common/format";
 
 export const SnobBalance: FC = () => {
   const isLoading = useSelector(selectIsLoadingSnobBalance)

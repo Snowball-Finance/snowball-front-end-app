@@ -1,12 +1,12 @@
 import {
   RequestTypes,
   RequestParameters,
-  BaseUrl,
-} from './constants';
-import { queryStringer } from 'utils/qs';
+} from './types';
+import { queryStringer } from 'services/qs';
 
 import { MessageService, MessageNames } from './message';
 import { toast } from "react-toastify";
+import { BaseUrl } from "app/constants";
 
 
 export class ApiService {

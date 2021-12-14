@@ -1,10 +1,10 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from 'utils/@reduxjs/toolkit';
+import { createSlice } from 'store/types/toolkit';
 import { ContainerState, Web3Interface } from './types';
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { useInjectReducer, useInjectSaga } from 'store/redux-injectors';
 import { web3Saga } from './saga';
-import { storage } from "utils/storage";
-import { LocalStorageKeys } from "services/constants";
+import { storage } from "store/storage";
+import { LocalStorageKeys } from "services/types";
 
 // The initial state of the Web3 container
 export const initialState: ContainerState = {

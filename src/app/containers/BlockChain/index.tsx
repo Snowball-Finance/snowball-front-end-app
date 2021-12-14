@@ -19,7 +19,7 @@ export function BlockChain() {
   const { snob, snowCone, gaugeProxy } = useSelector(selectCalculatedContracts)
 
   useEffect(() => {
-    if (snob && snowCone) {
+    if (snob && snowCone && gaugeProxy) {
       dispatch(BlockChainActions.setContracts({ snob, snowCone, gaugeProxy }))
     }
   }, [snob])

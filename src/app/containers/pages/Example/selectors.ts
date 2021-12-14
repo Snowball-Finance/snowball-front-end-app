@@ -2,8 +2,8 @@ import { createSelector } from '@reduxjs/toolkit';
 import { selectPrivateProviderDomain } from "app/containers/BlockChain/Ethers/selectors";
 import { selectContractsDomain, selectPricesDomain } from "app/containers/BlockChain/selectors";
 import { selectAccountDomain } from "app/containers/BlockChain/Web3/selectors";
-import { RootState } from 'types';
-import { BNToFloat } from "utils/format";
+import { BNToFloat } from "common/format";
+import { RootState } from "store/types";
 import { initialState } from './slice';
 import { PoolInfoItem } from "./types";
 

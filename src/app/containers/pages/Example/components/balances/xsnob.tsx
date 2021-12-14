@@ -2,7 +2,7 @@ import { CircularProgress, styled, Typography } from "@mui/material";
 import { selectIsLoadingSnowConeBalance, selectSnowConeBalance } from "app/containers/BlockChain/selectors";
 import { FC } from "react";
 import { useSelector } from "react-redux";
-import { BNToFloat } from "utils/format";
+import { BNToFloat } from "common/format";
 
 export const XSnobBalance: FC = () => {
   const isLoading = useSelector(selectIsLoadingSnowConeBalance)

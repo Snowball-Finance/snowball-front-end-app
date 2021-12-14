@@ -1,4 +1,4 @@
-import { getMultiContractData } from "libs/services/multicall";
+import { getMultiContractData } from "services/multicall";
 
 
 

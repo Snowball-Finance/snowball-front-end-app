@@ -1,5 +1,4 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { RootState } from 'types';
 import { selectPrivateProviderDomain } from "./Ethers/selectors";
 import { selectLibraryDomain } from "./Web3/selectors";
 import { initialState } from './slice';
@@ -8,6 +7,7 @@ import { CONTRACTS } from "config";
 import SNOWBALL_ABI from 'libs/abis/snowball.json'
 import SNOWCONE_ABI from 'libs/abis/snowcone.json'
 import GAUGE_PROXY_ABI from 'libs/abis/gauge-proxy.json'
+import { RootState } from "store/types";
 
 const selectDomain = (state: RootState) => state.blockChain || initialState;
 export const selectContractsDomain = (state: RootState) => state.blockChain?.contracts || { ...initialState.contracts };

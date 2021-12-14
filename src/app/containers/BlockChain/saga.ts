@@ -1,13 +1,11 @@
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import { selectAccountDomain } from "./Web3/selectors";
 import { BlockChainActions } from "./slice";
-import { ethers } from 'ethers'
 import { balanceProvider, totalSupplyProvider } from "./providers/balanceAPI";
 import { toast } from "react-toastify";
 import { ContainerState } from "./types";
 import { selectContractsDomain } from "./selectors";
 import { geckoPrice } from "services/coinGecko";
-
 
 export function* getSnobBalance() {
   yield put(BlockChainActions.setIsGettingSnobBalance(true));

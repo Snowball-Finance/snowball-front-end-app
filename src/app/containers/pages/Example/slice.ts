@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from 'utils/@reduxjs/toolkit';
+import { createSlice } from 'store/types/toolkit';
 import { ContainerState, LastSnowballInfo } from './types';
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { useInjectReducer, useInjectSaga } from 'store/redux-injectors';
 
 
 import { exampleSaga } from './saga';

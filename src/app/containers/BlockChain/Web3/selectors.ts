@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { RootState } from "store/types";
 
-import { RootState } from 'types';
 import { initialState } from './slice';
 
 export const selectWeb3Domain = (state: RootState) => state.web3 || initialState;

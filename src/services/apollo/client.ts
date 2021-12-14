@@ -1,10 +1,10 @@
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
-import { env } from "utils/environment/variables";
+import { env, IS_DEV } from "environment";
 
 export const apolloClient = new ApolloClient({
   ssrMode: typeof window === 'undefined',
   link: new HttpLink({
-    uri: env.ENVIRONMENT === 'DEV' ? env.DEVAPIADDR : env.APIADDR,
+    uri: IS_DEV ? env.DEVAPIADDR : env.APIADDR,
   }),
   cache: new InMemoryCache(),
 })

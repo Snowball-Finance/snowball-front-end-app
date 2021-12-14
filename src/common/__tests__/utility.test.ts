@@ -1,4 +1,4 @@
-import { isEmpty } from 'utils/utility'
+import { isEmpty } from 'common/utility'
 
 describe('utils/utility.ts', () => {
   describe('identify empty values', () => {

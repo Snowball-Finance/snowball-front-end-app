@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from 'utils/@reduxjs/toolkit';
+import { createSlice } from 'store/types/toolkit';
 import { ContainerState } from './types';
 
 // The initial state of the HomePage container
@@ -9,7 +9,7 @@ const homePageSlice = createSlice({
   name: 'homePage',
   initialState,
   reducers: {
-    getHomePageInitialDataAction(state, action: PayloadAction<any>) {},
+    getHomePageInitialDataAction(state, action: PayloadAction<any>) { },
   },
 });
 

@@ -1,6 +1,4 @@
 
-import { UnsupportedChainIdError } from '@web3-react/core'
-import { NoEthereumProviderError, UserRejectedRequestError as UserRejectedRequestErrorInjected } from '@web3-react/injected-connector'
 import { MAX_RETRIES } from 'config';
 import { ethers } from 'ethers';
 

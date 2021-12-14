@@ -11,10 +11,10 @@ import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { ItemContainer, Left, PoolName, PoolNameAndProvider, PoolProvider, Right, StyledSnowPaper } from "./components";
 import { selectPrivateProvider } from "app/containers/BlockChain/Ethers/selectors";
 import { ExampleActions } from "../../slice";
-import { isEmpty } from "utils/utility";
+import { isEmpty } from "common/utility";
 import getUserBoost from "../../helpers/getUserBoost";
 import { selectSnowConeBalance, selectTotalSnowConeSupply } from "app/containers/BlockChain/selectors";
-import { formatNumber } from "utils/format";
+import { formatNumber } from "common/format";
 
 interface GridConfigTypes {
   columnDefs: ColDef[];

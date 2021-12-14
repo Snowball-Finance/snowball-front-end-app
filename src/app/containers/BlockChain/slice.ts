@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from 'utils/@reduxjs/toolkit';
+import { createSlice } from 'store/types/toolkit';
 import { ContainerState } from './types';
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { useInjectReducer, useInjectSaga } from 'store/redux-injectors';
 import { blockChainSaga } from './saga';
 import { Contract } from "app/types";
 import { BigNumber } from "@ethersproject/bignumber";

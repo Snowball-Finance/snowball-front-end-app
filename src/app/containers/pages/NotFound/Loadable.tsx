@@ -3,7 +3,7 @@
  */
 
 import { PageLoading } from 'app/components/common/pageLoading';
-import { lazyLoad } from 'utils/loadable';
+import { lazyLoad } from 'common/loadable';
 
 export const NotFoundPage = lazyLoad(
   () => import('./index'),

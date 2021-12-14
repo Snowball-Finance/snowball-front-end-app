@@ -1,7 +1,7 @@
 import { put, takeLatest } from "redux-saga/effects";
 import { ethers } from "ethers";
 import { EthersActions } from "./slice";
-import { AVALANCHE_MAINNET_PARAMS } from "utils/wallet/connectors";
+import { AVALANCHE_MAINNET_PARAMS } from "app/containers/BlockChain/utils/wallet/connectors";
 
 export function* getAndSetProvider() {
   try {

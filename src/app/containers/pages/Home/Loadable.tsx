@@ -4,7 +4,7 @@
  *
  */
 import React from 'react';
-import { lazyLoad } from 'utils/loadable';
+import { lazyLoad } from 'common/loadable';
 import { PageLoading } from 'app/components/common/pageLoading';
 
 export const HomePage = lazyLoad(

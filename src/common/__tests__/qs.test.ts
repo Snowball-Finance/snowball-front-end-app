@@ -1,4 +1,4 @@
-import { queryStringer } from 'utils/qs'
+import { queryStringer } from 'services/qs'
 
 describe('(utils/qs.ts)', () => {
   it('can properly convert json to queryString', () => {

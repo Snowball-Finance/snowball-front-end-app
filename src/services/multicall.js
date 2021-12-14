@@ -1,7 +1,7 @@
 import { Multicall } from 'ethereum-multicall';
 import { ethers } from 'ethers';
-import { BNToFloat, floatToBN } from "utils/format";
-import { isEmpty } from "utils/utility";
+import { BNToFloat, floatToBN } from "common/format";
+import { isEmpty } from "common/utility";
 
 class ContractCall {
     contractAddress = "";

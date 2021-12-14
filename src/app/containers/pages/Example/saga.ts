@@ -2,17 +2,18 @@ import { BigNumber } from "@ethersproject/bignumber";
 import { selectPrivateProviderDomain } from "app/containers/BlockChain/Ethers/selectors";
 import { selectContractsDomain, selectPricesDomain } from "app/containers/BlockChain/selectors";
 import { selectAccountDomain } from "app/containers/BlockChain/Web3/selectors";
-import { generatePoolInfo, getMultiContractData } from "libs/services/multicall";
-import { getGaugeCalls, getPoolCalls } from "libs/services/multicall-queries";
+import { getGaugeCalls, getPoolCalls } from "services/multicall-queries";
 import { toast } from "react-toastify";
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import { query } from "services/apollo/client";
 import { LAST_SNOWBALL_INFO } from "services/apollo/queries/snowballInfo";
 import { requestToAddSnobToMetamask } from "services/global_data";
+import { selectAnalyticsEventDomain } from "snowball-analytics-test";
 import { retrieveGauge } from "./components/providers/gauge";
-import { selectPoolsArrayDomain, selectPoolsObj, selectPoolsObjDomain } from "./selectors";
+import { selectPoolsArrayDomain, selectPoolsObjDomain } from "./selectors";
 import { ExampleActions, initialState } from "./slice";
 import { LastSnowballInfo, PoolInfoItem } from "./types";
+import { generatePoolInfo, getMultiContractData } from "services/multicall";
 
 export function* addSnobToWallet() {
   try {
@@ -118,11 +119,17 @@ export function* toggleIsDetailsOpen(action: {
   payload: string
 }) {
   try {
+    const trackEvent = yield select(selectAnalyticsEventDomain)
     const address = action.payload
     const pools = { ...yield select(selectPoolsObjDomain) }
     const selectedPool = { ...pools[address] }
     selectedPool.isDetailsOpen = !pools[address].isDetailsOpen
     pools[address] = selectedPool
+    trackEvent({
+      category: 'toggle_details',
+      action: selectedPool.isDetailsOpen ? 'open' : 'close',
+      name: selectedPool.name,
+    })
     yield put(ExampleActions.setPools(pools))
   }
   catch (error) {
