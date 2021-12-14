@@ -43,7 +43,7 @@
     "redux-saga": "1.1.3",
     "sanitize.css": "13.0.0",
     "seamless-immutable": "^7.1.4",
-    "snowball-analytics-test": "1.0.19",
+    "snowball-analytics-test": "1.1.0",
     "web3": "1.6.1"
   },
   "scripts": {
