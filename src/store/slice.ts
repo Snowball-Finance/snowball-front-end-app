@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from 'store/types/toolkit';
+import { createSlice } from 'store/toolkit';
 interface ContainerState {
   loggedIn: boolean;
 }

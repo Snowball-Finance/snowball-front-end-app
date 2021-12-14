@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from 'store/types/toolkit';
+import { createSlice } from 'store/toolkit';
 import { ContainerState, EthersState } from './types';
 import { useInjectReducer, useInjectSaga } from 'store/redux-injectors';
 
