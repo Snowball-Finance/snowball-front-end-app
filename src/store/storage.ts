@@ -14,13 +14,11 @@ export const storage = {
     try {
       return JSON.parse(localStorage[key]);
     } catch (error) {
-
       if (ifDoesntExist) {
         localStorage[key] = JSON.stringify(ifDoesntExist);
         return ifDoesntExist;
       }
       return null;
-
     }
   },
   sessionStorage: {

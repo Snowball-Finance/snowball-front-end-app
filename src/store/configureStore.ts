@@ -7,7 +7,7 @@ import { routerMiddleware } from 'connected-react-router';
 import { History } from 'history';
 
 export function configureAppStore(
-  initialState: any | {} = {},
+  _initialState: any | {} = {},
   history: History,
 ) {
   const reduxSagaMonitorOptions = {};
