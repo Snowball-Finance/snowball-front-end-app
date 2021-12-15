@@ -16,29 +16,25 @@ import { useTranslation } from 'react-i18next';
 import { translations } from 'locales/i18n';
 import { Example } from "./containers/pages/Example/Loadable";
 import { BlockChain } from "./containers/BlockChain/Loadable";
-import { Analytics, matomo } from "snowball-analytics-test";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { AppPages } from "./types";
 import { IS_DEV } from "environment";
+import { analytics } from "utils/analytics";
 
 export function App() {
   const { t } = useTranslation();
   const location = useLocation()
 
-  const dispatch = useDispatch()
-
   useEffect(() => {
-    dispatch(matomo.pageView({
+    analytics.trackPageView({
       href: location.pathname,
-    }))
+    })
   }, [location]);
 
 
   return (
     <>
       <BlockChain />
-      <Analytics />
       <Helmet
         titleTemplate="%s - Snowball"
         defaultTitle={t(translations.HomePage.home())}
