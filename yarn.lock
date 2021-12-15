@@ -13296,10 +13296,10 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-snowball-analytics-test@1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/snowball-analytics-test/-/snowball-analytics-test-1.1.5.tgz#137a146c50169df3065d7849b6dd8a4838bc8395"
-  integrity sha512-FhoZGoJwRwz4Kb4pzBsnnviYarbCUAbwoO6UNK+9rLmw5L6BBwBSAlc5rKRT6AaAY0Ldlg952uMWgrUXAF0FeA==
+snowball-analytics-test@1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/snowball-analytics-test/-/snowball-analytics-test-1.1.7.tgz#12c85ba354a0e1810b28540771db07cd8ceac5d6"
+  integrity sha512-jFsgAM3ZAMUsa13tjlXh6djgkeE64QV1WLO1B7To8HxwHLA9K62U58LpJ0UgE+PDp/5Sr4HAeQXafnASIZ5cKA==
   dependencies:
     "@datapunt/matomo-tracker-js" "^0.5.1"
 
