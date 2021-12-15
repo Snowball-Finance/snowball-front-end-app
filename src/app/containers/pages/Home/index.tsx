@@ -12,7 +12,7 @@ import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 import { AppPages } from "app/types";
-import { analytics } from "utils/analytics";
+import { analytics } from "snowball-analytics-test";
 
 
 export const HomePage = () => {

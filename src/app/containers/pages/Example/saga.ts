@@ -13,7 +13,7 @@ import { selectPoolsArrayDomain, selectPoolsObjDomain } from "./selectors";
 import { ExampleActions, initialState } from "./slice";
 import { LastSnowballInfo, PoolInfoItem } from "./types";
 import { generatePoolInfo, getMultiContractData } from "services/multicall";
-import { analytics } from "utils/analytics";
+import { analytics } from "snowball-analytics-test";
 
 export function* addSnobToWallet() {
   try {
