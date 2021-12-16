@@ -1,14 +1,11 @@
 
 export const nodeIsHealthy = async (url) => {
-  var myHeaders = new Headers();
+  let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-
-  var raw = JSON.stringify({ "jsonrpc": "2.0", "id": 1, "method": "health.getLiveness" });
-
-  var requestOptions: RequestInit = {
+  let requestOptions: RequestInit = {
     method: 'POST',
     headers: myHeaders,
-    body: raw,
+    body: JSON.stringify({ "jsonrpc": "2.0", "id": 1, "method": "health.getLiveness" }),
     redirect: 'follow'
   };
   try {
