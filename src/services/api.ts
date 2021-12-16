@@ -2,7 +2,7 @@ import {
   RequestTypes,
   RequestParameters,
 } from './types';
-import { queryStringer } from 'services/qs';
+import { queryStringer } from 'common/qs';
 
 import { MessageService, MessageNames } from './message';
 import { toast } from "react-toastify";

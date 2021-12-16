@@ -11,13 +11,6 @@ export interface RequestParameters {
   isRawUrl?: boolean;
   requestName?: string;
 }
-export enum LocalStorageKeys {
-  CONNECTED_TO_WALLET_ONCE = 'CONNECTED_TO_WALLET_ONCE',
-}
-
-export enum SessionStorageKeys {
-  SOME_KEY = 'SOME_KEY',
-}
 
 export interface StandardResponse {
   status: boolean;
