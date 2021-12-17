@@ -21,9 +21,16 @@ all the useSelectors should be used exactly in the parts that they are wanted, i
 ### types
 all the types related to container state, should be defined in `types.ts` file in the container.
 
+### tokenization
+all the static strings that are used in the view our app, should be implemented with i18n, and be tokenized, like the examples in Example container
+all the static strings that are used in variables or are passed to a method, should be used via type, or enum or at lease in a json var
+for example, we will never use such syntax: localStorage["key"] ="value"
+the correct way is this: localStorage[LocalStorageKeys.key]="value"
+and the LocalStorageKeys can be enum or a json variable
 # coding style
 
 ### refactor flags
 every file containing jsx elements should be less than 150 lines, if it is not, it should be broken down and refactored to multiple components.
 
 core of any component that is using redux, should be refactored to a separate file, core is anything that can dispatch an action, or is waiting for a data from selector, anything other than styling Wrappers.
+
