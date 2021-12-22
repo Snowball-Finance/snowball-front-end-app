@@ -2278,6 +2278,12 @@
   dependencies:
     "@datapunt/matomo-tracker-js" "^0.5.1"
 
+"@snowball-finance/snowball-analytics@Snowball-Finance/snowball-analytics#v1.0.2":
+  version "1.0.0"
+  resolved "https://codeload.github.com/Snowball-Finance/snowball-analytics/tar.gz/7249ef9736461854f4d9dfcfd46b348b87c79eea"
+  dependencies:
+    "@datapunt/matomo-tracker-js" "^0.5.1"
+
 "@surma/rollup-plugin-off-main-thread@^1.1.1":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@surma/rollup-plugin-off-main-thread/-/rollup-plugin-off-main-thread-1.4.2.tgz#e6786b6af5799f82f7ab3a82e53f6182d2b91a58"
