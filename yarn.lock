@@ -2272,6 +2272,12 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@snowball-finance/snowball-analytics@Snowball-Finance/snowball-analytics#1.0.1":
+  version "1.0.0"
+  resolved "https://codeload.github.com/Snowball-Finance/snowball-analytics/tar.gz/f63fb7ad973987af40bf4e0aa45b500be32b278d"
+  dependencies:
+    "@datapunt/matomo-tracker-js" "^0.5.1"
+
 "@surma/rollup-plugin-off-main-thread@^1.1.1":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@surma/rollup-plugin-off-main-thread/-/rollup-plugin-off-main-thread-1.4.2.tgz#e6786b6af5799f82f7ab3a82e53f6182d2b91a58"
@@ -13288,13 +13294,6 @@ snapdragon@^0.8.1:
     source-map "^0.5.6"
     source-map-resolve "^0.5.0"
     use "^3.1.0"
-
-snowball-analytics-test@1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/snowball-analytics-test/-/snowball-analytics-test-1.1.7.tgz#12c85ba354a0e1810b28540771db07cd8ceac5d6"
-  integrity sha512-jFsgAM3ZAMUsa13tjlXh6djgkeE64QV1WLO1B7To8HxwHLA9K62U58LpJ0UgE+PDp/5Sr4HAeQXafnASIZ5cKA==
-  dependencies:
-    "@datapunt/matomo-tracker-js" "^0.5.1"
 
 sockjs-client@^1.5.0:
   version "1.5.2"

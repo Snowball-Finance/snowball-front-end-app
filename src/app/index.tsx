@@ -19,7 +19,7 @@ import { BlockChain } from "./containers/BlockChain/Loadable";
 import { useEffect } from "react";
 import { AppPages } from "./types";
 import { IS_DEV } from "environment";
-import { analytics } from "snowball-analytics-test";
+import {analytics} from '@snowball-finance/snowball-analytics'
 
 export function App() {
   const { t } = useTranslation();
