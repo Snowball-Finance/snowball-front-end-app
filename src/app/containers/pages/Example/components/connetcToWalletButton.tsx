@@ -5,8 +5,7 @@ import { translations } from "locales/i18n";
 import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { LocalStorageKeys } from "services/types";
-import { storage } from "store/storage";
+import { LocalStorageKeys, storage } from "store/storage";
 
 
 

@@ -3,8 +3,7 @@ import { createSlice } from 'store/toolkit';
 import { ContainerState, Web3Interface } from './types';
 import { useInjectReducer, useInjectSaga } from 'store/redux-injectors';
 import { web3Saga } from './saga';
-import { storage } from "store/storage";
-import { LocalStorageKeys } from "services/types";
+import { LocalStorageKeys, storage } from "store/storage";
 
 // The initial state of the Web3 container
 export const initialState: ContainerState = {
