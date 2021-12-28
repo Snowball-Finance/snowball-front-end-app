@@ -12,7 +12,6 @@ import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { useDispatch } from "react-redux";
 import { push } from "connected-react-router";
 import { AppPages } from "app/types";
-import {analytics} from '@snowball-finance/snowball-analytics/lib'
 
 export const HomePage = () => {
   useInjectReducer({ key: sliceKey, reducer: HomePageReducer });
@@ -21,17 +20,12 @@ export const HomePage = () => {
   const dispatch = useDispatch()
 
   const handleNavigateClick = () => {
-
-    dispatch(push(AppPages.Example))
-    analytics.trackEvent({
-      category: "HomePage",
-      action: "Navigate to Example"
-    })
+    dispatch(push(AppPages.GovernancePage))
   }
 
   return (
     <ContainedButton onClick={handleNavigateClick} >
-      Go To Example
+      Go To Governance
     </ContainedButton>
   );
 };

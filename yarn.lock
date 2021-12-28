@@ -2272,15 +2272,9 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@snowball-finance/snowball-analytics@Snowball-Finance/snowball-analytics#1.0.1":
+"@snowball-finance/snowball-analytics@Snowball-Finance/snowball-analytics#v1.0.3":
   version "1.0.0"
-  resolved "https://codeload.github.com/Snowball-Finance/snowball-analytics/tar.gz/f63fb7ad973987af40bf4e0aa45b500be32b278d"
-  dependencies:
-    "@datapunt/matomo-tracker-js" "^0.5.1"
-
-"@snowball-finance/snowball-analytics@Snowball-Finance/snowball-analytics#v1.0.2":
-  version "1.0.0"
-  resolved "https://codeload.github.com/Snowball-Finance/snowball-analytics/tar.gz/7249ef9736461854f4d9dfcfd46b348b87c79eea"
+  resolved "https://codeload.github.com/Snowball-Finance/snowball-analytics/tar.gz/84674646437a7ebe43b9442fbcb693ad0a154234"
   dependencies:
     "@datapunt/matomo-tracker-js" "^0.5.1"
 
