@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import { AppPages } from "./types";
 import { IS_DEV } from "environment";
 import {analytics} from '@snowball-finance/snowball-analytics/lib'
+import { Governance } from "./containers/pages/Governance/Loadable";
 
 export function App() {
   const { t } = useTranslation();
@@ -44,6 +45,7 @@ export function App() {
       <Switch>
         <Route exact path={AppPages.RootPage} component={HomePage} />
         {IS_DEV && <Route exact path={AppPages.Example} component={Example} />}
+        <Route path={AppPages.GovernancePage} component={Governance} />
         <Route component={NotFoundPage} />
       </Switch>
     </>
