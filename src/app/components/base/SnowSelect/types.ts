@@ -1,3 +1,4 @@
+import { SelectProps } from "@mui/material";
 import { ReactNode } from 'react';
 
 export interface OptionSnowSelectInterface {
@@ -5,8 +6,9 @@ export interface OptionSnowSelectInterface {
   label: ReactNode;
   value: string;
 }
-export interface SnowSelectInterface {
+export interface SnowSelectInterface extends Omit<SelectProps,'onChange'>  {
   options: OptionSnowSelectInterface[];
   selectedValue: string | number;
+  isFilter?:boolean
   onChange: (value: string) => void;
 }

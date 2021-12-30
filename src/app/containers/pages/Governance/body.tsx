@@ -6,8 +6,6 @@ import { AppPages } from "app/types";
 import { styled } from "@mui/material";
 import { VoteAllocation } from "./subPages/voteAllocation";
 
-
-
 export const GovernanceBody=()=>{
   return (
     <PageWrapper>

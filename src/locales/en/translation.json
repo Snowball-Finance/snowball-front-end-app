@@ -29,10 +29,14 @@
   },
   "GovernancePage": {
     "ActiveProposals": "Active Proposals",
+    "AllProposals": "All Proposals",
+    "NewProposals": "New Proposals",
     "ActiveProposalsDescriptions": "To vote, members must stake their SNOB for xSNOB. Read about proposal details in the Snowball Discord",
     "Governance": "Governance",
     "VotingPower": "Voting Power",
     "Description": "Governance Page",
+    "NewProposal": "New Proposal",
+    "MinXSNOBToSubmitError":"You must stake at least {{minXSnob}} SNOB to submit a proposal",
     "Tabs": {
       "Proposals": "Proposals",
       "VoteAllocation": "Vote Allocation"

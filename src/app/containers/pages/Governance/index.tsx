@@ -20,6 +20,8 @@ import { NavigationTabs } from "./components/navigationTabs";
 export function Governance() {
   useGovernanceSlice()
   const { t } = useTranslation()
+
+
   return (
     <>
       <Helmet>
@@ -27,12 +29,12 @@ export function Governance() {
         <meta name="description" content={`${t(translations.GovernancePage.Description())}`} />
       </Helmet>
       <WalletToggle />
-      <NavigationTabs  />
+      <NavigationTabs />
       <Box mb={4} />
       <PageHead
         title={t(translations.GovernancePage.Governance())}
         description={t(translations.GovernancePage.Description())}
-        
+
       />
       <Box mb={4} />
       <GovernanceBody />

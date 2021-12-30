@@ -9,5 +9,8 @@ export enum CssVariables  {
   primaryBlue='var(--primaryBlue)',
   paperBorderRadius='var(--paperBorderRadius)',
   darkText='var(--darkText)',
+  error='var(--error)',
+  grey='var(--grey)',
+  lightGrey='var(--lightGrey)',
 
 }

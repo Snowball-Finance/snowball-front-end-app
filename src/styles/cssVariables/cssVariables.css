@@ -11,6 +11,9 @@ html{
   --lightBlue: #C8E6FE;
   --mildBlue:#E9F5FE;
   --darkText:#6E6B7B;
+  --grey:#8E8E8E;
+  --lightGrey:#E5E5E5;
   --navigationTabTextColor: #333;
+  --error:#D62839;
   --paperBorderRadius:8px;
 }
