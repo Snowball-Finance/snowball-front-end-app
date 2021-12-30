@@ -17,7 +17,7 @@ export const NewProposalButton = () => {
   const { t } = useTranslation()
   return (
     <StyledButton disabled={hasError} >
-      <Box mr={1}>
+      <Box mr={1} display='flex'>
         <AddInCircleIcon color={hasError ? CssVariables.grey : CssVariables.white} />
       </Box>
       {t(translations.GovernancePage.NewProposal())}
