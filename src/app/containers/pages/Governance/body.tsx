@@ -1,28 +1,15 @@
 import { Route, Switch } from "react-router-dom";
-import { NavigationTabs } from "./components/navigationTabs";
 import { Proposals } from "./subPages/proposals";
 import { NewProposal } from "./subPages/newProposal";
 import { replace } from "connected-react-router";
-import { GovernanceSubPages } from "./subPages/routes";
-import { translations } from "locales/i18n";
+import { GovernanceSubPages } from "./routes";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { AppPages } from "app/types";
 import { styled } from "@mui/material";
+import { VoteAllocation } from "./subPages/voteAllocation";
 
-const pages = ({ t }) => [{
-  path: GovernanceSubPages.active,
-  title: t(translations.GovernancePage.Tabs.Active()),
-},
-{
-  path: GovernanceSubPages.all,
-  title: t(translations.GovernancePage.Tabs.All()),
-},
-{
-  path: GovernanceSubPages.newProposal,
-  title: t(translations.GovernancePage.Tabs.NewProposal()),
-},
-]
+
 
 export const GovernanceBody=()=>{
 
@@ -35,23 +22,18 @@ export const GovernanceBody=()=>{
 
   return (
     <PageWrapper>
-        <NavigationTabs
-          onTabChange={handleTabChange}
-          activePage={path!==AppPages.GovernancePage ? path : GovernanceSubPages.active}
-          pages={pages({ t })}
-        />
         <Switch>
           <Route exact path={AppPages.GovernancePage} >
-            <Proposals filter="active" />
+            <Proposals   />
           </Route>
-          <Route path={`${GovernanceSubPages.active}`} >
-            <Proposals filter="active" />
-          </Route>
-          <Route path={`${GovernanceSubPages.all}`} >
-            <Proposals filter="all" />
+          <Route path={`${GovernanceSubPages.proposals}`} >
+            <Proposals />
           </Route>
           <Route path={`${GovernanceSubPages.newProposal}`} >
-            <NewProposal />
+            <NewProposal   />
+          </Route>
+          <Route path={`${GovernanceSubPages.voteAllocation}`} >
+            <VoteAllocation />
           </Route>
         </Switch>
       </PageWrapper>

@@ -12,7 +12,7 @@ import { translations } from "locales/i18n";
 import { Box } from "@mui/material";
 import { PageHead } from "./components/pageHead";
 import { GovernanceBody } from "./body";
-import { WalletToggle } from "app/components/common/wallettoggle";
+import { WalletToggle } from "app/components/common/walletToggle";
 
 export function Governance() {
   useGovernanceSlice()

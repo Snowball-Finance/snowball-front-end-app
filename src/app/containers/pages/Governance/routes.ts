@@ -1,7 +1,7 @@
 import { AppPages } from "app/types";
 
 export const GovernanceSubPages = {
-  active:`${AppPages.GovernancePage}/active`,
-  all:`${AppPages.GovernancePage}/all`,
+  proposals:`${AppPages.GovernancePage}/proposals`,
   newProposal:`${AppPages.GovernancePage}/new-proposal`,
+  voteAllocation:`${AppPages.GovernancePage}/vote-allocation`,
 }

@@ -7,10 +7,7 @@ import { styled } from "@mui/material"
 import { Max1040 } from "app/components/wrappers/max1040"
 import { VotePower } from "../components/votePower"
 
-interface ProposalsProps {
-  filter: 'all' | 'active'
-}
-export const Proposals: FC<ProposalsProps> = ({ filter }) => {
+export const Proposals: FC= () => {
 
   const { t } = useTranslation()
 
