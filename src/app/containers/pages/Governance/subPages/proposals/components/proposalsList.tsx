@@ -16,9 +16,11 @@ export const ProposalsList = () => {
   }, [])
   return (
     <Wrapper>
-      {proposals.map((proposal) =>  <ProposalListItem key={proposal.index} proposal={proposal} />)}
+      {proposals.map((proposal) => <ProposalListItem key={proposal.index} proposal={proposal} />)}
     </Wrapper>
   )
 }
 
-const Wrapper=styled('div')({})
+const Wrapper=styled('div')({
+  marginTop:'16px'
+})
