@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { ContainerState, ProposalFilters, ProposalsData } from './types';
+import { ContainerState, Proposal, ProposalFilters } from './types';
 import { createSlice } from "store/toolkit";
 import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 
@@ -9,7 +9,7 @@ import { governanceSaga } from './saga';
 export const initialState: ContainerState = {
   selectedProposalFilter:ProposalFilters.All,
   isLoadingProposals:false,
-  proposalsData:undefined
+  proposals:[]
 };
 
 const governanceSlice = createSlice({
@@ -20,8 +20,8 @@ const governanceSlice = createSlice({
     setIsLoadingProposals(state,action:PayloadAction<boolean>){
       state.isLoadingProposals=action.payload
     },
-    setProposalsData(state,action:PayloadAction<ProposalsData>){
-      state.proposalsData=action.payload
+    setProposals(state,action:PayloadAction<Proposal[]>){
+      state.proposals=action.payload
     },
     setProposalFilter(state, action: PayloadAction<ProposalFilters>) {
       state.selectedProposalFilter=action.payload

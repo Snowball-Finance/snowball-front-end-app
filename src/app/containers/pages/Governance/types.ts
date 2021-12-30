@@ -23,16 +23,10 @@ export interface Proposal {
   state: string
   title: string
 }
-export interface ProposalsData {
-  proposalCount: number,
-  proposals: Proposal[],
-  quorumVotes: number
-}
-
 export interface GovernanceState {
   selectedProposalFilter: ProposalFilters,
   isLoadingProposals:boolean,
-  proposalsData:ProposalsData|undefined
+  proposals:Proposal[]
 }
 
 

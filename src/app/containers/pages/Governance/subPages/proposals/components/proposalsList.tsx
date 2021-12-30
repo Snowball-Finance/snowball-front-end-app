@@ -1,19 +1,24 @@
-import { memo, useEffect } from "react"
+import { styled } from "@mui/material"
+import {  useEffect, } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { selectProposals } from "../../../selectors"
+import { selectFilteredProposalsProposals } from "../../../selectors"
 import { GovernanceActions } from "../../../slice"
+import { ProposalListItem } from "./proposalListItem"
 
-export const ProposalsList = memo(() => {
+export const ProposalsList = () => {
+  const proposals = useSelector(selectFilteredProposalsProposals)
+
   const dispatch = useDispatch()
-  const proposals = useSelector(selectProposals)
   useEffect(() => {
     dispatch(GovernanceActions.getProposals({ silent: proposals.length !== 0 }))
     return () => {
     }
   }, [])
   return (
-    <>
-      {proposals.length}
-    </>
+    <Wrapper>
+      {proposals.map((proposal) =>  <ProposalListItem key={proposal.index} proposal={proposal} />)}
+    </Wrapper>
   )
-},()=>true)
+}
+
+const Wrapper=styled('div')({})

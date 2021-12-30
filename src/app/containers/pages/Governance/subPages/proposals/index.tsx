@@ -14,9 +14,9 @@ import { ProposalsList } from "./components/proposalsList"
 
 export const Proposals: FC= () => {
   const { t } = useTranslation()
-
-const actionButtons:InfoButtonProps[]=[
-  {
+  
+  const actionButtons:InfoButtonProps[]=[
+    {
     icon:<InfoIcon  />,
     title:t(translations.Common.MoreInfo()),
     onClick:()=>{}
@@ -27,6 +27,8 @@ const actionButtons:InfoButtonProps[]=[
     onClick:()=>{}
   },
 ]
+
+
 
   return (
     <Max1040 m="auto" mt={2}>

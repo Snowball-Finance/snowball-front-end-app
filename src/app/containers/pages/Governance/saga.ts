@@ -10,7 +10,7 @@ export function* getProposals(action: { type: string, payload: { silent?: boolea
   }
   try {
     const response = yield call(GetProposalsAPI)
-    yield put(GovernanceActions.setProposalsData(response.data.ProposalList))
+    yield put(GovernanceActions.setProposals(response.data.ProposalList.proposals))
   } catch (error) {
     toast.error('error while getting proposals')
   }
