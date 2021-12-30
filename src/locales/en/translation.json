@@ -24,6 +24,9 @@
     "ConnectToWallet": "Connect to Wallet",
     "DisconnectFromWallet": "Disconnect from Wallet"
   },
+  "External": {
+    "Discord": "Discord"
+  },
   "GovernancePage": {
     "ActiveProposals": "Active Proposals",
     "ActiveProposalsDescriptions": "To vote, members must stake their SNOB for xSNOB. Read about proposal details in the Snowball Discord",
@@ -31,9 +34,8 @@
     "VotingPower": "Voting Power",
     "Description": "Governance Page",
     "Tabs": {
-      "Active": "Active",
-      "All": "All",
-      "NewProposal": "New Proposal"
+      "Proposals": "Proposals",
+      "VoteAllocation": "Vote Allocation"
     }
   }
 }

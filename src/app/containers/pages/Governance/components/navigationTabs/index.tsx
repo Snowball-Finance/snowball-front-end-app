@@ -1,28 +1,50 @@
 import { styled, Tab, Tabs } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
+import { AppPages } from "app/types";
+import { replace } from "connected-react-router";
+import { translations } from "locales/i18n";
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { CssVariables } from "styles/cssVariables/cssVariables";
+import { GovernanceSubPages } from "../../routes";
 
-interface Page{
-    path: string;
-    title: string;
-}
-interface NavigationTabsProps {
-  activePage: string;
-  onTabChange: (page: string) => void;
-  pages: Page[]
+const subPages = ({ t }) => [{
+  path: GovernanceSubPages.proposals,
+  title: t(translations.GovernancePage.Tabs.Proposals()),
+
+},
+{
+  path: GovernanceSubPages.voteAllocation,
+  title: t(translations.GovernancePage.Tabs.VoteAllocation()),
+},
+]
+interface Page {
+  path: string;
+  title: string;
 }
 /**
  * 
  * active page should be one of the "page.path"s in the pages array
  */
-export const NavigationTabs:FC<NavigationTabsProps>=({activePage,pages,onTabChange})=>{
+export const NavigationTabs: FC = () => {
+
+  const dispatch = useDispatch()
+  let path = window.location.pathname
+  path = path !== GovernanceSubPages.voteAllocation ? GovernanceSubPages.proposals : path
+  const { t } = useTranslation()
+
+  const pages = subPages({ t })
+
+  const handleTabChange = (page: string) => {
+    dispatch(replace(page))
+  }
 
   return (
-  <Wrapper>
+    <Wrapper>
       <Tabs
-        value={activePage}
-        onChange={(_,path)=>onTabChange(path)}
+        value={path}
+        onChange={(_, path) => handleTabChange(path)}
         indicatorColor='primary'
         textColor='primary'
       >
@@ -30,9 +52,8 @@ export const NavigationTabs:FC<NavigationTabsProps>=({activePage,pages,onTabChan
           return (
             <Tab
               disableRipple={true}
-              className={`${index === 0 ? 'first' : ''} ${
-                index ===pages.length - 1 ? 'last' : ''
-              }  `}
+              className={`${index === 0 ? 'first' : ''} ${index === pages.length - 1 ? 'last' : ''
+                }  `}
               value={item.path}
               key={'segment' + index}
               label={
@@ -44,27 +65,27 @@ export const NavigationTabs:FC<NavigationTabsProps>=({activePage,pages,onTabChan
           );
         })}
       </Tabs>
-  </Wrapper>
+    </Wrapper>
   )
 }
 
 
 
-const Wrapper=styled(SnowPaper)({
-  width:'fit-content',
-  padding:'4px 6px',
-  margin:'auto',
+const Wrapper = styled(SnowPaper)({
   ".MuiTabs-indicator":{
-    height: '36px',
-    background: CssVariables.activeNAvigationTabBackground,
-    borderRadius: '8px',
-    bottom:'5px',
+    backgroundColor: CssVariables.primaryBlue,
   },
-  '.MuiButtonBase-root':{
-    zIndex: '1',
-  },
-  "span":{
+  "span": {
     textTransform: 'none',
-    color:CssVariables.navigationTabTextColor
-  }
+    fontSize:'16px',
+    fontWeight:600,
+    color: CssVariables.navigationTabTextColor
+  },
+  ".Mui-selected":{
+    "span":{
+      color:CssVariables.primaryBlue,
+    }
+  },
+  borderBottomLeftRadius:0,
+  borderBottomRightRadius:0
 })

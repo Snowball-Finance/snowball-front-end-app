@@ -3,26 +3,23 @@ import { SnowPaper } from "app/components/base/SnowPaper";
 import { FC } from "react";
 import coin from 'assets/images/header-coin.png'
 import { CssVariables } from "styles/cssVariables/cssVariables";
-import { SnowButton } from "app/components/base/snowButton";
-import { useTranslation } from "react-i18next";
-import { translations } from "locales/i18n";
+
+import { InfoButton, InfoButtonProps } from "app/components/common/buttons/infoButton";
 
 
 interface TopInfoCardProps {
   title: string;
   desc: string;
   endImage?: string;
-  moreInfoLink?: string;
+  actionButtons?: InfoButtonProps[];
 }
 
 export const TopInfoCard: FC<TopInfoCardProps> = ({
   title,
   desc,
   endImage,
-  moreInfoLink
+  actionButtons
 }) => {
-  const {t} = useTranslation()
-
   const endImg = endImage ?? coin
 
   return (
@@ -33,27 +30,28 @@ export const TopInfoCard: FC<TopInfoCardProps> = ({
       <Desc>
         {desc}
       </Desc>
-      {moreInfoLink && (
-        <MoreInfoLink as='a' href={moreInfoLink} >
-          {t(translations.Common.MoreInfo())}
-        </MoreInfoLink>
+      {actionButtons && (
+        <ButtonsWrapper>
+          {actionButtons.map((item, index) => <InfoButton key={index} {...item} />)}
+        </ButtonsWrapper>
       )}
-      <ImageWrapper image={endImg} />
+      <ImageWrapper $image={endImg} />
     </Wrapper>
   )
 }
 
-const MoreInfoLink = styled(SnowButton)({
-
+const ButtonsWrapper = styled('div')({
+  display: 'flex',
+  gap: '8px',
 })
 
-const ImageWrapper = styled('div')(({ image }: { image: string }) => ({
+const ImageWrapper = styled('div')(({ $image }: { $image: string }) => ({
   width: '164px',
   height: '100%',
-  backgroundSize: 'cover',
+  backgroundSize: 'contain',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
-  backgroundImage: `url(${image})`,
+  backgroundImage: `url(${$image})`,
   position: 'absolute',
   right: 0,
   top: 0
@@ -67,6 +65,7 @@ const Title = styled('h6')({
 })
 
 const Desc = styled('p')({
+  maxWidth: '500px',
   color: CssVariables.darkText,
   fontSize: '12px',
 })
@@ -74,7 +73,7 @@ const Desc = styled('p')({
 
 const Wrapper = styled(SnowPaper)({
   width: '100%',
-  height: '140px',
+  minHeight: '160px',
   display: 'flex',
   position: 'relative',
   alignItems: 'flex-start',
@@ -82,5 +81,5 @@ const Wrapper = styled(SnowPaper)({
   backgroundSize: 'cover',
   justifyContent: 'center',
   padding: '0 32px',
-  background:CssVariables.lightBlue
+  background: CssVariables.lightBlue
 })

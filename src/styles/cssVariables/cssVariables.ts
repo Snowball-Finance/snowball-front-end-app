@@ -1,12 +1,13 @@
-export const CssVariables = {
-  white:'var(--white)',
-  black:'var(--black)',
-  navigationTabBackground:'var(--navigationTabBackground)',
-  activeNAvigationTabBackground:'var(--activeNAvigationTabBackground)',
-  navigationTabTextColor:'var(--navigationTabTextColor)',
-  lightBlue:'var(--lightBlue)',
-  primaryBlue:'var(--primaryBlue)',
-  paperBorderRadius:'var(--paperBorderRadius)',
-  darkText:'var(--darkText)',
+export enum CssVariables  {
+  white='var(--white)',
+  black='var(--black)',
+  navigationTabBackground='var(--navigationTabBackground)',
+  activeNAvigationTabBackground='var(--activeNAvigationTabBackground)',
+  navigationTabTextColor='var(--navigationTabTextColor)',
+  lightBlue='var(--lightBlue)',
+  mildBlue='var(--mildBlue)',
+  primaryBlue='var(--primaryBlue)',
+  paperBorderRadius='var(--paperBorderRadius)',
+  darkText='var(--darkText)',
 
 }

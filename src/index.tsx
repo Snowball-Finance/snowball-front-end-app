@@ -28,6 +28,8 @@ import { ThemeProvider as MaterialThemeProvider } from '@mui/material';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 
+import './styles/cssVariables/cssVariables.css'
+
 import { theme } from "styles/theme";
 import { Web3ReactProvider } from "@web3-react/core";
 import { provider } from 'web3-core';

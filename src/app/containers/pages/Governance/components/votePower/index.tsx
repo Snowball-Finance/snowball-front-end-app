@@ -67,8 +67,8 @@ const Wrapper = styled(SnowPaper)({
   backgroundImage: `url(${xSnobBalanceBackground})`,
   backgroundColor: CssVariables.primaryBlue,
   backgroundSize: 'cover',
-  width: '440px',
-  height: '140px',
+  width: '345px',
+  minHeight: '160px',
   display: 'flex',
   padding: '16px'
 })
