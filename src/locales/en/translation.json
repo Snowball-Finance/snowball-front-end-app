@@ -19,6 +19,10 @@
     "Cancel": "Cancel",
     "Submit": "Submit",
     "Close": "Close",
+    "Details":"Details",
+    "Detail":"Detail",
+    "For":"For",
+    "Against":"Against",
     "Confirm": "Confirm",
     "MoreInfo": "More Info",
     "ConnectToWallet": "Connect to Wallet",
@@ -36,6 +40,7 @@
     "VotingPower": "Voting Power",
     "Description": "Governance Page",
     "NewProposal": "New Proposal",
+    "ProposedBy":"Proposed By",
     "MinXSNOBToSubmitError":"You must stake at least {{minXSnob}} SNOB to submit a proposal",
     "Tabs": {
       "Proposals": "Proposals",

@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { RootState } from 'store/types';
 import { initialState } from './slice';
-import { ProposalFilters } from "./types";
+import { ProposalFilters, ProposalStates } from "./types";
 
 const selectDomain = (state: RootState) => state.governance || initialState;
 const selectSelectedProposalFilterDomain = (state: RootState) => state.governance?.selectedProposalFilter || initialState.selectedProposalFilter;
@@ -30,7 +30,7 @@ export const selectFilteredProposalsProposals = createSelector(
   (proposals, filters) => {
     let list = [...proposals]
     if (filters === ProposalFilters.New) {
-      list = list.filter(p => p.state === 'new')
+      list = list.filter(p => p.state === ProposalStates.new)
     }
     return list
   }

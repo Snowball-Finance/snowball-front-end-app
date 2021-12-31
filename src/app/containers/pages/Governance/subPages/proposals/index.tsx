@@ -9,8 +9,8 @@ import {  InfoButtonProps } from "app/components/common/buttons/infoButton"
 import InfoIcon from "assets/images/iconComponents/info"
 import DiscordIcon from "assets/images/iconComponents/discord"
 import { TopInfoCard } from "../../components/topInfoCard"
-import { ProposalsTop } from "./components/proposalsTop"
-import { ProposalsList } from "./components/proposalsList"
+import { TopWrapper } from "./components/topWrapper"
+import { ProposalsList } from "./components/list"
 
 export const Proposals: FC= () => {
   const { t } = useTranslation()
@@ -41,7 +41,7 @@ export const Proposals: FC= () => {
         />
         <VotePower />
       </Header>
-      <ProposalsTop />
+      <TopWrapper />
       <ProposalsList />
     </Max1040>
   )

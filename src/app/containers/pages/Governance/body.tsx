@@ -5,6 +5,7 @@ import { GovernanceSubPages } from "./routes";
 import { AppPages } from "app/types";
 import { styled } from "@mui/material";
 import { VoteAllocation } from "./subPages/voteAllocation";
+import { ProposalDetails } from "./subPages/details";
 
 export const GovernanceBody=()=>{
   return (
@@ -13,8 +14,11 @@ export const GovernanceBody=()=>{
           <Route exact path={AppPages.GovernancePage} >
             <Proposals />
           </Route>
-          <Route path={`${GovernanceSubPages.proposals}`} >
+          <Route exact path={`${GovernanceSubPages.proposals}`} >
             <Proposals />
+          </Route>
+          <Route path={`${GovernanceSubPages.proposal}`} >
+            <ProposalDetails />
           </Route>
           <Route path={`${GovernanceSubPages.newProposal}`} >
             <NewProposal   />

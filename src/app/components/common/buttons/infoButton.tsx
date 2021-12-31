@@ -12,7 +12,7 @@ export const InfoButton:FC<InfoButtonProps>=({icon,title,onClick})=>{
   return (
     <StyledContainedButton disableElevation onClick={onClick}>
       {title}
-      <Box>
+      <Box display="flex">
         {icon}
       </Box>
       </StyledContainedButton>

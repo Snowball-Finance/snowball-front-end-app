@@ -6,6 +6,7 @@ export enum ProposalFilters {
 
 export enum ProposalStates{
 active="Active",
+new="New",
 defeated='Defeated',
 readyForExecution='Ready For Execution',
 executed='Executed'
@@ -27,7 +28,7 @@ export interface Proposal {
   origin: string
   proposer: string
   startDate: string
-  state: string
+  state: ProposalStates
   title: string
 }
 export interface GovernanceState {

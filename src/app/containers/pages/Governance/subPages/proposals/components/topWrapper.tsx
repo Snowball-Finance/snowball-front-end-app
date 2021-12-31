@@ -1,10 +1,10 @@
 import { Divider, styled } from "@mui/material";
 import { FC } from "react";
 import { NewProposalButton } from "./newProposalButton";
-import { ProposalFilterSelect } from "./proposalFilterSelect";
+import { ProposalFilterSelect } from "./filterSelect";
 import { SubmitPermission } from "./submitPermission";
 
-export const ProposalsTop: FC = () => {
+export const TopWrapper: FC = () => {
   return (
     <Wrapper>
       <SubmitPermission />

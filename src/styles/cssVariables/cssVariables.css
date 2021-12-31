@@ -12,6 +12,10 @@ html{
   --mildBlue:#E9F5FE;
   --darkText:#6E6B7B;
   --grey:#8E8E8E;
+  --green:#28C76F;
+  --mildGreen:rgba(40, 199, 111, 0.12);
+  --red:#DF5F67;
+  --mildRed: rgba(223, 95, 103, 0.12);
   --lightGrey:#E5E5E5;
   --navigationTabTextColor: #333;
   --error:#D62839;

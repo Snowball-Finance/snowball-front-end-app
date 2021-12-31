@@ -3,7 +3,7 @@ import {  useEffect, } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { selectFilteredProposalsProposals } from "../../../selectors"
 import { GovernanceActions } from "../../../slice"
-import { ProposalListItem } from "./proposalListItem"
+import { ProposalListItem } from "./listItem"
 
 export const ProposalsList = () => {
   const proposals = useSelector(selectFilteredProposalsProposals)
