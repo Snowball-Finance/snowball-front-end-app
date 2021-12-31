@@ -9,7 +9,10 @@ import { governanceSaga } from './saga';
 export const initialState: ContainerState = {
   selectedProposalFilter:ProposalFilters.All,
   isLoadingProposals:false,
-  proposals:[]
+  proposals:[],
+  isVotingAgainst:false,
+  isVotingFor:false,
+  isNewProposalFormOpen:false,
 };
 
 const governanceSlice = createSlice({
@@ -22,6 +25,15 @@ const governanceSlice = createSlice({
     },
     setProposals(state,action:PayloadAction<Proposal[]>){
       state.proposals=action.payload
+    },
+    setIsVotingFor(state,action:PayloadAction<boolean>){
+      state.isVotingFor=action.payload
+    },
+    setIsVotingAgainst(state,action:PayloadAction<boolean>){
+      state.isVotingAgainst=action.payload
+    },
+    setIsNewProposalFormOpen(state,action:PayloadAction<boolean>){
+      state.isNewProposalFormOpen=action.payload
     },
     setProposalFilter(state, action: PayloadAction<ProposalFilters>) {
       state.selectedProposalFilter=action.payload

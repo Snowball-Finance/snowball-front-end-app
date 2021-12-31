@@ -22,5 +22,6 @@ export const ProposalsList = () => {
 }
 
 const Wrapper=styled('div')({
-  marginTop:'16px'
+  marginTop:'16px',
+  position:"relative"
 })

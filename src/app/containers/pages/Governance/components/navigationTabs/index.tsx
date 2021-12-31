@@ -28,14 +28,11 @@ interface Page {
  * active page should be one of the "page.path"s in the pages array
  */
 export const NavigationTabs: FC = () => {
-
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   let path = window.location.pathname
   path = path !== GovernanceSubPages.voteAllocation ? GovernanceSubPages.proposals : path
-  const { t } = useTranslation()
-
   const pages = subPages({ t })
-
   const handleTabChange = (page: string) => {
     dispatch(replace(page))
   }
@@ -53,7 +50,7 @@ export const NavigationTabs: FC = () => {
             <Tab
               disableRipple={true}
               className={`${index === 0 ? 'first' : ''} ${index === pages.length - 1 ? 'last' : ''
-                }  `}
+                }`}
               value={item.path}
               key={'segment' + index}
               label={

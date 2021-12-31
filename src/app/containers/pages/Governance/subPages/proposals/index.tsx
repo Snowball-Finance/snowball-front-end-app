@@ -11,6 +11,7 @@ import DiscordIcon from "assets/images/iconComponents/discord"
 import { TopInfoCard } from "../../components/topInfoCard"
 import { TopWrapper } from "./components/topWrapper"
 import { ProposalsList } from "./components/list"
+import { NewProposalForm } from "./components/newProposalForm"
 
 export const Proposals: FC= () => {
   const { t } = useTranslation()
@@ -31,7 +32,8 @@ export const Proposals: FC= () => {
 
 
   return (
-    <Max1040 m="auto" mt={2}>
+    <StyledMax1040 m="auto" mt={2}>
+      <NewProposalForm />
       <Header>
         <TopInfoCard
           title={t(translations.GovernancePage.ActiveProposals())}
@@ -43,9 +45,13 @@ export const Proposals: FC= () => {
       </Header>
       <TopWrapper />
       <ProposalsList />
-    </Max1040>
+    </StyledMax1040>
   )
 }
+
+const StyledMax1040 = styled(Max1040)({
+  position: "relative",
+})
 
 const Header = styled('div')({
   display: 'flex',

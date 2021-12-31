@@ -25,6 +25,8 @@
     "Description":"Description",
     "For":"For",
     "Against":"Against",
+    "Requiredfields":"Required fields",
+    "Required":"Required",
     "Confirm": "Confirm",
     "MoreInfo": "More Info",
     "ConnectToWallet": "Connect to Wallet",
@@ -50,6 +52,12 @@
     "Votingperiodends": "Voting period ends",
     "ProposedBy":"Proposed By",
     "MinXSNOBToSubmitError":"You must stake at least {{minXSnob}} SNOB to submit a proposal",
+    "Titleofnewproposal":"Title of new proposal",
+    "Descriptionofnewproposal":"Description of new proposal",
+    "Proposedby":"Proposed by",
+    "VotingPeriod":"Voting Period",
+    "DiscussionURL":"Discussion URL",
+    "Pros-ConsDocumentURL":"Pros - Cons Document URL",
     "Tabs": {
       "Proposals": "Proposals",
       "VoteAllocation": "Vote Allocation"

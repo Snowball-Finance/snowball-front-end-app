@@ -9,13 +9,12 @@ import SNOWCONE_ABI from 'libs/abis/snowcone.json'
 import GAUGE_PROXY_ABI from 'libs/abis/gauge-proxy.json'
 import { RootState } from "store/types";
 
-const selectDomain = (state: RootState) => state.blockChain || initialState;
+export const selectBlockChainDomain = (state: RootState) => state.blockChain || initialState;
 export const selectContractsDomain = (state: RootState) => state.blockChain?.contracts || { ...initialState.contracts };
 export const selectPricesDomain = (state: RootState) => state.blockChain?.prices || { ...initialState.prices };
-export const selectSnowConeBalanceDomain = (state: RootState) => state.blockChain?.snowConeBalance || { ...initialState.snowConeBalance };
 
 export const selectBlockChain = createSelector(
-  [selectDomain],
+  [selectBlockChainDomain],
   blockChainState => blockChainState,
 );
 
@@ -25,32 +24,32 @@ export const selectPrices = createSelector(
 );
 
 export const selectSnobBalance = createSelector(
-  [selectDomain],
+  [selectBlockChainDomain],
   blockChainState => blockChainState.snowballBalance,
 );
 
 export const selectTotalSnowConeSupply = createSelector(
-  [selectDomain],
+  [selectBlockChainDomain],
   blockChainState => blockChainState.totalSnowConeSupply,
 );
 
 export const selectIsLoadingSnobBalance = createSelector(
-  [selectDomain],
+  [selectBlockChainDomain],
   blockChainState => blockChainState.isGettingSnobBalance,
 );
 
 export const selectIsLoadingSnowConeBalance = createSelector(
-  [selectDomain],
+  [selectBlockChainDomain],
   blockChainState => blockChainState.isGettingSnowConeBalance,
 );
 
 export const selectSnowConeBalance = createSelector(
-  [selectDomain],
+  [selectBlockChainDomain],
   blockChainState => blockChainState.snowConeBalance,
 );
 
 export const selectContracts = createSelector(
-  [selectDomain],
+  [selectBlockChainDomain],
   blockChainState => blockChainState.contracts,
 );
 

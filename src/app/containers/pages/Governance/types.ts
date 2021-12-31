@@ -35,6 +35,9 @@ export interface GovernanceState {
   selectedProposalFilter: ProposalFilters,
   isLoadingProposals:boolean,
   proposals:Proposal[],
+  isVotingFor:boolean,
+  isVotingAgainst:boolean,
+  isNewProposalFormOpen:boolean,
 }
 
 

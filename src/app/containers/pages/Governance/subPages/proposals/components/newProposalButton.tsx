@@ -1,24 +1,25 @@
 import { Box, styled } from "@mui/material"
 import { ContainedButton } from "app/components/common/buttons/containedButton"
-import { selectSnowConeBalance } from "app/containers/BlockChain/selectors"
-import { selectAccount } from "app/containers/BlockChain/Web3/selectors"
 import AddInCircleIcon from "assets/images/iconComponents/addInCircle"
 import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
+import { GovernanceActions } from "../../../slice"
 
 export const NewProposalButton = () => {
+  const dispatch=useDispatch()
+const canAddNewProposal=true//useSelector(selectCanAddNewProposal)
 
-  const xSnobBalance = useSelector(selectSnowConeBalance)
-  const account = useSelector(selectAccount)
+const handleClick=()=>{
+  dispatch(GovernanceActions.setIsNewProposalFormOpen(true))
+}
 
-  const hasError =false // !account || (xSnobBalance!==undefined && (xSnobBalance.toNumber() < 10000))
   const { t } = useTranslation()
   return (
-    <StyledButton disabled={hasError} >
+    <StyledButton disabled={!canAddNewProposal} onClick={handleClick} >
       <Box mr={1} display='flex'>
-        <AddInCircleIcon color={hasError ? CssVariables.grey : CssVariables.white} />
+        <AddInCircleIcon color={!canAddNewProposal ? CssVariables.grey : CssVariables.white} />
       </Box>
       {t(translations.GovernancePage.NewProposal())}
     </StyledButton>
