@@ -13,7 +13,7 @@ export const NewProposalButton = () => {
   const xSnobBalance = useSelector(selectSnowConeBalance)
   const account = useSelector(selectAccount)
 
-  const hasError = !account || (xSnobBalance!==undefined && (xSnobBalance.toNumber() < 10000))
+  const hasError =false // !account || (xSnobBalance!==undefined && (xSnobBalance.toNumber() < 10000))
   const { t } = useTranslation()
   return (
     <StyledButton disabled={hasError} >

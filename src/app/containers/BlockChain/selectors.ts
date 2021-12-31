@@ -12,6 +12,7 @@ import { RootState } from "store/types";
 const selectDomain = (state: RootState) => state.blockChain || initialState;
 export const selectContractsDomain = (state: RootState) => state.blockChain?.contracts || { ...initialState.contracts };
 export const selectPricesDomain = (state: RootState) => state.blockChain?.prices || { ...initialState.prices };
+export const selectSnowConeBalanceDomain = (state: RootState) => state.blockChain?.snowConeBalance || { ...initialState.snowConeBalance };
 
 export const selectBlockChain = createSelector(
   [selectDomain],

@@ -10,6 +10,8 @@ export enum CssVariables  {
   paperBorderRadius='var(--paperBorderRadius)',
   darkText='var(--darkText)',
   error='var(--error)',
+  /**#363636 */
+  dark='var(--dark)',
   grey='var(--grey)',
   green='var(--green)',
   mildGreen='var(--mildGreen)',

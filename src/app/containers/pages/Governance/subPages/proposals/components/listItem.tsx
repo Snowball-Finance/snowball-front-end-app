@@ -1,8 +1,7 @@
-import { Chip, styled } from "@mui/material"
+import { Box, Chip, styled } from "@mui/material"
 
 import { SnowPaper, SnowPaperInterface } from "app/components/base/SnowPaper"
 import { InfoButton } from "app/components/common/buttons/infoButton"
-import { AppPages } from "app/types"
 import ChevronRightInCircle from "assets/images/iconComponents/chevronRightInCircle"
 import { formatNumber } from "common/format"
 import { push } from "connected-react-router"
@@ -13,22 +12,19 @@ import { useDispatch } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
 import { GovernanceSubPages } from "../../../routes"
 import { Proposal, ProposalStates } from "../../../types"
+import { forAndAgainst } from "../../../utils/votes"
 import { VoteProgressBar, VoteProgressBarType } from "./voteProgressBar"
 
 interface ProposalListItemProps {
-  proposal: Proposal
+  proposal: Proposal,
+  short?: boolean
 }
 
-export const ProposalListItem: FC<ProposalListItemProps> = ({ proposal }) => {
+export const ProposalListItem: FC<ProposalListItemProps> = ({ proposal, short }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
-  const { forVotes, againstVotes } = proposal
-
-  const sumOfVotes = forVotes + againstVotes
-
-  const forPercent = (forVotes / sumOfVotes) * 100
-  const againstPercent = (againstVotes / sumOfVotes) * 100
+const {forVotes,againstVotes}=forAndAgainst({proposal})
 
   const handleDetailsClick = () => {
     dispatch(push(`${GovernanceSubPages.proposals}/${proposal.index}`))
@@ -36,9 +32,9 @@ export const ProposalListItem: FC<ProposalListItemProps> = ({ proposal }) => {
 
 
   return (
-    <Wrapper >
-      <StyledSnowPaper active={proposal.state === ProposalStates.executed ? 'true' : ''}>
-        <IndexNameAndStatusWrapper>
+    <Wrapper {...(short &&{marginBottom:'0 !important'})} >
+      <StyledSnowPaper active={proposal.state === ProposalStates.executed ? 'true' : ''} short={short?'true':''}>
+        <IndexNameAndStatusWrapper {...(short && {flex:1,paddingRight:'16px'})} {...(!short &&{width:'310px'})} >
           <DarkText size={12}>
             #{proposal.index}
           </DarkText>
@@ -58,20 +54,23 @@ export const ProposalListItem: FC<ProposalListItemProps> = ({ proposal }) => {
             {proposal.proposer.substring(0, 6) + '...' + proposal.proposer.substring(proposal.proposer.length - 4, proposal.proposer.length)}
           </DarkText>
         </DateAndMiscWrapper>
+        {
+          !short &&
+          <>
+            <VotesBarWrapper>
+              <VoteProgressBar title={`${t(translations.Common.For())}: ${forVotes.formattedVotes}`} percent={forVotes.percent} type={VoteProgressBarType.for} />
+              <VoteProgressBar title={`${t(translations.Common.Against())}: ${againstVotes.formattedVotes}`} percent={againstVotes.percent} type={VoteProgressBarType.against} />
+            </VotesBarWrapper>
 
-        <VotesBarWrapper>
-          <VoteProgressBar title={`${t(translations.Common.For())}: ${formatNumber(forVotes, 2)}`} percent={forPercent} type={VoteProgressBarType.for} />
-          <VoteProgressBar title={`${t(translations.Common.Against())}: ${formatNumber(againstVotes, 2)}`} percent={againstPercent} type={VoteProgressBarType.against} />
-        </VotesBarWrapper>
-
-        <DetailButtonWrapper>
-          <InfoButton
-            icon={<ChevronRightInCircle />}
-            title={t(translations.Common.Details())}
-            onClick={handleDetailsClick}
-          />
-        </DetailButtonWrapper>
-
+            <DetailButtonWrapper>
+              <InfoButton
+                icon={<ChevronRightInCircle />}
+                title={t(translations.Common.Details())}
+                onClick={handleDetailsClick}
+              />
+            </DetailButtonWrapper>
+          </>
+        }
       </StyledSnowPaper>
     </Wrapper>
   )
@@ -131,16 +130,17 @@ const VotesBarWrapper = styled('div')({
 
 const DateAndMiscWrapper = styled('div')({})
 
-const IndexNameAndStatusWrapper = styled('div')({
-  width: '310px'
+const IndexNameAndStatusWrapper = styled(Box)({
+  
 })
 
-const StyledSnowPaper = styled(SnowPaper)<SnowPaperInterface & { active: 'true' | '' }>(({ active }) => ({
+const StyledSnowPaper = styled(SnowPaper)<SnowPaperInterface & { active: 'true' | '',short:'true'|'' }>(({ active,short }) => ({
   padding: '16px 23px',
   display: 'flex',
-  ...(active && { borderLeft: `10px solid ${CssVariables.primaryBlue}` })
+  ...(active && { borderLeft: `10px solid ${CssVariables.primaryBlue}` }),
+  ...(short && { height:'160px' })
 }))
 
-const Wrapper = styled('div')({
+const Wrapper = styled(Box)({
   marginBottom: '16px'
 })

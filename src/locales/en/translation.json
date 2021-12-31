@@ -14,6 +14,7 @@
   "Common": {
     "NoConnectedWallet": "No Connected Wallet",
     "Balance": "Balance",
+    "GoBackTo": "Go Back To {{name}}",
     "Yes": "Yes",
     "No": "No",
     "Cancel": "Cancel",
@@ -21,6 +22,7 @@
     "Close": "Close",
     "Details":"Details",
     "Detail":"Detail",
+    "Description":"Description",
     "For":"For",
     "Against":"Against",
     "Confirm": "Confirm",
@@ -40,6 +42,12 @@
     "VotingPower": "Voting Power",
     "Description": "Governance Page",
     "NewProposal": "New Proposal",
+    "VoteAgainst": "Vote Against",
+    "VoteFor": "Vote For",
+    "DiscussionofproposalinDiscord": "Discussion of proposal in Discord",
+    "ProposalDocument": "Proposal Document",
+    "Votingperiodbegins": "Voting period begins",
+    "Votingperiodends": "Voting period ends",
     "ProposedBy":"Proposed By",
     "MinXSNOBToSubmitError":"You must stake at least {{minXSnob}} SNOB to submit a proposal",
     "Tabs": {

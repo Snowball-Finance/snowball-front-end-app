@@ -6,11 +6,9 @@ type CommonButtonProps = {
   loading?: boolean,
   height?: number,
   width?: number,
-
 }
 
 export type SnowButtonProps = ButtonProps & CommonButtonProps
-
 
 export const SnowButton: FC<SnowButtonProps> = ({ ...props }) => {
   const { loading, children, ...rest } = props
@@ -24,7 +22,6 @@ export const SnowButton: FC<SnowButtonProps> = ({ ...props }) => {
     </StyledButton>
   )
 }
-
 
 const StyledButton = styled(Button)<SnowButtonProps>(({ height, width, theme }) => ({
   ...(height && { height }),

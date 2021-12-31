@@ -8,7 +8,6 @@ import { CssVariables } from "styles/cssVariables/cssVariables";
 
 export const ContainedButton: FC<SnowButtonProps> = (props) => {
   return <StyledButton variant='contained' {...props} />
-
 }
 
 const StyledButton = styled(SnowButton)(({ theme }) => ({

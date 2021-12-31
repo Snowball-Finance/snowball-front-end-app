@@ -34,7 +34,7 @@ export interface Proposal {
 export interface GovernanceState {
   selectedProposalFilter: ProposalFilters,
   isLoadingProposals:boolean,
-  proposals:Proposal[]
+  proposals:Proposal[],
 }
 
 
