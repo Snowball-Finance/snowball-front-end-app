@@ -1,7 +1,8 @@
 import { styled } from "@mui/material"
-import { SnowPaper } from "app/components/base/SnowPaper"
+import { SnowPaper, SnowPaperInterface } from "app/components/base/SnowPaper"
 import { FC } from "react"
-import { Proposal } from "../../../types"
+import { CssVariables } from "styles/cssVariables/cssVariables"
+import { Proposal, ProposalStates } from "../../../types"
 
 interface ProposalListItemProps {
   proposal: Proposal
@@ -9,8 +10,8 @@ interface ProposalListItemProps {
 
 export const ProposalListItem: FC<ProposalListItemProps> = ({ proposal }) => {
   return (
-    <Wrapper>
-      <StyledSnowPaper>
+    <Wrapper >
+      <StyledSnowPaper active={proposal.state===ProposalStates.executed?'true':''}>
         <IndexNameAndStatusWrapper>        </IndexNameAndStatusWrapper>
 
         <DateAndMiscWrapper>        </DateAndMiscWrapper>
@@ -34,9 +35,10 @@ const IndexNameAndStatusWrapper = styled('div')({
 
 })
 
-const StyledSnowPaper = styled(SnowPaper)({
+const StyledSnowPaper = styled(SnowPaper)<SnowPaperInterface & {active:'true'|''}>(({active})=>({
   padding: '16px 23px',
-})
+  ...(active && {borderLeft: `10px solid ${CssVariables.primaryBlue}`})
+}))
 
 const Wrapper = styled('div')({
   marginBottom:'16px'

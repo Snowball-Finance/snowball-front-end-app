@@ -3,6 +3,13 @@ export enum ProposalFilters {
   New = 'new',
   All = 'all'
 }
+
+export enum ProposalStates{
+active="Active",
+defeated='Defeated',
+readyForExecution='Ready For Execution',
+executed='Executed'
+}
 interface ProposalMetadata {
   description: string
   discussion: string

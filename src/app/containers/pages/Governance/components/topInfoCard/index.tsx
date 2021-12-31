@@ -35,7 +35,7 @@ export const TopInfoCard: FC<TopInfoCardProps> = ({
           {actionButtons.map((item, index) => <InfoButton key={index} {...item} />)}
         </ButtonsWrapper>
       )}
-      <ImageWrapper $image={endImg} />
+      <ImageWrapper image={endImg} />
     </Wrapper>
   )
 }
@@ -45,13 +45,13 @@ const ButtonsWrapper = styled('div')({
   gap: '8px',
 })
 
-const ImageWrapper = styled('div')(({ $image }: { $image: string }) => ({
+const ImageWrapper = styled('div')(({ image }: { image: string }) => ({
   width: '164px',
   height: '100%',
   backgroundSize: 'contain',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
-  backgroundImage: `url(${$image})`,
+  backgroundImage: `url(${image})`,
   position: 'absolute',
   right: 0,
   top: 0
