@@ -14,6 +14,19 @@ export const initialState: ContainerState = {
   isNewProposalFormOpen:false,
   isSubmittingNewProposal:false,
   selectedProposal:undefined,
+  newProposalFields:{
+    title:'',
+    description:'',
+    discussion:'',
+    document:'',
+    votingPeriod:'',
+    error:{
+      title:'',
+      description:'',
+      votingPeriod:'',
+    }
+  }
+
 };
 
 const governanceSlice = createSlice({
@@ -42,7 +55,17 @@ const governanceSlice = createSlice({
     setSelectedProposal(state,action:PayloadAction<Proposal>){
       state.selectedProposal=action.payload
     },
+    setNewProposalFields(state,action:PayloadAction<{key:keyof ContainerState['newProposalFields'],value}>){
+      state.newProposalFields[action.payload.key]=action.payload.value
+    },
+    setNewProposalError(state,action:PayloadAction<{key:keyof ContainerState['newProposalFields']['error'],value:string}>){
+      state.newProposalFields.error[action.payload.key]=action.payload.value
+    },
     vote(state,action:PayloadAction<{proposal:Proposal,for:boolean}>){},
+    setIsSubmittingNewProposal(state,action:PayloadAction<boolean>){
+      state.isSubmittingNewProposal=action.payload
+    },
+    submitNewProposal(state,action:PayloadAction<void>){}
   },
 });
 

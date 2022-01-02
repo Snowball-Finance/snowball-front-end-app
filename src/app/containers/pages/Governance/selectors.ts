@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { selectBlockChainDomain } from "app/containers/BlockChain/selectors";
 import { selectAccountDomain } from "app/containers/BlockChain/Web3/selectors";
+import { env } from "environment";
 
 import { RootState } from 'store/types';
 import { initialState } from './slice';
@@ -15,6 +16,7 @@ const selectIsSubmittingNewProposalsDomain = (state: RootState) => state.governa
 const selectIsVotingForDomain = (state: RootState) => state.governance?.isVotingFor || initialState.isVotingFor
 const selectIsVotingAgainstDomain = (state: RootState) => state.governance?.isVotingAgainst || initialState.isVotingAgainst
 const selectIsNewProposalFormOpenDomain = (state: RootState) => state.governance?.isNewProposalFormOpen || initialState.isNewProposalFormOpen
+export const selectNewProposalFieldsDomain=(state: RootState) => state.governance?.newProposalFields || {...initialState.newProposalFields,error:{...initialState.newProposalFields.error}}
 
 export const selectGovernance = createSelector(
   [selectDomain],
@@ -36,24 +38,20 @@ export const selectProposals = createSelector(
   proposals => proposals,
 );
 
-export const selectCanAddNewProposal=createSelector(
-  [selectBlockChainDomain,selectAccountDomain],(blockChain,account)=>{
-    if((blockChain.snowConeBalance && blockChain.snowConeBalance.toNumber()>10000)&&account){
-      return true
-    }
-    return false
-  }
-)
+export const selectNewProposalFields = createSelector(
+  [selectNewProposalFieldsDomain],
+  fields => fields,
+);
 
-export const selectIsVotingFor=createSelector(
+export const selectIsVotingFor = createSelector(
   [selectIsVotingForDomain],
   isVotingFor => isVotingFor,
 )
-export const selectIsVotingAgainst=createSelector(
+export const selectIsVotingAgainst = createSelector(
   [selectIsVotingAgainstDomain],
   isVotingAgainst => isVotingAgainst,
 )
-export const selectIsNewProposalFormOpen=createSelector(
+export const selectIsNewProposalFormOpen = createSelector(
   [selectIsNewProposalFormOpenDomain],
   isNewProposalFormOpen => isNewProposalFormOpen,
 )
@@ -79,4 +77,15 @@ export const selectFilteredProposalsProposals = createSelector(
   }
 );
 
-
+export const selectCanAddNewProposal = createSelector(
+  [selectBlockChainDomain, selectAccountDomain], (blockChain, account) => {
+    if (
+      (blockChain.snowConeBalance &&
+        blockChain.snowConeBalance.toNumber() > Number(env.MINIMUM_TOKEN_FOR_VOTING)) &&
+      account
+    ) {
+      return true
+    }
+    return false
+  }
+)

@@ -43,6 +43,18 @@ export interface GovernanceState {
   isVotingAgainst:boolean,
   isNewProposalFormOpen:boolean,
   isSubmittingNewProposal:boolean,
+  newProposalFields:{
+    title:string,
+    description:string,
+    discussion:string,
+    document:string,
+    votingPeriod:string,
+    error:{
+      title:string,
+      description:string,
+      votingPeriod:string,
+    }
+  }
 }
 
 
