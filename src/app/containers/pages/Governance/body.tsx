@@ -20,9 +20,6 @@ export const GovernanceBody=()=>{
           <Route path={`${GovernanceSubPages.proposal}`} >
             <ProposalDetails />
           </Route>
-          <Route path={`${GovernanceSubPages.newProposal}`} >
-            <NewProposal   />
-          </Route>
           <Route path={`${GovernanceSubPages.voteAllocation}`} >
             <VoteAllocation />
           </Route>
