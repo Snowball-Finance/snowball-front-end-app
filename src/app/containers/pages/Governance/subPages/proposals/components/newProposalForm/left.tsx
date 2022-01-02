@@ -1,38 +1,36 @@
-import { styled, TextField, textFieldClasses } from "@mui/material"
+import { styled, TextField } from "@mui/material"
 import { SnowPaper } from "app/components/base/SnowPaper"
-import { ContainedButton } from "app/components/common/buttons/containedButton"
 import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
 import { CssVariables } from "styles/cssVariables/cssVariables"
 import { NewProposalSubmitButton } from "./submitButton"
 
-export const LeftSection =()=>{
+export const LeftSection = () => {
 
   const { t } = useTranslation()
 
-
-  return          (
-  <Wrapper>
-  <LeftSnowPaper>
-    <InputTitle>
-      {t(translations.GovernancePage.Titleofnewproposal())}
-      <span> *</span>
-    </InputTitle>
-    <TextField fullWidth variant="outlined" margin="dense" />
-    <InputTitle>
-      {t(translations.GovernancePage.Descriptionofnewproposal())}
-      <span> *</span>
-    </InputTitle>
-    <TextField fullWidth variant="outlined" multiline rows={20} />
-    <BottomDescription>
-      <span>* </span>{t(translations.GovernancePage.Requiredfields())}
-    </BottomDescription>
-    <SubmitWrapper>
-   <NewProposalSubmitButton />
-    </SubmitWrapper>
-  </LeftSnowPaper>
-</Wrapper>
-)
+  return (
+    <Wrapper>
+      <LeftSnowPaper>
+        <InputTitle>
+          {t(translations.GovernancePage.Titleofnewproposal())}
+          <span> *</span>
+        </InputTitle>
+        <TextField fullWidth variant="outlined" margin="dense" />
+        <InputTitle>
+          {t(translations.GovernancePage.Descriptionofnewproposal())}
+          <span> *</span>
+        </InputTitle>
+        <TextField fullWidth variant="outlined" multiline rows={20} />
+        <BottomDescription>
+          <span>* </span>{t(translations.GovernancePage.Requiredfields())}
+        </BottomDescription>
+        <SubmitWrapper>
+          <NewProposalSubmitButton />
+        </SubmitWrapper>
+      </LeftSnowPaper>
+    </Wrapper>
+  )
 }
 
 
@@ -53,8 +51,8 @@ const LeftSnowPaper = styled(SnowPaper)({
   display: 'flex',
   flexDirection: 'column',
   gap: '12px',
-  '.MuiFormControl-root':{
-    margin:0
+  '.MuiFormControl-root': {
+    margin: 0
   }
 })
 
