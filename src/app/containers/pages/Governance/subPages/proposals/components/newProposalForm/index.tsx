@@ -27,7 +27,7 @@ export const NewProposalForm = () => {
 
 
   return (
-    <Wrapper ref={ref} isOpen={isOpen ? 'true' : ''}>
+    <Wrapper ref={ref} isopen={isOpen ? 'true' : ''}>
       <Zoom in={isOpen} style={{ transitionDelay: isOpen ? '100ms' : '0ms' }}>
         <ContentWrapper>
           <CloseWrapper onClick={handleCloseClick}>
@@ -80,12 +80,12 @@ const ContentWrapper = styled('div')({
   borderRadius: CssVariables.paperBorderRadius
 })
 
-const Wrapper = styled('div')<{ isOpen: 'true' | '' }>(({ isOpen }) => ({
-  position: isOpen ? 'sticky' : 'absolute',
+const Wrapper = styled('div')<{ isopen: 'true' | '' }>(({ isopen }) => ({
+  position: isopen ? 'sticky' : 'absolute',
   top: 0,
   zIndex: 1,
-  pointerEvents: isOpen ? 'auto' : 'none',
-  opacity: isOpen ? 1 : 0,
+  pointerEvents: isopen ? 'auto' : 'none',
+  opacity: isopen ? 1 : 0,
   transition: 'opacity 0.3s ease-in-out',
   width: '100%',
   height: '100vh',

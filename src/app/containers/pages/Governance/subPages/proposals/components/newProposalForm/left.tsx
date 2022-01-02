@@ -16,7 +16,7 @@ export const LeftSection = () => {
           {t(translations.GovernancePage.Titleofnewproposal())}
           <span> *</span>
         </InputTitle>
-        <TextField fullWidth variant="outlined" margin="dense" />
+        <TextField fullWidth variant="outlined" size="small" margin="dense" />
         <InputTitle>
           {t(translations.GovernancePage.Descriptionofnewproposal())}
           <span> *</span>

@@ -1,7 +1,8 @@
-import { styled, TextField, textFieldClasses } from "@mui/material"
+import { InputAdornment, styled, TextField, textFieldClasses } from "@mui/material"
 import { SnowPaper } from "app/components/base/SnowPaper"
 import { selectAccount } from "app/containers/BlockChain/Web3/selectors"
 import { VotePower } from "app/containers/pages/Governance/components/votePower"
+import { env } from "environment"
 import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -28,16 +29,43 @@ export const RightSection = () => {
         </ProposerWrapper>
         <InputTitle>
           {t(translations.GovernancePage.VotingPeriod())}
+          <span> *</span>
         </InputTitle>
-        <TextField margin="dense" fullWidth />
+        <TextField
+         margin="dense"
+          size="small"
+           fullWidth 
+           type='number'
+           InputProps={{
+             endAdornment:(
+               <InputAdornment position="end">
+                 {env.MINIMUM_VOTING_PERIOD_UNIT}
+               </InputAdornment>
+             )
+           }}
+           inputProps={{
+             min: Number(env.MINIMUM_VOTING_PERIOD),
+             max:Number(env.MAXIMUM_VOTING_PERIOD)
+           }}
+           />
         <InputTitle>
           {t(translations.GovernancePage.DiscussionURL())}
         </InputTitle>
-        <TextField margin="dense" fullWidth />
+        <TextField 
+        margin="dense"
+         size="small"
+          fullWidth
+          placeholder='https://discord.com/channels/...'
+          />
         <InputTitle>
           {t(translations.GovernancePage.ProsConsDocumentURL())}
         </InputTitle>
-        <TextField margin="dense" fullWidth />
+        <TextField
+         margin="dense" 
+         size="small" 
+         fullWidth 
+         placeholder='https://docs.google.com/...'
+         />
       </RightSnowPaper>
     </Wrapper>
   )
@@ -47,6 +75,9 @@ const InputTitle = styled('p')({
   fontSize: '16px',
   margin: 0,
   color: CssVariables.black,
+  'span':{
+    color:CssVariables.red
+  }
 })
 
 const Account = styled('p')({
@@ -67,7 +98,7 @@ const ProposerWrapper = styled('div')({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  marginBottom:'16px'
+  marginBottom: '16px'
 })
 
 const Column = styled('div')({
@@ -81,11 +112,11 @@ const RightSnowPaper = styled(SnowPaper)({
   padding: '20px 12px',
   display: 'flex',
   flexDirection: 'column',
-  gap: '16px'
+  gap: '12px'
 })
 
 const Wrapper = styled(Column)({
-'.MuiFormControl-root':{
-  margin:0
-}
+  '.MuiFormControl-root': {
+    margin: 0
+  }
 })
