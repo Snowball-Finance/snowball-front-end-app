@@ -1,7 +1,10 @@
+import { Contract } from "ethers";
+
 /* --- STATE --- */
 export enum ProposalFilters {
   New = 'new',
-  All = 'all'
+  All = 'all',
+  Active= 'Active',
 }
 
 export enum ProposalStates{
@@ -35,9 +38,11 @@ export interface GovernanceState {
   selectedProposalFilter: ProposalFilters,
   isLoadingProposals:boolean,
   proposals:Proposal[],
+  selectedProposal:Proposal|undefined,
   isVotingFor:boolean,
   isVotingAgainst:boolean,
   isNewProposalFormOpen:boolean,
+  isSubmittingNewProposal:boolean,
 }
 
 

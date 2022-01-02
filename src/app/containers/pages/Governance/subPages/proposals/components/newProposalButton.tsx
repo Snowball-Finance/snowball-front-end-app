@@ -3,13 +3,14 @@ import { ContainedButton } from "app/components/common/buttons/containedButton"
 import AddInCircleIcon from "assets/images/iconComponents/addInCircle"
 import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
+import { selectCanAddNewProposal } from "../../../selectors"
 import { GovernanceActions } from "../../../slice"
 
 export const NewProposalButton = () => {
   const dispatch=useDispatch()
-const canAddNewProposal=true//useSelector(selectCanAddNewProposal)
+const canAddNewProposal=useSelector(selectCanAddNewProposal)
 
 const handleClick=()=>{
   dispatch(GovernanceActions.setIsNewProposalFormOpen(true))

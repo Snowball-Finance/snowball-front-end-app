@@ -9,7 +9,9 @@ import { ProposalFilters, ProposalStates } from "./types";
 const selectDomain = (state: RootState) => state.governance || initialState;
 const selectSelectedProposalFilterDomain = (state: RootState) => state.governance?.selectedProposalFilter || initialState.selectedProposalFilter;
 const selectProposalsDomain = (state: RootState) => state.governance?.proposals || []
+const selectSelectedProposalDomain = (state: RootState) => state.governance?.selectedProposal || initialState.selectedProposal
 const selectIsLoadingProposalsDomain = (state: RootState) => state.governance?.isLoadingProposals || initialState.isLoadingProposals
+const selectIsSubmittingNewProposalsDomain = (state: RootState) => state.governance?.isSubmittingNewProposal || initialState.isSubmittingNewProposal
 const selectIsVotingForDomain = (state: RootState) => state.governance?.isVotingFor || initialState.isVotingFor
 const selectIsVotingAgainstDomain = (state: RootState) => state.governance?.isVotingAgainst || initialState.isVotingAgainst
 const selectIsNewProposalFormOpenDomain = (state: RootState) => state.governance?.isNewProposalFormOpen || initialState.isNewProposalFormOpen
@@ -18,10 +20,17 @@ export const selectGovernance = createSelector(
   [selectDomain],
   governanceState => governanceState,
 );
+
 export const selectSelectedProposalFilter = createSelector(
   [selectSelectedProposalFilterDomain],
   filter => filter,
 );
+
+export const selectSelectedProposal = createSelector(
+  [selectSelectedProposalDomain],
+  proposal => proposal,
+);
+
 export const selectProposals = createSelector(
   [selectProposalsDomain],
   proposals => proposals,
@@ -53,12 +62,18 @@ export const selectIsLoadingProposals = createSelector(
   [selectIsLoadingProposalsDomain],
   isLoading => isLoading,
 );
+
+export const selectIsSubmittingNewProposal = createSelector(
+  [selectIsSubmittingNewProposalsDomain],
+  isLoading => isLoading,
+);
+
 export const selectFilteredProposalsProposals = createSelector(
   [selectProposalsDomain, selectSelectedProposalFilterDomain],
   (proposals, filters) => {
     let list = [...proposals]
-    if (filters === ProposalFilters.New) {
-      list = list.filter(p => p.state === ProposalStates.new)
+    if (filters === ProposalFilters.Active) {
+      list = list.filter(p => p.state === ProposalStates.active)
     }
     return list
   }

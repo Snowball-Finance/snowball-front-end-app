@@ -1,16 +1,14 @@
 import { Box, styled } from "@mui/material"
 import { SnowPaper } from "app/components/base/SnowPaper"
-import { ContainedButton } from "app/components/common/buttons/containedButton"
 import { Max1040 } from "app/components/wrappers/max1040"
-import ThumbsDownIcon from "assets/images/iconComponents/thumbsDown"
-import ThumbsUpIcon from "assets/images/iconComponents/thumbsUp"
 import { translations } from "locales/i18n"
+import { useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
 import { VotePower } from "../../components/votePower"
 import { GovernanceSubPages } from "../../routes"
-import { selectProposals } from "../../selectors"
+import { selectProposals, selectSelectedProposal } from "../../selectors"
 import { forAndAgainst } from "../../utils/votes"
 import { ProposalListItem } from "../proposals/components/listItem"
 import { VoteProgressBar, VoteProgressBarType } from "../proposals/components/voteProgressBar"
@@ -20,7 +18,6 @@ import { VoteButtons } from "./components/voteButtons"
 
 export const ProposalDetails = () => {
   const { t } = useTranslation()
-
   const index = Number(window.location.pathname.split(GovernanceSubPages.proposals + '/')[1])
 
   const proposals = useSelector(selectProposals)

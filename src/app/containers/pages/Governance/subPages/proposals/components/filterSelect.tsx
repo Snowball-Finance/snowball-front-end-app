@@ -15,8 +15,8 @@ const selectOptions = ({ t }): SnowSelectInterface['options'] => ([
     value: ProposalFilters.All
   },
   {
-    label: t(translations.GovernancePage.NewProposals()),
-    value: ProposalFilters.New
+    label: t(translations.GovernancePage.ActiveProposals()),
+    value: ProposalFilters.Active
   },
 ])
 
@@ -41,7 +41,7 @@ export const ProposalFilterSelect = () => {
 }
 
 const StyledSelect=styled(SnowSelect)({
-  minWidth:'195px',
+  minWidth:'205px',
   '.MuiSelect-outlined':{
     paddingLeft:0
   }

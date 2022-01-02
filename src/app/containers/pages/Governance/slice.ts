@@ -2,7 +2,6 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { ContainerState, Proposal, ProposalFilters } from './types';
 import { createSlice } from "store/toolkit";
 import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
-
 import { governanceSaga } from './saga';
 
 // The initial state of the Governance container
@@ -13,6 +12,8 @@ export const initialState: ContainerState = {
   isVotingAgainst:false,
   isVotingFor:false,
   isNewProposalFormOpen:false,
+  isSubmittingNewProposal:false,
+  selectedProposal:undefined,
 };
 
 const governanceSlice = createSlice({
@@ -38,6 +39,10 @@ const governanceSlice = createSlice({
     setProposalFilter(state, action: PayloadAction<ProposalFilters>) {
       state.selectedProposalFilter=action.payload
     },
+    setSelectedProposal(state,action:PayloadAction<Proposal>){
+      state.selectedProposal=action.payload
+    },
+    vote(state,action:PayloadAction<{proposal:Proposal,for:boolean}>){},
   },
 });
 

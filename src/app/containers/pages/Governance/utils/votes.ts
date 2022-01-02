@@ -3,9 +3,7 @@ import { Proposal } from "../types";
 
 export const forAndAgainst=({proposal}:{proposal:Proposal})=>{
   const { forVotes, againstVotes } = proposal
-
   const sumOfVotes = forVotes + againstVotes
-
   const forPercent = (forVotes / sumOfVotes) * 100
   const againstPercent = (againstVotes / sumOfVotes) * 100
 
@@ -21,5 +19,4 @@ export const forAndAgainst=({proposal}:{proposal:Proposal})=>{
       formattedVotes:formatNumber(againstVotes,2)
     }
   }
-
 }

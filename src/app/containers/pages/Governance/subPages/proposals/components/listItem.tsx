@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
 import { GovernanceSubPages } from "../../../routes"
+import { GovernanceActions } from "../../../slice"
 import { Proposal, ProposalStates } from "../../../types"
 import { forAndAgainst } from "../../../utils/votes"
 import { VoteProgressBar, VoteProgressBarType } from "./voteProgressBar"
@@ -33,7 +34,7 @@ const {forVotes,againstVotes}=forAndAgainst({proposal})
 
   return (
     <Wrapper {...(short &&{marginBottom:'0 !important'})} >
-      <StyledSnowPaper active={proposal.state === ProposalStates.executed ? 'true' : ''} short={short?'true':''}>
+      <StyledSnowPaper active={proposal.state === ProposalStates.active ? 'true' : ''} short={short?'true':''}>
         <IndexNameAndStatusWrapper {...(short && {flex:1,paddingRight:'16px'})} {...(!short &&{width:'310px'})} >
           <DarkText size={12}>
             #{proposal.index}
@@ -50,7 +51,7 @@ const {forVotes,againstVotes}=forAndAgainst({proposal})
           </DarkText>
           <DateChip label={proposal.startDate} />
           <DarkText size={10}>
-            {t(translations.GovernancePage.ProposedBy())} :
+            {t(translations.GovernancePage.Proposedby())} :
             {proposal.proposer.substring(0, 6) + '...' + proposal.proposer.substring(proposal.proposer.length - 4, proposal.proposer.length)}
           </DarkText>
         </DateAndMiscWrapper>

@@ -4,22 +4,28 @@
 *
 */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import { useGovernanceSlice } from './slice';
+import { GovernanceActions, useGovernanceSlice } from './slice';
 import { translations } from "locales/i18n";
 import { Box } from "@mui/material";
 import { PageHead } from "./components/pageHead";
 import { GovernanceBody } from "./body";
 import { WalletToggle } from "app/components/common/walletToggle";
 import { NavigationTabs } from "./components/navigationTabs";
-
-
+import { useDispatch } from "react-redux";
 
 export function Governance() {
   useGovernanceSlice()
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(GovernanceActions.getProposals({}))
+    return () => {
+    }
+  }, [])
+
   return (
     <>
       <Helmet>
