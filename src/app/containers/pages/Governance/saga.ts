@@ -8,6 +8,7 @@ import { GovernanceActions } from "./slice";
 import { ContainerState, Proposal } from "./types";
 import { CONTRACTS } from "config";
 import { selectNewProposalFieldsDomain } from "./selectors";
+import { selectPrivateProviderDomain } from "app/containers/BlockChain/Ethers/selectors";
 
 export function* getProposals(action: { type: string, payload: { silent?: boolean } }) {
   const { silent } = action.payload

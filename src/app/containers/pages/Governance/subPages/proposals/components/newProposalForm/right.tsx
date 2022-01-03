@@ -36,6 +36,7 @@ export const RightSection = () => {
           size="small"
            fullWidth 
            type='number'
+           placeholder={t(translations.GovernancePage.PeriodInDaysToVote())}
            InputProps={{
              endAdornment:(
                <InputAdornment position="end">
