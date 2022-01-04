@@ -68,6 +68,7 @@ const Desc = styled('p')({
   maxWidth: '500px',
   color: CssVariables.darkText,
   fontSize: '12px',
+  zIndex:1
 })
 
 

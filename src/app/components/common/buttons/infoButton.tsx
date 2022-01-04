@@ -6,11 +6,12 @@ import { ContainedButton } from "./containedButton";
 export interface InfoButtonProps{
   title:string,
   icon:ReactNode,
+  fullWidth?:boolean
   onClick?:()=>void
 }
-export const InfoButton:FC<InfoButtonProps>=({icon,title,onClick})=>{
+export const InfoButton:FC<InfoButtonProps>=({icon,title,onClick,fullWidth})=>{
   return (
-    <StyledContainedButton disableElevation onClick={onClick}>
+    <StyledContainedButton disableElevation onClick={onClick} {...{fullWidth}}>
       {title}
       <Box display="flex">
         {icon}

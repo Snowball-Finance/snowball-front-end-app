@@ -12,6 +12,7 @@ import { TopInfoCard } from "../../components/topInfoCard"
 import { TopWrapper } from "./components/topWrapper"
 import { ProposalsList } from "./components/list"
 import { NewProposalForm } from "./newProposalForm"
+import {  mobile } from "styles/media"
 
 export const Proposals: FC= () => {
   const { t } = useTranslation()
@@ -49,11 +50,18 @@ export const Proposals: FC= () => {
   )
 }
 
-const StyledMax1040 = styled(Max1040)({
+const StyledMax1040 = styled(Max1040)(()=>({
   position: "relative",
-})
+  [mobile]: {
+    padding:'0 16px'
+  },
+}))
 
 const Header = styled('div')({
   display: 'flex',
-  gap:'6px'
+  gap:'6px',
+  [mobile]:{
+    flexDirection: 'column',
+    gap: '24px'
+  }
 })

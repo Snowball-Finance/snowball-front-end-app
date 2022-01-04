@@ -1,15 +1,11 @@
-import { InputAdornment, styled, TextField } from "@mui/material"
+import { styled, TextField } from "@mui/material"
 import { SnowPaper } from "app/components/base/SnowPaper"
+import { selectAccount } from "app/containers/BlockChain/Web3/selectors"
 import { VotePower } from "app/containers/pages/Governance/components/votePower"
-import { env } from "environment"
 import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
-import { useDispatch, useSelector } from "react-redux"
+import {  useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
-import { selectNewProposalFields, selectSelectedProposal } from "../../../selectors"
-import { GovernanceActions } from "../../../slice"
-import { ContainerState } from "../../../types"
-import { isInvalidPeriod } from "../../../utils/period"
 import { DiscussionInput } from "./inputs/discussion"
 import { DocumentInput } from "./inputs/document"
 import { VotingPeriodInput } from "./inputs/votingPeriod"
@@ -18,11 +14,11 @@ import { VotingPeriodInput } from "./inputs/votingPeriod"
 
 export const RightSection = () => {
   const { t } = useTranslation()
-  const proposal = useSelector(selectSelectedProposal)
-  const proposer = proposal?.proposer
+  const account=useSelector(selectAccount)
+  const proposer = account
   const censoredProposer = proposer ?
     proposer.substring(0, 6) + "***" + proposer.substring(proposer.length - 4, proposer.length) :
-    t(translations.GovernancePage.ProposalNotFound())
+    t(translations.Common.NoConnectedWallet())
 
   return (
     <Wrapper>

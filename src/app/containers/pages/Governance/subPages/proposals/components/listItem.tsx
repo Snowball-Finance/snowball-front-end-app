@@ -1,4 +1,4 @@
-import { Box, Chip, styled } from "@mui/material"
+import { Box, Chip, Divider, dividerClasses, styled } from "@mui/material"
 
 import { SnowPaper, SnowPaperInterface } from "app/components/base/SnowPaper"
 import { InfoButton } from "app/components/common/buttons/infoButton"
@@ -10,6 +10,7 @@ import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
+import { mobile } from "styles/media"
 import { GovernanceSubPages } from "../../../routes"
 import { GovernanceActions } from "../../../slice"
 import { Proposal, ProposalStates } from "../../../types"
@@ -25,17 +26,16 @@ export const ProposalListItem: FC<ProposalListItemProps> = ({ proposal, short })
   const { t } = useTranslation()
   const dispatch = useDispatch()
 
-const {forVotes,againstVotes}=forAndAgainst({proposal})
+  const { forVotes, againstVotes } = forAndAgainst({ proposal })
 
   const handleDetailsClick = () => {
     dispatch(push(`${GovernanceSubPages.proposals}/${proposal.index}`))
   }
 
-
   return (
-    <Wrapper {...(short &&{marginBottom:'0 !important'})} >
-      <StyledSnowPaper active={proposal.state === ProposalStates.active ? 'true' : ''} short={short?'true':''}>
-        <IndexNameAndStatusWrapper {...(short && {flex:1,paddingRight:'16px'})} {...(!short &&{width:'310px'})} >
+    <Wrapper {...(short && { marginBottom: '0 !important' })} >
+      <StyledSnowPaper active={proposal.state === ProposalStates.active ? 'true' : ''} short={short ? 'true' : ''}>
+        <IndexNameAndStatusWrapper {...(short && { flex: 1, paddingRight: '16px' })} {...(!short && { width: '310px' })} >
           <DarkText size={12}>
             #{proposal.index}
           </DarkText>
@@ -44,17 +44,20 @@ const {forVotes,againstVotes}=forAndAgainst({proposal})
           </DarkText>
           <StatusChip state={proposal.state} label={proposal.state} />
         </IndexNameAndStatusWrapper>
-
-        <DateAndMiscWrapper>
-          <DarkText size={12}>
-            {proposal.state}
-          </DarkText>
-          <DateChip label={proposal.startDate} />
+        <DividerOnMobile />
+        <DateAndMiscWrapper short={short?'true':''}>
+          <DateAndChip>
+            <DarkText size={12}>
+              {proposal.state}
+            </DarkText>
+            <DateChip label={proposal.startDate} />
+          </DateAndChip>
           <DarkText size={10}>
             {t(translations.GovernancePage.Proposedby())} :
             {proposal.proposer.substring(0, 6) + '...' + proposal.proposer.substring(proposal.proposer.length - 4, proposal.proposer.length)}
           </DarkText>
         </DateAndMiscWrapper>
+        <DividerOnMobile />
         {
           !short &&
           <>
@@ -76,6 +79,8 @@ const {forVotes,againstVotes}=forAndAgainst({proposal})
     </Wrapper>
   )
 }
+
+const DateAndChip = styled('div')({})
 
 const DateChip = styled(Chip)({
   background: CssVariables.mildBlue,
@@ -117,7 +122,13 @@ const DarkText = styled('p')<{ size: number }>(({ size }) => ({
 
 const DetailButtonWrapper = styled('div')({
   display: 'flex',
-  alignItems: 'center'
+  alignItems: 'center',
+  [mobile]: {
+    '.MuiButton-root': {
+      width: '100%',
+      height: '36px'
+    }
+  }
 })
 
 const VotesBarWrapper = styled('div')({
@@ -126,20 +137,50 @@ const VotesBarWrapper = styled('div')({
   flexDirection: "column",
   gap: '24px',
   flex: 1,
-  padding: '0 32px'
+  padding: '0 32px',
+  [mobile]: {
+    marginBottom: '16px',
+    padding:0,
+    gap:'6px'
+  }
 })
 
-const DateAndMiscWrapper = styled('div')({})
+const DateAndMiscWrapper = styled('div')<{short: 'true' | '' }>(({short})=>({
+  [mobile]:{
+    display:'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    ...(short && { flexDirection: 'column' ,alignItems:'start'}),
+  }
+}))
 
 const IndexNameAndStatusWrapper = styled(Box)({
-  
+
 })
 
-const StyledSnowPaper = styled(SnowPaper)<SnowPaperInterface & { active: 'true' | '',short:'true'|'' }>(({ active,short }) => ({
+const DividerOnMobile = styled(Divider)({
+  display: 'none',
+  [mobile]: {
+    display: 'block',
+    margin: '16px 0'
+  }
+})
+
+const StyledSnowPaper = styled(SnowPaper)<SnowPaperInterface & { active: 'true' | '', short: 'true' | '' }>(({ active, short }) => ({
   padding: '16px 23px',
   display: 'flex',
   ...(active && { borderLeft: `10px solid ${CssVariables.primaryBlue}` }),
-  ...(short && { height:'160px' })
+  ...(short && { height: '160px' }),
+  [mobile]: {
+    ...(active && { borderLeft: 'unset', borderTop: `10px solid ${CssVariables.primaryBlue}` }),
+    flexDirection: 'column',
+    ...(short && {
+      height:'unset',
+      gap:'16px',
+      '.MuiDivider-root': {
+      display:'none'
+    } }),
+  }
 }))
 
 const Wrapper = styled(Box)({

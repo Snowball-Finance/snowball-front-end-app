@@ -17,33 +17,48 @@ interface AdditionalDataProps {
 }
 export const AdditionalData: FC<AdditionalDataProps> = ({ discordLink, documentLink, endTime, startTime }) => {
   const { t } = useTranslation()
-
+  const handleLinkClick = (link: string) => {
+    window.open(link)
+  }
   return (
     <Wrapper>
-      <LinkContainer>
-        <DiscordChatIcon />
-        {t(translations.GovernancePage.DiscussionofproposalinDiscord())}
-        <ExternalLinkIcon />
-      </LinkContainer>
-      <LinkContainer>
-        <DocumentIcon color={CssVariables.dark} />
-        {t(translations.GovernancePage.ProposalDocument())}
-        <ExternalLinkIcon />
-      </LinkContainer>
+      {
+        discordLink
+          ?
+          <LinkContainer onClick={() => handleLinkClick(discordLink)}>
+            <DiscordChatIcon />
+            {t(translations.GovernancePage.DiscussionofproposalinDiscord())}
+            <ExternalLinkIcon />
+          </LinkContainer>
+          :
+          <></>
+
+      }
+      {
+        documentLink
+          ?
+          <LinkContainer onClick={() => handleLinkClick(documentLink)}>
+            <DocumentIcon color={CssVariables.dark} />
+            {t(translations.GovernancePage.ProposalDocument())}
+            <ExternalLinkIcon />
+          </LinkContainer>
+          :
+          <></>
+      }
       <Divider />
       <TimeWrapper>
         <IconAndTimeContainer>
           <ClickIcon color={CssVariables.dark} />
           {t(translations.GovernancePage.Votingperiodbegins())}
         </IconAndTimeContainer>
-          <Time>{startTime}</Time>
+        <Time>{startTime}</Time>
       </TimeWrapper>
       <TimeWrapper>
         <IconAndTimeContainer>
           <ClickIcon color={CssVariables.dark} />
           {t(translations.GovernancePage.Votingperiodends())}
         </IconAndTimeContainer>
-          <Time>{endTime}</Time>
+        <Time>{endTime}</Time>
       </TimeWrapper>
     </Wrapper>
   )
@@ -67,6 +82,7 @@ const TimeWrapper = styled('div')({})
 const LinkContainer = styled('div')({
   display: 'flex',
   gap: '8px',
+  cursor: 'pointer'
 })
 
 const Wrapper = styled(SnowPaper)({

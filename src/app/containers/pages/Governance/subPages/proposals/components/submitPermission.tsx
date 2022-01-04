@@ -7,6 +7,7 @@ import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
+import { mobile } from "styles/media"
 
 export const SubmitPermission = () => {
   const xSnobBalance = useSelector(selectSnowConeBalance)
@@ -31,4 +32,8 @@ export const SubmitPermission = () => {
 const Wrapper = styled('div')({
   color: CssVariables.error,
   fontSize: '16px',
+  [mobile]:{
+    fontSize:'15px',
+    marginBottom: '12px'
+  }
 })

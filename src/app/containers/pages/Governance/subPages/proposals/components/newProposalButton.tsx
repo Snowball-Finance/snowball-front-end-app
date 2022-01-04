@@ -5,7 +5,6 @@ import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
-import { selectCanAddNewProposal } from "../../../selectors"
 import { GovernanceActions } from "../../../slice"
 
 export const NewProposalButton = () => {

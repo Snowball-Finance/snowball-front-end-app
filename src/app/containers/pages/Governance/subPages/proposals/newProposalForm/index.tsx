@@ -1,8 +1,5 @@
-import { styled, TextField, textFieldClasses } from "@mui/material"
+import { styled } from "@mui/material";
 import Zoom from '@mui/material/Zoom';
-import { SnowPaper } from "app/components/base/SnowPaper";
-import { ContainedButton } from "app/components/common/buttons/containedButton";
-import { VotePower } from "app/containers/pages/Governance/components/votePower";
 import { selectIsNewProposalFormOpen } from "app/containers/pages/Governance/selectors";
 import { GovernanceActions } from "app/containers/pages/Governance/slice";
 import CrossIcon from "assets/images/iconComponents/cross";
@@ -11,6 +8,7 @@ import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables";
+import { mobile } from "styles/media";
 import { LeftSection } from "./left";
 import { RightSection } from "./right";
 
@@ -60,7 +58,10 @@ const Title = styled('p')({
 const ProposalBodyWrapper = styled('div')({
   width: '100%',
   display: "flex",
-  gap: '16px'
+  gap: '16px',
+  [mobile]: {
+    flexDirection: 'column-reverse'
+  }
 })
 
 const CloseWrapper = styled('div')({
@@ -76,13 +77,17 @@ const ContentWrapper = styled('div')({
   height: '100%',
   padding: '24px 44px',
   backdropFilter: 'blur(20px)',
-  borderRadius: CssVariables.paperBorderRadius
+  borderRadius: CssVariables.paperBorderRadius,
+  [mobile]: {
+    height: '100vh',
+    overflow: 'auto'
+  }
 })
 
 const Wrapper = styled('div')<{ isopen: 'true' | '' }>(({ isopen }) => ({
   position: isopen ? 'sticky' : 'absolute',
   top: 0,
-  zIndex: 1,
+  zIndex: 2,
   pointerEvents: isopen ? 'auto' : 'none',
   opacity: isopen ? 1 : 0,
   transition: 'opacity 0.3s ease-in-out',

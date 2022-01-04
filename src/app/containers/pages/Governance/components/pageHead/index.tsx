@@ -4,6 +4,7 @@ import bgImage from 'assets/images/page-head-bg-image.png'
 import coin from 'assets/images/header-coin.png'
 import { FC } from "react";
 import { CssVariables } from "styles/cssVariables/cssVariables";
+import { mobile } from "styles/media";
 
 interface PageHeadProps {
   title: string;
@@ -37,7 +38,7 @@ const ImageWrapper = styled('div')(({ image }: { image: string }) => ({
   backgroundImage: `url(${image})`,
   position: 'absolute',
   right: 0,
-  top: 0
+  top: 0,
 }))
 
 const Title = styled('h6')({
@@ -64,4 +65,8 @@ const Wrapper = styled(SnowPaper)(({ image }: { image: string }) => ({
   justifyContent: 'center',
   padding: '0 32px',
   backgroundImage: `url(${image})`,
+  [mobile]:{
+    width:'calc(100% - 32px)',
+    margin:'auto'
+  }
 }))

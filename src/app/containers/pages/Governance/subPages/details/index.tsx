@@ -5,6 +5,7 @@ import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
+import { mobile } from "styles/media"
 import { VotePower } from "../../components/votePower"
 import { GovernanceSubPages } from "../../routes"
 import { selectProposals } from "../../selectors"
@@ -107,6 +108,10 @@ const Descriptions = styled(SnowPaper)({
 const ContentWrapper = styled(Box)({
   display: 'flex',
   gap: '16px',
+  [mobile]:{
+    flexDirection:'column',
+    padding:'0 16px'
+  }
 })
 const Left = styled(Box)({
   flex: 1,

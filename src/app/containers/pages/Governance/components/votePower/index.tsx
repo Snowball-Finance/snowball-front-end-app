@@ -9,6 +9,7 @@ import logo from "assets/images/logo.svg";
 import { useTranslation } from "react-i18next";
 import { translations } from "locales/i18n";
 import { selectAccount } from "app/containers/BlockChain/Web3/selectors";
+import { mobile } from "styles/media";
 
 export const VotePower: FC = () => {
   const xSnobBalance = useSelector(selectSnowConeBalance)
@@ -70,5 +71,8 @@ const Wrapper = styled(SnowPaper)({
   width: '345px',
   minHeight: '160px',
   display: 'flex',
-  padding: '16px'
+  padding: '16px',
+  [mobile]:{
+    width:'100%'
+  }
 })
