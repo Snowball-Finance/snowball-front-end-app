@@ -59,7 +59,7 @@ export const VoteStatus: FC<Props> = ({ proposal }) => {
           (isLoading || isVotingFor || isVotingAgainst) ?
             <StyledSkeleton variant="text" animation='wave' /> :
             <>
-              <Box mr='8px'>
+              <Box mr='8px' display='flex'>
                 {icon}
               </Box>
               <Message>

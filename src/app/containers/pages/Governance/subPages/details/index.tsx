@@ -66,6 +66,7 @@ const isActive=state === ProposalStates.active
           </Descriptions>
         </Left>
         <Right>
+          <VoteStatus proposal={proposal} />
           {
             isActive ?
               <>
@@ -77,7 +78,6 @@ const isActive=state === ProposalStates.active
                 <VoteBars />
               </VotesColumn>
           }
-          <VoteStatus proposal={proposal} />
           <AdditionalData
             discordLink={proposal.metadata.discussion}
             documentLink={proposal.metadata.document}
