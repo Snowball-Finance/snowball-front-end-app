@@ -34,6 +34,11 @@ export interface Proposal {
   state: ProposalStates
   title: string
 }
+export interface Receipt{
+  hasVoted: boolean
+  support: boolean
+  votes:number|undefined
+}
 export interface GovernanceState {
   selectedProposalFilter: ProposalFilters,
   isLoadingProposals:boolean,
@@ -43,6 +48,8 @@ export interface GovernanceState {
   isVotingAgainst:boolean,
   isNewProposalFormOpen:boolean,
   isSubmittingNewProposal:boolean,
+  iseGettingReceipt:boolean,
+  receipt?:Receipt,
   newProposalFields:{
     title:string,
     description:string,

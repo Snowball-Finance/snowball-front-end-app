@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { ContainerState, Proposal, ProposalFilters } from './types';
+import { ContainerState, Proposal, ProposalFilters, Receipt } from './types';
 import { createSlice } from "store/toolkit";
 import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 import { governanceSaga } from './saga';
@@ -14,6 +14,7 @@ export const initialState: ContainerState = {
   isNewProposalFormOpen:false,
   isSubmittingNewProposal:false,
   selectedProposal:undefined,
+  iseGettingReceipt:false,
   newProposalFields:{
     title:'',
     description:'',
@@ -34,6 +35,13 @@ const governanceSlice = createSlice({
   initialState,
   reducers: {
     getProposals(state,action:PayloadAction<{silent?:boolean}>){},
+    getVotingReceipt(state,action:PayloadAction<{proposal:Proposal}>){},
+    setVotingReceipt(state,action:PayloadAction<Receipt|undefined>){
+      state.receipt=action.payload
+    },
+    setIsGettingReceipt(state,action:PayloadAction<boolean>){
+      state.iseGettingReceipt = action.payload
+    },
     setIsLoadingProposals(state,action:PayloadAction<boolean>){
       state.isLoadingProposals=action.payload
     },
@@ -61,7 +69,7 @@ const governanceSlice = createSlice({
     setNewProposalError(state,action:PayloadAction<{key:keyof ContainerState['newProposalFields']['error'],value:string}>){
       state.newProposalFields.error[action.payload.key]=action.payload.value
     },
-    vote(state,action:PayloadAction<{proposal:Proposal,for:boolean}>){},
+    vote(state,action:PayloadAction<{proposal:Proposal,voteFor:boolean}>){},
     setIsSubmittingNewProposal(state,action:PayloadAction<boolean>){
       state.isSubmittingNewProposal=action.payload
     },

@@ -59,6 +59,24 @@
     "PeriodInDaysToVote":"Period in days to vote...",
     "DiscussionURL": "Discussion URL",
     "ProsConsDocumentURL": "Pros - Cons Document URL",
+    "VoteAllocation":{
+      "XSNOB_BALANCE_NEEDED_TO_VOTE":"{{amount}} XSNOB Balance Needed To Vote",
+      "SNOBRewardAllocations":"SNOB Reward Allocations",
+      "Votethepairyouprefer": "Vote the pair you prefer",
+      "BottomDescs":"This chart shows the current SNOB reward allocations per pool (updated daily).",
+      "Voteforyourpreferredpair":"Vote for your preferred pair",
+      "SelectAll":"Select All",
+      "Name":"Name",
+      "Platform":"Platform",
+      "Allocation":"Allocation",
+      "Allocationperday":"Allocation per day",
+      "SNOBAPR":"SNOB APR",
+      "BoostedSNOBAPR":"Boosted SNOB APR",
+      "VoteWeight":"Vote Weight",
+      "Balance":"Balance",
+      "TopDescs":"Once you've voted, your votes will continue to rollover each week. There is no need to revote unless you want to change the distribution you've voted for."
+    },
+
     "Tabs": {
       "Proposals": "Proposals",
       "VoteAllocation": "Vote Allocation"

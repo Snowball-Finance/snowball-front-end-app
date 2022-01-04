@@ -11,20 +11,21 @@ export enum VoteProgressBarType {
 interface VoteProgressBarProps {
   percent: number,
   type: VoteProgressBarType,
-  title: string
+  title: string,
+  height?: string
 }
-export const VoteProgressBar: FC<VoteProgressBarProps> = ({ percent, title, type }) => {
+export const VoteProgressBar: FC<VoteProgressBarProps> = ({ percent, title, type, height }) => {
   return (
     <Wrapper>
       <Title>
         {title}
       </Title>
-      <StyledLinearProgress variant="determinate" value={percent} type={type} />
+      <StyledLinearProgress variant="determinate" value={percent} type={type} height={height ?? '6px'} />
     </Wrapper>
   )
 }
 
-const StyledLinearProgress = styled(LinearProgress)<{ type: VoteProgressBarType }>(({ type }) => {
+const StyledLinearProgress = styled(LinearProgress)<{ type: VoteProgressBarType, height: string }>(({ type, height }) => {
   let mainColor = CssVariables.primaryBlue
   let bg = CssVariables.mildBlue
 
@@ -43,10 +44,10 @@ const StyledLinearProgress = styled(LinearProgress)<{ type: VoteProgressBarType 
   }
 
   return ({
-    height: 6,
     borderRadius: 5,
+    height,
     [`&.${linearProgressClasses.colorPrimary}`]: {
-      backgroundColor:bg
+      backgroundColor: bg
     },
     [`& .${linearProgressClasses.bar}`]: {
       borderRadius: 5,
@@ -59,7 +60,7 @@ const StyledLinearProgress = styled(LinearProgress)<{ type: VoteProgressBarType 
 const Title = styled('p')({
   marginTop: 0,
   marginBottom: '0px',
-  fontSize:'12px'
+  fontSize: '12px'
 })
 
 const Wrapper = styled('div')({

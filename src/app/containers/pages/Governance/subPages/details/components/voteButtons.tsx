@@ -21,13 +21,13 @@ export const VoteButtons: FC<{ proposal: Proposal }> = ({ proposal }) => {
 
   const handleForClick=()=>{
     if(library){
-      dispatch(GovernanceActions.vote({proposal,for:true}))
+      dispatch(GovernanceActions.vote({proposal,voteFor:true}))
     }
   }
 
   const handleAgainstClick=()=>{
     if(library){
-      dispatch(GovernanceActions.vote({proposal,for:false}))
+      dispatch(GovernanceActions.vote({proposal,voteFor:false}))
     }
   }
 

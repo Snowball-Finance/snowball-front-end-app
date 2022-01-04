@@ -31,7 +31,8 @@ import 'react-toastify/dist/ReactToastify.css'
 import './styles/cssVariables/cssVariables.css'
 
 import { theme } from "styles/theme";
-import { Web3ReactProvider } from "@web3-react/core";
+import { Web3Provider } from '@ethersproject/providers'
+import { Web3ReactProvider } from '@web3-react/core'
 import { provider } from 'web3-core';
 
 import Web3 from "web3";
@@ -63,15 +64,10 @@ toast.configure({
   // hideProgressBar: true,
 });
 
-const getLibrary = (provider: provider) => {
-  return new Web3(provider);
-}
-
 
 const ConnectedApp = ({ Component }: Props) => (
   <ReduxProvider store={store}>
     <ApolloProvider client={apolloClient}>
-      <Web3ReactProvider {...{ getLibrary }}>
         <MaterialThemeProvider theme={theme}>
           <HelmetProvider>
             <ConnectedRouter history={history}>
@@ -79,7 +75,6 @@ const ConnectedApp = ({ Component }: Props) => (
             </ConnectedRouter>
           </HelmetProvider>
         </MaterialThemeProvider>
-      </Web3ReactProvider>
     </ApolloProvider>
   </ReduxProvider>
 

@@ -17,11 +17,23 @@ const selectIsVotingForDomain = (state: RootState) => state.governance?.isVoting
 const selectIsVotingAgainstDomain = (state: RootState) => state.governance?.isVotingAgainst || initialState.isVotingAgainst
 const selectIsNewProposalFormOpenDomain = (state: RootState) => state.governance?.isNewProposalFormOpen || initialState.isNewProposalFormOpen
 export const selectNewProposalFieldsDomain=(state: RootState) => state.governance?.newProposalFields || {...initialState.newProposalFields,error:{...initialState.newProposalFields.error}}
+const selectIsLoadingReceiptDomain = (state: RootState) => state.governance?.iseGettingReceipt || initialState.iseGettingReceipt
+const selectReceiptDomain = (state: RootState) => state.governance?.receipt || {...initialState.receipt}
 
 export const selectGovernance = createSelector(
   [selectDomain],
   governanceState => governanceState,
 );
+
+export const selectIsLoadingReceipt=createSelector(
+  [selectIsLoadingReceiptDomain],
+  isLoadingReceipt => isLoadingReceipt,
+)
+
+export const selectReceipt=createSelector(
+  [selectReceiptDomain],
+  receipt => receipt,
+)
 
 export const selectSelectedProposalFilter = createSelector(
   [selectSelectedProposalFilterDomain],

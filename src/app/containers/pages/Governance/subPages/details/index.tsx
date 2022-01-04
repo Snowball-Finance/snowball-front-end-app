@@ -9,12 +9,14 @@ import { CssVariables } from "styles/cssVariables/cssVariables"
 import { VotePower } from "../../components/votePower"
 import { GovernanceSubPages } from "../../routes"
 import { selectProposals, selectSelectedProposal } from "../../selectors"
+import { ProposalStates } from "../../types"
 import { forAndAgainst } from "../../utils/votes"
 import { ProposalListItem } from "../proposals/components/listItem"
 import { VoteProgressBar, VoteProgressBarType } from "../proposals/components/voteProgressBar"
 import { AdditionalData } from "./components/additionalData"
 import { TopBackButton } from "./components/topBackButton"
 import { VoteButtons } from "./components/voteButtons"
+import { VoteStatus } from "./components/voteStatus"
 
 export const ProposalDetails = () => {
   const { t } = useTranslation()
@@ -30,6 +32,18 @@ export const ProposalDetails = () => {
   }
   const { forVotes, againstVotes } = forAndAgainst({ proposal })
 
+  const { state } = proposal
+
+  const VoteBars = () => (
+    <>
+      <VoteProgressBar height='11px' title={`${t(translations.Common.For())}: ${forVotes.formattedVotes}`} percent={forVotes.percent} type={VoteProgressBarType.for} />
+      <VoteProgressBar height='11px' title={`${t(translations.Common.Against())}: ${againstVotes.formattedVotes}`} percent={againstVotes.percent} type={VoteProgressBarType.against} />
+
+    </>
+  )
+
+const isActive=true//state === ProposalStates.active
+
   return (
     <Wrapper>
       <TopBackButton
@@ -40,10 +54,12 @@ export const ProposalDetails = () => {
       <ContentWrapper>
         <Left>
           <ProposalListItem proposal={proposal} short />
-          <Votes>
-            <VoteProgressBar title={`${t(translations.Common.For())}: ${forVotes.formattedVotes}`} percent={forVotes.percent} type={VoteProgressBarType.for} />
-            <VoteProgressBar title={`${t(translations.Common.Against())}: ${againstVotes.formattedVotes}`} percent={againstVotes.percent} type={VoteProgressBarType.against} />
-          </Votes>
+          {
+            isActive &&
+            <Votes>
+              <VoteBars />
+            </Votes>
+          }
           <Descriptions>
             <Title>
               {t(translations.Common.Description())}
@@ -52,8 +68,18 @@ export const ProposalDetails = () => {
           </Descriptions>
         </Left>
         <Right>
-          <VotePower />
-          <VoteButtons proposal={proposal} />
+          {
+            isActive ?
+              <>
+                <VotePower />
+                <VoteButtons proposal={proposal} />
+              </>
+              :
+              <VotesColumn>
+                <VoteBars />
+              </VotesColumn>
+          }
+          <VoteStatus proposal={proposal} />
           <AdditionalData
             discordLink={proposal.metadata.discussion}
             documentLink={proposal.metadata.document}
@@ -102,6 +128,13 @@ const Votes = styled(SnowPaper)({
   gap: '36px',
   height: '58px',
   alignItems: 'center'
+})
+
+const VotesColumn = styled(SnowPaper)({
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '12px 16px',
+  gap: '16px',
 })
 
 const Wrapper = styled(Max1040)({
