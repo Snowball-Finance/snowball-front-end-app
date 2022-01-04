@@ -11,7 +11,7 @@ import DiscordIcon from "assets/images/iconComponents/discord"
 import { TopInfoCard } from "../../components/topInfoCard"
 import { TopWrapper } from "./components/topWrapper"
 import { ProposalsList } from "./components/list"
-import { NewProposalForm } from "./components/newProposalForm"
+import { NewProposalForm } from "./newProposalForm"
 
 export const Proposals: FC= () => {
   const { t } = useTranslation()

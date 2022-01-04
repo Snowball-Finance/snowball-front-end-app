@@ -25,7 +25,6 @@ export const NewProposalForm = () => {
     dispatch(GovernanceActions.setIsNewProposalFormOpen(false))
   }
 
-
   return (
     <Wrapper ref={ref} isopen={isOpen ? 'true' : ''}>
       <Zoom in={isOpen} style={{ transitionDelay: isOpen ? '100ms' : '0ms' }}>

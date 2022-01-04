@@ -10,7 +10,7 @@ import { GovernanceActions } from "../../../slice"
 
 export const NewProposalButton = () => {
   const dispatch=useDispatch()
-const canAddNewProposal=true//useSelector(selectCanAddNewProposal)
+const canAddNewProposal=useSelector(selectCanAddNewProposal)
 
 const handleClick=()=>{
   dispatch(GovernanceActions.setIsNewProposalFormOpen(true))
