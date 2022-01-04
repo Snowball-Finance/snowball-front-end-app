@@ -2,6 +2,8 @@ import { Box, Skeleton, styled } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
 import DangerIcon from "assets/images/iconComponents/dangerIcon";
+import ThumbsDownIcon from "assets/images/iconComponents/thumbsDown";
+import ThumbsUpIcon from "assets/images/iconComponents/thumbsUp";
 import { formatNumber } from "common/format";
 import { translations } from "locales/i18n";
 import { FC, useEffect } from "react";
@@ -43,6 +45,7 @@ export const VoteStatus: FC<Props> = ({ proposal }) => {
 
   const bg = isLoading ? CssVariables.white : !hasVoted ? CssVariables.mildYellow : isFor ? CssVariables.green : CssVariables.red
   const color = !hasVoted ? CssVariables.dark : CssVariables.white
+  const icon=!hasVoted?<DangerIcon/>:isFor?<ThumbsUpIcon/>:<ThumbsDownIcon/>
   const isActive = proposal.state === ProposalStates.active
 
   const handleSwitchClick = () => {
@@ -57,7 +60,7 @@ export const VoteStatus: FC<Props> = ({ proposal }) => {
             <StyledSkeleton variant="text" animation='wave' /> :
             <>
               <Box mr='8px'>
-                <DangerIcon />
+                {icon}
               </Box>
               <Message>
                 {message}
