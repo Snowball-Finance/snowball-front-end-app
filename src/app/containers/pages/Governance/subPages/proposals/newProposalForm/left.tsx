@@ -1,25 +1,14 @@
-import { styled, TextField } from "@mui/material"
+import { styled } from "@mui/material"
 import { SnowPaper } from "app/components/base/SnowPaper"
 import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
-import { useDispatch, useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
-import { selectNewProposalFields } from "../../../selectors"
-import { GovernanceActions } from "../../../slice"
-import { ContainerState } from "../../../types"
+import { DescriptionInput } from "./inputs/description"
+import { TitleInput } from "./inputs/title"
 import { NewProposalSubmitButton } from "./submitButton"
 
 export const LeftSection = () => {
-const dispatch=useDispatch()
   const { t } = useTranslation()
-  const formValues=useSelector(selectNewProposalFields)
-
-const handleInputChange=(value:string,field:keyof ContainerState['newProposalFields'])=>{
-  dispatch(GovernanceActions.setNewProposalFields({key:field,value}))
-}
-
-const {title,description}=formValues
-
   return (
     <Wrapper>
       <LeftSnowPaper>
@@ -27,25 +16,12 @@ const {title,description}=formValues
           {t(translations.GovernancePage.Titleofnewproposal())}
           <span> *</span>
         </InputTitle>
-        <TextField
-        onChange={({target})=>handleInputChange(target.value, 'title')}
-          fullWidth
-          variant="outlined"
-          size="small"
-          margin="dense"
-          value={title}
-        />
+        <TitleInput />
         <InputTitle>
           {t(translations.GovernancePage.Descriptionofnewproposal())}
           <span> *</span>
         </InputTitle>
-        <TextField 
-        fullWidth
-         variant="outlined"
-          multiline rows={15}
-          onChange={({target})=>handleInputChange(target.value, 'description')}
-          value={description}
-          />
+  <DescriptionInput />
         <BottomDescription>
           <span>* </span>{t(translations.GovernancePage.Requiredfields())}
         </BottomDescription>

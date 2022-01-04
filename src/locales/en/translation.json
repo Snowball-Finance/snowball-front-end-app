@@ -27,7 +27,6 @@
     "Against": "Against",
     "Requiredfields": "Required fields",
     "Required": "Required",
-    "ProposalNotFound": "Proposal Not Found",
     "Confirm": "Confirm",
     "MoreInfo": "More Info",
     "ConnectToWallet": "Connect to Wallet",
@@ -37,6 +36,8 @@
     "Discord": "Discord"
   },
   "GovernancePage": {
+    "ProposalNotFound": "Proposal Not Found",
+    "VotingPeriodShouldBeBetween":"Voting period should be between {{min}} and {{max}} {{unit}}",
     "ActiveProposals": "Active Proposals",
     "AllProposals": "All Proposals",
     "NewProposals": "New Proposals",

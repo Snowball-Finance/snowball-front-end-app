@@ -5,7 +5,7 @@ import { env } from "environment";
 
 import { RootState } from 'store/types';
 import { initialState } from './slice';
-import { ProposalFilters, ProposalStates } from "./types";
+import { ContainerState, ProposalFilters, ProposalStates } from "./types";
 
 const selectDomain = (state: RootState) => state.governance || initialState;
 const selectSelectedProposalFilterDomain = (state: RootState) => state.governance?.selectedProposalFilter || initialState.selectedProposalFilter;
@@ -53,6 +53,11 @@ export const selectProposals = createSelector(
 export const selectNewProposalFields = createSelector(
   [selectNewProposalFieldsDomain],
   fields => fields,
+);
+
+export const selectNewProposalField =(field:keyof ContainerState['newProposalFields'])=> createSelector(
+  [selectNewProposalFieldsDomain],
+  fields => fields[field],
 );
 
 export const selectIsVotingFor = createSelector(
