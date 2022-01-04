@@ -2,13 +2,12 @@ import { Box, styled } from "@mui/material"
 import { SnowPaper } from "app/components/base/SnowPaper"
 import { Max1040 } from "app/components/wrappers/max1040"
 import { translations } from "locales/i18n"
-import { useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
 import { VotePower } from "../../components/votePower"
 import { GovernanceSubPages } from "../../routes"
-import { selectProposals, selectSelectedProposal } from "../../selectors"
+import { selectProposals } from "../../selectors"
 import { ProposalStates } from "../../types"
 import { forAndAgainst } from "../../utils/votes"
 import { ProposalListItem } from "../proposals/components/listItem"
@@ -38,11 +37,10 @@ export const ProposalDetails = () => {
     <>
       <VoteProgressBar height='11px' title={`${t(translations.Common.For())}: ${forVotes.formattedVotes}`} percent={forVotes.percent} type={VoteProgressBarType.for} />
       <VoteProgressBar height='11px' title={`${t(translations.Common.Against())}: ${againstVotes.formattedVotes}`} percent={againstVotes.percent} type={VoteProgressBarType.against} />
-
     </>
   )
 
-const isActive=true//state === ProposalStates.active
+const isActive=state === ProposalStates.active
 
   return (
     <Wrapper>

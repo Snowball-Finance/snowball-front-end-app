@@ -45,6 +45,7 @@ export function* vote(action: { type: string, payload: { proposal: Proposal, vot
     if (transactionVote.status) {
       toast.success(`voted successfully ${voteFor ? 'for' : 'against'} proposal`)
     }
+    yield put(GovernanceActions.getVotingReceipt({proposal}))
   }
   catch (error) {
     toast.error('error while voting')

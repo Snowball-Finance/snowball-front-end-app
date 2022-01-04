@@ -8,7 +8,7 @@ import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
-import { selectIsVotingAgainst, selectIsVotingFor } from "../../../selectors"
+import { selectIsVotingAgainst, selectIsVotingFor, selectReceipt } from "../../../selectors"
 import { Proposal } from "../../../types"
 import { GovernanceActions } from "../../../slice"
 
@@ -18,6 +18,9 @@ export const VoteButtons: FC<{ proposal: Proposal }> = ({ proposal }) => {
   const library = useSelector(selectLibrary)
   const isLoadingFor = useSelector(selectIsVotingFor)
   const isLoadingAgainst = useSelector(selectIsVotingAgainst)
+  const receipt = useSelector(selectReceipt)
+  const hasVoted = receipt?.hasVoted || false
+
 
   const handleForClick=()=>{
     if(library){
@@ -33,13 +36,13 @@ export const VoteButtons: FC<{ proposal: Proposal }> = ({ proposal }) => {
 
   return (
     <ButtonsWrapper>
-      <ForButton loading={isLoadingFor} onClick={handleForClick} >
+      <ForButton disabled={hasVoted} loading={isLoadingFor} onClick={handleForClick} >
         <Box mr="8px">
           <ThumbsUpIcon color={CssVariables.white} />
         </Box>
         {t(translations.GovernancePage.VoteFor())}
       </ForButton>
-      <AgainstButton loading={isLoadingAgainst} onClick={handleAgainstClick} >
+      <AgainstButton disabled={hasVoted} loading={isLoadingAgainst} onClick={handleAgainstClick} >
         <Box mr="8px">
           <ThumbsDownIcon color={CssVariables.white} />
         </Box>
@@ -56,10 +59,16 @@ const BigButton = styled(ContainedButton)({
 })
 
 const ForButton = styled(BigButton)({
-  background: CssVariables.green + ' !important',
+  background: CssVariables.green,
+  ":hover":{
+    background: CssVariables.green,
+  }
 })
 const AgainstButton = styled(BigButton)({
-  background: CssVariables.red + ' !important',
+  background: CssVariables.red,
+  ":hover":{
+    background: CssVariables.red,
+  }
 })
 
 const ButtonsWrapper = styled('div')({
