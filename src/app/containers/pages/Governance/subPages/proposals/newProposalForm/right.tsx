@@ -10,6 +10,10 @@ import { selectNewProposalFields, selectSelectedProposal } from "../../../select
 import { GovernanceActions } from "../../../slice"
 import { ContainerState } from "../../../types"
 
+const isInvalidPeriod=(value:string)=>{
+  return value===''||value.includes('e')||value.includes('.')||Number(value)>Number(env.MAXIMUM_VOTING_PERIOD)||Number(value)<Number(env.MINIMUM_VOTING_PERIOD)
+}
+
 export const RightSection = () => {
   const { t } = useTranslation()
   const proposal = useSelector(selectSelectedProposal)
@@ -22,6 +26,11 @@ export const RightSection = () => {
     t(translations.Common.ProposalNotFound())
 
   const handleInputChange = (value: string, field: keyof ContainerState['newProposalFields']) => {
+    if(field==='votingPeriod'){
+      if(isInvalidPeriod(value)){
+        return
+      }
+    }
     dispatch(GovernanceActions.setNewProposalFields({ key: field, value }))
   }
 
@@ -53,6 +62,10 @@ export const RightSection = () => {
           type='number'
           placeholder={t(translations.GovernancePage.PeriodInDaysToVote())}
           InputProps={{
+            inputProps:{
+              min:env.MINIMUM_VOTING_PERIOD,
+              max:env.MAXIMUM_VOTING_PERIOD
+            },
             endAdornment: (
               <InputAdornment position="end">
                 {env.MINIMUM_VOTING_PERIOD_UNIT}

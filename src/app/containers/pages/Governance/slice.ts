@@ -20,7 +20,7 @@ export const initialState: ContainerState = {
     description:'',
     discussion:'',
     document:'',
-    votingPeriod:'',
+    votingPeriod:'3',
     error:{
       title:'',
       description:'',
