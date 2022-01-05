@@ -16,7 +16,7 @@ export const WalletToggle=()=>{
   const isConnecting = useSelector(selectIsConnectingToWallet)
   const account = useSelector(selectAccount)
 
-  const walletName:ConnectorPayload['walletName']='Coinbase Wallet'
+  const walletName:ConnectorPayload['walletName']='MetaMask'
 
 
   const handleButtonClick = () => {
