@@ -26,6 +26,9 @@ export const BlockChain:FC<BlockChainProps>=({ governance })=> {
   const { snob, gaugeProxy } = useSelector(selectCalculatedContracts)
 
   useEffect(() => {
+    if(governance){
+      dispatch(BlockChainActions.setIncludesGovernance(true))
+    }
     if (snob && gaugeProxy) {
       dispatch(BlockChainActions.setContracts({ snob, gaugeProxy }))
     }

@@ -4,7 +4,8 @@ import { BigNumber } from "ethers";
 /* --- STATE --- */
 export interface BlockChainState {
   snowballBalance: BigNumber | undefined
-  isGettingSnobBalance: boolean
+  isGettingSnobBalance: boolean,
+  includesGovernance: boolean,
   prices: {
     SNOB: number,
     SNOB24HChange: number,

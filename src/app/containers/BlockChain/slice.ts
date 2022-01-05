@@ -10,6 +10,7 @@ import { BigNumber } from "@ethersproject/bignumber";
 export const initialState: ContainerState = {
   snowballBalance: undefined,
   isGettingSnobBalance: false,
+  includesGovernance:false,
   prices: {
     SNOB: 0,
     SNOB24HChange: 0,
@@ -25,6 +26,9 @@ const blockChainSlice = createSlice({
   initialState,
   reducers: {
     getBalance(state, action: PayloadAction<Contract>) {
+    },
+    setIncludesGovernance(state,action:PayloadAction<boolean>){
+      state.includesGovernance = action.payload;
     },
     getSnobBalance(state, action: PayloadAction<void>) { },
     setContracts(state, action: PayloadAction<any>) {
