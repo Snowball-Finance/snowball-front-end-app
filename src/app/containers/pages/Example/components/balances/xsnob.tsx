@@ -1,9 +1,9 @@
 import { CircularProgress, styled } from "@mui/material";
-import { selectIsLoadingGovernanceTokenBalance, selectGovernanceTokenBalance } from "app/containers/BlockChain/selectors";
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import { BNToFloat } from "common/format";
 import { env } from "environment";
+import { selectGovernanceTokenBalance, selectIsLoadingGovernanceTokenBalance } from "app/containers/Governance/selectors";
 
 export const XSnobBalance: FC = () => {
   const isLoading = useSelector(selectIsLoadingGovernanceTokenBalance)

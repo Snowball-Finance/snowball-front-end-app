@@ -23,28 +23,6 @@ export function* getSnobBalance() {
   }
 }
 
-export function* getGovernanceTokenBalance() {
-  yield put(BlockChainActions.setIsGettingGovernanceTokenBalance(true));
-  const account = yield select(selectAccountDomain)
-  const { governanceToken } = yield select(selectContractsDomain)
-  const contract = governanceToken
-  try {
-    const response = yield call(balanceProvider, { contract, account })
-    yield put(BlockChainActions.setGovernanceTokenBalance(response))
-  } catch (error) {
-    toast.error(`Error getting ${env.GOVERNANCE_TOKEN_NAME} balance`)
-  } finally {
-    yield put(BlockChainActions.setIsGettingGovernanceTokenBalance(false))
-  }
-}
-
-export function* getTotalGovernanceTokenSupply() {
-  const { governanceToken } = yield select(selectContractsDomain)
-  const contract = governanceToken
-  const response = yield call(totalSupplyProvider, { contract })
-  yield put(BlockChainActions.setTotalGovernanceTokenSupply(response))
-}
-
 export function* getPrices() {
 
   try {
@@ -75,16 +53,12 @@ export function* getPrices() {
 export function* setContracts(action: { type: string, payload: ContainerState['contracts'] }) {
   yield all([
     (action.payload.snob && put(BlockChainActions.getSnobBalance())),
-    (action.payload.governanceToken && put(BlockChainActions.getGovernanceTokenBalance())),
     put(BlockChainActions.getPrices()),
-    put(BlockChainActions.getTotalGovernanceTokenSupply()),
   ])
 }
 
 export function* blockChainSaga() {
-  yield takeLatest(BlockChainActions.getGovernanceTokenBalance.type, getGovernanceTokenBalance);
   yield takeLatest(BlockChainActions.getSnobBalance.type, getSnobBalance);
   yield takeLatest(BlockChainActions.setContracts.type, setContracts);
   yield takeLatest(BlockChainActions.getPrices.type, getPrices);
-  yield takeLatest(BlockChainActions.getTotalGovernanceTokenSupply.type, getTotalGovernanceTokenSupply);
 }

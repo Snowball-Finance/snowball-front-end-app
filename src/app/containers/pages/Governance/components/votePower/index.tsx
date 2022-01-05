@@ -1,6 +1,5 @@
 import { styled } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
-import { selectGovernanceTokenBalance } from "app/containers/BlockChain/selectors";
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import xSnobBalanceBackground from "assets/images/vote-power.png";
@@ -10,10 +9,10 @@ import { translations } from "locales/i18n";
 import { selectAccount } from "app/containers/BlockChain/Web3/selectors";
 import { mobile } from "styles/media";
 import { env } from "environment";
+import { selectGovernanceTokenBalance } from "app/containers/Governance/selectors";
 
 export const VotePower: FC = () => {
   const governanceTokenBalance = useSelector(selectGovernanceTokenBalance)
-
   const account = useSelector(selectAccount)
   const { t } = useTranslation()
  const balance=(governanceTokenBalance && account)?governanceTokenBalance.toNumber():'0.000'

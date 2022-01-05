@@ -5,7 +5,7 @@ import { ExampleState } from 'app/containers/pages/Example/types';
 import { BlockChainState } from 'app/containers/BlockChain/types';
 import { Web3State } from "app/containers/BlockChain/Web3/types";
 import { EthersState } from "app/containers/BlockChain/Ethers/types";
-import { GovernanceState } from "app/containers/pages/Governance/types";
+import { GovernanceState } from "app/containers/Governance/types";
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 

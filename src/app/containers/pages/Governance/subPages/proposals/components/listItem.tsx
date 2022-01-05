@@ -1,9 +1,9 @@
-import { Box, Chip, Divider, dividerClasses, styled } from "@mui/material"
+import { Box, Chip, Divider, styled } from "@mui/material"
 
 import { SnowPaper, SnowPaperInterface } from "app/components/base/SnowPaper"
 import { InfoButton } from "app/components/common/buttons/infoButton"
+import { Proposal, ProposalStates } from "app/containers/Governance/types"
 import ChevronRightInCircle from "assets/images/iconComponents/chevronRightInCircle"
-import { formatNumber } from "common/format"
 import { push } from "connected-react-router"
 import { translations } from "locales/i18n"
 import { FC } from "react"
@@ -12,8 +12,7 @@ import { useDispatch } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
 import { mobile } from "styles/media"
 import { GovernanceSubPages } from "../../../routes"
-import { GovernanceActions } from "../../../slice"
-import { Proposal, ProposalStates } from "../../../types"
+
 import { forAndAgainst } from "../../../utils/votes"
 import { VoteProgressBar, VoteProgressBarType } from "./voteProgressBar"
 

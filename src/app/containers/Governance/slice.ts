@@ -3,6 +3,7 @@ import { ContainerState, Proposal, ProposalFilters, Receipt } from './types';
 import { createSlice } from "store/toolkit";
 import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 import { governanceSaga } from './saga';
+import { BigNumber } from "ethers";
 
 // The initial state of the Governance container
 export const initialState: ContainerState = {
@@ -15,6 +16,11 @@ export const initialState: ContainerState = {
   isSubmittingNewProposal:false,
   selectedProposal:undefined,
   iseGettingReceipt:false,
+  governanceTokenABI:undefined,
+  governanceTokenContract:undefined,
+  governanceTokenBalance:undefined,
+  isGettingGovernanceTokenBalance:false,
+  totalGovernanceTokenSupply:BigNumber.from(0),
   newProposalFields:{
     title:'',
     description:'',
@@ -34,8 +40,27 @@ const governanceSlice = createSlice({
   name: 'governance',
   initialState,
   reducers: {
+    getGovernanceTokenBalance(state, action: PayloadAction<void>) { },
+    setGovernanceTokenBalance(state, action: PayloadAction<BigNumber>) {
+      state.governanceTokenBalance = action.payload;
+    },
+    getTotalGovernanceTokenSupply(state, action: PayloadAction<void>) { },
+    setIsGettingGovernanceTokenBalance(state, action: PayloadAction<boolean>) {
+      state.isGettingGovernanceTokenBalance = action.payload;
+    },
+    setTotalGovernanceTokenSupply(state, action: PayloadAction<BigNumber>) {
+      state.totalGovernanceTokenSupply = action.payload;
+    },
+    setGovernanceTokenABI(state, action: PayloadAction<any>) {
+      state.governanceTokenABI = action.payload;
+    },
+    setGovernanceTokenContract(state, action: PayloadAction<any>) {
+      state.governanceTokenContract = action.payload;
+    },
     getProposals(state,action:PayloadAction<{silent?:boolean}>){},
-    getVotingReceipt(state,action:PayloadAction<{proposal:Proposal}>){},
+    getVotingReceipt(state,action:PayloadAction<{proposal:Proposal}>){
+      state.receipt=undefined
+    },
     setVotingReceipt(state,action:PayloadAction<Receipt|undefined>){
       state.receipt=action.payload
     },

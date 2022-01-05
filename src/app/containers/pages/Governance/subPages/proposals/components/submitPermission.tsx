@@ -1,6 +1,6 @@
 import { styled } from "@mui/material"
-import { selectGovernanceTokenBalance } from "app/containers/BlockChain/selectors"
 import { selectAccount } from "app/containers/BlockChain/Web3/selectors"
+import { selectGovernanceTokenBalance } from "app/containers/Governance/selectors"
 import { formatNumber } from "common/format"
 import { env } from "environment"
 import { translations } from "locales/i18n"

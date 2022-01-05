@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
 import Zoom from '@mui/material/Zoom';
-import { selectIsNewProposalFormOpen } from "app/containers/pages/Governance/selectors";
-import { GovernanceActions } from "app/containers/pages/Governance/slice";
+import { selectIsNewProposalFormOpen } from "app/containers/Governance/selectors";
+import { GovernanceActions } from "app/containers/Governance/slice";
 import CrossIcon from "assets/images/iconComponents/cross";
 import { translations } from "locales/i18n";
 import { useRef } from "react";

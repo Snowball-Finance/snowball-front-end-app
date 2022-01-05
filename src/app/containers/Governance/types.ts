@@ -1,4 +1,4 @@
-import { Contract } from "ethers";
+import { BigNumber, Contract } from "ethers";
 
 /* --- STATE --- */
 export enum ProposalFilters {
@@ -50,6 +50,12 @@ export interface GovernanceState {
   isSubmittingNewProposal:boolean,
   iseGettingReceipt:boolean,
   receipt?:Receipt,
+  // used any, because it's a json file address
+  governanceTokenABI:any,
+  governanceTokenContract:Contract|undefined,
+  totalGovernanceTokenSupply:BigNumber,
+  isGettingGovernanceTokenBalance:boolean,
+  governanceTokenBalance:BigNumber|undefined,
   newProposalFields:{
     title:string,
     description:string,

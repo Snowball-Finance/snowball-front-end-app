@@ -11,17 +11,16 @@ import { Web3 } from "./Web3";
 import { selectCalculatedContracts } from "./selectors";
 import { BlockChainActions, useBlockChainSlice } from "./slice";
 
-export function BlockChain({governanceTokenABI}:{governanceTokenABI:any}) {
+export function BlockChain() {
   useBlockChainSlice()
 
   const dispatch = useDispatch()
 
-  const { snob, governanceToken, gaugeProxy } = useSelector(selectCalculatedContracts)
+  const { snob, gaugeProxy } = useSelector(selectCalculatedContracts)
 
   useEffect(() => {
-    dispatch(BlockChainActions.setGovernanceTokenABI(governanceTokenABI))
-    if (snob && governanceToken && gaugeProxy) {
-      dispatch(BlockChainActions.setContracts({ snob, governanceToken, gaugeProxy }))
+    if (snob && gaugeProxy) {
+      dispatch(BlockChainActions.setContracts({ snob, gaugeProxy }))
     }
   }, [snob])
 

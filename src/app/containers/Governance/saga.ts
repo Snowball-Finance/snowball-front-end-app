@@ -1,14 +1,16 @@
 import { selectAccountDomain, selectLibraryDomain } from "app/containers/BlockChain/Web3/selectors";
 import { ethers } from "ethers";
 import { toast } from "react-toastify";
-import { call, put, select, takeLatest } from "redux-saga/effects";
+import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import GOVERNANCE_ABI from 'libs/abis/vote-governance.json'
-import { GetProposalsAPI } from "./providers/proposals";
+import { GetProposalsAPI } from "../pages/Governance/providers/proposals";
 import { GovernanceActions } from "./slice";
 import { ContainerState, Proposal } from "./types";
 import { CONTRACTS } from "config";
-import { selectNewProposalFieldsDomain } from "./selectors";
+import { selectGovernanceTokenContractDomain, selectNewProposalFieldsDomain } from "./selectors";
 import { BNToFloat } from "common/format";
+import { balanceProvider, totalSupplyProvider } from "app/containers/BlockChain/providers/balanceAPI";
+import { env } from "environment";
 
 export function* getProposals(action: { type: string, payload: { silent?: boolean } }) {
   const { silent } = action.payload
@@ -110,10 +112,43 @@ export function* getVotingReceipt(action: { type: string, payload: { proposal: P
 
 }
 
+export function* getGovernanceTokenBalance() {
+  yield put(GovernanceActions.setIsGettingGovernanceTokenBalance(true));
+  const account = yield select(selectAccountDomain)
+  const  governanceToken  = yield select(selectGovernanceTokenContractDomain)
+  const contract = governanceToken
+  try {
+    const response = yield call(balanceProvider, { contract, account })
+    yield put(GovernanceActions.setGovernanceTokenBalance(response))
+  } catch (error) {
+    toast.error(`Error getting ${env.GOVERNANCE_TOKEN_NAME} balance`)
+  } finally {
+    yield put(GovernanceActions.setIsGettingGovernanceTokenBalance(false))
+  }
+}
+
+export function* getTotalGovernanceTokenSupply() {
+  const  governanceToken  = yield select(selectGovernanceTokenContractDomain)
+  const contract = governanceToken
+  const response = yield call(totalSupplyProvider, { contract })
+  yield put(GovernanceActions.setTotalGovernanceTokenSupply(response))
+}
+
+//get balances whenever contract is set
+export function* setGovernanceTokenContract(action: { type: string, payload: ContainerState['governanceTokenContract'] }) {
+  yield all([
+    (action.payload && put(GovernanceActions.getGovernanceTokenBalance())),
+    put(GovernanceActions.getTotalGovernanceTokenSupply()),
+  ])
+}
+
 export function* governanceSaga() {
+  yield takeLatest(GovernanceActions.getGovernanceTokenBalance.type, getGovernanceTokenBalance);
+  yield takeLatest(GovernanceActions.getTotalGovernanceTokenSupply.type, getTotalGovernanceTokenSupply);
   yield takeLatest(GovernanceActions.getProposals.type, getProposals);
   yield takeLatest(GovernanceActions.vote.type, vote);
   yield takeLatest(GovernanceActions.submitNewProposal.type, submitNewProposal);
   yield takeLatest(GovernanceActions.getVotingReceipt.type, getVotingReceipt);
+  yield takeLatest(GovernanceActions.setGovernanceTokenContract.type, setGovernanceTokenContract);
 
 }

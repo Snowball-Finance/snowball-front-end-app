@@ -1,6 +1,6 @@
 import { styled } from "@mui/material"
+import { selectFilteredProposalsProposals } from "app/containers/Governance/selectors"
 import { useSelector } from "react-redux"
-import { selectFilteredProposalsProposals } from "../../../selectors"
 import { ProposalListItem } from "./listItem"
 
 export const ProposalsList = () => {

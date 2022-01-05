@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { PoolInfoItem } from "../../types";
 import { IsGettingUserPoolsIndicator } from "./isGettingUserPoolsIndicator";
 import { useDispatch, useSelector } from "react-redux";
-import { selectGauges, selectGotUserPools, selectIsLoadingPools, selectIsReadyToGetUserData, selectPoolsToShow } from "../../selectors";
+import { selectGotUserPools, selectIsLoadingPools, selectIsReadyToGetUserData, selectPoolsToShow } from "../../selectors";
 import { SnowPairsIcon } from "app/components/base/snowPairsIcon";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { ItemContainer, Left, PoolName, PoolNameAndProvider, PoolProvider, Right, StyledSnowPaper } from "./components";
@@ -13,8 +13,8 @@ import { selectPrivateProvider } from "app/containers/BlockChain/Ethers/selector
 import { ExampleActions } from "../../slice";
 import { isEmpty } from "common/utility";
 import getUserBoost from "../../helpers/getUserBoost";
-import { selectGovernanceTokenBalance, selectTotalGovernanceTokenSupply } from "app/containers/BlockChain/selectors";
 import { formatNumber } from "common/format";
+import { selectGovernanceTokenBalance, selectTotalGovernanceTokenSupply } from "app/containers/Governance/selectors";
 
 interface GridConfigTypes {
   columnDefs: ColDef[];

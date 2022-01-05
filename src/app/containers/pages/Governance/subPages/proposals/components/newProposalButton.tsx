@@ -1,12 +1,12 @@
 import { Box, styled } from "@mui/material"
 import { ContainedButton } from "app/components/common/buttons/containedButton"
+import { selectCanAddNewProposal } from "app/containers/Governance/selectors"
+import { GovernanceActions } from "app/containers/Governance/slice"
 import AddInCircleIcon from "assets/images/iconComponents/addInCircle"
 import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
-import { selectCanAddNewProposal } from "../../../selectors"
-import { GovernanceActions } from "../../../slice"
 
 export const NewProposalButton = () => {
   const dispatch=useDispatch()

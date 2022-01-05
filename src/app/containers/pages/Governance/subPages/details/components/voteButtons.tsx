@@ -1,6 +1,9 @@
 import { Box, styled } from "@mui/material"
 import { ContainedButton } from "app/components/common/buttons/containedButton"
 import { selectLibrary } from "app/containers/BlockChain/Web3/selectors"
+import { selectIsVotingAgainst, selectIsVotingFor, selectReceipt } from "app/containers/Governance/selectors"
+import { GovernanceActions } from "app/containers/Governance/slice"
+import { Proposal } from "app/containers/Governance/types"
 import ThumbsDownIcon from "assets/images/iconComponents/thumbsDown"
 import ThumbsUpIcon from "assets/images/iconComponents/thumbsUp"
 import { translations } from "locales/i18n"
@@ -8,9 +11,7 @@ import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
-import { selectIsVotingAgainst, selectIsVotingFor, selectReceipt } from "../../../selectors"
-import { Proposal } from "../../../types"
-import { GovernanceActions } from "../../../slice"
+
 
 export const VoteButtons: FC<{ proposal: Proposal }> = ({ proposal }) => {
   const { t } = useTranslation()

@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material"
-import { selectNewProposalField } from "app/containers/pages/Governance/selectors"
-import { GovernanceActions } from "app/containers/pages/Governance/slice"
+import { selectNewProposalField } from "app/containers/Governance/selectors"
+import { GovernanceActions } from "app/containers/Governance/slice"
 import { useDispatch, useSelector } from "react-redux"
 
 export const DocumentInput = () => {

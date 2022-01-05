@@ -1,6 +1,9 @@
 import { Box, Skeleton, styled } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
+import { selectIsLoadingReceipt, selectIsVotingAgainst, selectIsVotingFor, selectReceipt } from "app/containers/Governance/selectors";
+import { GovernanceActions } from "app/containers/Governance/slice";
+import { Proposal, ProposalStates } from "app/containers/Governance/types";
 import DangerIcon from "assets/images/iconComponents/dangerIcon";
 import ThumbsDownIcon from "assets/images/iconComponents/thumbsDown";
 import ThumbsUpIcon from "assets/images/iconComponents/thumbsUp";
@@ -11,9 +14,7 @@ import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { CssVariables } from "styles/cssVariables/cssVariables";
-import { selectIsLoadingReceipt, selectIsVotingAgainst, selectIsVotingFor, selectReceipt } from "../../../selectors";
-import { GovernanceActions } from "../../../slice";
-import { Proposal, ProposalStates } from "../../../types";
+
 
 interface Props {
   proposal: Proposal
@@ -27,7 +28,6 @@ export const VoteStatus: FC<Props> = ({ proposal }) => {
   const isVotingFor = useSelector(selectIsVotingFor)
   const isVotingAgainst = useSelector(selectIsVotingAgainst)
   useEffect(() => {
-    dispatch(GovernanceActions.setVotingReceipt(undefined))
     dispatch(GovernanceActions.getVotingReceipt({ proposal }))
     return () => {
     }
@@ -104,5 +104,6 @@ const StyledSnowPaper = styled(SnowPaper)<{ bg: CssVariables, color: CssVariable
   alignItems: "center",
   padding: "0 12px",
   color: color,
-  minHeight:'56px'
+  minHeight:'56px',
+  minWidth:'330px'
 }))

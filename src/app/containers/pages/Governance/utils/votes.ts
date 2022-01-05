@@ -1,5 +1,5 @@
+import { Proposal } from "app/containers/Governance/types";
 import { formatNumber } from "common/format";
-import { Proposal } from "../types";
 
 export const forAndAgainst=({proposal}:{proposal:Proposal})=>{
   const { forVotes, againstVotes } = proposal

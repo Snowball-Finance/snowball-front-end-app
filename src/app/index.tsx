@@ -19,9 +19,10 @@ import { BlockChain } from "./containers/BlockChain/Loadable";
 import { useEffect } from "react";
 import { AppPages } from "./types";
 import { IS_DEV } from "environment";
-import { Governance } from "./containers/pages/Governance/Loadable";
+import { GovernancePage } from "./containers/pages/Governance/Loadable";
 import { analytics } from "@snowball-finance/snowball-analytics";
 import SNOWCONE_ABI from 'libs/abis/snowcone.json'
+import { Governance } from "./containers/Governance";
 
 export function App() {
   const { t } = useTranslation();
@@ -36,7 +37,8 @@ export function App() {
 
   return (
     <>
-      <BlockChain governanceTokenABI={SNOWCONE_ABI}  />
+      <BlockChain  />
+      <Governance governanceTokenABI={SNOWCONE_ABI} />
       <Helmet
         titleTemplate="%s - Snowball"
         defaultTitle={t(translations.HomePage.home())}
@@ -47,7 +49,7 @@ export function App() {
         <Route exact path={AppPages.RootPage} component={HomePage} />
         {IS_DEV && <Route exact path={AppPages.Example} component={Example} />}
         <Route path={AppPages.GovernancePage} >
-          <Governance  />
+          <GovernancePage />
         </Route>
         <Route component={NotFoundPage} />
       </Switch>
