@@ -1,5 +1,5 @@
 import { styled } from "@mui/material"
-import { selectFilteredProposalsProposals } from "app/containers/Governance/selectors"
+import { selectFilteredProposalsProposals } from "app/containers/BlockChain/Governance/selectors"
 import { useSelector } from "react-redux"
 import { ProposalListItem } from "./listItem"
 

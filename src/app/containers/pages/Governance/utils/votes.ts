@@ -1,4 +1,4 @@
-import { Proposal } from "app/containers/Governance/types";
+import { Proposal } from "app/containers/BlockChain/Governance/types";
 import { formatNumber } from "common/format";
 
 export const forAndAgainst=({proposal}:{proposal:Proposal})=>{

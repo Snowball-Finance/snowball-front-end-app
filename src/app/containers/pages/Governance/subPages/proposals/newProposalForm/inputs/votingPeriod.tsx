@@ -1,6 +1,6 @@
 import { InputAdornment, TextField } from "@mui/material"
-import { selectNewProposalField } from "app/containers/Governance/selectors"
-import { GovernanceActions } from "app/containers/Governance/slice"
+import { selectNewProposalField } from "app/containers/BlockChain/Governance/selectors"
+import { GovernanceActions } from "app/containers/BlockChain/Governance/slice"
 import { isInvalidPeriod } from "app/containers/pages/Governance/utils/period"
 import { env } from "environment"
 import { translations } from "locales/i18n"

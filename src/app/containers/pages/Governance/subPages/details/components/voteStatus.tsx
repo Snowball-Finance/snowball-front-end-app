@@ -1,9 +1,9 @@
 import { Box, Skeleton, styled } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
-import { selectIsLoadingReceipt, selectIsVotingAgainst, selectIsVotingFor, selectReceipt } from "app/containers/Governance/selectors";
-import { GovernanceActions } from "app/containers/Governance/slice";
-import { Proposal, ProposalStates } from "app/containers/Governance/types";
+import { selectIsLoadingReceipt, selectIsVotingAgainst, selectIsVotingFor, selectReceipt } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceActions } from "app/containers/BlockChain/Governance/slice";
+import { Proposal, ProposalStates } from "app/containers/BlockChain/Governance/types";
 import DangerIcon from "assets/images/iconComponents/dangerIcon";
 import ThumbsDownIcon from "assets/images/iconComponents/thumbsDown";
 import ThumbsUpIcon from "assets/images/iconComponents/thumbsUp";

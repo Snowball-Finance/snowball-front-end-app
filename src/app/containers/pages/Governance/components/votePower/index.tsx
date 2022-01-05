@@ -9,7 +9,7 @@ import { translations } from "locales/i18n";
 import { selectAccount } from "app/containers/BlockChain/Web3/selectors";
 import { mobile } from "styles/media";
 import { env } from "environment";
-import { selectGovernanceTokenBalance } from "app/containers/Governance/selectors";
+import { selectGovernanceTokenBalance } from "app/containers/BlockChain/Governance/selectors";
 
 export const VotePower: FC = () => {
   const governanceTokenBalance = useSelector(selectGovernanceTokenBalance)

@@ -14,7 +14,7 @@ import { ExampleActions } from "../../slice";
 import { isEmpty } from "common/utility";
 import getUserBoost from "../../helpers/getUserBoost";
 import { formatNumber } from "common/format";
-import { selectGovernanceTokenBalance, selectTotalGovernanceTokenSupply } from "app/containers/Governance/selectors";
+import { selectGovernanceTokenBalance, selectTotalGovernanceTokenSupply } from "app/containers/BlockChain/Governance/selectors";
 
 interface GridConfigTypes {
   columnDefs: ColDef[];

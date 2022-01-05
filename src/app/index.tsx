@@ -22,7 +22,6 @@ import { IS_DEV } from "environment";
 import { GovernancePage } from "./containers/pages/Governance/Loadable";
 import { analytics } from "@snowball-finance/snowball-analytics";
 import SNOWCONE_ABI from 'libs/abis/snowcone.json'
-import { Governance } from "./containers/Governance";
 
 export function App() {
   const { t } = useTranslation();
@@ -37,8 +36,11 @@ export function App() {
 
   return (
     <>
-      <BlockChain  />
-      <Governance governanceTokenABI={SNOWCONE_ABI} />
+      <BlockChain
+        governance={{
+          tokenABI: SNOWCONE_ABI
+        }}
+      />
       <Helmet
         titleTemplate="%s - Snowball"
         defaultTitle={t(translations.HomePage.home())}

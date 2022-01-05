@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import { toast } from "react-toastify";
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import GOVERNANCE_ABI from 'libs/abis/vote-governance.json'
-import { GetProposalsAPI } from "../pages/Governance/providers/proposals";
+import { GetProposalsAPI } from "../../pages/Governance/providers/proposals";
 import { GovernanceActions } from "./slice";
 import { ContainerState, Proposal } from "./types";
 import { CONTRACTS } from "config";

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectGovernanceTokenContract } from "./selectors"
 import { GovernanceActions, useGovernanceSlice } from "./slice"
 
-export const Governance=({governanceTokenABI}:{governanceTokenABI:any})=>{
+export const Governance=({tokenABI}:{tokenABI:any})=>{
 
 const variables={
   MINIMUM_TOKEN_FOR_VOTING:process.env.REACT_APP_MINIMUM_TOKEN_FOR_VOTING,
@@ -34,7 +34,7 @@ for(let key in variables){
   }, [governanceToken])
   
   useEffect(() => {
-    dispatch(GovernanceActions.setGovernanceTokenABI(governanceTokenABI))
+    dispatch(GovernanceActions.setGovernanceTokenABI(tokenABI))
     dispatch(GovernanceActions.getProposals({}))
     return () => {
     }
