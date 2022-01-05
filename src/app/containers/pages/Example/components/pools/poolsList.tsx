@@ -13,7 +13,7 @@ import { selectPrivateProvider } from "app/containers/BlockChain/Ethers/selector
 import { ExampleActions } from "../../slice";
 import { isEmpty } from "common/utility";
 import getUserBoost from "../../helpers/getUserBoost";
-import { selectSnowConeBalance, selectTotalSnowConeSupply } from "app/containers/BlockChain/selectors";
+import { selectGovernanceTokenBalance, selectTotalGovernanceTokenSupply } from "app/containers/BlockChain/selectors";
 import { formatNumber } from "common/format";
 
 interface GridConfigTypes {
@@ -31,19 +31,19 @@ const Col = styled('div')({
 
 const PoolRow = (params) => {
   const { data }: { data: PoolInfoItem } = params
-  const snowconeBalance = useSelector(selectSnowConeBalance)
-  const totalSnowcone = useSelector(selectTotalSnowConeSupply)
+  const governanceTokenBalance = useSelector(selectGovernanceTokenBalance)
+  const totalGovernanceToken = useSelector(selectTotalGovernanceTokenSupply)
   const boost = () => {
     if (isEmpty(data.gauge) || (data.gauge?.staked?.toNumber() || 0) <= 0) {
       return 1.0
     }
     const boostValue = getUserBoost(
-      totalSnowcone.toNumber() / 1e18,
+      totalGovernanceToken.toNumber() / 1e18,
       //@ts-ignore
       selectedGauge.totalSupply / 1e18,
       //@ts-ignore
       selectedGauge.staked / 1e18,
-      snowconeBalance
+      governanceTokenBalance
     );
     return boostValue;
   }

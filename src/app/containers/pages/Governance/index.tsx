@@ -16,7 +16,7 @@ import { WalletToggle } from "app/components/common/walletToggle";
 import { NavigationTabs } from "./components/navigationTabs";
 import { useDispatch } from "react-redux";
 
-export function Governance() {
+export function Governance({}) {
   useGovernanceSlice()
   const { t } = useTranslation()
   const dispatch = useDispatch()

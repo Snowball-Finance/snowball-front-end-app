@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { ContainerState } from "./types";
 import { selectContractsDomain } from "./selectors";
 import { geckoPrice } from "services/coinGecko";
+import { env } from "environment";
 
 export function* getSnobBalance() {
   yield put(BlockChainActions.setIsGettingSnobBalance(true));
@@ -22,26 +23,26 @@ export function* getSnobBalance() {
   }
 }
 
-export function* getSnowConeBalance() {
-  yield put(BlockChainActions.setIsGettingSnowConeBalance(true));
+export function* getGovernanceTokenBalance() {
+  yield put(BlockChainActions.setIsGettingGovernanceTokenBalance(true));
   const account = yield select(selectAccountDomain)
-  const { snowCone } = yield select(selectContractsDomain)
-  const contract = snowCone
+  const { governanceToken } = yield select(selectContractsDomain)
+  const contract = governanceToken
   try {
     const response = yield call(balanceProvider, { contract, account })
-    yield put(BlockChainActions.setSnowConeBalance(response))
+    yield put(BlockChainActions.setGovernanceTokenBalance(response))
   } catch (error) {
-    toast.error("Error getting XSNOB balance")
+    toast.error(`Error getting ${env.GOVERNANCE_TOKEN_NAME} balance`)
   } finally {
-    yield put(BlockChainActions.setIsGettingSnowConeBalance(false))
+    yield put(BlockChainActions.setIsGettingGovernanceTokenBalance(false))
   }
 }
 
-export function* getTotalSnowConeSupply() {
-  const { snowCone } = yield select(selectContractsDomain)
-  const contract = snowCone
+export function* getTotalGovernanceTokenSupply() {
+  const { governanceToken } = yield select(selectContractsDomain)
+  const contract = governanceToken
   const response = yield call(totalSupplyProvider, { contract })
-  yield put(BlockChainActions.setTotalSnowConeSupply(response))
+  yield put(BlockChainActions.setTotalGovernanceTokenSupply(response))
 }
 
 export function* getPrices() {
@@ -74,16 +75,16 @@ export function* getPrices() {
 export function* setContracts(action: { type: string, payload: ContainerState['contracts'] }) {
   yield all([
     (action.payload.snob && put(BlockChainActions.getSnobBalance())),
-    (action.payload.snowCone && put(BlockChainActions.getSnowConeBalance())),
+    (action.payload.governanceToken && put(BlockChainActions.getGovernanceTokenBalance())),
     put(BlockChainActions.getPrices()),
-    put(BlockChainActions.getTotalSnowConeSupply()),
+    put(BlockChainActions.getTotalGovernanceTokenSupply()),
   ])
 }
 
 export function* blockChainSaga() {
-  yield takeLatest(BlockChainActions.getSnowConeBalance.type, getSnowConeBalance);
+  yield takeLatest(BlockChainActions.getGovernanceTokenBalance.type, getGovernanceTokenBalance);
   yield takeLatest(BlockChainActions.getSnobBalance.type, getSnobBalance);
   yield takeLatest(BlockChainActions.setContracts.type, setContracts);
   yield takeLatest(BlockChainActions.getPrices.type, getPrices);
-  yield takeLatest(BlockChainActions.getTotalSnowConeSupply.type, getTotalSnowConeSupply);
+  yield takeLatest(BlockChainActions.getTotalGovernanceTokenSupply.type, getTotalGovernanceTokenSupply);
 }

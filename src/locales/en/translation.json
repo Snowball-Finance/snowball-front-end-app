@@ -52,7 +52,7 @@
     "ProposalDocument": "Proposal Document",
     "Votingperiodbegins": "Voting period begins",
     "Votingperiodends": "Voting period ends",
-    "MinXSNOBToSubmitError": "You must stake at least {{minXSnob}} SNOB to submit a proposal",
+    "MinGovernanceTokenToSubmitError": "You must stake at least {{amount}} {{name}} to submit a proposal",
     "Titleofnewproposal": "Title of new proposal",
     "Descriptionofnewproposal": "Description of new proposal",
     "Requiredfields": "Required fields",
@@ -66,7 +66,7 @@
     "ProsConsDocumentURL": "Pros - Cons Document URL",
     "YouHaventVotedOnThisProposalYet": "You haven't voted on this proposal yet",
     "YouDidntVoteOnThisProposal": "You didn't vote on this proposal",
-    "youVotedForAgainstThisProposalWithAmountXSNOBSnobs": "you voted {{forAgainst}} this proposal with {{amount}} xSNOB",
+    "youVotedForAgainstThisProposalWithAmountGovernanceToken": "you voted {{forAgainst}} this proposal with {{amount}} {{name}}",
     "VoteAllocation": {
       "XSNOB_BALANCE_NEEDED_TO_VOTE": "{{amount}} XSNOB Balance Needed To Vote",
       "SNOBRewardAllocations": "SNOB Reward Allocations",

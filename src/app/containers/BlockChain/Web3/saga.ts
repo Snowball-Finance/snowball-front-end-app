@@ -17,8 +17,6 @@ export function* connectToWallet(action: { type: string, payload: ConnectorPaylo
       return;
     }
   }
-  console.log(walletName)
-
   const web3State: Web3State = yield select(selectWeb3Domain)
   if (web3State.activate) {
     yield put(Web3Actions.setIsConnectingToWallet(true));

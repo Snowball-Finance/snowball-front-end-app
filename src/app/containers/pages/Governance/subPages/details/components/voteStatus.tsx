@@ -5,6 +5,7 @@ import DangerIcon from "assets/images/iconComponents/dangerIcon";
 import ThumbsDownIcon from "assets/images/iconComponents/thumbsDown";
 import ThumbsUpIcon from "assets/images/iconComponents/thumbsUp";
 import { formatNumber } from "common/format";
+import { env } from "environment";
 import { translations } from "locales/i18n";
 import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -34,8 +35,16 @@ export const VoteStatus: FC<Props> = ({ proposal }) => {
 
   const isFor = receipt?.support || false
   const hasVoted = receipt?.hasVoted || false
-  const longMessage = t(translations.GovernancePage.youVotedForAgainstThisProposalWithAmountXSNOBSnobs(),
-    { forAgainst: (isFor ? t(translations.GovernancePage.For()) : t(translations.GovernancePage.Against())), amount: formatNumber(receipt?.votes || 0, 2) }
+  const longMessage = t(translations.GovernancePage.youVotedForAgainstThisProposalWithAmountGovernanceToken(),
+    { forAgainst: (
+      isFor 
+      ? 
+      t(translations.GovernancePage.For())
+       :
+        t(translations.GovernancePage.Against())), 
+        amount: formatNumber(receipt?.votes || 0, 2),
+      name:env.GOVERNANCE_TOKEN_NAME
+      }
   )
   const message = hasVoted ?
     longMessage

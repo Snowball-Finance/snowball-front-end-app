@@ -1,5 +1,5 @@
 import { styled } from "@mui/material"
-import { selectSnowConeBalance } from "app/containers/BlockChain/selectors"
+import { selectGovernanceTokenBalance } from "app/containers/BlockChain/selectors"
 import { selectAccount } from "app/containers/BlockChain/Web3/selectors"
 import { formatNumber } from "common/format"
 import { env } from "environment"
@@ -10,7 +10,7 @@ import { CssVariables } from "styles/cssVariables/cssVariables"
 import { mobile } from "styles/media"
 
 export const SubmitPermission = () => {
-  const xSnobBalance = useSelector(selectSnowConeBalance)
+  const governanceTokenBalance = useSelector(selectGovernanceTokenBalance)
   const account = useSelector(selectAccount)
   const minimum = Number(env.MINIMUM_TOKEN_FOR_VOTING)
   const { t } = useTranslation()
@@ -18,9 +18,9 @@ export const SubmitPermission = () => {
   if (!account) {
     message = t(translations.Common.ConnectToWallet())
   }
-  if (xSnobBalance && account) {
-    if (xSnobBalance.toNumber() < minimum){
-      message = t(translations.GovernancePage.MinXSNOBToSubmitError(), { minXSnob: formatNumber(minimum, 2).toString() })
+  if (governanceTokenBalance && account) {
+    if (governanceTokenBalance.toNumber() < minimum){
+      message = t(translations.GovernancePage.MinGovernanceTokenToSubmitError(), { amount: formatNumber(minimum, 2).toString(),name:env.GOVERNANCE_TOKEN_NAME })
     }
   }
   return (

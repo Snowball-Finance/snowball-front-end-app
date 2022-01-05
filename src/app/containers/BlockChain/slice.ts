@@ -8,19 +8,20 @@ import { BigNumber } from "@ethersproject/bignumber";
 
 // The initial state of the BlockChain container
 export const initialState: ContainerState = {
-  snowConeBalance: undefined,
+  governanceTokenBalance: undefined,
   snowballBalance: undefined,
-  totalSnowConeSupply: BigNumber.from(0),
+  totalGovernanceTokenSupply: BigNumber.from(0),
   isGettingSnobBalance: false,
-  isGettingSnowConeBalance: false,
-  totalSnowConeValue: '',
+  isGettingGovernanceTokenBalance: false,
+  totalGovernanceTokenValue: '',
+  governanceTokenABI: undefined,
   prices: {
     SNOB: 0,
     SNOB24HChange: 0,
   },
   contracts: {
     snob: undefined,
-    snowCone: undefined,
+    governanceToken: undefined,
     gaugeProxy: undefined,
   }
 };
@@ -35,23 +36,26 @@ const blockChainSlice = createSlice({
     setContracts(state, action: PayloadAction<any>) {
       state.contracts = action.payload;
     },
-    getSnowConeBalance(state, action: PayloadAction<void>) { },
+    getGovernanceTokenBalance(state, action: PayloadAction<void>) { },
+    setGovernanceTokenABI(state, action: PayloadAction<any>) {
+      state.governanceTokenABI = action.payload;
+    },
     setIsGettingSnobBalance(state, action: PayloadAction<boolean>) {
       state.isGettingSnobBalance = action.payload;
     },
-    setIsGettingSnowConeBalance(state, action: PayloadAction<boolean>) {
-      state.isGettingSnowConeBalance = action.payload;
+    setIsGettingGovernanceTokenBalance(state, action: PayloadAction<boolean>) {
+      state.isGettingGovernanceTokenBalance = action.payload;
     },
     setSnobBalance(state, action: PayloadAction<BigNumber>) {
       state.snowballBalance = action.payload;
     },
-    setSnowConeBalance(state, action: PayloadAction<BigNumber>) {
-      state.snowConeBalance = action.payload;
+    setGovernanceTokenBalance(state, action: PayloadAction<BigNumber>) {
+      state.governanceTokenBalance = action.payload;
     },
     getPrices(state, action: PayloadAction<void>) { },
-    getTotalSnowConeSupply(state, action: PayloadAction<void>) { },
-    setTotalSnowConeSupply(state, action: PayloadAction<BigNumber>) {
-      state.totalSnowConeSupply = action.payload;
+    getTotalGovernanceTokenSupply(state, action: PayloadAction<void>) { },
+    setTotalGovernanceTokenSupply(state, action: PayloadAction<BigNumber>) {
+      state.totalGovernanceTokenSupply = action.payload;
     },
     setPrices(state, action: PayloadAction<ContainerState['prices']>) {
       state.prices = action.payload;

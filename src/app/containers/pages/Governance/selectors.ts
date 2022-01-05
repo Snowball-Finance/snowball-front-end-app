@@ -97,8 +97,8 @@ export const selectFilteredProposalsProposals = createSelector(
 export const selectCanAddNewProposal = createSelector(
   [selectBlockChainDomain, selectAccountDomain], (blockChain, account) => {
     if (
-      (blockChain.snowConeBalance &&
-        blockChain.snowConeBalance.toNumber() > Number(env.MINIMUM_TOKEN_FOR_VOTING)) &&
+      (blockChain.governanceTokenBalance &&
+        blockChain.governanceTokenBalance.toNumber() > Number(env.MINIMUM_TOKEN_FOR_VOTING)) &&
       account
     ) {
       return true

@@ -4,18 +4,19 @@ import { BigNumber } from "ethers";
 /* --- STATE --- */
 export interface BlockChainState {
   isGettingSnobBalance: boolean;
-  isGettingSnowConeBalance: boolean;
+  isGettingGovernanceTokenBalance: boolean;
   snowballBalance: BigNumber | undefined
-  snowConeBalance: BigNumber | undefined
-  totalSnowConeSupply: BigNumber
-  totalSnowConeValue: string,
+  governanceTokenBalance: BigNumber | undefined
+  totalGovernanceTokenSupply: BigNumber
+  totalGovernanceTokenValue: string,
+  governanceTokenABI: any,
   prices: {
     SNOB: number,
     SNOB24HChange: number,
   }
   contracts: {
     snob: Contract | undefined,
-    snowCone: Contract | undefined,
+    governanceToken: Contract | undefined,
     gaugeProxy: Contract | undefined
   }
 }

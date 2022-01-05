@@ -5,13 +5,14 @@ import { initialState } from './slice';
 import { ethers } from 'ethers'
 import { CONTRACTS } from "config";
 import SNOWBALL_ABI from 'libs/abis/snowball.json'
-import SNOWCONE_ABI from 'libs/abis/snowcone.json'
 import GAUGE_PROXY_ABI from 'libs/abis/gauge-proxy.json'
 import { RootState } from "store/types";
+import { env } from "environment";
 
 export const selectBlockChainDomain = (state: RootState) => state.blockChain || initialState;
 export const selectContractsDomain = (state: RootState) => state.blockChain?.contracts || { ...initialState.contracts };
 export const selectPricesDomain = (state: RootState) => state.blockChain?.prices || { ...initialState.prices };
+export const selectGovernanceABIDomain= (state: RootState) => state.blockChain?.governanceTokenABI || undefined;
 
 export const selectBlockChain = createSelector(
   [selectBlockChainDomain],
@@ -28,9 +29,9 @@ export const selectSnobBalance = createSelector(
   blockChainState => blockChainState.snowballBalance,
 );
 
-export const selectTotalSnowConeSupply = createSelector(
+export const selectTotalGovernanceTokenSupply = createSelector(
   [selectBlockChainDomain],
-  blockChainState => blockChainState.totalSnowConeSupply,
+  blockChainState => blockChainState.totalGovernanceTokenSupply,
 );
 
 export const selectIsLoadingSnobBalance = createSelector(
@@ -38,14 +39,14 @@ export const selectIsLoadingSnobBalance = createSelector(
   blockChainState => blockChainState.isGettingSnobBalance,
 );
 
-export const selectIsLoadingSnowConeBalance = createSelector(
+export const selectIsLoadingGovernanceTokenBalance = createSelector(
   [selectBlockChainDomain],
-  blockChainState => blockChainState.isGettingSnowConeBalance,
+  blockChainState => blockChainState.isGettingGovernanceTokenBalance,
 );
 
-export const selectSnowConeBalance = createSelector(
+export const selectGovernanceTokenBalance = createSelector(
   [selectBlockChainDomain],
-  blockChainState => blockChainState.snowConeBalance,
+  blockChainState => blockChainState.governanceTokenBalance,
 );
 
 export const selectContracts = createSelector(
@@ -54,19 +55,19 @@ export const selectContracts = createSelector(
 );
 
 export const selectCalculatedContracts = createSelector(
-  [selectPrivateProviderDomain, selectLibraryDomain],
-  (provider, library) => {
+  [selectPrivateProviderDomain, selectLibraryDomain,selectGovernanceABIDomain],
+  (provider, library,governanceABI) => {
     if (provider && library) {
       return ({
         snob: new ethers.Contract(CONTRACTS.SNOWBALL, SNOWBALL_ABI, provider),
         //@ts-ignore
-        snowCone: new ethers.Contract(CONTRACTS.SNOWCONE, SNOWCONE_ABI, provider),
+        ...(governanceABI && {governanceToken: new ethers.Contract(env.GOVERNANCE_TOKEN_CONTRACT_ADDRESS, governanceABI, provider)}),
         ...(CONTRACTS.GAUGE_PROXYV2 && { gaugeProxy: new ethers.Contract(CONTRACTS.GAUGE_PROXYV2, GAUGE_PROXY_ABI, provider) })
       })
     }
     return {
       snob: undefined,
-      snowCone: undefined,
+      governanceToken: undefined,
       gaugeProxy: undefined
     }
   }

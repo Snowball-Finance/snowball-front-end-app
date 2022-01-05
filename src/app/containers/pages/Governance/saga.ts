@@ -1,14 +1,13 @@
 import { selectAccountDomain, selectLibraryDomain } from "app/containers/BlockChain/Web3/selectors";
 import { ethers } from "ethers";
 import { toast } from "react-toastify";
-import { call, delay, put, select, takeLatest } from "redux-saga/effects";
+import { call, put, select, takeLatest } from "redux-saga/effects";
 import GOVERNANCE_ABI from 'libs/abis/vote-governance.json'
 import { GetProposalsAPI } from "./providers/proposals";
 import { GovernanceActions } from "./slice";
 import { ContainerState, Proposal } from "./types";
 import { CONTRACTS } from "config";
 import { selectNewProposalFieldsDomain } from "./selectors";
-import { selectPrivateProviderDomain } from "app/containers/BlockChain/Ethers/selectors";
 import { BNToFloat } from "common/format";
 
 export function* getProposals(action: { type: string, payload: { silent?: boolean } }) {
