@@ -61,7 +61,7 @@ const ContentWrapper = styled('div')({
 
 const LogoWrapper = styled('div')({
   width: '62px',
-  marginRight: '16px',
+  margin: '0 16px',
   'img': {
     maxWidth: '100%',
   },
@@ -72,7 +72,7 @@ const Wrapper = styled(SnowPaper)({
   backgroundImage: `url(${xSnobBalanceBackground})`,
   backgroundColor: CssVariables.primaryBlue,
   backgroundSize: 'cover',
-  width: '345px',
+  minWidth: '345px',
   minHeight: '160px',
   display: 'flex',
   padding: '16px',
