@@ -49,7 +49,7 @@ openSansObserver.load().then(() => {
 });
 
 const store = configureAppStore({}, history);
-const MOUNT_NODE = document.getElementById('Skeleton') as HTMLElement;
+const MOUNT_NODE = document.getElementById('snowball') as HTMLElement;
 interface Props {
   Component: typeof App;
 }

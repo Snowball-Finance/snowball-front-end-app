@@ -1,6 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'store/toolkit';
-import { ContainerState, Web3Interface } from './types';
+import { ConnectorPayload, ContainerState, Web3Interface } from './types';
 import { useInjectReducer, useInjectSaga } from 'store/redux-injectors';
 import { web3Saga } from './saga';
 import { LocalStorageKeys, storage } from "store/storage";
@@ -29,7 +29,7 @@ const web3Slice = createSlice({
         storage.write(LocalStorageKeys.CONNECTED_TO_WALLET_ONCE, true)
       }
     },
-    connectToWallet(state, action: PayloadAction<void>) { },
+    connectToWallet(state, action: PayloadAction<ConnectorPayload>) { },
     disconnectFromWallet(state, action: PayloadAction<void>) { },
     setIsConnectingToWallet(state, action: PayloadAction<boolean>) {
       state.isConnectingToWallet = action.payload;

@@ -1,4 +1,5 @@
 import { AbstractConnector } from '@web3-react/abstract-connector';
+import {  CONNECTORS } from "./constants";
 
 export interface Web3Interface {
   active: boolean;
@@ -8,6 +9,8 @@ export interface Web3Interface {
   connector: AbstractConnector | undefined;
   library: any;
 }
+
+export type ConnectorPayload={walletName:keyof typeof CONNECTORS}
 
 /* --- STATE --- */
 export interface Web3State extends Web3Interface {

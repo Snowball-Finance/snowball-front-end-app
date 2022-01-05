@@ -13,6 +13,7 @@ import { TopWrapper } from "./components/topWrapper"
 import { ProposalsList } from "./components/list"
 import { NewProposalForm } from "./newProposalForm"
 import {  mobile } from "styles/media"
+import { env } from "environment"
 
 export const Proposals: FC= () => {
   const { t } = useTranslation()
@@ -21,7 +22,7 @@ export const Proposals: FC= () => {
     {
     icon:<InfoIcon  />,
     title:t(translations.Common.MoreInfo()),
-    onClick:()=>{}
+    onClick:()=>{window.open(env.GOVERNANCE_INFO_LINK)}
   },
   {
     icon:<DiscordIcon  />,
@@ -29,8 +30,6 @@ export const Proposals: FC= () => {
     onClick:()=>{}
   },
 ]
-
-
 
   return (
     <StyledMax1040 m="auto" mt={2}>
