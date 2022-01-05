@@ -108,6 +108,7 @@ const Descriptions = styled(SnowPaper)({
 const ContentWrapper = styled(Box)({
   display: 'flex',
   gap: '16px',
+  paddingBottom:'12px',
   [mobile]:{
     flexDirection:'column',
     padding:'0 16px'

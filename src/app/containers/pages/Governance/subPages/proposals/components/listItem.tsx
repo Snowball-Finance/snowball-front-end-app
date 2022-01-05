@@ -155,7 +155,10 @@ const DateAndMiscWrapper = styled('div')<{short: 'true' | '' }>(({short})=>({
 }))
 
 const IndexNameAndStatusWrapper = styled(Box)({
-
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  justifyContent: 'space-around',
 })
 
 const DividerOnMobile = styled(Divider)({
