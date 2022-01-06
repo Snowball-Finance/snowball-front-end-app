@@ -14,10 +14,7 @@ import { GovernanceBody } from "./body";
 import { WalletToggle } from "app/components/common/walletToggle";
 import { NavigationTabs } from "./components/navigationTabs";
 
-
 export function GovernancePage() {
-
-  
   const { t } = useTranslation()
   return (
     <>
@@ -36,6 +33,5 @@ export function GovernancePage() {
       <GovernanceBody />
     </>
   );
-
 };
 

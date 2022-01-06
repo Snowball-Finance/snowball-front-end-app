@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
   typography: {
-    fontFamily: 'Open Sans',
+    fontFamily: 'Montserrat',
     // fontFamily: language === 'ar' ? 'ar' : 'Open Sans',
   },
   // direction: language === 'ar' ? 'rtl' : 'ltr',

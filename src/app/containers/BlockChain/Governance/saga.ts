@@ -104,7 +104,7 @@ export function* getVotingReceipt(action: { type: string, payload: { proposal: P
     }
     yield put(GovernanceActions.setVotingReceipt(rec))
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
   finally {
     yield put(GovernanceActions.setIsGettingReceipt(false))

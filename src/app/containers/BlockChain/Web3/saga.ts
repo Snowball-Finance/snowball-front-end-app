@@ -24,7 +24,7 @@ export function* connectToWallet(action: { type: string, payload: ConnectorPaylo
       yield call(web3State.activate, connector)
     }
     catch (err) {
-      console.log(err)
+      console.error(err)
     } finally {
       yield put(Web3Actions.setIsConnectingToWallet(false))
     }

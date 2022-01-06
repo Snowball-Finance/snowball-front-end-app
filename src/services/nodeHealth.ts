@@ -13,7 +13,7 @@ export const nodeIsHealthy = async (url) => {
     const bodyResponse = await response.json();
     return bodyResponse.healthy;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return false;
   }
 }

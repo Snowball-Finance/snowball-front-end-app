@@ -12,7 +12,6 @@ import { mobile } from "styles/media";
 import { LeftSection } from "./left";
 import { RightSection } from "./right";
 
-
 export const NewProposalForm = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -42,10 +41,6 @@ export const NewProposalForm = () => {
     </Wrapper>
   )
 }
-
-
-
-
 
 const Title = styled('p')({
   fontSize: '20px',

@@ -132,7 +132,7 @@ export function* toggleIsDetailsOpen(action: {
     yield put(ExampleActions.setPools(pools))
   }
   catch (error) {
-    console.log(error)
+    console.error(error)
   }
   finally { }
 }
