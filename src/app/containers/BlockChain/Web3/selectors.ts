@@ -4,8 +4,20 @@ import { RootState } from "store/types";
 import { initialState } from './slice';
 
 export const selectWeb3Domain = (state: RootState) => state.web3 || initialState;
+export const selectWeb3ErrorDomain = (state: RootState) => state.web3?.error || initialState.error;
+export const selectChainIDDomain=(state: RootState) => state.web3?.chainId || undefined;
 export const selectAccountDomain = (state: RootState) => state.web3?.account || undefined;
 export const selectLibraryDomain = (state: RootState) => state.web3?.library || undefined;
+
+export const selectWeb3Error= createSelector(
+  [selectWeb3ErrorDomain],
+  (error) => error
+)
+
+export const selectChainID=createSelector(
+  [selectChainIDDomain],
+  (chainId) => chainId
+)
 
 export const selectWeb3 = createSelector(
   [selectWeb3Domain],

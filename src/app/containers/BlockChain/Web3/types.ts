@@ -8,6 +8,8 @@ export interface Web3Interface {
   account: string | null | undefined;
   connector: AbstractConnector | undefined;
   library: any;
+  chainId:number|undefined
+  error:Error|undefined
 }
 
 export type ConnectorPayload={walletName:keyof typeof CONNECTORS}

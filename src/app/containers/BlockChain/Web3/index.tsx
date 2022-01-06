@@ -13,11 +13,11 @@ import { Web3Provider } from "@ethersproject/providers";
 const Core = () => {
   useWeb3Slice()
   const dispatch = useDispatch()
-  const { active, activate, deactivate, account, connector, library } = useWeb3React()
+  const { active, activate, deactivate, account, connector, library ,chainId,error} = useWeb3React()
 
   useEffect(
     () => {
-      dispatch(Web3Actions.setWeb3Methods({ active, activate, deactivate, account, connector, library }))
+      dispatch(Web3Actions.setWeb3({ active, activate, deactivate, account, connector, library,chainId ,error}))
     },
     [
       active,
@@ -26,6 +26,8 @@ const Core = () => {
       account,
       connector,
       library,
+      chainId,
+      error,
       dispatch
     ]
   )

@@ -12,19 +12,23 @@ export const initialState: ContainerState = {
   active: false,
   connector: undefined,
   library: undefined,
+  chainId: undefined,
+  error: undefined
 };
 
 const web3Slice = createSlice({
   name: 'web3',
   initialState: initialState,
   reducers: {
-    setWeb3Methods(state, action: PayloadAction<Web3Interface>) {
+    setWeb3(state, action: PayloadAction<Web3Interface>) {
       state.library = action.payload.library;
       state.connector = action.payload.connector;
       state.active = action.payload.active;
       state.account = action.payload.account;
       state.activate = action.payload.activate;
       state.deactivate = action.payload.deactivate;
+      state.chainId=action.payload.chainId;
+      state.error = action.payload.error;
       if (action.payload.account) {
         storage.write(LocalStorageKeys.CONNECTED_TO_WALLET_ONCE, true)
       }
