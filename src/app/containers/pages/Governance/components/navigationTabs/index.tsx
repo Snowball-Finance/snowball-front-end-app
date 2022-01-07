@@ -2,7 +2,7 @@ import { styled, Tab, Tabs } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
 import { replace } from "connected-react-router";
 import { translations } from "locales/i18n";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -23,25 +23,26 @@ interface Page {
   path: string;
   title: string;
 }
-/**
- * 
- * active page should be one of the "page.path"s in the pages array
- */
+
 export const NavigationTabs: FC = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const location=useLocation()
   let path = location.pathname
   path = path !== GovernanceSubPages.voteAllocation ? GovernanceSubPages.proposals : path
+  const [activePath, setActivePath] = useState(path)
   const pages = subPages({ t })
   const handleTabChange = (page: string) => {
-    dispatch(replace(page))
+    setActivePath(page)
+    setTimeout(() => {
+      dispatch(replace(page))
+    },200)
   }
 
   return (
     <Wrapper>
       <Tabs
-        value={path}
+        value={activePath}
         onChange={(_, path) => handleTabChange(path)}
         indicatorColor='primary'
         textColor='primary'
@@ -72,6 +73,7 @@ export const NavigationTabs: FC = () => {
 const Wrapper = styled(SnowPaper)({
   ".MuiTabs-indicator":{
     backgroundColor: CssVariables.primaryBlue,
+    transition:'all 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
   },
   "span": {
     textTransform: 'none',

@@ -7,13 +7,12 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { selectPrivateProvider } from "../BlockChain/Ethers/selectors";
-import { selectPrices } from "../BlockChain/selectors";
-import { selectAccount } from "../BlockChain/Web3/selectors";
 import { selectGaugeContract, selectGotUserPools, selectIsReadyToGetUserData } from "./selectors";
 import { PoolsAndGaugesActions, usePoolsAndGaugesSlice } from './slice';
 interface Props {
   abi:any,lastInfoQuery:any
 }
+
 export const PoolsAndGauges:FC<Props>=({abi,lastInfoQuery})=> {
 usePoolsAndGaugesSlice()
 const dispatch=useDispatch()
@@ -34,7 +33,7 @@ useEffect(() => {
     dispatch(PoolsAndGaugesActions.getLastInfo())
   }
 }, [provider, alreadyGotUserPools])
-console.log({isReadyToGetUserPools,alreadyGotUserPools})
+
 useEffect(() => {
   if (isReadyToGetUserPools && !alreadyGotUserPools) {
     dispatch(PoolsAndGaugesActions.getInitialData())
