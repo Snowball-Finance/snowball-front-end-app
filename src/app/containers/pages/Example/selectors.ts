@@ -10,7 +10,6 @@ const selectIsAddingSnobToMetamaskDomain = (state: RootState) => state.example?.
 const selectIsLoadingAsyncDataDomain = (state: RootState) => state.example?.isLoadingAsyncData || false;
 export const selectPoolsArrayDomain = (state: RootState) => state.example?.LastSnowballInfo?.poolsInfo || [];
 const selectIsGettingPoolsDomain = (state: RootState) => state.example?.isLoadingLastSnowballInfo || false;
-const selectGaugesDomain = (state: RootState) => state.example?.gauges || [];
 const selectSearchInputDomain = (state: RootState) => state.example?.searchInput || '';
 const selectPoolOptionsDomain = (state: RootState) => state.example?.poolOptions || [...initialState.poolOptions];
 const selectSelectedPoolDomain = (state: RootState) => state.example?.selectedPool || initialState.selectedPool;
@@ -47,10 +46,6 @@ export const selectSearchInput = createSelector(
 );
 export const selectIsGettingUserPools = createSelector([selectDomain], state => state.isGettingUserPools);
 
-export const selectGauges = createSelector(
-  [selectGaugesDomain],
-  gauges => gauges,
-);
 
 export const selectIsLoadingPools = createSelector(
   [selectIsGettingPoolsDomain],

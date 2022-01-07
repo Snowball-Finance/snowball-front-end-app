@@ -7,7 +7,7 @@ import { poolsAndGaugesSaga } from './saga';
 
 // The initial state of the PoolsAndGauges container
 export const initialState: ContainerState = {
-  isGettingUserPools: false,
+  isLoadingUserPoolsAndGauges: false,
   isGettingGauges: false,
   gaugeProxyABI: undefined,
   gaugeContract: undefined,
@@ -25,7 +25,6 @@ const poolsAndGaugesSlice = createSlice({
   reducers: {
     getInitialData(state, action: PayloadAction<void>) {},
     getLastInfo(state, action: PayloadAction<void>) {},
-    
     setLastInfo(state, action: PayloadAction<LastInfo>) {
       state.lastInfo = action.payload;
     },
@@ -44,8 +43,8 @@ const poolsAndGaugesSlice = createSlice({
     setGaugeContract(state, action: PayloadAction<any>) {
       state.gaugeContract = action.payload;
     },
-    setIsGettingUserPools(state, action: PayloadAction<boolean>) {
-      state.isGettingUserPools = action.payload;
+    setIsGettingPoolsAndGauges(state, action: PayloadAction<boolean>) {
+      state.isLoadingUserPoolsAndGauges = action.payload;
     },
     setIsGettingGauges(state, action: PayloadAction<boolean>) {
       state.isGettingGauges = action.payload;

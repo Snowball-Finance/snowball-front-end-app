@@ -1,17 +1,21 @@
-import { styled, TextField } from "@mui/material"
+import { styled } from "@mui/material"
 import { SnowPaper } from "app/components/base/SnowPaper"
 import { ContainedButton } from "app/components/common/buttons/containedButton"
 import { Max1040 } from "app/components/wrappers/max1040"
+import { selectAccount } from "app/containers/BlockChain/Web3/selectors"
 import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
 import { SelectTokens } from "./components/select"
 
 export const VoteAllocation = () => {
   const { t } = useTranslation()
+  const account=useSelector(selectAccount)
+
   return (
     <StyledMax1040>
-      <TopWrapper>
+  {!account?t(translations.Common.ConnectToWallet()):<TopWrapper>
         <Title>
           {t(translations.GovernancePage.VoteAllocation.Voteforyourpreferredpair())}
         </Title>
@@ -27,7 +31,7 @@ export const VoteAllocation = () => {
             {t(translations.GovernancePage.VoteAllocation.VoteAllocation())}
           </ContainedButton>
         </TopActions>
-      </TopWrapper>
+      </TopWrapper>}
     </StyledMax1040>
   )
 }

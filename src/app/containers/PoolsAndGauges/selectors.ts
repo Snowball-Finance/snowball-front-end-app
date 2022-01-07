@@ -13,8 +13,11 @@ export const selectGaugeProxyABIDomain = (state: RootState) => state.poolsAndGau
 export const selectGaugeContractDomain = (state: RootState) => state.poolsAndGauges?.gaugeContract || undefined;
 export const selectPoolsArrayDomain = (state: RootState) => state.poolsAndGauges?.lastInfo?.poolsInfo || [];
 const selectGotUserPoolsDomain = (state: RootState) => state.poolsAndGauges?.gotUserPools || initialState.gotUserPools;
+export const selectIsLoadingUserPoolsAndGaugesDomain = (state: RootState) => state.poolsAndGauges?.isLoadingUserPoolsAndGauges || initialState.isLoadingUserPoolsAndGauges;
 export const selectPoolsObjDomain = (state: RootState) => state.poolsAndGauges?.pools || {};
 export const selectLastInfoQueryDomain = (state: RootState) => state.poolsAndGauges?.lastInfoQuery || initialState.lastInfoQuery;
+export const selectGaugesDomain = (state: RootState) => state.poolsAndGauges?.gauges || [...initialState.gauges];
+
 export const selectPoolsAndGauges = createSelector(
   [selectDomain],
   poolsAndGaugesState => poolsAndGaugesState,
@@ -34,15 +37,25 @@ export const selectGaugeContract = createSelector(
       }
       return contract
     }
-    return  undefined
-
+    return undefined
   }
+)
+
+export const selectIsLoadingUserPoolsAndGauges = createSelector(
+  [selectIsLoadingUserPoolsAndGaugesDomain],
+  isLoading => isLoading,
+)
+
+export const selectGauges=createSelector(
+  [selectGaugesDomain],
+  gauges => gauges
 )
 
 export const selectGotUserPools = createSelector(
   [selectGotUserPoolsDomain],
   v => v,
 );
+
 export const selectIsReadyToGetUserData = createSelector([
   selectAccountDomain,
   selectPoolsArrayDomain,

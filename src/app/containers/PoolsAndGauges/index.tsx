@@ -24,8 +24,6 @@ const provider = useSelector(selectPrivateProvider)
 useEffect(() => {
   dispatch(PoolsAndGaugesActions.setGaugeProxyABI(abi))
   dispatch(PoolsAndGaugesActions.setLastInfoQuery(lastInfoQuery))
-  return () => {
-  }
 }, [])
 
 useEffect(() => {
@@ -38,17 +36,11 @@ useEffect(() => {
   if (isReadyToGetUserPools && !alreadyGotUserPools) {
     dispatch(PoolsAndGaugesActions.getInitialData())
   }
-  return () => {
-  }
 }, [isReadyToGetUserPools, alreadyGotUserPools])
 
 useEffect(() => {
   dispatch(PoolsAndGaugesActions.setGaugeContract(gaugeContract))
-  return () => {
-  }
 }, [gaugeContract])
-return (
-<>
-</>
-);
+
+return (<></>);
 };

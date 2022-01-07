@@ -69,7 +69,7 @@ export interface LastInfo {
 /* --- STATE --- */
 export interface PoolsAndGaugesState {
   isLoadingLastInfo: boolean;
-  isGettingUserPools: boolean;
+  isLoadingUserPoolsAndGauges: boolean;
   isGettingGauges: boolean;
   gaugeProxyABI: any;
   gaugeContract: Contract|undefined;

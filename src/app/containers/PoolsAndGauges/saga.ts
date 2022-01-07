@@ -4,7 +4,6 @@
 import { BigNumber } from "ethers";
 import { toast } from "react-toastify";
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
-import {  apolloClient, query } from "services/apollo/client";
 import { generatePoolInfo, getMultiContractData } from "services/multicall";
 import { getGaugeCalls, getPoolCalls } from "services/multicall-queries";
 import { selectPrivateProviderDomain } from "../BlockChain/Ethers/selectors";
@@ -45,7 +44,7 @@ export function* getLastInfo() {
 }
 export function* getAndSetUserPools() {
   try {
-    yield put(PoolsAndGaugesActions.setIsGettingUserPools(true));
+    yield put(PoolsAndGaugesActions.setIsGettingPoolsAndGauges(true));
     const  gaugeProxyContract  = yield select(selectGaugeContractDomain)
     const account = yield select(selectAccountDomain)
     const provider = yield select(selectPrivateProviderDomain)
@@ -80,7 +79,7 @@ export function* getAndSetUserPools() {
 
     toast.error("failed to get user pools");
   } finally {
-    yield put(PoolsAndGaugesActions.setIsGettingUserPools(false));
+    yield put(PoolsAndGaugesActions.setIsGettingPoolsAndGauges(false));
   }
 }
 export function* poolsAndGaugesSaga() {
