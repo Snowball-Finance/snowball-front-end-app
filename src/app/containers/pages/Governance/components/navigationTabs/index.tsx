@@ -12,7 +12,6 @@ import { GovernanceSubPages } from "../../routes";
 const subPages = ({ t }) => [{
   path: GovernanceSubPages.proposals,
   title: t(translations.GovernancePage.Tabs.Proposals()),
-
 },
 {
   path: GovernanceSubPages.voteAllocation,

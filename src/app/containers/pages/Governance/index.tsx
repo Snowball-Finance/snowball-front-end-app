@@ -13,8 +13,10 @@ import { PageHead } from "./components/pageHead";
 import { GovernanceBody } from "./body";
 import { WalletToggle } from "app/components/common/walletToggle";
 import { NavigationTabs } from "./components/navigationTabs";
+import { useGovernancePageSlice } from "./slice";
 
 export function GovernancePage() {
+  useGovernancePageSlice()
   const { t } = useTranslation()
   return (
     <>
