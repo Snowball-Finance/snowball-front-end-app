@@ -58,6 +58,4 @@ const GET_LATEST_PAIRS_INFO = gql`
     }
   }
 `;
-
-
 export { GET_PAIRS_INFOS,GET_LATEST_PAIRS_INFO };

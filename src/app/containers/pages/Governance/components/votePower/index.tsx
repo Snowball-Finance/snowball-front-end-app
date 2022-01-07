@@ -32,8 +32,6 @@ export const VotePower: FC = () => {
     </Wrapper>
   )
 }
-
-
 const Upper=styled('span')({
   textTransform:'uppercase',
 })

@@ -8,12 +8,13 @@ import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import { query } from "services/apollo/client";
 import { LAST_SNOWBALL_INFO } from "services/apollo/queries/snowballInfo";
 import { requestToAddSnobToMetamask } from "services/global_data";
-import { retrieveGauge } from "./components/providers/gauge";
-import { selectPoolsArrayDomain, selectPoolsObjDomain } from "./selectors";
+import { retrieveGauge } from "./providers/gauge";
+import { selectPoolsArrayDomain } from "./selectors";
 import { ExampleActions, initialState } from "./slice";
 import { LastSnowballInfo, PoolInfoItem } from "./types";
 import { generatePoolInfo, getMultiContractData } from "services/multicall";
 import {analytics} from '@snowball-finance/snowball-analytics'
+import { selectPoolsObjDomain } from "app/containers/PoolsAndGauges/selectors";
 
 export function* addSnobToWallet() {
   try {

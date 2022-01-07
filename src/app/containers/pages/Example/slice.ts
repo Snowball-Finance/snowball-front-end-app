@@ -2,8 +2,6 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'store/toolkit';
 import { ContainerState, LastSnowballInfo } from './types';
 import { useInjectReducer, useInjectSaga } from 'store/redux-injectors';
-
-
 import { exampleSaga } from './saga';
 
 // The initial state of the Example container

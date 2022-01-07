@@ -43,12 +43,10 @@ export const selectCalculatedContracts = createSelector(
     if (provider && library) {
       return ({
         snob: new ethers.Contract(CONTRACTS.SNOWBALL, SNOWBALL_ABI, provider),
-        ...(CONTRACTS.GAUGE_PROXYV2 && { gaugeProxy: new ethers.Contract(CONTRACTS.GAUGE_PROXYV2, GAUGE_PROXY_ABI, provider) })
       })
     }
     return {
       snob: undefined,
-      gaugeProxy: undefined
     }
   }
 )

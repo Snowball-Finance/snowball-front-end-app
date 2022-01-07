@@ -5,8 +5,6 @@ export enum LocalStorageKeys {
 export enum SessionStorageKeys {
   SOME_KEY = 'SOME_KEY',
 }
-
-
 export const storage = {
   write: (key: LocalStorageKeys, data: any) => {
     localStorage[key] = JSON.stringify(data);

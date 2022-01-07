@@ -32,16 +32,11 @@ export const LeftSection = () => {
     </Wrapper>
   )
 }
-
-
-
 const Column = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: '16px'
 })
-
-
 const Wrapper = styled(Column)({
   flex: 1
 })
@@ -55,8 +50,6 @@ const LeftSnowPaper = styled(SnowPaper)({
     margin: 0
   }
 })
-
-
 const BottomDescription = styled('p')({
   fontSize: '12',
   color: CssVariables.dark,

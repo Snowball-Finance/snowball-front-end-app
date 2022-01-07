@@ -12,8 +12,6 @@ saga should not know that it's being used in a react application (other than thr
 
 ### state
 the only places we use local state is for little ui changes like showing a tooltip, other than that, there should be no local state used in the application without discussing about it with one of the Platform development team members, every state in the application will be stored on redux, and every change of state should be done in redux ecosystem. if we want to have a computed state, we will avoid using useEffect and use useSelector with proper state domains combination in the selector, placed in the related `selectors.ts` file inside the container.
-
-
 ### selectors and useSelector
 selectors should be as specific as possible, is some slice of app has 10 segment of state, it should have 10 selectors and 10 domains for selectors
 all the useSelectors should be used exactly in the parts that they are wanted, isolate the component that is using a part of state, and use the useSelector inside that component, we don't want anything to be unpredictable.

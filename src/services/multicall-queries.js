@@ -2,8 +2,6 @@ import SNOWGLOBE_ABI from 'libs/abis/snowglobe.json';
 import GAUGE_ABI from 'libs/abis/gauge.json';
 import LP_ABI from 'libs/abis/lp-token.json';
 import { ContractCall } from "./multicall";
-
-
 const getPoolCalls = ({ item, account }) => {
   const lpContractCalls = new ContractCall(item.lpAddress, LP_ABI);
   const snowglobeContractCalls = new ContractCall(item.address, SNOWGLOBE_ABI);

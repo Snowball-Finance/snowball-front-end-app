@@ -22,6 +22,3 @@ export interface StandardResponse {
 export enum UploadUrls {
   USER_PROFILE_IMAGE = 'user-profile-image/upload',
 }
-
-
-

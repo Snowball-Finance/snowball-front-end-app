@@ -14,8 +14,6 @@ import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { CssVariables } from "styles/cssVariables/cssVariables";
-
-
 interface Props {
   proposal: Proposal
 }

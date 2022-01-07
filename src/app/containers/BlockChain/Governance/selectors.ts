@@ -28,14 +28,10 @@ export const selectGovernance = createSelector(
   [selectGovernanceDomain],
   governanceState => governanceState,
 );
-
-
 export const selectTotalGovernanceTokenSupply = createSelector(
   [selectGovernanceDomain],
   blockChainState => blockChainState.totalGovernanceTokenSupply,
 );
-
-
 export const selectIsLoadingGovernanceTokenBalance = createSelector(
   [selectGovernanceDomain],
   blockChainState => blockChainState.isGettingGovernanceTokenBalance,
@@ -45,8 +41,6 @@ export const selectGovernanceTokenBalance = createSelector(
   [selectGovernanceDomain],
   blockChainState => blockChainState.governanceTokenBalance,
 );
-
-
 export const selectIsLoadingReceipt=createSelector(
   [selectIsLoadingReceiptDomain],
   isLoadingReceipt => isLoadingReceipt,
@@ -128,8 +122,6 @@ export const selectCanAddNewProposal = createSelector(
     return false
   }
 )
-
-
 export const selectGovernanceTokenContract = createSelector(
   [selectPrivateProviderDomain, selectLibraryDomain,selectGovernanceABIDomain],
   (provider, library,governanceABI) => {

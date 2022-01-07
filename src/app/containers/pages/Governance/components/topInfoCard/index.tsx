@@ -5,8 +5,6 @@ import coin from 'assets/images/header-coin.png'
 import { CssVariables } from "styles/cssVariables/cssVariables";
 
 import { InfoButton, InfoButtonProps } from "app/components/common/buttons/infoButton";
-
-
 interface TopInfoCardProps {
   title: string;
   desc: string;
@@ -70,8 +68,6 @@ const Desc = styled('p')({
   fontSize: '12px',
   zIndex:1
 })
-
-
 const Wrapper = styled(SnowPaper)({
   width: '100%',
   minHeight: '160px',

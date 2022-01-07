@@ -52,8 +52,6 @@ const Desc = styled('p')({
   color: CssVariables.white,
   fontSize: '12px',
 })
-
-
 const Wrapper = styled(SnowPaper)(({ image }: { image: string }) => ({
   width: '100%',
   height: '100px',

@@ -43,8 +43,6 @@ import { {{ camelCase ComponentName }}Saga } from './saga';
 {{/if}}
 
 interface Props {}
-
-
 {{#if wantMemo}}
 export const {{ properCase ComponentName }} = memo((props: Props) => {
 {{else}}

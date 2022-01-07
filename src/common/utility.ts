@@ -14,8 +14,6 @@ const isEmpty = value => {
 };
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
-
-
 const metaMaskInstallHandler = () => {
   window.open('https://metamask.io/download', '_blank');
 }

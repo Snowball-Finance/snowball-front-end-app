@@ -12,7 +12,6 @@ export interface BlockChainState {
   }
   contracts: {
     snob: Contract | undefined,
-    gaugeProxy: Contract | undefined
   }
 }
 

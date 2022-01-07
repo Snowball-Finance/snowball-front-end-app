@@ -89,9 +89,6 @@ const isActive=state === ProposalStates.active
       </ContentWrapper>
     </Wrapper>)
 }
-
-
-
 const Title = styled('p')({
   margin: 0,
   fontSize: '16px',

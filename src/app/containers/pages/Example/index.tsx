@@ -18,8 +18,6 @@ import { Balances } from "./components/balances";
 import { Pools } from "./components/pools/pools";
 
 interface Props { }
-
-
 export function Example(props: Props) {
   useExampleSlice()
 
@@ -50,10 +48,5 @@ export function Example(props: Props) {
   );
 
 };
-
-
-
 const Wrapper = styled('div')`
-
-
 `

@@ -7,9 +7,6 @@ import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
 import { LocalStorageKeys, storage } from "store/storage"
 import { ContainedButton } from "../buttons/containedButton"
-
-
-
 export const WalletToggle=()=>{
   const { t } = useTranslation();
   const dispatch = useDispatch()
@@ -17,8 +14,6 @@ export const WalletToggle=()=>{
   const account = useSelector(selectAccount)
 
   const walletName:ConnectorPayload['walletName']='MetaMask'
-
-
   const handleButtonClick = () => {
     if (account) {
       dispatch(Web3Actions.disconnectFromWallet())

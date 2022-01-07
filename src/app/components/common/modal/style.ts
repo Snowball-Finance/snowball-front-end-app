@@ -18,8 +18,6 @@ export const Wrapper = styled("div")({
   padding: '70px',
   cursor: 'auto'
 })
-
-
 export const ChildWrapper = styled('div')({
   width: '100%',
   marginLeft: 'auto',

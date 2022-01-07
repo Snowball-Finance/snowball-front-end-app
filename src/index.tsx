@@ -63,8 +63,6 @@ toast.configure({
   position: 'top-right',
   // hideProgressBar: true,
 });
-
-
 const ConnectedApp = ({ Component }: Props) => (
   <ReduxProvider store={store}>
     <ApolloProvider client={apolloClient}>

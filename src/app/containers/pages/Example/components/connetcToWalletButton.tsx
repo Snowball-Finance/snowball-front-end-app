@@ -7,16 +7,13 @@ import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { LocalStorageKeys, storage } from "store/storage";
-
-
-
 export const ConnectToWalletButton: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch()
   const isConnecting = useSelector(selectIsConnectingToWallet)
   const account = useSelector(selectAccount)
 
-  const walletName:ConnectorPayload['walletName']='Coinbase Wallet'
+  const walletName:ConnectorPayload['walletName']='MetaMask'
   
   const handleButtonClick = () => {
     if (account) {

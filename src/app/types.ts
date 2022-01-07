@@ -7,7 +7,5 @@ export enum AppPages {
   GovernancePage = '/governance',
   Example = '/example',
 }
-
-
 export type PrivateProvider = ethers.providers.StaticJsonRpcProvider
 export type Contract = ethers.Contract

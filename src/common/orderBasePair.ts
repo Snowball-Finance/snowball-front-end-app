@@ -1,6 +1,4 @@
 import { JOE, PNG, WAVAX } from "config"
-
-
 export const orderBasePair = (pairs: string[]) => {
   if (pairs.includes(WAVAX)) {
     if (pairs.indexOf(WAVAX) !== 0) {

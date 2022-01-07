@@ -9,9 +9,6 @@ import { CssVariables } from "styles/cssVariables/cssVariables"
 import { DiscussionInput } from "./inputs/discussion"
 import { DocumentInput } from "./inputs/document"
 import { VotingPeriodInput } from "./inputs/votingPeriod"
-
-
-
 export const RightSection = () => {
   const { t } = useTranslation()
   const account=useSelector(selectAccount)
@@ -85,8 +82,6 @@ const Column = styled('div')({
   flexDirection: 'column',
   gap: '16px'
 })
-
-
 const RightSnowPaper = styled(SnowPaper)({
   padding: '20px 12px',
   display: 'flex',

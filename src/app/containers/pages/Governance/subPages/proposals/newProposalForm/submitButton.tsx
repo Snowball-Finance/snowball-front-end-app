@@ -17,8 +17,6 @@ export const NewProposalSubmitButton = () => {
 
   const { title, votingPeriod, description } = fields
   const disabled = !title || !votingPeriod || !description
-
-
   return (
     <ContainedButton
       loading={isLoading}

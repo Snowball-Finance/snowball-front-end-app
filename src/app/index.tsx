@@ -8,10 +8,8 @@
 
 import { Helmet } from 'react-helmet-async';
 import { Switch, Route, useLocation } from 'react-router-dom';
-
 import { HomePage } from './containers/pages/Home/Loadable';
 import { NotFoundPage } from './containers/pages/NotFound/Loadable';
-
 import { useTranslation } from 'react-i18next';
 import { translations } from 'locales/i18n';
 import { Example } from "./containers/pages/Example/Loadable";
@@ -22,18 +20,11 @@ import { IS_DEV } from "environment";
 import { GovernancePage } from "./containers/pages/Governance/Loadable";
 import { analytics } from "@snowball-finance/snowball-analytics";
 import SNOWCONE_ABI from 'libs/abis/snowcone.json'
-
+import { PoolsAndGauges } from "./containers/PoolsAndGauges";
+import { INFO_QUERY, LAST_SNOWBALL_INFO } from "services/apollo/queries/snowballInfo";
+import GAUGE_PROXY_ABI from 'libs/abis/gauge-proxy.json'
 export function App() {
   const { t } = useTranslation();
-  const location = useLocation()
-
-  useEffect(() => {
-    analytics.trackPageView({
-      href: location.pathname,
-    })
-  }, [location]);
-
-
   return (
     <>
       <BlockChain
@@ -41,6 +32,7 @@ export function App() {
           tokenABI: SNOWCONE_ABI
         }}
       />
+      <PoolsAndGauges abi={GAUGE_PROXY_ABI} lastInfoQuery={INFO_QUERY} />
       <Helmet
         titleTemplate="%s - Snowball"
         defaultTitle={t(translations.HomePage.home())}

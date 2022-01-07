@@ -17,7 +17,6 @@ export const initialState: ContainerState = {
   },
   contracts: {
     snob: undefined,
-    gaugeProxy: undefined,
   }
 };
 

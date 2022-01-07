@@ -61,8 +61,6 @@ const TopDesc = styled('p')({
   color: CssVariables.dark,
   marginBottom: '12px'
 })
-
-
 const TopWrapper = styled(SnowPaper)({
   padding: '16px'
 })

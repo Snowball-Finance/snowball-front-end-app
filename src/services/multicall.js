@@ -59,8 +59,6 @@ const getMultiContractData = async (provider, contractArray) => {
         throw new Error(`Multicall failed => ${error.message}`)
     }
 }
-
-
 export const generatePoolInfo = ({ item, gauges, contractData, prices }) => {
     const lpData = contractData[item.lpAddress];
     const snowglobeData = contractData[item.address];

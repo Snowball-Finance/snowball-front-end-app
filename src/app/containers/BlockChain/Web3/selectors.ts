@@ -57,5 +57,3 @@ export const selectDeactivate = createSelector(
   [selectWeb3Domain],
   web3State => web3State.deactivate,
 );
-
-

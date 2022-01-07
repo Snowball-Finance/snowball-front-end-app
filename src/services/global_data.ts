@@ -19,6 +19,4 @@ export const requestToAddSnobToMetamask = () => {
     })
   }
   return Promise.reject(new Error('Metamask not found'))
-
-
 };

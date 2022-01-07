@@ -21,8 +21,6 @@ for(let key in variables){
     throw new Error(`REACT_APP_${key} is not set in .env for the governance`)
   }
 }
-
-
   useGovernanceSlice()
   const dispatch = useDispatch()
   const governanceToken=useSelector(selectGovernanceTokenContract)

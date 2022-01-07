@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { PoolInfoItem } from "../../types";
 import { IsGettingUserPoolsIndicator } from "./isGettingUserPoolsIndicator";
 import { useDispatch, useSelector } from "react-redux";
-import { selectGotUserPools, selectIsLoadingPools, selectIsReadyToGetUserData, selectPoolsToShow } from "../../selectors";
+import { selectGotUserPools, selectIsLoadingPools, selectPoolsToShow } from "../../selectors";
 import { SnowPairsIcon } from "app/components/base/snowPairsIcon";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { ItemContainer, Left, PoolName, PoolNameAndProvider, PoolProvider, Right, StyledSnowPaper } from "./components";
@@ -15,6 +15,7 @@ import { isEmpty } from "common/utility";
 import getUserBoost from "../../helpers/getUserBoost";
 import { formatNumber } from "common/format";
 import { selectGovernanceTokenBalance, selectTotalGovernanceTokenSupply } from "app/containers/BlockChain/Governance/selectors";
+import { selectIsReadyToGetUserData } from "app/containers/PoolsAndGauges/selectors";
 
 interface GridConfigTypes {
   columnDefs: ColDef[];
@@ -49,8 +50,6 @@ const PoolRow = (params) => {
   }
 
   const userBoost = `${(boost() ? boost() * 1.0 : 1.0).toFixed(2)}x`;
-
-
   const totalAPY = () => {
     if (data.gaugeInfo) {
       let total = (boost() * data.gaugeInfo.snobYearlyAPR) + data.yearlyAPY;
@@ -106,35 +105,12 @@ const PoolRow = (params) => {
   );
 }
 
-
-
-
 export const PoolsList = () => {
   const dispatch = useDispatch()
 
   const pools = useSelector(selectPoolsToShow)
 
   const provider = useSelector(selectPrivateProvider)
-  const isReadyToGetUserPools = useSelector(selectIsReadyToGetUserData)
-  const alreadyGotUserPools = useSelector(selectGotUserPools)
-
-  useEffect(() => {
-    if (isReadyToGetUserPools && !alreadyGotUserPools) {
-      dispatch(ExampleActions.getAndSetUserPools())
-    }
-    return () => {
-    }
-  }, [isReadyToGetUserPools, alreadyGotUserPools])
-
-  useEffect(() => {
-    if (provider && !alreadyGotUserPools) {
-      dispatch(ExampleActions.getLastSnowballInfo())
-    }
-  }, [provider, alreadyGotUserPools])
-
-
-
-
   const isLoading = useSelector(selectIsLoadingPools)
 
   const gridApi = useRef<GridApi | null>(null);
@@ -163,8 +139,6 @@ export const PoolsList = () => {
   const gridRendered = (e: GridReadyEvent) => {
     gridApi.current = e.api;
   };
-
-
   const handleRowClick = (e: RowClickedEvent) => {
     const { data }: { data: PoolInfoItem } = e
     const { address } = data
@@ -212,8 +186,6 @@ export const PoolsList = () => {
     </GridWrapper>
   )
 }
-
-
 const GridWrapper = styled('div')({
   height: 'calc(100vh - 310px)',
   '.ag-header,.ag-row': {

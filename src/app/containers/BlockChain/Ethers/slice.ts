@@ -2,8 +2,6 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'store/toolkit';
 import { ContainerState, EthersState } from './types';
 import { useInjectReducer, useInjectSaga } from 'store/redux-injectors';
-
-
 import { ethersSaga } from './saga';
 
 // The initial state of the Ethers container

@@ -1,7 +1,7 @@
+import { env, IS_DEV } from "environment";
+import { apiService } from "services/api";
 import { getMultiContractData } from "services/multicall";
-
-
-
+import { RequestTypes } from "services/types";
 export const retrieveGauge = ({ pool, gaugesData, totalWeight }) => {
 
   const gaugeTokenData = gaugesData[pool.address];
@@ -31,8 +31,6 @@ export const retrieveGauge = ({ pool, gaugesData, totalWeight }) => {
     fullApy,
   }
 }
-
-
 export const getGauges = async ({ gaugeProxyContract, pools, provider, poolsCalls }) => {
   const totalWeight = await gaugeProxyContract.totalWeight();
   const gaugesData = await getMultiContractData(provider, poolsCalls);

@@ -65,9 +65,6 @@ export const NavigationTabs: FC = () => {
     </Wrapper>
   )
 }
-
-
-
 const Wrapper = styled(SnowPaper)({
   ".MuiTabs-indicator":{
     backgroundColor: CssVariables.primaryBlue,
