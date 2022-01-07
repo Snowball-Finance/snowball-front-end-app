@@ -1,11 +1,11 @@
 import { styled, Tab, Tabs } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
-import { AppPages } from "app/types";
 import { replace } from "connected-react-router";
 import { translations } from "locales/i18n";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { CssVariables } from "styles/cssVariables/cssVariables";
 import { GovernanceSubPages } from "../../routes";
 
@@ -30,7 +30,8 @@ interface Page {
 export const NavigationTabs: FC = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  let path = window.location.pathname
+  const location=useLocation()
+  let path = location.pathname
   path = path !== GovernanceSubPages.voteAllocation ? GovernanceSubPages.proposals : path
   const pages = subPages({ t })
   const handleTabChange = (page: string) => {
@@ -50,7 +51,7 @@ export const NavigationTabs: FC = () => {
             <Tab
               disableRipple={true}
               className={`${index === 0 ? 'first' : ''} ${index === pages.length - 1 ? 'last' : ''
-                }`}
+                }  `}
               value={item.path}
               key={'segment' + index}
               label={
@@ -65,6 +66,9 @@ export const NavigationTabs: FC = () => {
     </Wrapper>
   )
 }
+
+
+
 const Wrapper = styled(SnowPaper)({
   ".MuiTabs-indicator":{
     backgroundColor: CssVariables.primaryBlue,
