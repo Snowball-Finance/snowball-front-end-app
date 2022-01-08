@@ -8,7 +8,6 @@ import { env } from "environment";
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { selectPrivateProvider } from "../BlockChain/Ethers/selectors";
-import { selectAccount } from "../BlockChain/Web3/selectors";
 import { selectGaugeContract, selectGotUserPools, selectIsReadyToGetUserData } from "./selectors";
 import { PoolsAndGaugesActions, usePoolsAndGaugesSlice } from './slice';
 interface Props {
