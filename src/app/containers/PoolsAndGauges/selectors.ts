@@ -15,7 +15,6 @@ export const selectPoolsArrayDomain = (state: RootState) => state.poolsAndGauges
 const selectGotUserPoolsDomain = (state: RootState) => state.poolsAndGauges?.gotUserPools || initialState.gotUserPools;
 export const selectIsLoadingUserPoolsAndGaugesDomain = (state: RootState) => state.poolsAndGauges?.isLoadingUserPoolsAndGauges || initialState.isLoadingUserPoolsAndGauges;
 export const selectPoolsObjDomain = (state: RootState) => state.poolsAndGauges?.pools || {};
-export const selectLastInfoQueryDomain = (state: RootState) => state.poolsAndGauges?.lastInfoQuery || initialState.lastInfoQuery;
 export const selectGaugesDomain = (state: RootState) => state.poolsAndGauges?.gauges || [...initialState.gauges];
 
 export const selectPoolsAndGauges = createSelector(

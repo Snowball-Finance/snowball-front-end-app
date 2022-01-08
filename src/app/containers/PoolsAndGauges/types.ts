@@ -76,7 +76,6 @@ export interface PoolsAndGaugesState {
   gauges: GaugeItem[],
   pools: { [key: string]: PoolInfoItem }
   gotUserPools: boolean;
-  lastInfoQuery: any;
   lastInfo: LastInfo|undefined;
 
 }

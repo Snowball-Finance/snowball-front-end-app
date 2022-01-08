@@ -15,7 +15,6 @@ export const initialState: ContainerState = {
   pools:{},
   gotUserPools: false,
   isLoadingLastInfo: false,
-  lastInfoQuery:undefined,
   lastInfo:undefined,
 };
 
@@ -27,9 +26,6 @@ const poolsAndGaugesSlice = createSlice({
     getLastInfo(state, action: PayloadAction<void>) {},
     setLastInfo(state, action: PayloadAction<LastInfo>) {
       state.lastInfo = action.payload;
-    },
-    setLastInfoQuery(state, action: PayloadAction<any>) {
-      state.lastInfoQuery = action.payload;
     },
     setGaugeProxyABI(state, action: PayloadAction<any>) {
       state.gaugeProxyABI = action.payload;
