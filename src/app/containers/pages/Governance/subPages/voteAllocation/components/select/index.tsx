@@ -9,7 +9,6 @@ import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 import { GovernancePageActions } from "app/containers/pages/Governance/slice"
 import { SelectionPopup } from "../selectionPopup"
 
-
 export const SelectTokens = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()

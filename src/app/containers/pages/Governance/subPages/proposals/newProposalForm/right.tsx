@@ -9,6 +9,7 @@ import { CssVariables } from "styles/cssVariables/cssVariables"
 import { DiscussionInput } from "./inputs/discussion"
 import { DocumentInput } from "./inputs/document"
 import { VotingPeriodInput } from "./inputs/votingPeriod"
+
 export const RightSection = () => {
   const { t } = useTranslation()
   const account=useSelector(selectAccount)
