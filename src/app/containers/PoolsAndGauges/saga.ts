@@ -13,7 +13,7 @@ import { selectAccountDomain } from "../BlockChain/Web3/selectors";
 import { httpQuery, retrieveGauge } from "./providers/gauge";
 import { selectGaugeContractDomain, selectPoolsArrayDomain } from "./selectors";
 import { PoolsAndGaugesActions } from "./slice";
-import { LastInfo, PoolInfoItem } from "./types";
+import { LastInfo, PoolInfoItem, PoolProvider } from "./types";
 
 export function* getLastInfo() {
   try {
@@ -58,10 +58,20 @@ export function* getAndSetUserPools() {
     const pools = yield select(selectPoolsArrayDomain)
     let poolsCalls = [];
     let contractCalls = [];
+    const poolProviders:{[key:string]:PoolProvider} = {}
+
     pools.forEach(item => {
           //@ts-ignore
       poolsCalls = poolsCalls.concat(getPoolCalls({ item, account }));
+      if(!poolProviders[item.source]){
+        poolProviders[item.source] = {
+          name:item.source,
+          //FIXME: implement correct Icon
+          icon:''
+        }
+      }
     });
+    yield put(PoolsAndGaugesActions.setPoolProviders(poolProviders))
     //@ts-ignore
     pools.forEach(item => { contractCalls = contractCalls.concat(getGaugeCalls(item, account)) });
     const [gaugesData, poolsData, totalWeight] = yield all([

@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { ContainerState, GaugeItem, LastInfo } from './types';
+import { ContainerState, GaugeItem, LastInfo, PoolProvider } from './types';
 import { createSlice } from "store/toolkit";
 import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 
@@ -16,6 +16,7 @@ export const initialState: ContainerState = {
   gotUserPools: false,
   isLoadingLastInfo: false,
   lastInfo:undefined,
+  poolProviders:{}
 };
 
 const poolsAndGaugesSlice = createSlice({
@@ -48,6 +49,9 @@ const poolsAndGaugesSlice = createSlice({
     setIsLoadingLastInfo(state, action: PayloadAction<boolean>) {
       state.isLoadingLastInfo = action.payload;
     },
+    setPoolProviders(state, action: PayloadAction<{[key:string]:PoolProvider}>) {
+      state.poolProviders = action.payload;
+    }
   },
 });
 

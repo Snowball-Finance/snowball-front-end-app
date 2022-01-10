@@ -8,10 +8,12 @@ export interface GaugeItem {
   gaugeAddress: string
   harvestable: BigNumber
   poolName: string
+  source: string
   staked: BigNumber
   token: string
   totalSupply: BigNumber
-  totalWeight: number
+  totalWeight: number,
+  selected:boolean
 }
 
 export interface GaugeInfo {
@@ -66,6 +68,14 @@ export interface LastInfo {
   createdAt: string
   poolsInfo: PoolInfoItem[]
 }
+
+export interface PoolProvider{
+  name:string,
+  //any is used because I still am not sure what will the type be
+  //FIXME
+  icon:any
+    }
+
 /* --- STATE --- */
 export interface PoolsAndGaugesState {
   isLoadingLastInfo: boolean;
@@ -77,6 +87,7 @@ export interface PoolsAndGaugesState {
   pools: { [key: string]: PoolInfoItem }
   gotUserPools: boolean;
   lastInfo: LastInfo|undefined;
+  poolProviders:{[key:string]:PoolProvider}
 
 }
 

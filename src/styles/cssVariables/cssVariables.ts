@@ -12,7 +12,9 @@ export enum CssVariables  {
   error='var(--error)',
   /**#363636 */
   dark='var(--dark)',
+  placeholderColor='var(--placeholderColor)',
   grey='var(--grey)',
+  lightTint='var(--lightTint)',
   green='var(--green)',
   mildGreen='var(--mildGreen)',
   red='var(--red)',

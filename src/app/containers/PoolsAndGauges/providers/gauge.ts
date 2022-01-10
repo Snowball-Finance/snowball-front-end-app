@@ -26,6 +26,7 @@ export const retrieveGauge = ({ pool, gaugesData, totalWeight }) => {
   return {
     token: pool.address,
     address,
+    source: pool.source,
     gaugeAddress: address,
     totalWeight: +totalWeight.toString(),
     totalSupply,
