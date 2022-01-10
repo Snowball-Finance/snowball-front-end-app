@@ -19,8 +19,6 @@ export function* getLastInfo(action:{type:string,payload:{query:string}}) {
     const {query}=action.payload;
     yield put(PoolsAndGaugesActions.setIsLoadingLastInfo(true));
     const lastInfoQuery=query
-    console.log(lastInfoQuery)
-    //|| is added because we've handled not existance of the env variable in ./inedx.tsx
     const {data}= yield call(httpQuery, lastInfoQuery||'' )
     yield put(PoolsAndGaugesActions.setLastInfo(data.LastSnowballInfo));
     const lastSnowballInfo: LastInfo = data.LastSnowballInfo

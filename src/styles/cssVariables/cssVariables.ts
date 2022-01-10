@@ -14,6 +14,7 @@ export enum CssVariables  {
   dark='var(--dark)',
   placeholderColor='var(--placeholderColor)',
   grey='var(--grey)',
+  tint='var(--tint)',
   lightTint='var(--lightTint)',
   green='var(--green)',
   mildGreen='var(--mildGreen)',

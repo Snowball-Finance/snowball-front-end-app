@@ -1,11 +1,11 @@
 import { styled } from "@mui/material"
 import { ColDef, GridApi, GridReadyEvent, RowClickedEvent } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import { useEffect, useRef } from "react";
+import {  useRef } from "react";
 import { PoolInfoItem } from "../../types";
 import { IsGettingUserPoolsIndicator } from "./isGettingUserPoolsIndicator";
 import { useDispatch, useSelector } from "react-redux";
-import { selectGotUserPools, selectIsLoadingPools, selectPoolsToShow } from "../../selectors";
+import { selectIsLoadingPools, selectPoolsToShow } from "../../selectors";
 import { SnowPairsIcon } from "app/components/base/snowPairsIcon";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { ItemContainer, Left, PoolName, PoolNameAndProvider, PoolProvider, Right, StyledSnowPaper } from "./components";
@@ -15,7 +15,6 @@ import { isEmpty } from "common/utility";
 import getUserBoost from "../../helpers/getUserBoost";
 import { formatNumber } from "common/format";
 import { selectGovernanceTokenBalance, selectTotalGovernanceTokenSupply } from "app/containers/BlockChain/Governance/selectors";
-import { selectIsReadyToGetUserData } from "app/containers/PoolsAndGauges/selectors";
 
 interface GridConfigTypes {
   columnDefs: ColDef[];

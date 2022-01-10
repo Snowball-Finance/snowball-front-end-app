@@ -3,35 +3,54 @@ import { SnowPaper } from "app/components/base/SnowPaper"
 import { ContainedButton } from "app/components/common/buttons/containedButton"
 import { Max1040 } from "app/components/wrappers/max1040"
 import { selectAccount } from "app/containers/BlockChain/Web3/selectors"
+import { env } from "environment"
 import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
-import { SelectTokens } from "./components/select"
+import { RewardsAllocationsTable } from "./components/rewardAllocationsTable"
+import { SelectPairs } from "./components/select"
+import { SelectedPairsTable } from "./components/selectedPairsTable"
 
 export const VoteAllocation = () => {
   const { t } = useTranslation()
-  const account=useSelector(selectAccount)
+  const account = useSelector(selectAccount)
 
   return (
     <StyledMax1040>
-  {!account?t(translations.Common.ConnectToWallet()):<TopWrapper>
-        <Title>
-          {t(translations.GovernancePage.VoteAllocation.Voteforyourpreferredpair())}
-        </Title>
-        <TopDesc>
-          {t(translations.GovernancePage.VoteAllocation.TopDescs())}
-        </TopDesc>
-        <TopActions >
-          <ActionsTitle>
-            {t(translations.GovernancePage.VoteAllocation.Votethepairyouprefer())}
-          </ActionsTitle>
-          <SelectTokens />
-          <ContainedButton fullWidth  >
-            {t(translations.GovernancePage.VoteAllocation.VoteAllocation())}
-          </ContainedButton>
-        </TopActions>
-      </TopWrapper>}
+      {!account
+        ?
+        t(translations.Common.ConnectToWallet())
+        :
+        <SectionWrapper>
+          <Title>
+            {t(translations.GovernancePage.VoteAllocation.Voteforyourpreferredpair())}
+          </Title>
+          <TopDesc>
+            {t(translations.GovernancePage.VoteAllocation.TopDescs())}
+          </TopDesc>
+          <TopActions >
+            <ActionsTitle>
+              {t(translations.GovernancePage.VoteAllocation.Votethepairyouprefer())}
+            </ActionsTitle>
+            <SelectPairs />
+            <SelectedPairsTable />
+            <ContainedButton fullWidth  >
+              {t(translations.GovernancePage.VoteAllocation.VoteAllocation())}
+            </ContainedButton>
+          </TopActions>
+        </SectionWrapper>
+        }
+          <SectionWrapper>
+          <Title>
+            {t(translations.GovernancePage.VoteAllocation.TOKEN_RewardAllocations(),{token:env.MAIN_TOKEN_NAME})}
+          </Title>
+          <BottomDesc>
+            {t(translations.GovernancePage.VoteAllocation.BottomDescs())}
+          </BottomDesc>
+         <RewardsAllocationsTable />
+        </SectionWrapper>
+        
     </StyledMax1040>
   )
 }
@@ -65,7 +84,12 @@ const TopDesc = styled('p')({
   color: CssVariables.dark,
   marginBottom: '12px'
 })
-const TopWrapper = styled(SnowPaper)({
+
+const BottomDesc = styled(TopDesc)({
+  maxWidth: '800px',
+})
+
+const SectionWrapper = styled(SnowPaper)({
   padding: '16px'
 })
 

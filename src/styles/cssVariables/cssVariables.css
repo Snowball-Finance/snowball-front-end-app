@@ -27,5 +27,16 @@ html{
   --lightGrey:#E5E5E5;
   --navigationTabTextColor: #333;
   --error:#D62839;
+  --tint:#F9F9F9;
   --paperBorderRadius:8px;
+
+
+  /* ag grid related styles */
+  --ag-border-color:transparent;
+  --ag-row-border-color:transparent;
+  --ag-header-background-color:var(--tint);
+  --ag-header-column-separator-color:transparent;
+  --ag-data-color:var(--darkText);
+  --ag-range-selection-border-color:transparent;
+  --ag-odd-row-background-color:var(--lightTint);
 }

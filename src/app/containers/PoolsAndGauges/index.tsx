@@ -3,13 +3,13 @@
 * PoolsAndGauges
 *
 */
-
-import { env } from "environment";
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { selectPrivateProvider } from "../BlockChain/Ethers/selectors";
 import { selectGaugeContract, selectGotUserPools, selectIsReadyToGetUserData } from "./selectors";
 import { PoolsAndGaugesActions, usePoolsAndGaugesSlice } from './slice';
+import 'ag-grid-community/dist/styles/ag-grid.css'
+import 'ag-grid-community/dist/styles/ag-theme-balham.min.css'
 interface Props {
   abi: any,
   query:string
@@ -24,7 +24,7 @@ export const PoolsAndGauges: FC<Props> = ({ abi,query }) => {
   const provider = useSelector(selectPrivateProvider)
 
   useEffect(() => {
-    dispatch(PoolsAndGaugesActions.setGaugeProxyABI({abi}))
+    dispatch(PoolsAndGaugesActions.setGaugeProxyABI(abi))
   }, [])
 
   useEffect(() => {

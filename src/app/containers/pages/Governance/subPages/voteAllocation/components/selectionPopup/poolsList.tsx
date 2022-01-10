@@ -1,4 +1,4 @@
-import { styled } from "@mui/material"
+import { Checkbox, styled } from "@mui/material"
 import { selectedPoolProviders, selectPoolProviders } from "app/containers/pages/Governance/selectors"
 import { GovernancePageActions } from "app/containers/pages/Governance/slice"
 import { GaugeItem } from "app/containers/PoolsAndGauges/types"
@@ -7,21 +7,21 @@ import { CssVariables } from "styles/cssVariables/cssVariables"
 import { SubListTitle } from "./styles"
 
 export const PoolsList = () => {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
   const providers = useSelector(selectPoolProviders)
-  const selectedProviders=useSelector(selectedPoolProviders)
+  const selectedProviders = useSelector(selectedPoolProviders)
 
-  let providersToShow=providers
+  let providersToShow = providers
 
-  if(selectedProviders.length!==0){
-    providersToShow=providers.filter((provider)=>{
+  if (selectedProviders.length !== 0) {
+    providersToShow = providers.filter((provider) => {
       return selectedProviders.includes(provider.name)
     })
   }
 
-const handleGaugeClick=(gauge:GaugeItem)=>{
-dispatch(GovernancePageActions.toggleSelectedPair(gauge))
-}
+  const handleGaugeClick = (gauge: GaugeItem) => {
+    dispatch(GovernancePageActions.toggleSelectedPair(gauge))
+  }
 
   return (
     <Wrapper>
@@ -33,11 +33,15 @@ dispatch(GovernancePageActions.toggleSelectedPair(gauge))
               {provider.gauges.map((gauge) => {
                 return (
                   <ItemWrapper
-                  onClick={()=>{handleGaugeClick(gauge)}}
+                    onClick={() => { handleGaugeClick(gauge) }}
                     key={gauge.address}
                   >
-                    {gauge.selected && '----'}
-                    {gauge.poolName.replace(' Pool','')}
+                    <span>
+                      <Checkbox checked={gauge.selected} size="medium" />
+                    </span>
+                    <span>
+                      {gauge.poolName.replace(' Pool', '')}
+                    </span>
                   </ItemWrapper>)
               })}
             </ListWrapper>
@@ -49,9 +53,12 @@ dispatch(GovernancePageActions.toggleSelectedPair(gauge))
 }
 
 const ItemWrapper = styled('div')({
-  color:CssVariables.darkText,
-  fontSize:'14px',
-  fontWeight:600
+  color: CssVariables.darkText,
+  fontSize: '14px',
+  fontWeight: 600,
+  display: 'flex',
+  alignItems: 'center',
+  cursor:'pointer'
 })
 
 const ListWrapper = styled('div')({})
@@ -59,9 +66,9 @@ const ListWrapper = styled('div')({})
 const ProviderNameAndPoolsWrapper = styled('div')({})
 
 const Wrapper = styled('div')({
-  maxHeight:'330px',
+  maxHeight: '330px',
   overflow: 'auto',
-  display:'flex',
-  flexDirection:'column',
-  gap:'16px'
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '16px'
 })
