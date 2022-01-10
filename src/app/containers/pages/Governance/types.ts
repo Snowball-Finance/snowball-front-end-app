@@ -1,4 +1,5 @@
 import { GaugeItem, PoolProvider } from "app/containers/PoolsAndGauges/types";
+
 export interface SelectablePoolProvider extends PoolProvider {
   selected: boolean,
   gauges: GaugeItem[]

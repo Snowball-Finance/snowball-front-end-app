@@ -24,7 +24,7 @@ const poolsAndGaugesSlice = createSlice({
   initialState,
   reducers: {
     getInitialData(state, action: PayloadAction<void>) {},
-    getLastInfo(state, action: PayloadAction<void>) {},
+    getLastInfo(state, action: PayloadAction<{query:string}>) {},
     setLastInfo(state, action: PayloadAction<LastInfo>) {
       state.lastInfo = action.payload;
     },

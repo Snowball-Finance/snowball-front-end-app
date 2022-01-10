@@ -122,6 +122,7 @@ export const selectCanAddNewProposal = createSelector(
     return false
   }
 )
+
 export const selectGovernanceTokenContract = createSelector(
   [selectPrivateProviderDomain, selectLibraryDomain,selectGovernanceABIDomain],
   (provider, library,governanceABI) => {

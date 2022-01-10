@@ -3,10 +3,10 @@ import {
   RequestParameters,
 } from './types';
 import { queryStringer } from 'common/qs';
-
 import { MessageService, MessageNames } from './message';
 import { toast } from "react-toastify";
 import { BaseUrl } from "app/constants";
+
 export class ApiService {
   private static instance: ApiService;
   private constructor() { }

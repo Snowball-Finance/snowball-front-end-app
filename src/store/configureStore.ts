@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createInjectorsEnhancer, forceReducerReload } from 'redux-injectors';
 import createSagaMiddleware from 'redux-saga';
-
 import { createReducer } from './reducers';
 import { routerMiddleware } from 'connected-react-router';
 import { History } from 'history';

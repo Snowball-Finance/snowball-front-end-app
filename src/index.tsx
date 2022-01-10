@@ -7,7 +7,6 @@
 
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
-
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider as ReduxProvider } from 'react-redux';
@@ -17,25 +16,14 @@ import 'sanitize.css/sanitize.css';
 import { history } from 'router/history';
 // Initialize languages
 import './locales/i18n';
-
 import { App } from 'app';
-
 import { HelmetProvider } from 'react-helmet-async';
-
 import { configureAppStore } from 'store/configureStore';
-
 import { ThemeProvider as MaterialThemeProvider } from '@mui/material';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-
 import './styles/cssVariables/cssVariables.css'
-
 import { theme } from "styles/theme";
-import { Web3Provider } from '@ethersproject/providers'
-import { Web3ReactProvider } from '@web3-react/core'
-import { provider } from 'web3-core';
-
-import Web3 from "web3";
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "services/apollo/client";
 import { ConnectedRouter } from "connected-react-router";

@@ -1,7 +1,6 @@
 // import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 // import { actions } from './slice';
-
-import { env, IS_DEV } from "environment";
+import { IS_DEV } from "environment";
 import { BigNumber } from "ethers";
 import { toast } from "react-toastify";
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
@@ -15,10 +14,11 @@ import { selectGaugeContractDomain, selectPoolsArrayDomain } from "./selectors";
 import { PoolsAndGaugesActions } from "./slice";
 import { LastInfo, PoolInfoItem, PoolProvider } from "./types";
 
-export function* getLastInfo() {
+export function* getLastInfo(action:{type:string,payload:{query:string}}) {
   try {
+    const {query}=action.payload;
     yield put(PoolsAndGaugesActions.setIsLoadingLastInfo(true));
-    const lastInfoQuery=env.GAUGE_PROXY_LAST_INFO_QUERY
+    const lastInfoQuery=query
     console.log(lastInfoQuery)
     //|| is added because we've handled not existance of the env variable in ./inedx.tsx
     const {data}= yield call(httpQuery, lastInfoQuery||'' )

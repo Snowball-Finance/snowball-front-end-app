@@ -1,7 +1,6 @@
 import { RouterState } from 'connected-react-router';
 import { HomePageState } from 'app/containers/pages/Home/types';
 import { ExampleState } from 'app/containers/pages/Example/types';
-
 import { BlockChainState } from 'app/containers/BlockChain/types';
 import { Web3State } from "app/containers/BlockChain/Web3/types";
 import { EthersState } from "app/containers/BlockChain/Ethers/types";

@@ -2,11 +2,10 @@ import { env, IS_DEV } from "environment";
 import { apiService } from "services/api";
 import { getMultiContractData } from "services/multicall";
 import { RequestTypes } from "services/types";
-export const retrieveGauge = ({ pool, gaugesData, totalWeight }) => {
 
+export const retrieveGauge = ({ pool, gaugesData, totalWeight }) => {
   const gaugeTokenData = gaugesData[pool.address];
   const gaugeData = gaugesData[pool.gaugeInfo.address];
-
   const address = pool.gaugeInfo.address;
   const balance = gaugeTokenData.balanceOf;
   const staked = gaugeData.balanceOf;

@@ -11,13 +11,11 @@ import { selectPrivateProvider } from "../BlockChain/Ethers/selectors";
 import { selectGaugeContract, selectGotUserPools, selectIsReadyToGetUserData } from "./selectors";
 import { PoolsAndGaugesActions, usePoolsAndGaugesSlice } from './slice';
 interface Props {
-  abi: any
+  abi: any,
+  query:string
 }
 
-export const PoolsAndGauges: FC<Props> = ({ abi }) => {
-  if (!env.GAUGE_PROXY_LAST_INFO_QUERY) {
-    throw new Error("REACT_APP_GAUGE_PROXY_LAST_INFO_QUERY is not defined in environment")
-  }
+export const PoolsAndGauges: FC<Props> = ({ abi,query }) => {
   usePoolsAndGaugesSlice()
   const dispatch = useDispatch()
   const gaugeContract = useSelector(selectGaugeContract)
@@ -26,12 +24,12 @@ export const PoolsAndGauges: FC<Props> = ({ abi }) => {
   const provider = useSelector(selectPrivateProvider)
 
   useEffect(() => {
-    dispatch(PoolsAndGaugesActions.setGaugeProxyABI(abi))
+    dispatch(PoolsAndGaugesActions.setGaugeProxyABI({abi}))
   }, [])
 
   useEffect(() => {
     if (provider && !alreadyGotUserPools) {
-      dispatch(PoolsAndGaugesActions.getLastInfo())
+      dispatch(PoolsAndGaugesActions.getLastInfo({query}))
     }
   }, [provider, alreadyGotUserPools])
 

@@ -20,6 +20,8 @@ import { GovernancePage } from "./containers/pages/Governance/Loadable";
 import SNOWCONE_ABI from 'libs/abis/snowcone.json'
 import { PoolsAndGauges } from "./containers/PoolsAndGauges";
 import GAUGE_PROXY_ABI from 'libs/abis/gauge-proxy.json'
+import { INFO_QUERY } from "services/apollo/queries/snowballInfo";
+
 export function App() {
   const { t } = useTranslation();
   return (
@@ -29,7 +31,7 @@ export function App() {
           tokenABI: SNOWCONE_ABI
         }}
       />
-      <PoolsAndGauges abi={GAUGE_PROXY_ABI} />
+      <PoolsAndGauges abi={GAUGE_PROXY_ABI} query={INFO_QUERY} />
       <Helmet
         titleTemplate="%s - Snowball"
         defaultTitle={t(translations.HomePage.home())}

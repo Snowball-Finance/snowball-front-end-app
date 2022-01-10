@@ -14,6 +14,7 @@ defeated='Defeated',
 readyForExecution='Ready For Execution',
 executed='Executed'
 }
+
 interface ProposalMetadata {
   description: string
   discussion: string
@@ -50,7 +51,7 @@ export interface GovernanceState {
   isSubmittingNewProposal:boolean,
   iseGettingReceipt:boolean,
   receipt?:Receipt,
-  // used any, because it's a json file address
+  // used any, because it's a json file 
   governanceTokenABI:any,
   governanceTokenContract:Contract|undefined,
   totalGovernanceTokenSupply:BigNumber,

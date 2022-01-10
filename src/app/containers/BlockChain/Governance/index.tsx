@@ -4,7 +4,6 @@ import { selectGovernanceTokenContract } from "./selectors"
 import { GovernanceActions, useGovernanceSlice } from "./slice"
 
 export const Governance=({tokenABI}:{tokenABI:any})=>{
-
 const variables={
   MINIMUM_TOKEN_FOR_VOTING:process.env.REACT_APP_MINIMUM_TOKEN_FOR_VOTING,
   MINIMUM_VOTING_PERIOD:process.env.REACT_APP_MINIMUM_VOTING_PERIOD,
