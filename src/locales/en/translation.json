@@ -89,6 +89,9 @@
       "Boosted_TOKEN_APR": "Boosted {{token}} APR",
       "VoteWeight": "Vote Weight",
       "Balance": "Balance",
+      "FitProportionally": "Fit Proportionally",
+      "FitEqually": "Fit Equally",
+      "IfPercentage":"If the percentage is not exactly 100%, we will fit proportionally your choice.",
       "TopDescs": "Once you've voted, your votes will continue to rollover each week. There is no need to revote unless you want to change the distribution you've voted for."
     },
     "Tabs": {

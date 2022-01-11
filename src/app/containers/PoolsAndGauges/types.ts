@@ -14,7 +14,8 @@ export interface GaugeItem {
   totalSupply: BigNumber
   totalWeight: number,
   selected:boolean,
-  allocPoint:number
+  allocPoint:number,
+  enteredAllocation:number
 }
 
 export interface GaugeInfo {

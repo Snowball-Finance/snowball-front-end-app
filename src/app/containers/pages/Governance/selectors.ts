@@ -65,12 +65,23 @@ export const selectPoolProviders = createSelector(
   }
 )
 
+export const selectSelectedVoteAllocationPairsObj = createSelector(
+  [selectSelectedVoteAllocationPairsDomain],
+  (selectedVoteAllocationPairs) => selectedVoteAllocationPairs
+)
+
 export const selectSelectedVoteAllocationPairsArray = createSelector(
   [selectSelectedVoteAllocationPairsDomain],
   (selectedVoteAllocationPairs) => {
     return Object.values(selectedVoteAllocationPairs);
   }
 )
+
+export const selectSelectedVoteAllocationPair=(address:string)=>createSelector(
+  [selectSelectedVoteAllocationPairsDomain],
+  pairsObj=>pairsObj[address]
+)
+
 
 export const selectIsVoteAllocationSelectionOpen = createSelector(
   [setIsVoteAllocationSelectionOpenDomain],

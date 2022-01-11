@@ -24,6 +24,9 @@ const governancePageSlice = createSlice({
     setPairSearchInput: (state, action: PayloadAction<string>) => {
       state.pairSearchInput = action.payload;
     },
+    setSelectedPairAllocationInputValue: (state, action: PayloadAction<GaugeItem>) => {
+      state.selectedPairs[action.payload.address] = action.payload;
+    },
     toggleSelectedPoolProvider: (state, action: PayloadAction<string>) => {
       const { selectedPoolProviders } = state;
       const { payload } = action;
@@ -37,13 +40,21 @@ const governancePageSlice = createSlice({
     toggleSelectedPair: (state, action: PayloadAction<GaugeItem>) => {
       const { selectedPairs } = state;
       const { payload } = action;
-      const {address}=payload
+      const { address } = payload
       if (selectedPairs[address]) {
         delete selectedPairs[address];
       } else {
         selectedPairs[address] = payload;
       }
       state.selectedPairs = selectedPairs;
+    },
+    fitSelectedPairsEqually: (state) => {
+      const { selectedPairs } = state;
+      console.log(selectedPairs)
+    },
+    fitSelectedPairsProportionally: (state) => {
+      const { selectedPairs } = state;
+      console.log(selectedPairs)
     }
   },
 });

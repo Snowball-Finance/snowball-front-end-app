@@ -27,7 +27,7 @@ export const bottomTableRowsConfig = ({ t, isSmall }: { t: any, isSmall: boolean
     field: 'allocPoint',
     flex: 1,
     minWidth: 100,
-    cellStyle: ({ data }: { data: GaugeItem }) => {
+    cellStyle: ({ data  }: { data: GaugeItem }) => {
       return (
         {
           'font-size': '12px',
@@ -40,7 +40,7 @@ export const bottomTableRowsConfig = ({ t, isSmall }: { t: any, isSmall: boolean
     },
     valueFormatter: ({ data }: { data: GaugeItem }) => formatNumber(data.allocPoint, 2)
   },
-  {
+  { 
     headerName: t(translations.GovernancePage.VoteAllocation.Allocationperday()),
     field: 'depositTokenName',
     flex: 1,
