@@ -7,8 +7,6 @@ import { CssVariables } from "styles/cssVariables/cssVariables"
 
 export const RemoveButton = ({ data }: { data: GaugeItem }) => {
   const dispatch = useDispatch()
-  console.log(data.address)
-
   const handleRemoveClick=()=>{
     dispatch(GovernancePageActions.toggleSelectedPair(data))
   }

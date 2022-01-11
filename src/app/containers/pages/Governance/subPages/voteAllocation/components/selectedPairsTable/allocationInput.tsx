@@ -20,7 +20,7 @@ export const AllocationInput = ({ data }: { data: GaugeItem }) => {
 
   return (
     <Wrapper>
-      <input type='number' value={pair?.enteredAllocation} onChange={handleInputChange} />
+      <input type='number' value={pair?.enteredAllocation??''} onChange={handleInputChange} />
     </Wrapper>
   )
 }
@@ -31,7 +31,7 @@ const Wrapper = styled('div')({
     height: '30px',
     outline: 'none',
     borderRadius: '8px',
-    border: `1px solid ${CssVariables.grey}`,
+    border: `1px solid ${CssVariables.gridInputBorder}`,
     padding: '0px 5px',
   }
 })

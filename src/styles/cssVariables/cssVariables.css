@@ -29,6 +29,8 @@ html{
   --error:#D62839;
   --tint:#F9F9F9;
   --paperBorderRadius:8px;
+  --gridInputBorder:#dbdbdb;
+  --ctaBlue:#28A2FF;
 
 
   /* ag grid related styles */

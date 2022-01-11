@@ -6,6 +6,7 @@ export enum CssVariables  {
   navigationTabTextColor='var(--navigationTabTextColor)',
   lightBlue='var(--lightBlue)',
   mildBlue='var(--mildBlue)',
+  ctaBlue='var(--ctaBlue)',
   primaryBlue='var(--primaryBlue)',
   paperBorderRadius='var(--paperBorderRadius)',
   darkText='var(--darkText)',
@@ -22,5 +23,6 @@ export enum CssVariables  {
   mildRed='var(--mildRed)',
   mildYellow='var(--mildYellow)',
   lightGrey='var(--lightGrey)',
+  gridInputBorder='var(--gridInputBorder)',
 
 }

@@ -70,5 +70,5 @@ const PairChip = styled(ContainedButton)({
   fontSize: '14px',
   fontWeight: 600,
   gap: '12px',
-  paddingRight: '8px'
+  paddingRight: '8px',
 })

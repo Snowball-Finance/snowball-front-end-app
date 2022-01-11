@@ -3,6 +3,7 @@ import { ColDef } from "ag-grid-community"
 import { AgGridReact } from "ag-grid-react"
 import { selectGauges } from "app/containers/PoolsAndGauges/selectors"
 import { GaugeItem } from "app/containers/PoolsAndGauges/types"
+import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
@@ -18,7 +19,7 @@ interface GridConfigTypes {
 export const RewardsAllocationsTable = () => {
   const { t } = useTranslation()
   const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const rowConfigs = bottomTableRowsConfig({ t, isSmall: smallScreen })
+  const rowConfigs = useMemo(() => bottomTableRowsConfig({ t, isSmall: smallScreen }),[smallScreen])
   const gauges=useSelector(selectGauges)
   const gridConfig: GridConfigTypes = {
     columnDefs: [...rowConfigs],
@@ -65,5 +66,12 @@ const Wrapper = styled('div')({
   },
   '.ag-center-cols-viewport': {
     overflowX: 'hidden'
+  },
+  '.blue':{
+    color:CssVariables.ctaBlue+` !important`
+  },
+  '.darkBold':{
+    fontWeight: 'bold',
+    color:CssVariables.dark
   }
 })

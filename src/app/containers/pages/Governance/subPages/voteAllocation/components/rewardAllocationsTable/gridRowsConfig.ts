@@ -63,6 +63,8 @@ export const bottomTableRowsConfig = ({ t, isSmall }: { t: any, isSmall: boolean
     field: 'balance',
     flex: 1,
     minWidth: 100,
+    headerClass:'blue',
+    cellClass:'darkBold',
     valueFormatter: ({ data }: { data: GaugeItem }) => formatNumber(data.balance.toNumber(), 2)
   },
 ])

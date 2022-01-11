@@ -1,11 +1,15 @@
 import { styled } from "@mui/material"
 import { TextButton } from "app/components/common/buttons/textButton"
+import { selectSelectedVoteAllocationPairsArray } from "app/containers/pages/Governance/selectors"
 import { GovernancePageActions } from "app/containers/pages/Governance/slice"
 import { translations } from "locales/i18n"
 import { useTranslation } from "react-i18next"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 export const FitButtons=()=>{
+
+  const selectedPairs=useSelector(selectSelectedVoteAllocationPairsArray)
+
   const { t } = useTranslation()
 const dispatch=useDispatch()
 
@@ -18,6 +22,9 @@ const handleFitEquallyClick=()=>{
 }
 
   return (
+    selectedPairs.length<2?
+  <></>
+  :
     <ButtonsWrapper>
     <TextButton onClick={handleFitProportionallyClick}>
       {t(translations.GovernancePage.VoteAllocation.FitProportionally())}

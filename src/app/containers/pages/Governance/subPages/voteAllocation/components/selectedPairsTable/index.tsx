@@ -23,12 +23,12 @@ export const SelectedPairsTable = () => {
   const selectedPairs = useSelector(selectSelectedVoteAllocationPairsArray)
   const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const noSelectedPair = selectedPairs.length === 0
-  const rowConfigs = topTableRowsConfig({ t, isSmall: smallScreen })
+  const rowConfigs = useMemo(() => topTableRowsConfig({ t, isSmall: smallScreen }), [smallScreen])
 
-  const gridConfig: GridConfigTypes = useMemo(() => ({
+  const gridConfig: GridConfigTypes = {
     columnDefs: [...rowConfigs],
     rowData: selectedPairs,
-  }), [selectedPairs?.length]);
+  }
 
   return (<>
     {noSelectedPair
