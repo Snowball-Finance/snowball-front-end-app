@@ -10,11 +10,18 @@ export const httpQuery = async (query: string) => {
   return res;
 }
 
-export const retrieveGauge = ({ pool, gaugesData, totalWeight }) => {
+export const getAllocations=async ({gauges,gaugeProxyContract})=>{
+  const res= await Promise.all(gauges.map(async(gauge,index)=>{
+    const gaugeWeight = await gaugeProxyContract.weights(gauge.token);
+    const allocPoint = gaugeWeight / gauge.totalWeight || 0
+    return ({...gauge,allocPoint})
+  }));
+return res
+}
 
+export const retrieveGauge = ({ pool, gaugesData, totalWeight }) => {
   const gaugeTokenData = gaugesData[pool.address];
   const gaugeData = gaugesData[pool.gaugeInfo.address];
-
   const address = pool.gaugeInfo.address;
   const balance = gaugeTokenData.balanceOf;
   const staked = gaugeData.balanceOf;

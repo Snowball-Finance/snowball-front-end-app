@@ -1,8 +1,10 @@
 import { styled, useMediaQuery } from "@mui/material"
 import { ColDef } from "ag-grid-community"
 import { AgGridReact } from "ag-grid-react"
+import { selectGauges } from "app/containers/PoolsAndGauges/selectors"
 import { GaugeItem } from "app/containers/PoolsAndGauges/types"
 import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
 import { CssVariables } from "styles/cssVariables/cssVariables"
 import { theme } from "styles/theme"
 import { bottomTableRowsConfig } from "./gridRowsConfig"
@@ -17,11 +19,11 @@ export const RewardsAllocationsTable = () => {
   const { t } = useTranslation()
   const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const rowConfigs = bottomTableRowsConfig({ t, isSmall: smallScreen })
+  const gauges=useSelector(selectGauges)
   const gridConfig: GridConfigTypes = {
     columnDefs: [...rowConfigs],
-    rowData: [],
+    rowData: gauges,
   };
-
 
   return (
     <Wrapper className="ag-theme-balham">
@@ -33,6 +35,7 @@ export const RewardsAllocationsTable = () => {
         rowData={gridConfig.rowData}
         defaultColDef={{
           suppressMenu: true,
+          sortable:true,
           cellStyle: {
             'font-size': '12px',
             'height': '100%',

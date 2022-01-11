@@ -51,7 +51,7 @@ const poolsAndGaugesSlice = createSlice({
     },
     setPoolProviders(state, action: PayloadAction<{[key:string]:PoolProvider}>) {
       state.poolProviders = action.payload;
-    }
+    },
   },
 });
 

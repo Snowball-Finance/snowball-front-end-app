@@ -13,7 +13,8 @@ export interface GaugeItem {
   token: string
   totalSupply: BigNumber
   totalWeight: number,
-  selected:boolean
+  selected:boolean,
+  allocPoint:number
 }
 
 export interface GaugeInfo {

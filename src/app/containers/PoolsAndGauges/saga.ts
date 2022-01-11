@@ -9,7 +9,7 @@ import { getGaugeCalls, getPoolCalls } from "services/multicall-queries";
 import { selectPrivateProviderDomain } from "../BlockChain/Ethers/selectors";
 import { selectPricesDomain } from "../BlockChain/selectors";
 import { selectAccountDomain } from "../BlockChain/Web3/selectors";
-import { httpQuery, retrieveGauge } from "./providers/gauge";
+import { getAllocations, httpQuery, retrieveGauge } from "./providers/gauge";
 import { selectGaugeContractDomain, selectPoolsArrayDomain } from "./selectors";
 import { PoolsAndGaugesActions } from "./slice";
 import { LastInfo, PoolInfoItem, PoolProvider } from "./types";
@@ -77,8 +77,9 @@ export function* getAndSetUserPools() {
       call(getMultiContractData, provider, poolsCalls),
       call(gaugeProxyContract.totalWeight)
     ]);
-    const gauges = pools.map((item) => retrieveGauge({ pool: item, gaugesData, totalWeight }))
+    let gauges = pools.map((item) => retrieveGauge({ pool: item, gaugesData, totalWeight }))
     const poolInfo = pools.map(item => generatePoolInfo({ item, gauges, contractData: poolsData, prices }));
+    gauges=yield call(getAllocations,{gauges,gaugeProxyContract})
     yield put(PoolsAndGaugesActions.setGauges(gauges))
     const tmp = {}
     poolInfo.forEach((item: PoolInfoItem) => {

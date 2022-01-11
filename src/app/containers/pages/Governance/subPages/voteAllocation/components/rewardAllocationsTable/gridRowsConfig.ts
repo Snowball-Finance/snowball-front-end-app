@@ -1,5 +1,6 @@
 import { ColDef } from "ag-grid-community";
 import { GaugeItem } from "app/containers/PoolsAndGauges/types";
+import { formatNumber } from "common/format";
 import { env } from "environment";
 import { translations } from "locales/i18n";
 
@@ -13,18 +14,20 @@ export const bottomTableRowsConfig=({t,isSmall}:{t:any,isSmall:boolean}):ColumnD
     field: 'poolName',
     flex: 1,
     minWidth: 100,
+    valueFormatter:({data}:{data:GaugeItem})=>data.poolName.replace('Pool','')
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Platform()),
-    field: 'poolName',
+    field: 'source',
     flex: 1,
     minWidth: 100,
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Allocation()),
-    field: 'poolName',
+    field: 'allocPoint',
     flex: 1,
     minWidth: 100,
+    valueFormatter:({data}:{data:GaugeItem})=>formatNumber(data.allocPoint,2)
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Allocationperday()),
@@ -46,8 +49,9 @@ export const bottomTableRowsConfig=({t,isSmall}:{t:any,isSmall:boolean}):ColumnD
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Balance()),
-    field: 'poolName',
+    field: 'balance',
     flex: 1,
     minWidth: 100,
+    valueFormatter:({data}:{data:GaugeItem})=>formatNumber(data.balance.toNumber(),2)
   },
 ])
