@@ -4,17 +4,17 @@ import { formatNumber } from "common/format";
 import { env } from "environment";
 import { translations } from "locales/i18n";
 
-interface ColumnDef extends ColDef{
-  field?:keyof GaugeItem
+interface ColumnDef extends ColDef {
+  field?: keyof GaugeItem
 }
 
-export const bottomTableRowsConfig=({t,isSmall}:{t:any,isSmall:boolean}):ColumnDef[] =>([
+export const bottomTableRowsConfig = ({ t, isSmall }: { t: any, isSmall: boolean }): ColumnDef[] => ([
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Name()),
     field: 'poolName',
     flex: 1,
     minWidth: 100,
-    valueFormatter:({data}:{data:GaugeItem})=>data.poolName.replace('Pool','')
+    valueFormatter: ({ data }: { data: GaugeItem }) => data.poolName.replace('Pool', '')
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Platform()),
@@ -27,7 +27,19 @@ export const bottomTableRowsConfig=({t,isSmall}:{t:any,isSmall:boolean}):ColumnD
     field: 'allocPoint',
     flex: 1,
     minWidth: 100,
-    valueFormatter:({data}:{data:GaugeItem})=>formatNumber(data.allocPoint,2)
+    cellStyle: ({ data }: { data: GaugeItem }) => {
+      return (
+        {
+          'font-size': '12px',
+          'height': '100%',
+          'display': 'flex ',
+          'align-items': 'center ',
+          'background': data.allocPoint > 0 ? `rgba(0, 255 ,0,${data.allocPoint})` : 'unset',
+        }
+      )
+    },
+    valueFormatter: ({ data }: { data: GaugeItem }) => formatNumber(data.allocPoint, 2)
+
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Allocationperday()),
@@ -36,7 +48,7 @@ export const bottomTableRowsConfig=({t,isSmall}:{t:any,isSmall:boolean}):ColumnD
     minWidth: 100,
   },
   {
-    headerName: t(translations.GovernancePage.VoteAllocation.Boosted_TOKEN_APR(),{token:env.MAIN_TOKEN_NAME}),
+    headerName: t(translations.GovernancePage.VoteAllocation.Boosted_TOKEN_APR(), { token: env.MAIN_TOKEN_NAME }),
     field: 'poolName',
     flex: 1,
     minWidth: 100,
@@ -52,6 +64,6 @@ export const bottomTableRowsConfig=({t,isSmall}:{t:any,isSmall:boolean}):ColumnD
     field: 'balance',
     flex: 1,
     minWidth: 100,
-    valueFormatter:({data}:{data:GaugeItem})=>formatNumber(data.balance.toNumber(),2)
+    valueFormatter: ({ data }: { data: GaugeItem }) => formatNumber(data.balance.toNumber(), 2)
   },
 ])
