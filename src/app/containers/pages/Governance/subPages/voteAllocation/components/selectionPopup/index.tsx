@@ -1,6 +1,5 @@
 import { Box, ClickAwayListener, styled } from "@mui/material"
 import { SnowPaper } from "app/components/base/SnowPaper"
-import { selectIsVoteAllocationSelectionOpen } from "app/containers/pages/Governance/selectors"
 import { GovernancePageActions } from "app/containers/pages/Governance/slice"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"

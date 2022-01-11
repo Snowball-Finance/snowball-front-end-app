@@ -39,7 +39,6 @@ export const bottomTableRowsConfig = ({ t, isSmall }: { t: any, isSmall: boolean
       )
     },
     valueFormatter: ({ data }: { data: GaugeItem }) => formatNumber(data.allocPoint, 2)
-
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Allocationperday()),
