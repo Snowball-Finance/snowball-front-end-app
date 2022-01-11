@@ -40,7 +40,7 @@ export const PoolsList = () => {
                       <Checkbox checked={gauge.selected} size="medium" />
                     </span>
                     <span>
-                      {gauge.poolName.replace(' Pool', '')}
+                      {gauge.depositTokenName}
                     </span>
                   </ItemWrapper>)
               })}

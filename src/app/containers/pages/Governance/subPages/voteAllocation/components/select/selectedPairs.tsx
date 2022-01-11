@@ -34,7 +34,7 @@ export const SelectedPairs = () => {
           {selectedPairs.map(pair => {
             return (
               <PairChip key={pair.address} onClick={(e) => handleRemoveGaugeClick(e,pair)} >
-                {pair.poolName.replace('Pool', '')}
+                {pair.depositTokenName}
                 <CrossIcon color={CssVariables.white} size={24} />
               </PairChip>)
           })}

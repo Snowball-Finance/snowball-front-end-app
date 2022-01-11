@@ -14,7 +14,7 @@ export const bottomTableRowsConfig = ({ t, isSmall }: { t: any, isSmall: boolean
     field: 'poolName',
     flex: 1,
     minWidth: 100,
-    valueFormatter: ({ data }: { data: GaugeItem }) => data.poolName.replace('Pool', '')
+    valueFormatter: ({ data }: { data: GaugeItem }) => data.depositTokenName
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Platform()),
@@ -43,19 +43,19 @@ export const bottomTableRowsConfig = ({ t, isSmall }: { t: any, isSmall: boolean
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Allocationperday()),
-    field: 'poolName',
+    field: 'depositTokenName',
     flex: 1,
     minWidth: 100,
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Boosted_TOKEN_APR(), { token: env.MAIN_TOKEN_NAME }),
-    field: 'poolName',
+    field: 'depositTokenName',
     flex: 1,
     minWidth: 100,
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.VoteWeight()),
-    field: 'poolName',
+    field: 'depositTokenName',
     flex: 1,
     minWidth: 100,
   },
