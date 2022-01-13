@@ -11,7 +11,12 @@ const setIsVoteAllocationSelectionOpenDomain = (state: RootState) => state.gover
 export const selectSelectedVoteAllocationPairsDomain = (state: RootState) => state.governancePage?.selectedPairs || { ...initialState.selectedPairs };
 const selectPairSearchInputDomain = (state: RootState) => state.governancePage?.pairSearchInput || initialState.pairSearchInput;
 const selectSelectedPoolProvidersDomain = (state: RootState) => state.governancePage?.selectedPoolProviders || [...initialState.selectedPoolProviders];
+const isVotingForFarmsDomain = (state: RootState) => state.governancePage?.isVotingForFarms || initialState.isVotingForFarms;
 
+export const selectIsVotingForFarms= createSelector(
+  [isVotingForFarmsDomain],
+  (isVotingForFarms) => isVotingForFarms
+)
 
 export const selectPairSearchInputValue = createSelector(
   [selectPairSearchInputDomain],
