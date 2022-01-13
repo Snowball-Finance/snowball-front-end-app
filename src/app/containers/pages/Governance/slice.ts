@@ -6,6 +6,7 @@ import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 import { governancePageSaga } from './saga';
 import { GaugeItem } from "app/containers/PoolsAndGauges/types";
 import { add, divide } from "precise-math";
+import { fitGaugeWeightsEqually, fitGaugeWeightsProportionally } from "./utils/fit";
 
 // The initial state of the GovernancePage container
 export const initialState: ContainerState = {
@@ -13,6 +14,7 @@ export const initialState: ContainerState = {
   selectedPairs: {},
   pairSearchInput: '',
   selectedPoolProviders: [],
+  isVotingForFarms: false,
 };
 
 const governancePageSlice = createSlice({
@@ -51,35 +53,18 @@ const governancePageSlice = createSlice({
     },
     fitSelectedPairsEqually: (state) => {
       const { selectedPairs } = state;
-      const selectedPairsArray = Object.values(selectedPairs);
-      const divided = Number(divide(100 / selectedPairsArray.length).toFixed(3))
-      selectedPairsArray.forEach((item) => {
-        item.enteredAllocation = divided
-      })
-      const tmp = {}
-      selectedPairsArray.forEach((item) => {
-        tmp[item.address] = item
-      })
+      const tmp = fitGaugeWeightsEqually(selectedPairs)
       state.selectedPairs = tmp;
 
     },
     fitSelectedPairsProportionally: (state) => {
       const { selectedPairs } = state;
-      const selectedPairsArray = Object.values(selectedPairs);
-      let total = 0
-      selectedPairsArray.forEach((item) => {
-        total = add(item.enteredAllocation ? Number(item.enteredAllocation) : 0, total)
-      })
-      const tmp = {}
-      selectedPairsArray.forEach((item) => {
-        item.enteredAllocation = Number(
-          divide(
-            (item.enteredAllocation ? Number(item.enteredAllocation) : 0) * 100 / total
-          ).toFixed(3)
-        )
-        tmp[item.address] = item
-      })
+      const tmp = fitGaugeWeightsProportionally(selectedPairs)
       state.selectedPairs = tmp;
+    },
+    voteForFarms: (state, action: PayloadAction<void>) => { },
+    setIsVotingForFarms: (state, action: PayloadAction<boolean>) => {
+      state.isVotingForFarms = action.payload;
     }
   },
 });

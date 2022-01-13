@@ -11,16 +11,27 @@ export const AllocationInput = ({ data }: { data: GaugeItem }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
-    const newPair = { ...pair, enteredAllocation: value ? Number(value) : 0 }
-    if (value.includes('e')) {
+    let v = value
+    if (v === '') {
+      v = '0'
+    }
+    else if (value.includes('e') || Number(value) < 0) {
       return
     }
+
+    const newPair = { ...pair, enteredAllocation: v ? Number(v) : 0 }
     dispatch(GovernancePageActions.setSelectedPairAllocationInputValue(newPair))
+  }
+  let v = pair?.enteredAllocation + '' ?? ''
+  if (!isNaN(Number(v))) {
+    if (v.length > 1 && v.charAt(0) === '0' && v.charAt(1) !== '.') {
+      v = v.substring(1)
+    }
   }
 
   return (
     <Wrapper>
-      <input type='number' value={pair?.enteredAllocation??''} onChange={handleInputChange} />
+      <input type='number' value={v} onChange={handleInputChange} />
     </Wrapper>
   )
 }

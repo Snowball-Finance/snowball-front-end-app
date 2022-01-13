@@ -11,6 +11,7 @@ import { CssVariables } from "styles/cssVariables/cssVariables"
 import { RewardsAllocationsTable } from "./components/rewardAllocationsTable"
 import { SelectPairs } from "./components/select"
 import { SelectedPairsTable } from "./components/selectedPairsTable"
+import { VoteAllocationSubmit } from "./components/submitButton"
 
 export const VoteAllocation = () => {
   const { t } = useTranslation()
@@ -35,9 +36,7 @@ export const VoteAllocation = () => {
             </ActionsTitle>
             <SelectPairs />
             <SelectedPairsTable />
-            <ContainedButton fullWidth  >
-              {t(translations.GovernancePage.VoteAllocation.VoteAllocation())}
-            </ContainedButton>
+<VoteAllocationSubmit />
           </TopActions>
         </SectionWrapper>
         }

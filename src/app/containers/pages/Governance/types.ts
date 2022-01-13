@@ -12,7 +12,8 @@ export interface GovernancePageState {
     [key: string]: GaugeItem
   },
   pairSearchInput: string,
-  selectedPoolProviders: string[]
+  selectedPoolProviders: string[],
+  isVotingForFarms: boolean,
 }
 
 export type ContainerState = GovernancePageState;
