@@ -1,12 +1,18 @@
 import { GaugeItem } from "app/containers/PoolsAndGauges/types";
 import { add, divide } from "precise-math";
+import { toast } from "react-toastify";
 
 export const fitGaugeWeightsProportionally=(items:{[key: string]: GaugeItem})=>{
   const itemsArray = Object.values(items);
   let total = 0
+  
   itemsArray.forEach((item) => {
     total = add(item.enteredAllocation ? Number(item.enteredAllocation) : 0, total)
   })
+  if(total===0){
+    toast.warn('please fill at least one allocation field')
+    return items
+  }
   const tmp = {}
   itemsArray.forEach((item) => {
     item.enteredAllocation = Number(

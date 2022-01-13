@@ -15,7 +15,8 @@ export interface GaugeItem {
   totalWeight: number,
   selected:boolean,
   allocPoint:number,
-  enteredAllocation:number
+  enteredAllocation:number,
+  allocationPerDay:number
 }
 
 export interface GaugeInfo {

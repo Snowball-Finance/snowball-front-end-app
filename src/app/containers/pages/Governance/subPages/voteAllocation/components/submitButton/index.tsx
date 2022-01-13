@@ -14,7 +14,7 @@ export const VoteAllocationSubmit = () => {
 const isLoading=useSelector(selectIsVotingForFarms)
 
   let buttonContent = t(translations.GovernancePage.VoteAllocation.TOKEN_BalanceNeededToVote(), { token: env.GOVERNANCE_TOKEN_NAME })
-  let disabled =false// true;
+  let disabled = true;
 
   if (votingTokenBalance && votingTokenBalance.toNumber() > 0) {
     disabled = false;

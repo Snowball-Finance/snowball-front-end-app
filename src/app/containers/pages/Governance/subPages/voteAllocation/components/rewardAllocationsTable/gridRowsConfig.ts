@@ -3,12 +3,13 @@ import { GaugeItem } from "app/containers/PoolsAndGauges/types";
 import { formatNumber } from "common/format";
 import { env } from "environment";
 import { translations } from "locales/i18n";
+import { multiply } from "precise-math";
 
 interface ColumnDef extends ColDef {
   field?: keyof GaugeItem
 }
 
-export const bottomTableRowsConfig = ({ t, isSmall }: { t: any, isSmall: boolean }): ColumnDef[] => ([
+export const bottomTableRowsConfig = ({ t, isSmall,totalSnob }: { t: any, isSmall: boolean,totalSnob:number }): ColumnDef[] => ([
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Name()),
     field: 'poolName',
@@ -42,19 +43,23 @@ export const bottomTableRowsConfig = ({ t, isSmall }: { t: any, isSmall: boolean
   },
   { 
     headerName: t(translations.GovernancePage.VoteAllocation.Allocationperday()),
-    field: 'depositTokenName',
+    field: 'allocPoint',
     flex: 1,
     minWidth: 100,
+    valueFormatter: ({ data }: { data: GaugeItem }) => {
+      if(totalSnob){
+        return formatNumber(multiply(data.allocPoint,totalSnob), 2)
+      }
+      return '-'
+    }
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Boosted_TOKEN_APR(), { token: env.MAIN_TOKEN_NAME }),
-    field: 'depositTokenName',
     flex: 1,
     minWidth: 100,
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.VoteWeight()),
-    field: 'depositTokenName',
     flex: 1,
     minWidth: 100,
   },

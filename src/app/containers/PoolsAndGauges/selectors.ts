@@ -17,6 +17,12 @@ export const selectIsLoadingUserPoolsAndGaugesDomain = (state: RootState) => sta
 export const selectPoolsObjDomain = (state: RootState) => state.poolsAndGauges?.pools || {};
 export const selectPoolProvidersDomain = (state: RootState) => state.poolsAndGauges?.poolProviders || {...initialState.poolProviders};
 export const selectGaugesDomain = (state: RootState) => state.poolsAndGauges?.gauges || [...initialState.gauges];
+export const selectPoolsAndGaugesLastInfoDomain = (state: RootState) => state.poolsAndGauges?.lastInfo || initialState.lastInfo;
+
+export const selectPoolsAndGaugesLastInfo=createSelector(
+  [selectPoolsAndGaugesLastInfoDomain],
+  (lastInfo)=>lastInfo
+)
 
 export const selectPoolsAndGauges = createSelector(
   [selectDomain],

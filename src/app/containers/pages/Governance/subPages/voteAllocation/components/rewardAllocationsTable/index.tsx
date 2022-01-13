@@ -1,8 +1,10 @@
 import { styled, useMediaQuery } from "@mui/material"
 import { ColDef } from "ag-grid-community"
 import { AgGridReact } from "ag-grid-react"
-import { selectGauges } from "app/containers/PoolsAndGauges/selectors"
+import { LastSnowballInfo } from "app/containers/pages/Example/types"
+import { selectGauges, selectPoolsAndGaugesLastInfo } from "app/containers/PoolsAndGauges/selectors"
 import { GaugeItem } from "app/containers/PoolsAndGauges/types"
+import { multiply } from "precise-math"
 import { useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { useSelector } from "react-redux"
@@ -19,8 +21,18 @@ interface GridConfigTypes {
 export const RewardsAllocationsTable = () => {
   const { t } = useTranslation()
   const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const rowConfigs = useMemo(() => bottomTableRowsConfig({ t, isSmall: smallScreen }),[smallScreen])
-  const gauges=useSelector(selectGauges)
+  const lastInfo = useSelector(selectPoolsAndGaugesLastInfo)
+  const rowConfigs = useMemo(
+    () => bottomTableRowsConfig(
+      {
+        t,
+        isSmall: smallScreen,
+        // @ts-ignore ignored, because snobPerBlock is specific to this project and is not defined in lastInfo model
+        totalSnob: multiply(lastInfo?.snobPerBlock??0,lastInfo?.blocksPast24hrs??0)
+      }
+      //@ts-ignore ignored for the same reason as above
+    ), [smallScreen,lastInfo?.snobPerBlock])
+  const gauges = useSelector(selectGauges)
   const gridConfig: GridConfigTypes = {
     columnDefs: [...rowConfigs],
     rowData: gauges,
@@ -36,7 +48,7 @@ export const RewardsAllocationsTable = () => {
         rowData={gridConfig.rowData}
         defaultColDef={{
           suppressMenu: true,
-          sortable:true,
+          sortable: true,
           cellStyle: {
             'font-size': '12px',
             'height': '100%',
@@ -67,11 +79,11 @@ const Wrapper = styled('div')({
   '.ag-center-cols-viewport': {
     overflowX: 'hidden'
   },
-  '.blue':{
-    color:CssVariables.ctaBlue+` !important`
+  '.blue': {
+    color: CssVariables.ctaBlue + ` !important`
   },
-  '.darkBold':{
+  '.darkBold': {
     fontWeight: 'bold',
-    color:CssVariables.dark
+    color: CssVariables.dark
   }
 })
