@@ -32,9 +32,9 @@ export function* voteForFarms() {
       }
     })
 
-    if (totalAllocation !== 100) {
-      pairsObject = fitGaugeWeightsProportionally(pairsObject)
-    }
+    // if (totalAllocation !== 100) {
+    //   pairsObject = fitGaugeWeightsProportionally(pairsObject)
+    // }
 
     //generate weights and tokens as list
     const tokenAddressList: string[] = [];
@@ -54,7 +54,9 @@ export function* voteForFarms() {
       return
     }
 
-    const adjustedWeightList = adjustValues(weightsList)
+    // const adjustedWeightList = adjustValues(weightsList)
+    const adjustedWeightList=weightsList.map(item=>Math.round(item))
+
     const gasLimit = yield call(gaugeProxyVoteContract.estimateGas.vote, tokenAddressList, adjustedWeightList)
     const signer = gaugeProxyVoteContract.connect(library.getSigner());
     const tokenVote = yield call(signer.vote, tokenAddressList, adjustedWeightList, { gasLimit })

@@ -54,7 +54,6 @@ export function* getAndSetUserPools() {
     const provider = yield select(selectPrivateProviderDomain)
     const prices = yield select(selectPricesDomain)
     const pools = yield select(selectPoolsArrayDomain)
-    const lastInfo=yield select(selectPoolsAndGaugesLastInfoDomain)
     let poolsCalls = [];
     let contractCalls = [];
     const poolProviders:{[key:string]:PoolProvider} = {}
