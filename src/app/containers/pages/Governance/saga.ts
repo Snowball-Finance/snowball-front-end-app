@@ -4,15 +4,11 @@
 import { selectLibraryDomain } from "app/containers/BlockChain/Web3/selectors";
 import { selectGaugeContractDomain } from "app/containers/PoolsAndGauges/selectors";
 import { PoolsAndGaugesActions } from "app/containers/PoolsAndGauges/slice";
-import { GaugeItem } from "app/containers/PoolsAndGauges/types";
 import { IS_DEV } from "environment";
-import { add } from "precise-math";
 import { toast } from "react-toastify";
 import { call, put, select, takeLatest } from "redux-saga/effects";
 import { selectSelectedVoteAllocationPairsDomain } from "./selectors";
 import { GovernancePageActions } from "./slice";
-import { adjustValues } from "./utils/adjustTo100";
-import { fitGaugeWeightsProportionally } from "./utils/fit";
 import { isPositiveNumber } from "./utils/isPositiveNumber";
 
 export function* voteForFarms() {
@@ -22,15 +18,15 @@ export function* voteForFarms() {
     const gaugeProxyVoteContract = yield select(selectGaugeContractDomain)
     const library=yield select(selectLibraryDomain)
     //make them weight proportional if they are not
-    let pairsObject = {}
-    const arr: GaugeItem[] = Object.values(selectedPairs)
-    let totalAllocation = 0
-    arr.forEach((item) => {
-      pairsObject[item.address] = { ...item }
-      if (isPositiveNumber(item.enteredAllocation)) {
-        totalAllocation = add(totalAllocation, item.enteredAllocation)
-      }
-    })
+    let pairsObject = selectedPairs
+    // const arr: GaugeItem[] = Object.values(selectedPairs)
+    // let totalAllocation = 0
+    // arr.forEach((item) => {
+    //   pairsObject[item.address] = { ...item }
+    //   if (isPositiveNumber(item.enteredAllocation)) {
+    //     totalAllocation = add(totalAllocation, item.enteredAllocation)
+    //   }
+    // })
 
     // if (totalAllocation !== 100) {
     //   pairsObject = fitGaugeWeightsProportionally(pairsObject)
@@ -56,7 +52,6 @@ export function* voteForFarms() {
 
     // const adjustedWeightList = adjustValues(weightsList)
     const adjustedWeightList=weightsList.map(item=>Math.round(item))
-
     const gasLimit = yield call(gaugeProxyVoteContract.estimateGas.vote, tokenAddressList, adjustedWeightList)
     const signer = gaugeProxyVoteContract.connect(library.getSigner());
     const tokenVote = yield call(signer.vote, tokenAddressList, adjustedWeightList, { gasLimit })
