@@ -1,4 +1,4 @@
-import { styled, TextField } from "@mui/material"
+import { styled } from "@mui/material"
 import { SnowPaper } from "app/components/base/SnowPaper"
 import { selectAccount } from "app/containers/BlockChain/Web3/selectors"
 import { VotePower } from "app/containers/pages/Governance/components/votePower"

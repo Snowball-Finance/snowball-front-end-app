@@ -10,9 +10,9 @@ import { selectPrivateProviderDomain } from "../BlockChain/Ethers/selectors";
 import { selectPricesDomain } from "../BlockChain/selectors";
 import { selectAccountDomain } from "../BlockChain/Web3/selectors";
 import { getAllocations, httpQuery, retrieveGauge } from "./providers/gauge";
-import { selectGaugeContractDomain, selectPoolsAndGaugesLastInfoDomain, selectPoolsArrayDomain } from "./selectors";
+import { selectGaugeContractDomain, selectPoolsArrayDomain } from "./selectors";
 import { PoolsAndGaugesActions } from "./slice";
-import { GaugeItem, LastInfo, PoolInfoItem, PoolProvider } from "./types";
+import {  LastInfo, PoolInfoItem, PoolProvider } from "./types";
 
 export function* getLastInfo(action:{type:string,payload:{query:string}}) {
   try {

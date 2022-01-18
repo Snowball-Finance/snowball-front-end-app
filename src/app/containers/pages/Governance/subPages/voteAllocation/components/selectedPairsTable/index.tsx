@@ -1,7 +1,6 @@
 import { styled, useMediaQuery } from "@mui/material"
 import { ColDef } from "ag-grid-community"
 import { AgGridReact } from "ag-grid-react"
-import { TextButton } from "app/components/common/buttons/textButton"
 import { selectSelectedVoteAllocationPairsArray } from "app/containers/pages/Governance/selectors"
 import { GaugeItem } from "app/containers/PoolsAndGauges/types"
 import { translations } from "locales/i18n"

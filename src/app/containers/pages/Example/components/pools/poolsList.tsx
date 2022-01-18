@@ -5,11 +5,10 @@ import {  useRef } from "react";
 import { PoolInfoItem } from "../../types";
 import { IsGettingUserPoolsIndicator } from "./isGettingUserPoolsIndicator";
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsLoadingPools, selectPoolsToShow } from "../../selectors";
+import {  selectPoolsToShow } from "../../selectors";
 import { SnowPairsIcon } from "app/components/base/snowPairsIcon";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { ItemContainer, Left, PoolName, PoolNameAndProvider, PoolProvider, Right, StyledSnowPaper } from "./components";
-import { selectPrivateProvider } from "app/containers/BlockChain/Ethers/selectors";
 import { ExampleActions } from "../../slice";
 import { isEmpty } from "common/utility";
 import getUserBoost from "../../helpers/getUserBoost";
@@ -106,12 +105,7 @@ const PoolRow = (params) => {
 
 export const PoolsList = () => {
   const dispatch = useDispatch()
-
   const pools = useSelector(selectPoolsToShow)
-
-  const provider = useSelector(selectPrivateProvider)
-  const isLoading = useSelector(selectIsLoadingPools)
-
   const gridApi = useRef<GridApi | null>(null);
   const GridData: PoolInfoItem[] = pools
 
@@ -127,7 +121,6 @@ export const PoolsList = () => {
       minWidth: 100,
       cellRendererFramework: PoolRow
     },
-
   ])
 
   const gridConfig: GridConfigTypes = {
@@ -138,10 +131,12 @@ export const PoolsList = () => {
   const gridRendered = (e: GridReadyEvent) => {
     gridApi.current = e.api;
   };
+
   const handleRowClick = (e: RowClickedEvent) => {
     const { data }: { data: PoolInfoItem } = e
     const { address } = data
     dispatch(ExampleActions.toggleIsDetailsOpen(address))
+
     setTimeout(() => {
       gridApi.current?.forEachNode((node, index) => {
         if (node.data.address === address) {

@@ -5,7 +5,6 @@ import { initialState } from './slice';
 import { ethers } from 'ethers'
 import { CONTRACTS } from "config";
 import SNOWBALL_ABI from 'libs/abis/snowball.json'
-import GAUGE_PROXY_ABI from 'libs/abis/gauge-proxy.json'
 import { RootState } from "store/types";
 
 export const selectBlockChainDomain = (state: RootState) => state.blockChain || initialState;

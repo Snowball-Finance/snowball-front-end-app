@@ -1,6 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { selectPrivateProviderDomain } from "app/containers/BlockChain/Ethers/selectors";
-import { selectBlockChainDomain } from "app/containers/BlockChain/selectors";
 import { selectAccountDomain, selectLibraryDomain } from "app/containers/BlockChain/Web3/selectors";
 import { env } from "environment";
 import { ethers } from "ethers";

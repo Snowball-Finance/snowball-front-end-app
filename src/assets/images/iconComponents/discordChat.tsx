@@ -1,5 +1,4 @@
 import { FC } from "react"
-import { CssVariables } from "styles/cssVariables/cssVariables"
 import { IconProps } from "./types"
 
 const DiscordChatIcon: FC<IconProps> = () => {

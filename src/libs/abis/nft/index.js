@@ -26,6 +26,7 @@ const getNFTABI = (address) => {
         type: 'ROLLING',
         abi: ROLLING_ABI
       }
+    // eslint-disable-next-line no-duplicate-case
     case '0x7B097A18738cA9Fd524384Dab74c57CB12DAC724':
       return {
         type: 'EARLY_VOTER',

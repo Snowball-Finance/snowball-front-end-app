@@ -1,6 +1,5 @@
 import { styled } from "@mui/material"
 import { SnowPaper } from "app/components/base/SnowPaper"
-import { ContainedButton } from "app/components/common/buttons/containedButton"
 import { Max1040 } from "app/components/wrappers/max1040"
 import { selectAccount } from "app/containers/BlockChain/Web3/selectors"
 import { env } from "environment"

@@ -5,7 +5,6 @@ import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 
 import { governancePageSaga } from './saga';
 import { GaugeItem } from "app/containers/PoolsAndGauges/types";
-import { add, divide } from "precise-math";
 import { fitGaugeWeightsEqually, fitGaugeWeightsProportionally } from "./utils/fit";
 
 // The initial state of the GovernancePage container

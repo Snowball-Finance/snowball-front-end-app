@@ -36,10 +36,12 @@ const getMultiContractData = async (provider, contractArray) => {
         const multicall = new Multicall({ ethersProvider: provider });
         const call = await multicall.call(contractArray);
 
+        // eslint-disable-next-line no-new-object
         const resultSet = new Object();
 
         const contractNames = Object.keys(call.results);
         contractNames.forEach(name => {
+            // eslint-disable-next-line no-new-object
             const result = new Object();
             call.results[name].callsReturnContext.forEach(values => {
                 //I don`t want an array when the result is not an array

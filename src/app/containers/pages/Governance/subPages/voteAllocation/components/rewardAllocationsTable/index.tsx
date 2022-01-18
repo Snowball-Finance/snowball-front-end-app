@@ -1,7 +1,6 @@
 import { styled, useMediaQuery } from "@mui/material"
 import { ColDef } from "ag-grid-community"
 import { AgGridReact } from "ag-grid-react"
-import { LastSnowballInfo } from "app/containers/pages/Example/types"
 import { selectGauges, selectPoolsAndGaugesLastInfo } from "app/containers/PoolsAndGauges/selectors"
 import { GaugeItem } from "app/containers/PoolsAndGauges/types"
 import { multiply } from "precise-math"

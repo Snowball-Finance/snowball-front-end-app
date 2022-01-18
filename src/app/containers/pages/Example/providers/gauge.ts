@@ -1,7 +1,4 @@
-import { env, IS_DEV } from "environment";
-import { apiService } from "services/api";
 import { getMultiContractData } from "services/multicall";
-import { RequestTypes } from "services/types";
 
 export const retrieveGauge = ({ pool, gaugesData, totalWeight }) => {
   const gaugeTokenData = gaugesData[pool.address];

@@ -1,14 +1,12 @@
 import { Box, ClickAwayListener, styled } from "@mui/material"
 import { SnowPaper } from "app/components/base/SnowPaper"
 import { GovernancePageActions } from "app/containers/pages/Governance/slice"
-import { useTranslation } from "react-i18next"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { PoolProviders } from "./poolProviders"
 import { PoolsList } from "./poolsList"
 import { PairSelectionSearchInput } from "./search"
 
 export const SelectionPopup = () => {
-  const { t } = useTranslation()
   const dispatch = useDispatch()
 
   const handleClickAway = () => {
