@@ -69,8 +69,8 @@ export function* getAndSetUserPools() {
       }
     });
     yield put(PoolsAndGaugesActions.setPoolProviders(poolProviders));
-    //@ts-ignore
     pools.forEach((item) => {
+      //@ts-ignore
       contractCalls = contractCalls.concat(getGaugeCalls(item, account));
     });
     const [gaugesData, poolsData, totalWeight] = yield all([

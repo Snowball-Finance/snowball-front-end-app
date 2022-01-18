@@ -41,10 +41,12 @@ export const floatToBN = (number: number, decimals = 18) => {
 
 export const BNToString = (bn: BigNumber, decimals = 18) => {
   try {
-    //@ts-ignore
-    return ethers.utils
-      .formatUnits(bn, decimals)
-      .toLocaleString(undefined, { minimumFractionDigits: decimals });
+    return (
+      ethers.utils
+        .formatUnits(bn, decimals)
+        //@ts-ignore
+        .toLocaleString(undefined, { minimumFractionDigits: decimals })
+    );
   } catch (error: any) {
     console.error(error.message);
   }

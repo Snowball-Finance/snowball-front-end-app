@@ -25,18 +25,16 @@ export const RewardsAllocationsTable = () => {
   const lastInfo = useSelector(selectPoolsAndGaugesLastInfo);
   const rowConfigs = useMemo(
     () =>
-      bottomTableRowsConfig(
-        {
-          t,
-          isSmall: smallScreen,
+      bottomTableRowsConfig({
+        t,
+        isSmall: smallScreen,
+        totalSnob: multiply(
           // @ts-ignore ignored, because snobPerBlock is specific to this project and is not defined in lastInfo model
-          totalSnob: multiply(
-            lastInfo?.snobPerBlock ?? 0,
-            lastInfo?.blocksPast24hrs ?? 0
-          ),
-        }
-        //@ts-ignore ignored for the same reason as above
-      ),
+          lastInfo?.snobPerBlock ?? 0,
+          lastInfo?.blocksPast24hrs ?? 0
+        ),
+      }),
+    //@ts-ignore ignored for the same reason as above
     [smallScreen, lastInfo?.snobPerBlock]
   );
   const gauges = useSelector(selectGauges);

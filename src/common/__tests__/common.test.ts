@@ -1,4 +1,4 @@
-import { omit } from "common/common";
+import { omit } from "common/omit";
 
 describe("(utils/common.ts)", () => {
   it("can omit a key-value", () => {

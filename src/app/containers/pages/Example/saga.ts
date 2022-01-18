@@ -82,8 +82,8 @@ export function* getAndSetUserPools() {
       //@ts-ignore
       poolsCalls = poolsCalls.concat(getPoolCalls({ item, account }));
     });
-    //@ts-ignore
     pools.forEach((item) => {
+      //@ts-ignore
       contractCalls = contractCalls.concat(getGaugeCalls(item, account));
     });
     const [gaugesData, poolsData, totalWeight] = yield all([
