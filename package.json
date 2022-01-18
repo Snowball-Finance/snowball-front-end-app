@@ -121,7 +121,7 @@
   },
   "lint-staged": {
     "*": [
-      "yarn eslint:format && yarn format"
+      "prettier --write ./src/**/*.{js,ts,tsx}"
     ]
   }
 }
