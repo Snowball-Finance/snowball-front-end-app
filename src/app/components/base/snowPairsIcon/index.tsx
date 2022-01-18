@@ -3,6 +3,9 @@ import { generateIconSrcByAddress } from "common/generateIconSrcByAddress";
 import orderBasePair from "common/orderBasePair";
 
 const Wrapper = styled("div")<any>(({ theme, size, flat }) => ({
+
+
+  
   width: `${size || 50}px`,
   height: `${size || 50}px`,
   borderRadius: "50%",
