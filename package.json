@@ -114,14 +114,9 @@
     "ts-node": "10.4.0",
     "typescript": "4.4.4"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn eslint:format && yarn format"
-    }
-  },
   "lint-staged": {
-    "*": [
-      "prettier --write ./src/**/*.{js,ts,tsx}"
+    "*.{ts,tsx}": [
+      "yarn eslint:format && yarn format"
     ]
   }
 }
