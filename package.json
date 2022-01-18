@@ -116,7 +116,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn eslint:format &&  yarn format"
+      "pre-commit": "yarn eslint:format && yarn format"
     }
+  },
+  "lint-staged": {
+    "*": [
+      "yarn eslint:format && yarn format"
+    ]
   }
 }
