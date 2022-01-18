@@ -9,47 +9,52 @@ import { useLocation } from "react-router-dom";
 import { CssVariables } from "styles/cssVariables/cssVariables";
 import { GovernanceSubPages } from "../../routes";
 
-const subPages = ({ t }) => [{
-  path: GovernanceSubPages.proposals,
-  title: t(translations.GovernancePage.Tabs.Proposals()),
-},
-{
-  path: GovernanceSubPages.voteAllocation,
-  title: t(translations.GovernancePage.Tabs.VoteAllocation()),
-},
-]
+const subPages = ({ t }) => [
+  {
+    path: GovernanceSubPages.proposals,
+    title: t(translations.GovernancePage.Tabs.Proposals()),
+  },
+  {
+    path: GovernanceSubPages.voteAllocation,
+    title: t(translations.GovernancePage.Tabs.VoteAllocation()),
+  },
+];
 interface Page {
   path: string;
   title: string;
 }
 
 export const NavigationTabs: FC = () => {
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const location=useLocation()
-  let path = location.pathname
-  path = path !== GovernanceSubPages.voteAllocation ? GovernanceSubPages.proposals : path
-  const pages = subPages({ t })
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  let path = location.pathname;
+  path =
+    path !== GovernanceSubPages.voteAllocation
+      ? GovernanceSubPages.proposals
+      : path;
+  const pages = subPages({ t });
   const handleTabChange = (page: string) => {
-    dispatch(replace(page))
-  }
+    dispatch(replace(page));
+  };
 
   return (
     <Wrapper>
       <Tabs
         value={path}
         onChange={(_, path) => handleTabChange(path)}
-        indicatorColor='primary'
-        textColor='primary'
+        indicatorColor="primary"
+        textColor="primary"
       >
         {pages.map((item: Page, index: number) => {
           return (
             <Tab
               disableRipple={true}
-              className={`${index === 0 ? 'first' : ''} ${index === pages.length - 1 ? 'last' : ''
-                }  `}
+              className={`${index === 0 ? "first" : ""} ${
+                index === pages.length - 1 ? "last" : ""
+              }  `}
               value={item.path}
-              key={'segment' + index}
+              key={"segment" + index}
               label={
                 <>
                   <span>{item.title}</span>
@@ -60,26 +65,24 @@ export const NavigationTabs: FC = () => {
         })}
       </Tabs>
     </Wrapper>
-  )
-}
-
-
+  );
+};
 
 const Wrapper = styled(SnowPaper)({
-  ".MuiTabs-indicator":{
+  ".MuiTabs-indicator": {
     backgroundColor: CssVariables.primaryBlue,
   },
-  "span": {
-    textTransform: 'none',
-    fontSize:'16px',
-    fontWeight:600,
-    color: CssVariables.navigationTabTextColor
+  span: {
+    textTransform: "none",
+    fontSize: "16px",
+    fontWeight: 600,
+    color: CssVariables.navigationTabTextColor,
   },
-  ".Mui-selected":{
-    "span":{
-      color:CssVariables.primaryBlue,
-    }
+  ".Mui-selected": {
+    span: {
+      color: CssVariables.primaryBlue,
+    },
   },
-  borderBottomLeftRadius:0,
-  borderBottomRightRadius:0
-})
+  borderBottomLeftRadius: 0,
+  borderBottomRightRadius: 0,
+});

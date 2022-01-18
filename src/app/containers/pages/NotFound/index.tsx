@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import React from "react";
+import { Helmet } from "react-helmet-async";
 
 export function NotFoundPage() {
   return (
@@ -23,7 +23,7 @@ export function NotFoundPage() {
   );
 }
 
-const Wrapper = styled('div')`
+const Wrapper = styled("div")`
   height: calc(100vh);
   display: flex;
   align-items: center;
@@ -32,7 +32,7 @@ const Wrapper = styled('div')`
   min-height: 320px;
 `;
 
-const Title = styled('div')`
+const Title = styled("div")`
   margin-top: -8vh;
   font-weight: bold;
   color: grey;

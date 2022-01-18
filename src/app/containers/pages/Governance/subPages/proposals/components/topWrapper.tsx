@@ -17,27 +17,27 @@ export const TopWrapper: FC = () => {
         <NewProposalButton />
       </RightWrapper>
     </Wrapper>
-  )
-}
+  );
+};
 
-const DividerWrapper = styled('div')({
-  padding: '4px'
-})
+const DividerWrapper = styled("div")({
+  padding: "4px",
+});
 
-const Wrapper = styled('div')({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  marginTop: '16px',
-  [mobile]:{
-    flexDirection:'column',
-  }
-})
+const Wrapper = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  marginTop: "16px",
+  [mobile]: {
+    flexDirection: "column",
+  },
+});
 
-const RightWrapper = styled('div')({
-  display: 'flex',
-  [mobile]:{
-    flexDirection:'column',
-    gap:'4px'
-  }
-})
+const RightWrapper = styled("div")({
+  display: "flex",
+  [mobile]: {
+    flexDirection: "column",
+    gap: "4px",
+  },
+});

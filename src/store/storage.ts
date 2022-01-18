@@ -1,9 +1,9 @@
 export enum LocalStorageKeys {
-  CONNECTED_TO_WALLET_ONCE = 'CONNECTED_TO_WALLET_ONCE',
+  CONNECTED_TO_WALLET_ONCE = "CONNECTED_TO_WALLET_ONCE",
 }
 
 export enum SessionStorageKeys {
-  SOME_KEY = 'SOME_KEY',
+  SOME_KEY = "SOME_KEY",
 }
 export const storage = {
   write: (key: LocalStorageKeys, data: any) => {

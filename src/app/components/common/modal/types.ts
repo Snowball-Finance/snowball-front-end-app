@@ -1,4 +1,4 @@
 export interface SnowModalProps {
-  isOpen: boolean
-  onClose: Function
+  isOpen: boolean;
+  onClose: Function;
 }

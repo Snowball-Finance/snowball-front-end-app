@@ -1,5 +1,5 @@
-import { takeLatest } from 'redux-saga/effects';
-import { HomePageActions } from './slice';
+import { takeLatest } from "redux-saga/effects";
+import { HomePageActions } from "./slice";
 
 // import { actions } from './slice';
 
@@ -11,6 +11,6 @@ export function* getHomePageInitialData(action: {
 export function* homePageSaga() {
   yield takeLatest(
     HomePageActions.getHomePageInitialDataAction.type,
-    getHomePageInitialData,
+    getHomePageInitialData
   );
 }

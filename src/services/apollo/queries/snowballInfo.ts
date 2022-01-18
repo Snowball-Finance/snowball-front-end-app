@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-export const INFO_QUERY=`
+export const INFO_QUERY = `
 {
   LastSnowballInfo{
     createdAt
@@ -75,7 +75,7 @@ export const INFO_QUERY=`
     }
   }
 }
-`
+`;
 
 export const LAST_SNOWBALL_INFO = gql`
   query ${INFO_QUERY}
@@ -98,4 +98,3 @@ export const GET_TVL_INFO_LAST_SNOWBALL = gql`
     }
   }
 `;
-

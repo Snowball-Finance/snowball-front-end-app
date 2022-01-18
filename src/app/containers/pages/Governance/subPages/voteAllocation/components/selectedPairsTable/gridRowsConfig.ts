@@ -6,46 +6,57 @@ import { translations } from "locales/i18n";
 import { AllocationInput } from "./allocationInput";
 import { RemoveButton } from "./removeButton";
 
-interface ColumnDef extends ColDef{
-  field?:keyof GaugeItem
+interface ColumnDef extends ColDef {
+  field?: keyof GaugeItem;
 }
 
-export const topTableRowsConfig=({t,isSmall}:{t:any,isSmall:boolean}):ColumnDef[] =>([
+export const topTableRowsConfig = ({
+  t,
+  isSmall,
+}: {
+  t: any;
+  isSmall: boolean;
+}): ColumnDef[] => [
   {
     headerName: t(translations.GovernancePage.VoteAllocation.Pairs()),
-    field: 'depositTokenName',
+    field: "depositTokenName",
     flex: 3,
     minWidth: 100,
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.YourAllocation()),
-    field: 'enteredAllocation',
+    field: "enteredAllocation",
     flex: 2,
     minWidth: 100,
-    cellRendererFramework:AllocationInput
+    cellRendererFramework: AllocationInput,
   },
   {
-    headerName: t(translations.GovernancePage.VoteAllocation.TOKEN_APR(),{token:env.MAIN_TOKEN_NAME}),
+    headerName: t(translations.GovernancePage.VoteAllocation.TOKEN_APR(), {
+      token: env.MAIN_TOKEN_NAME,
+    }),
     flex: 3,
     minWidth: 100,
-    valueFormatter:({data}:{data:GaugeItem}):string => {
-      const pickleAPYMin = data.fullApy * 100 * 0.4
-      const pickleAPYMax = data.fullApy * 100
-      return `${formatNumber(pickleAPYMin,2)} ~ ${formatNumber(pickleAPYMax,2)}`
-    }
+    valueFormatter: ({ data }: { data: GaugeItem }): string => {
+      const pickleAPYMin = data.fullApy * 100 * 0.4;
+      const pickleAPYMax = data.fullApy * 100;
+      return `${formatNumber(pickleAPYMin, 2)} ~ ${formatNumber(
+        pickleAPYMax,
+        2
+      )}`;
+    },
   },
   {
     headerName: t(translations.GovernancePage.VoteAllocation.WeightVariation()),
     flex: 2,
     minWidth: 100,
-    valueFormatter:({data}:{data:GaugeItem}):string => {
-      return `${formatPercent(data.allocPoint)}% -> ${'?????'}%`
-    }
+    valueFormatter: ({ data }: { data: GaugeItem }): string => {
+      return `${formatPercent(data.allocPoint)}% -> ${"?????"}%`;
+    },
   },
   {
-    headerName:'',
+    headerName: "",
     flex: 1,
     minWidth: 100,
-    cellRendererFramework:RemoveButton
+    cellRendererFramework: RemoveButton,
   },
-])
+];

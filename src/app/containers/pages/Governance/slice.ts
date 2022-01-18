@@ -1,32 +1,41 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-import { ContainerState } from './types';
+import { PayloadAction } from "@reduxjs/toolkit";
+import { ContainerState } from "./types";
 import { createSlice } from "store/toolkit";
 import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 
-import { governancePageSaga } from './saga';
+import { governancePageSaga } from "./saga";
 import { GaugeItem } from "app/containers/PoolsAndGauges/types";
-import { fitGaugeWeightsEqually, fitGaugeWeightsProportionally } from "./utils/fit";
+import {
+  fitGaugeWeightsEqually,
+  fitGaugeWeightsProportionally,
+} from "./utils/fit";
 
 // The initial state of the GovernancePage container
 export const initialState: ContainerState = {
   isVoteAllocationSelectionOpen: false,
   selectedPairs: {},
-  pairSearchInput: '',
+  pairSearchInput: "",
   selectedPoolProviders: [],
   isVotingForFarms: false,
 };
 
 const governancePageSlice = createSlice({
-  name: 'governancePage',
+  name: "governancePage",
   initialState,
   reducers: {
-    setIsVoteAllocationSelectionOpen: (state, action: PayloadAction<boolean>) => {
+    setIsVoteAllocationSelectionOpen: (
+      state,
+      action: PayloadAction<boolean>
+    ) => {
       state.isVoteAllocationSelectionOpen = action.payload;
     },
     setPairSearchInput: (state, action: PayloadAction<string>) => {
       state.pairSearchInput = action.payload;
     },
-    setSelectedPairAllocationInputValue: (state, action: PayloadAction<GaugeItem>) => {
+    setSelectedPairAllocationInputValue: (
+      state,
+      action: PayloadAction<GaugeItem>
+    ) => {
       state.selectedPairs[action.payload.address] = action.payload;
     },
     toggleSelectedPoolProvider: (state, action: PayloadAction<string>) => {
@@ -42,7 +51,7 @@ const governancePageSlice = createSlice({
     toggleSelectedPair: (state, action: PayloadAction<GaugeItem>) => {
       const { selectedPairs } = state;
       const { payload } = action;
-      const { address } = payload
+      const { address } = payload;
       if (selectedPairs[address]) {
         delete selectedPairs[address];
       } else {
@@ -52,26 +61,29 @@ const governancePageSlice = createSlice({
     },
     fitSelectedPairsEqually: (state) => {
       const { selectedPairs } = state;
-      const tmp = fitGaugeWeightsEqually(selectedPairs)
+      const tmp = fitGaugeWeightsEqually(selectedPairs);
       state.selectedPairs = tmp;
-
     },
     fitSelectedPairsProportionally: (state) => {
       const { selectedPairs } = state;
-      const tmp = fitGaugeWeightsProportionally(selectedPairs)
+      const tmp = fitGaugeWeightsProportionally(selectedPairs);
       state.selectedPairs = tmp;
     },
-    voteForFarms: (state, action: PayloadAction<void>) => { },
+    voteForFarms: (state, action: PayloadAction<void>) => {},
     setIsVotingForFarms: (state, action: PayloadAction<boolean>) => {
       state.isVotingForFarms = action.payload;
-    }
+    },
   },
 });
 
-export const { actions: GovernancePageActions, reducer: GovernancePageReducer, name: sliceKey } = governancePageSlice;
+export const {
+  actions: GovernancePageActions,
+  reducer: GovernancePageReducer,
+  name: sliceKey,
+} = governancePageSlice;
 
 export const useGovernancePageSlice = () => {
   useInjectReducer({ key: sliceKey, reducer: GovernancePageReducer });
   useInjectSaga({ key: sliceKey, saga: governancePageSaga });
-  return { GovernancePageActions }
-}
+  return { GovernancePageActions };
+};

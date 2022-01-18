@@ -14,11 +14,11 @@ import { isPositiveNumber } from "./utils/isPositiveNumber";
 export function* voteForFarms() {
   yield put(GovernancePageActions.setIsVotingForFarms(true));
   try {
-    const selectedPairs = yield select(selectSelectedVoteAllocationPairsDomain)
-    const gaugeProxyVoteContract = yield select(selectGaugeContractDomain)
-    const library=yield select(selectLibraryDomain)
+    const selectedPairs = yield select(selectSelectedVoteAllocationPairsDomain);
+    const gaugeProxyVoteContract = yield select(selectGaugeContractDomain);
+    const library = yield select(selectLibraryDomain);
     //make them weight proportional if they are not
-    let pairsObject = selectedPairs
+    let pairsObject = selectedPairs;
     // const arr: GaugeItem[] = Object.values(selectedPairs)
     // let totalAllocation = 0
     // arr.forEach((item) => {
@@ -39,42 +39,46 @@ export function* voteForFarms() {
       if (Object.prototype.hasOwnProperty.call(pairsObject, key)) {
         const element = pairsObject[key];
         if (isPositiveNumber(element.enteredAllocation)) {
-          tokenAddressList.push(key)
-          weightsList.push(element.enteredAllocation)
+          tokenAddressList.push(key);
+          weightsList.push(element.enteredAllocation);
         }
       }
     }
 
     if (tokenAddressList.length === 0) {
-      toast.warn('please fill at least one allocation field')
-      return
+      toast.warn("please fill at least one allocation field");
+      return;
     }
 
     // const adjustedWeightList = adjustValues(weightsList)
-    const adjustedWeightList=weightsList.map(item=>Math.round(item))
-    const gasLimit = yield call(gaugeProxyVoteContract.estimateGas.vote, tokenAddressList, adjustedWeightList)
+    const adjustedWeightList = weightsList.map((item) => Math.round(item));
+    const gasLimit = yield call(
+      gaugeProxyVoteContract.estimateGas.vote,
+      tokenAddressList,
+      adjustedWeightList
+    );
     const signer = gaugeProxyVoteContract.connect(library.getSigner());
-    const tokenVote = yield call(signer.vote, tokenAddressList, adjustedWeightList, { gasLimit })
-    const transactionVote = yield call(tokenVote.wait, 1)
+    const tokenVote = yield call(
+      signer.vote,
+      tokenAddressList,
+      adjustedWeightList,
+      { gasLimit }
+    );
+    const transactionVote = yield call(tokenVote.wait, 1);
     if (transactionVote.status) {
-      toast.success('Voted successfully')
-      yield put(PoolsAndGaugesActions.getInitialData())
+      toast.success("Voted successfully");
+      yield put(PoolsAndGaugesActions.getInitialData());
+    } else {
+      toast.error("something went wrong");
     }
-    else{
-      toast.error('something went wrong')
-    }
-
   } catch (error) {
     if (IS_DEV) {
-      console.log(error)
+      console.log(error);
     }
-    toast.error("failed to vote for farms,try again later")
-
-  }
-  finally {
+    toast.error("failed to vote for farms,try again later");
+  } finally {
     yield put(GovernancePageActions.setIsVotingForFarms(false));
   }
-
 }
 
 export function* governancePageSaga() {

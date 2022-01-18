@@ -1,12 +1,15 @@
-
 export const nodeIsHealthy = async (url) => {
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   let requestOptions: RequestInit = {
-    method: 'POST',
+    method: "POST",
     headers: myHeaders,
-    body: JSON.stringify({ "jsonrpc": "2.0", "id": 1, "method": "health.getLiveness" }),
-    redirect: 'follow'
+    body: JSON.stringify({
+      jsonrpc: "2.0",
+      id: 1,
+      method: "health.getLiveness",
+    }),
+    redirect: "follow",
   };
   try {
     const response = await fetch(`${url}/ext/health`, requestOptions);
@@ -16,4 +19,4 @@ export const nodeIsHealthy = async (url) => {
     console.error(error);
     return false;
   }
-}
+};

@@ -6,25 +6,25 @@ import { styled } from "@mui/material";
 import { VoteAllocation } from "./subPages/voteAllocation";
 import { ProposalDetails } from "./subPages/details";
 
-export const GovernanceBody=()=>{
+export const GovernanceBody = () => {
   return (
     <PageWrapper>
-        <Switch>
-          <Route exact path={AppPages.GovernancePage} >
-            <Proposals />
-          </Route>
-          <Route exact path={`${GovernanceSubPages.proposals}`} >
-            <Proposals />
-          </Route>
-          <Route path={`${GovernanceSubPages.proposal}`} >
-            <ProposalDetails />
-          </Route>
-          <Route path={`${GovernanceSubPages.voteAllocation}`} >
-            <VoteAllocation />
-          </Route>
-        </Switch>
-      </PageWrapper>
-  )
-}
+      <Switch>
+        <Route exact path={AppPages.GovernancePage}>
+          <Proposals />
+        </Route>
+        <Route exact path={`${GovernanceSubPages.proposals}`}>
+          <Proposals />
+        </Route>
+        <Route path={`${GovernanceSubPages.proposal}`}>
+          <ProposalDetails />
+        </Route>
+        <Route path={`${GovernanceSubPages.voteAllocation}`}>
+          <VoteAllocation />
+        </Route>
+      </Switch>
+    </PageWrapper>
+  );
+};
 
-const PageWrapper = styled('div')({})
+const PageWrapper = styled("div")({});

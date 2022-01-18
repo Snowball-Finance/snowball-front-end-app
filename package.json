@@ -55,9 +55,8 @@
     "eject": "react-scripts eject",
     "start:prod": "yarn build && serve -s build",
     "checkTs": "tsc --noEmit",
-    "eslint": "eslint --ext js,ts,tsx",
-    "lint": "yarn eslint -- src",
-    "lint:format": "yarn eslint -- --fix src",
+    "lint": "prettier --check ./src/**/*.{js,ts,tsx}",
+    "format": "prettier --write ./src/**/*.{js,ts,tsx}",
     "prepare": "husky install",
     "generate": "cross-env TS_NODE_PROJECT='./internals/ts-node.tsconfig.json' plop --plopfile internals/generators/plopfile.ts"
   },
@@ -117,5 +116,10 @@
     "shelljs": "0.8.4",
     "ts-node": "10.4.0",
     "typescript": "4.4.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn format && yarn lint"
+    }
   }
 }

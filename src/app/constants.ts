@@ -1,2 +1,1 @@
-
-export const BaseUrl = `https://base.snowball.io`
+export const BaseUrl = `https://base.snowball.io`;

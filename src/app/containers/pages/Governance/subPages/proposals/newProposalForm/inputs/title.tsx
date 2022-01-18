@@ -1,16 +1,16 @@
-import { TextField } from "@mui/material"
-import { selectNewProposalField } from "app/containers/BlockChain/Governance/selectors"
-import { GovernanceActions } from "app/containers/BlockChain/Governance/slice"
-import { useDispatch, useSelector } from "react-redux"
+import { TextField } from "@mui/material";
+import { selectNewProposalField } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceActions } from "app/containers/BlockChain/Governance/slice";
+import { useDispatch, useSelector } from "react-redux";
 
 export const TitleInput = () => {
-  const fieldName='title'
-  const dispatch = useDispatch()
-  const title = useSelector(selectNewProposalField(fieldName))
+  const fieldName = "title";
+  const dispatch = useDispatch();
+  const title = useSelector(selectNewProposalField(fieldName));
 
   const handleInputChange = (value: string) => {
-    dispatch(GovernanceActions.setNewProposalFields({ key: fieldName, value }))
-  }
+    dispatch(GovernanceActions.setNewProposalFields({ key: fieldName, value }));
+  };
 
   return (
     <TextField
@@ -21,5 +21,5 @@ export const TitleInput = () => {
       margin="dense"
       value={title}
     />
-  )
-}
+  );
+};

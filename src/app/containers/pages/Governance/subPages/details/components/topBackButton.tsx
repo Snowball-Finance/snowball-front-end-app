@@ -8,16 +8,19 @@ import { useDispatch } from "react-redux";
 import { CssVariables } from "styles/cssVariables/cssVariables";
 
 interface TopBackButtonProps {
-  to: string,
-  destinationName: string
+  to: string;
+  destinationName: string;
 }
-export const TopBackButton: FC<TopBackButtonProps> = ({ to, destinationName }) => {
-  const { t } = useTranslation()
-  const dispatch=useDispatch()
+export const TopBackButton: FC<TopBackButtonProps> = ({
+  to,
+  destinationName,
+}) => {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
 
-  const handleBackClick=()=>{
-    dispatch(replace(to))
-  }
+  const handleBackClick = () => {
+    dispatch(replace(to));
+  };
 
   return (
     <Wrapper onClick={handleBackClick}>
@@ -26,21 +29,20 @@ export const TopBackButton: FC<TopBackButtonProps> = ({ to, destinationName }) =
         {t(translations.Common.GoBackTo(), { name: destinationName })}
       </Title>
     </Wrapper>
-  )
-}
+  );
+};
 
-const Title = styled('p')({
+const Title = styled("p")({
   margin: 0,
   color: CssVariables.dark,
-  fontSize: '16px',
+  fontSize: "16px",
   fontWeight: 500,
+});
 
-})
-
-const Wrapper = styled('div')({
-  display: 'flex',
-  lineHeight: '26px',
-  gap: '8px',
-  width: 'fit-content',
-  cursor:'pointer'
-})
+const Wrapper = styled("div")({
+  display: "flex",
+  lineHeight: "26px",
+  gap: "8px",
+  width: "fit-content",
+  cursor: "pointer",
+});

@@ -10,41 +10,41 @@ import { useTranslation } from "react-i18next";
 import { CssVariables } from "styles/cssVariables/cssVariables";
 
 interface AdditionalDataProps {
-  discordLink: string,
-  documentLink: string,
-  startTime: string,
-  endTime: string,
+  discordLink: string;
+  documentLink: string;
+  startTime: string;
+  endTime: string;
 }
-export const AdditionalData: FC<AdditionalDataProps> = ({ discordLink, documentLink, endTime, startTime }) => {
-  const { t } = useTranslation()
+export const AdditionalData: FC<AdditionalDataProps> = ({
+  discordLink,
+  documentLink,
+  endTime,
+  startTime,
+}) => {
+  const { t } = useTranslation();
   const handleLinkClick = (link: string) => {
-    window.open(link)
-  }
+    window.open(link);
+  };
   return (
     <Wrapper>
-      {
-        discordLink
-          ?
-          <LinkContainer onClick={() => handleLinkClick(discordLink)}>
-            <DiscordChatIcon />
-            {t(translations.GovernancePage.DiscussionofproposalinDiscord())}
-            <ExternalLinkIcon />
-          </LinkContainer>
-          :
-          <></>
-
-      }
-      {
-        documentLink
-          ?
-          <LinkContainer onClick={() => handleLinkClick(documentLink)}>
-            <DocumentIcon color={CssVariables.dark} />
-            {t(translations.GovernancePage.ProposalDocument())}
-            <ExternalLinkIcon />
-          </LinkContainer>
-          :
-          <></>
-      }
+      {discordLink ? (
+        <LinkContainer onClick={() => handleLinkClick(discordLink)}>
+          <DiscordChatIcon />
+          {t(translations.GovernancePage.DiscussionofproposalinDiscord())}
+          <ExternalLinkIcon />
+        </LinkContainer>
+      ) : (
+        <></>
+      )}
+      {documentLink ? (
+        <LinkContainer onClick={() => handleLinkClick(documentLink)}>
+          <DocumentIcon color={CssVariables.dark} />
+          {t(translations.GovernancePage.ProposalDocument())}
+          <ExternalLinkIcon />
+        </LinkContainer>
+      ) : (
+        <></>
+      )}
       <Divider />
       <TimeWrapper>
         <IconAndTimeContainer>
@@ -61,33 +61,33 @@ export const AdditionalData: FC<AdditionalDataProps> = ({ discordLink, documentL
         <Time>{endTime}</Time>
       </TimeWrapper>
     </Wrapper>
-  )
-}
+  );
+};
 
-const Time = styled('p')({
+const Time = styled("p")({
   margin: 0,
-  fontSize: '14px',
+  fontSize: "14px",
   fontWeight: 500,
-  color: CssVariables.black
-})
+  color: CssVariables.black,
+});
 
-const IconAndTimeContainer = styled('div')({
-  fontSize: '14px',
+const IconAndTimeContainer = styled("div")({
+  fontSize: "14px",
   display: "flex",
-  gap: '8px',
-})
+  gap: "8px",
+});
 
-const TimeWrapper = styled('div')({})
+const TimeWrapper = styled("div")({});
 
-const LinkContainer = styled('div')({
-  display: 'flex',
-  gap: '8px',
-  cursor: 'pointer'
-})
+const LinkContainer = styled("div")({
+  display: "flex",
+  gap: "8px",
+  cursor: "pointer",
+});
 
 const Wrapper = styled(SnowPaper)({
-  padding: '20px',
-  display: 'flex',
-  gap: '16px',
-  flexDirection: 'column',
-})
+  padding: "20px",
+  display: "flex",
+  gap: "16px",
+  flexDirection: "column",
+});
