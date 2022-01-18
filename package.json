@@ -56,6 +56,8 @@
     "start:prod": "yarn build && serve -s build",
     "checkTs": "tsc --noEmit",
     "lint": "prettier --check ./src/**/*.{js,ts,tsx}",
+    "eslint": "yarn eslint -- src",
+    "eslint:format": "yarn eslint -- --fix src",
     "format": "prettier --write ./src/**/*.{js,ts,tsx}",
     "prepare": "husky install",
     "generate": "cross-env TS_NODE_PROJECT='./internals/ts-node.tsconfig.json' plop --plopfile internals/generators/plopfile.ts"
@@ -114,12 +116,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn format"
+      "pre-commit": "yarn eslint:format &&  yarn format"
     }
-  },
-  "lint-staged": {
-    "*": [
-      "prettier --write ./src/**/*.{js,ts,tsx}"
-    ]
   }
 }
