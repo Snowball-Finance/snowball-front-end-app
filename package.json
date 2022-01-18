@@ -76,11 +76,6 @@
     "npm": ">=6.4.1",
     "node": ">=14.17.0"
   },
-  "lint-staged": {
-    "*.{ts,tsx,js,jsx}": [
-      "npm run eslint -- --fix"
-    ]
-  },
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@testing-library/jest-dom": "5.15.0",
@@ -119,7 +114,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn format && yarn lint"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "prettier --write"
+    ]
   }
 }
