@@ -21,23 +21,27 @@ import SNOWCONE_ABI from "libs/abis/snowcone.json";
 import { PoolsAndGauges } from "./containers/PoolsAndGauges";
 import GAUGE_PROXY_ABI from "libs/abis/gauge-proxy.json";
 import { INFO_QUERY } from "services/apollo/queries/snowballInfo";
+import { PROPOSAL_QUERY } from "services/apollo/queries/proposalList";
+import GOVERNANCE_ABI from "libs/abis/vote-governance.json";
 
 export function App() {
   const { t } = useTranslation();
   return (
     <>
-      <BlockChain
-        governance={{
-          tokenABI: SNOWCONE_ABI,
-        }}
-      />
-      <PoolsAndGauges abi={GAUGE_PROXY_ABI} query={INFO_QUERY} />
       <Helmet
         titleTemplate="%s - Snowball"
         defaultTitle={t(translations.HomePage.home())}
       >
         <meta name="description" content="Snowball" />
       </Helmet>
+      <BlockChain
+        governance={{
+          tokenABI: SNOWCONE_ABI,
+          governanceABI: GOVERNANCE_ABI,
+          proposalsQuery: PROPOSAL_QUERY,
+        }}
+      />
+      <PoolsAndGauges abi={GAUGE_PROXY_ABI} initialDataQuery={INFO_QUERY} />
       <Switch>
         <Route exact path={AppPages.RootPage} component={HomePage} />
         {IS_DEV && <Route exact path={AppPages.Example} component={Example} />}

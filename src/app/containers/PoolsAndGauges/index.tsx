@@ -16,10 +16,10 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.min.css";
 interface Props {
   abi: any;
-  query: string;
+  initialDataQuery: string;
 }
 
-export const PoolsAndGauges: FC<Props> = ({ abi, query }) => {
+export const PoolsAndGauges: FC<Props> = ({ abi, initialDataQuery: query }) => {
   usePoolsAndGaugesSlice();
   const dispatch = useDispatch();
   const gaugeContract = useSelector(selectGaugeContract);

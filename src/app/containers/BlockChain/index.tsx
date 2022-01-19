@@ -15,6 +15,8 @@ import { Governance } from "./Governance";
 interface BlockChainProps {
   governance?: {
     tokenABI: any;
+    proposalsQuery: string;
+    governanceABI: any;
   };
 }
 
@@ -38,7 +40,13 @@ export const BlockChain: FC<BlockChainProps> = ({ governance }) => {
     <>
       <Web3 />
       <Ethers />
-      {governance && <Governance tokenABI={governance.tokenABI} />}
+      {governance && (
+        <Governance
+          proposalsQuery={governance.proposalsQuery}
+          tokenABI={governance.tokenABI}
+          governanceABI={governance.governanceABI}
+        />
+      )}
     </>
   );
 };

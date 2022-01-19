@@ -1,9 +1,8 @@
 import { env, IS_DEV } from "environment";
-import { PROPOSAL_QUERY } from "services/apollo/queries/proposalList";
 
-export const GetProposalsAPI = async () => {
+export const GetProposalsAPI = async (query: string) => {
   const response = await fetch(
-    (IS_DEV ? env.DEVAPIADDR : env.APIADDR) + "?query=" + PROPOSAL_QUERY,
+    (IS_DEV ? env.DEVAPIADDR : env.APIADDR) + "?query=" + query,
     { method: "GET" }
   );
   const res = await response.json();

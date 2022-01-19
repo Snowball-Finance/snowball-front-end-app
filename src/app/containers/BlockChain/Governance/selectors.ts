@@ -40,10 +40,13 @@ const selectIsLoadingReceiptDomain = (state: RootState) =>
   state.governance?.iseGettingReceipt || initialState.iseGettingReceipt;
 const selectReceiptDomain = (state: RootState) =>
   state.governance?.receipt || { ...initialState.receipt };
-export const selectGovernanceABIDomain = (state: RootState) =>
+export const selectGovernanceTokenABIDomain = (state: RootState) =>
   state.governance?.governanceTokenABI || undefined;
 export const selectGovernanceTokenContractDomain = (state: RootState) =>
   state.governance?.governanceTokenContract || undefined;
+
+export const selectGovernanceABIDomain = (state: RootState) =>
+  state.governance?.governanceABI || undefined;
 
 export const selectGovernance = createSelector(
   [selectGovernanceDomain],
@@ -146,7 +149,11 @@ export const selectCanAddNewProposal = createSelector(
 );
 
 export const selectGovernanceTokenContract = createSelector(
-  [selectPrivateProviderDomain, selectLibraryDomain, selectGovernanceABIDomain],
+  [
+    selectPrivateProviderDomain,
+    selectLibraryDomain,
+    selectGovernanceTokenABIDomain,
+  ],
   (provider, library, governanceABI) => {
     if (provider && library && governanceABI) {
       if (!env.GOVERNANCE_TOKEN_CONTRACT_ADDRESS) {

@@ -3,7 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectGovernanceTokenContract } from "./selectors";
 import { GovernanceActions, useGovernanceSlice } from "./slice";
 
-export const Governance = ({ tokenABI }: { tokenABI: any }) => {
+export const Governance = ({
+  tokenABI,
+  proposalsQuery,
+  governanceABI,
+}: {
+  tokenABI: any;
+  governanceABI: any;
+  proposalsQuery: string;
+}) => {
   const variables = {
     MINIMUM_TOKEN_FOR_VOTING: process.env.REACT_APP_MINIMUM_TOKEN_FOR_VOTING,
     MINIMUM_VOTING_PERIOD: process.env.REACT_APP_MINIMUM_VOTING_PERIOD,
@@ -34,8 +42,9 @@ export const Governance = ({ tokenABI }: { tokenABI: any }) => {
   }, [governanceToken]);
 
   useEffect(() => {
+    dispatch(GovernanceActions.setGovernanceABI(governanceABI));
     dispatch(GovernanceActions.setGovernanceTokenABI(tokenABI));
-    dispatch(GovernanceActions.getProposals({}));
+    dispatch(GovernanceActions.getProposals({ query: proposalsQuery }));
     return () => {};
   }, []);
 

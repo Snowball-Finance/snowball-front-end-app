@@ -5,12 +5,12 @@ import {
 import { ethers } from "ethers";
 import { toast } from "react-toastify";
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
-import GOVERNANCE_ABI from "libs/abis/vote-governance.json";
 import { GetProposalsAPI } from "../../pages/Governance/providers/proposals";
 import { GovernanceActions } from "./slice";
 import { ContainerState, Proposal } from "./types";
 import { CONTRACTS } from "config";
 import {
+  selectGovernanceABIDomain,
   selectGovernanceTokenContractDomain,
   selectNewProposalFieldsDomain,
 } from "./selectors";
@@ -23,14 +23,14 @@ import { env } from "environment";
 
 export function* getProposals(action: {
   type: string;
-  payload: { silent?: boolean };
+  payload: { silent?: boolean; query: string };
 }) {
-  const { silent } = action.payload;
+  const { silent, query } = action.payload;
   if (!silent) {
     yield put(GovernanceActions.setIsLoadingProposals(true));
   }
   try {
-    const response = yield call(GetProposalsAPI);
+    const response = yield call(GetProposalsAPI, query);
     yield put(
       GovernanceActions.setProposals(response.data.ProposalList.proposals)
     );
@@ -48,6 +48,7 @@ export function* vote(action: {
   payload: { proposal: Proposal; voteFor: boolean };
 }) {
   const library = yield select(selectLibraryDomain);
+  const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
   const { proposal, voteFor } = action.payload;
   try {
     const votingContract = new ethers.Contract(
@@ -92,6 +93,7 @@ export function* submitNewProposal() {
   const metadataURI = discussion;
   try {
     const library = yield select(selectLibraryDomain);
+    const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
     const governanceContract = new ethers.Contract(
       CONTRACTS.VOTE.GOVERNANCE_V2,
       GOVERNANCE_ABI,
@@ -131,6 +133,7 @@ export function* getVotingReceipt(action: {
       0
     );
     const library = yield select(selectLibraryDomain);
+    const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
     const governanceContract = new ethers.Contract(
       CONTRACTS.VOTE.GOVERNANCE_V2,
       GOVERNANCE_ABI,

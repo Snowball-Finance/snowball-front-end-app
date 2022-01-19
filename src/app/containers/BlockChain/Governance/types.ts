@@ -53,6 +53,7 @@ export interface GovernanceState {
   receipt?: Receipt;
   // used any, because it's a json file
   governanceTokenABI: any;
+  governanceABI: any;
   governanceTokenContract: Contract | undefined;
   totalGovernanceTokenSupply: BigNumber;
   isGettingGovernanceTokenBalance: boolean;
