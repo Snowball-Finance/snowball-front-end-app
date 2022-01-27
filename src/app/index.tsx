@@ -37,7 +37,6 @@ export function App() {
       </Helmet>
       <BlockChain
         mainTokenABI={SNOWBALL_ABI}
-        mainTokenKeyForCoinGecko="snowball-token"
         governance={{
           tokenABI: SNOWCONE_ABI,
           governanceABI: GOVERNANCE_ABI,

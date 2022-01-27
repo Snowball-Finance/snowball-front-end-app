@@ -37,7 +37,6 @@ const blockChainSlice = createSlice({
       state,
       action: PayloadAction<{
         mainTokenContract: any;
-        mainTokenKeyForCoinGecko: string;
       }>
     ) {
       state.contracts = {
@@ -51,10 +50,7 @@ const blockChainSlice = createSlice({
     setMainTokenBalance(state, action: PayloadAction<BigNumber>) {
       state.mainTokenBalance = action.payload;
     },
-    getPrices(
-      state,
-      action: PayloadAction<{ mainTokenKeyForCoinGecko: string }>
-    ) {},
+    getPrices(state, action: PayloadAction<void>) {},
     getTotalGovernanceTokenSupply(state, action: PayloadAction<void>) {},
     setPrices(state, action: PayloadAction<ContainerState["prices"]>) {
       state.prices = action.payload;

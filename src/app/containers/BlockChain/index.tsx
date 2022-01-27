@@ -13,7 +13,6 @@ import { BlockChainActions, useBlockChainSlice } from "./slice";
 import { Governance } from "./Governance";
 
 interface BlockChainProps {
-  mainTokenKeyForCoinGecko: string;
   mainTokenABI: any;
   governance?: {
     tokenABI: any;
@@ -25,7 +24,6 @@ interface BlockChainProps {
 export const BlockChain: FC<BlockChainProps> = ({
   governance,
   mainTokenABI,
-  mainTokenKeyForCoinGecko,
 }) => {
   const variables = {
     MAIN_TOKEN_ADDRESS: process.env.REACT_APP_MAIN_TOKEN_ADDRESS,
@@ -57,7 +55,6 @@ export const BlockChain: FC<BlockChainProps> = ({
       dispatch(
         BlockChainActions.setContracts({
           mainTokenContract: mainTokenContract,
-          mainTokenKeyForCoinGecko,
         })
       );
     }

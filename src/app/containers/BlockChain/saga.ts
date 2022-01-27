@@ -23,29 +23,28 @@ export function* getSnobBalance() {
   }
 }
 
-export function* getPrices(action: {
-  type: string;
-  payload: { mainTokenKeyForCoinGecko: string };
-}) {
-  const { mainTokenKeyForCoinGecko } = action.payload;
+export function* getPrices() {
+  const mainTokenKeyForCoinGecko = env.MAIN_TOKEN_KEY_FOR_COIN_GECKO;
   try {
-    //@ts-ignore
-    const { data } = yield call(geckoPrice, {
-      ids: [
-        mainTokenKeyForCoinGecko,
-        "pangolin",
-        "wrapped-avax",
-        "binance-usd",
-        "frax",
-      ],
-      vs_currencies: ["usd"],
-      include_24hr_change: [true],
-    });
-    const prices: BlockChainState["prices"] = {
-      MainToken: data[mainTokenKeyForCoinGecko]?.usd || 0,
-      mainToken24hChange: data[mainTokenKeyForCoinGecko]?.usd_24h_change || 0,
-    };
-    yield put(BlockChainActions.setPrices(prices));
+    if (mainTokenKeyForCoinGecko) {
+      //@ts-ignore
+      const { data } = yield call(geckoPrice, {
+        ids: [
+          mainTokenKeyForCoinGecko,
+          "pangolin",
+          "wrapped-avax",
+          "binance-usd",
+          "frax",
+        ],
+        vs_currencies: ["usd"],
+        include_24hr_change: [true],
+      });
+      const prices: BlockChainState["prices"] = {
+        MainToken: data[mainTokenKeyForCoinGecko]?.usd || 0,
+        mainToken24hChange: data[mainTokenKeyForCoinGecko]?.usd_24h_change || 0,
+      };
+      yield put(BlockChainActions.setPrices(prices));
+    }
   } catch (error) {
     toast.error("Error getting Latest Prices balance");
   } finally {
@@ -55,13 +54,12 @@ export function* getPrices(action: {
 //get balances whenever contract is set
 export function* setContracts(action: {
   type: string;
-  payload: { mainTokenContract: any; mainTokenKeyForCoinGecko: string };
+  payload: { mainTokenContract: any };
 }) {
-  const { mainTokenKeyForCoinGecko } = action.payload;
   yield all([
     action.payload.mainTokenContract &&
       put(BlockChainActions.getMainTokenBalance()),
-    put(BlockChainActions.getPrices({ mainTokenKeyForCoinGecko })),
+    put(BlockChainActions.getPrices()),
   ]);
 }
 
