@@ -13,6 +13,8 @@ import { BlockChainActions, useBlockChainSlice } from "./slice";
 import { Governance } from "./Governance";
 
 interface BlockChainProps {
+  mainTokenKeyForCoinGecko: string;
+  mainTokenABI: any;
   governance?: {
     tokenABI: any;
     proposalsQuery: string;
@@ -20,21 +22,46 @@ interface BlockChainProps {
   };
 }
 
-export const BlockChain: FC<BlockChainProps> = ({ governance }) => {
+export const BlockChain: FC<BlockChainProps> = ({
+  governance,
+  mainTokenABI,
+  mainTokenKeyForCoinGecko,
+}) => {
+  const variables = {
+    MAIN_TOKEN_ADDRESS: process.env.REACT_APP_MAIN_TOKEN_ADDRESS,
+    MAIN_TOKEN_NAME: process.env.REACT_APP_MAIN_TOKEN_NAME,
+  };
+
+  for (let key in variables) {
+    if (!variables[key]) {
+      throw new Error(`REACT_APP_${key} is not set in .env for the governance`);
+    }
+  }
+
   useBlockChainSlice();
 
   const dispatch = useDispatch();
 
-  const { snob } = useSelector(selectCalculatedContracts);
+  useEffect(() => {
+    dispatch(BlockChainActions.setMainTokenABI(mainTokenABI));
+    return () => {};
+  }, []);
+
+  const { mainTokenContract } = useSelector(selectCalculatedContracts);
 
   useEffect(() => {
     if (governance) {
       dispatch(BlockChainActions.setIncludesGovernance(true));
     }
-    if (snob) {
-      dispatch(BlockChainActions.setContracts({ snob }));
+    if (mainTokenContract) {
+      dispatch(
+        BlockChainActions.setContracts({
+          mainTokenContract: mainTokenContract,
+          mainTokenKeyForCoinGecko,
+        })
+      );
     }
-  }, [snob]);
+  }, [mainTokenContract]);
 
   return (
     <>

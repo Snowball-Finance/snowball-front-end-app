@@ -89,6 +89,8 @@ export const selectIsReadyToGetUserData = createSelector(
     selectPricesDomain,
   ],
   (account, pools, provider, contract, prices) => {
-    return account && pools.length > 0 && provider && contract && !!prices.SNOB;
+    return (
+      account && pools.length > 0 && provider && contract && !!prices.MainToken
+    );
   }
 );

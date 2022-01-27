@@ -8,15 +8,16 @@ import { BigNumber } from "@ethersproject/bignumber";
 
 // The initial state of the BlockChain container
 export const initialState: ContainerState = {
-  snowballBalance: undefined,
+  mainTokenBalance: undefined,
   isGettingSnobBalance: false,
   includesGovernance: false,
+  mainTokenABI: undefined,
   prices: {
-    SNOB: 0,
-    SNOB24HChange: 0,
+    MainToken: 0,
+    mainToken24hChange: 0,
   },
   contracts: {
-    snob: undefined,
+    mainTokenContract: undefined,
   },
 };
 
@@ -25,21 +26,35 @@ const blockChainSlice = createSlice({
   initialState,
   reducers: {
     getBalance(state, action: PayloadAction<Contract>) {},
+    setMainTokenABI(state, action: PayloadAction<any>) {
+      state.mainTokenABI = action.payload;
+    },
     setIncludesGovernance(state, action: PayloadAction<boolean>) {
       state.includesGovernance = action.payload;
     },
-    getSnobBalance(state, action: PayloadAction<void>) {},
-    setContracts(state, action: PayloadAction<any>) {
-      state.contracts = action.payload;
+    getMainTokenBalance(state, action: PayloadAction<void>) {},
+    setContracts(
+      state,
+      action: PayloadAction<{
+        mainTokenContract: any;
+        mainTokenKeyForCoinGecko: string;
+      }>
+    ) {
+      state.contracts = {
+        mainTokenContract: action.payload.mainTokenContract,
+      };
     },
     getGovernanceTokenBalance(state, action: PayloadAction<void>) {},
     setIsGettingSnobBalance(state, action: PayloadAction<boolean>) {
       state.isGettingSnobBalance = action.payload;
     },
-    setSnobBalance(state, action: PayloadAction<BigNumber>) {
-      state.snowballBalance = action.payload;
+    setMainTokenBalance(state, action: PayloadAction<BigNumber>) {
+      state.mainTokenBalance = action.payload;
     },
-    getPrices(state, action: PayloadAction<void>) {},
+    getPrices(
+      state,
+      action: PayloadAction<{ mainTokenKeyForCoinGecko: string }>
+    ) {},
     getTotalGovernanceTokenSupply(state, action: PayloadAction<void>) {},
 
     setPrices(state, action: PayloadAction<ContainerState["prices"]>) {

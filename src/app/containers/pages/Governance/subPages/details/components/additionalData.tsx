@@ -51,14 +51,14 @@ export const AdditionalData: FC<AdditionalDataProps> = ({
           <ClickIcon color={CssVariables.dark} />
           {t(translations.GovernancePage.Votingperiodbegins())}
         </IconAndTimeContainer>
-        <Time>{startTime}</Time>
+        <Time>{new Date(startTime).toLocaleString()}</Time>
       </TimeWrapper>
       <TimeWrapper>
         <IconAndTimeContainer>
           <ClickIcon color={CssVariables.dark} />
           {t(translations.GovernancePage.Votingperiodends())}
         </IconAndTimeContainer>
-        <Time>{endTime}</Time>
+        <Time>{new Date(endTime).toLocaleString()}</Time>
       </TimeWrapper>
     </Wrapper>
   );

@@ -23,6 +23,7 @@ import GAUGE_PROXY_ABI from "libs/abis/gauge-proxy.json";
 import { INFO_QUERY } from "services/apollo/queries/snowballInfo";
 import { PROPOSAL_QUERY } from "services/apollo/queries/proposalList";
 import GOVERNANCE_ABI from "libs/abis/vote-governance.json";
+import SNOWBALL_ABI from "libs/abis/snowball.json";
 
 export function App() {
   const { t } = useTranslation();
@@ -35,6 +36,8 @@ export function App() {
         <meta name="description" content="Snowball" />
       </Helmet>
       <BlockChain
+        mainTokenABI={SNOWBALL_ABI}
+        mainTokenKeyForCoinGecko="snowball-token"
         governance={{
           tokenABI: SNOWCONE_ABI,
           governanceABI: GOVERNANCE_ABI,

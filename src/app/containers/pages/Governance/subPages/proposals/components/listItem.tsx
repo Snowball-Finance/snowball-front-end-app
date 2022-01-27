@@ -55,7 +55,7 @@ export const ProposalListItem: FC<ProposalListItemProps> = ({
         <DateAndMiscWrapper short={short ? "true" : ""}>
           <DateAndChip>
             <DarkText size={12}>{proposal.state}</DarkText>
-            <DateChip label={proposal.startDate} />
+            <DateChip label={new Date(proposal.startDate).toLocaleString()} />
           </DateAndChip>
           <DarkText size={10}>
             {t(translations.GovernancePage.Proposedby())} :

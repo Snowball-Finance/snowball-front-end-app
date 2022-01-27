@@ -3,12 +3,13 @@ import { selectPrivateProviderDomain } from "./Ethers/selectors";
 import { selectLibraryDomain } from "./Web3/selectors";
 import { initialState } from "./slice";
 import { ethers } from "ethers";
-import { CONTRACTS } from "config";
-import SNOWBALL_ABI from "libs/abis/snowball.json";
 import { RootState } from "store/types";
+import { env } from "environment";
 
 export const selectBlockChainDomain = (state: RootState) =>
   state.blockChain || initialState;
+export const selectMainTokenABIDomain = (state: RootState) =>
+  state.blockChain?.mainTokenABI || undefined;
 export const selectContractsDomain = (state: RootState) =>
   state.blockChain?.contracts || { ...initialState.contracts };
 export const selectPricesDomain = (state: RootState) =>
@@ -26,7 +27,7 @@ export const selectPrices = createSelector(
 
 export const selectSnobBalance = createSelector(
   [selectBlockChainDomain],
-  (blockChainState) => blockChainState.snowballBalance
+  (blockChainState) => blockChainState.mainTokenBalance
 );
 
 export const selectIsLoadingSnobBalance = createSelector(
@@ -40,15 +41,20 @@ export const selectContracts = createSelector(
 );
 
 export const selectCalculatedContracts = createSelector(
-  [selectPrivateProviderDomain, selectLibraryDomain],
-  (provider, library) => {
-    if (provider && library) {
+  [selectPrivateProviderDomain, selectLibraryDomain, selectMainTokenABIDomain],
+  (provider, library, mainTokenABI) => {
+    if (provider && library && mainTokenABI) {
       return {
-        snob: new ethers.Contract(CONTRACTS.SNOWBALL, SNOWBALL_ABI, provider),
+        //we checked in index if environment variable exists
+        mainTokenContract: new ethers.Contract(
+          env.MAIN_TOKEN_ADDRESS || "",
+          mainTokenABI,
+          provider
+        ),
       };
     }
     return {
-      snob: undefined,
+      mainTokenContract: undefined,
     };
   }
 );

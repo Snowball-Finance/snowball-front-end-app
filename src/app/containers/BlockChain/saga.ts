@@ -3,31 +3,36 @@ import { selectAccountDomain } from "./Web3/selectors";
 import { BlockChainActions } from "./slice";
 import { balanceProvider } from "./providers/balanceAPI";
 import { toast } from "react-toastify";
-import { ContainerState } from "./types";
+import { BlockChainState } from "./types";
 import { selectContractsDomain } from "./selectors";
 import { geckoPrice } from "services/coinGecko";
+import { env } from "environment";
 
 export function* getSnobBalance() {
   yield put(BlockChainActions.setIsGettingSnobBalance(true));
   const account = yield select(selectAccountDomain);
-  const { snob } = yield select(selectContractsDomain);
-  const contract = snob;
+  const { mainTokenContract } = yield select(selectContractsDomain);
+  const contract = mainTokenContract;
   try {
     const response = yield call(balanceProvider, { contract, account });
-    yield put(BlockChainActions.setSnobBalance(response));
+    yield put(BlockChainActions.setMainTokenBalance(response));
   } catch (error) {
-    toast.error("Error getting SNOB balance");
+    toast.error(`Error getting ${env.MAIN_TOKEN_NAME} balance`);
   } finally {
     yield put(BlockChainActions.setIsGettingSnobBalance(false));
   }
 }
 
-export function* getPrices() {
+export function* getPrices(action: {
+  type: string;
+  payload: { mainTokenKeyForCoinGecko: string };
+}) {
+  const { mainTokenKeyForCoinGecko } = action.payload;
   try {
     //@ts-ignore
     const { data } = yield call(geckoPrice, {
       ids: [
-        "snowball-token",
+        mainTokenKeyForCoinGecko,
         "pangolin",
         "wrapped-avax",
         "binance-usd",
@@ -36,9 +41,10 @@ export function* getPrices() {
       vs_currencies: ["usd"],
       include_24hr_change: [true],
     });
-    const prices = {
-      SNOB: data["snowball-token"]?.usd || 0,
-      SNOB24HChange: data["snowball-token"]?.usd_24h_change || 0,
+    const prices: BlockChainState["prices"] = {
+      //FIXME: this is a hack to get the price of the main token, naming should be changed
+      MainToken: data[mainTokenKeyForCoinGecko]?.usd || 0,
+      mainToken24hChange: data[mainTokenKeyForCoinGecko]?.usd_24h_change || 0,
     };
     yield put(BlockChainActions.setPrices(prices));
   } catch (error) {
@@ -50,16 +56,18 @@ export function* getPrices() {
 //get balances whenever contract is set
 export function* setContracts(action: {
   type: string;
-  payload: ContainerState["contracts"];
+  payload: { mainTokenContract: any; mainTokenKeyForCoinGecko: string };
 }) {
+  const { mainTokenKeyForCoinGecko } = action.payload;
   yield all([
-    action.payload.snob && put(BlockChainActions.getSnobBalance()),
-    put(BlockChainActions.getPrices()),
+    action.payload.mainTokenContract &&
+      put(BlockChainActions.getMainTokenBalance()),
+    put(BlockChainActions.getPrices({ mainTokenKeyForCoinGecko })),
   ]);
 }
 
 export function* blockChainSaga() {
-  yield takeLatest(BlockChainActions.getSnobBalance.type, getSnobBalance);
+  yield takeLatest(BlockChainActions.getMainTokenBalance.type, getSnobBalance);
   yield takeLatest(BlockChainActions.setContracts.type, setContracts);
   yield takeLatest(BlockChainActions.getPrices.type, getPrices);
 }
