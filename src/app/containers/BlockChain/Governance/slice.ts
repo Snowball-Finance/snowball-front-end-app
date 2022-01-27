@@ -9,6 +9,7 @@ import { BigNumber } from "ethers";
 export const initialState: ContainerState = {
   selectedProposalFilter: ProposalFilters.All,
   isLoadingProposals: false,
+  syncedProposalsWithBlockchain: false,
   proposals: [],
   isVotingAgainst: false,
   isVotingFor: false,
@@ -41,7 +42,9 @@ const governanceSlice = createSlice({
   initialState,
   reducers: {
     getGovernanceTokenBalance(state, action: PayloadAction<void>) {},
-    setGovernanceABI(state, action: PayloadAction<any>) {},
+    setGovernanceABI(state, action: PayloadAction<any>) {
+      state.governanceABI = action.payload;
+    },
     setGovernanceTokenBalance(state, action: PayloadAction<BigNumber>) {
       state.governanceTokenBalance = action.payload;
     },
@@ -118,6 +121,10 @@ const governanceSlice = createSlice({
       state.isSubmittingNewProposal = action.payload;
     },
     submitNewProposal(state, action: PayloadAction<void>) {},
+    setSyncedProposalsWithBlockchain(state, action: PayloadAction<boolean>) {
+      state.syncedProposalsWithBlockchain = action.payload;
+    },
+    syncProposalsWithBlockchain(state, action: PayloadAction<void>) {},
   },
 });
 

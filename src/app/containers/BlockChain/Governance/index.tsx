@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectGovernanceTokenContract } from "./selectors";
+import { selectLibrary } from "../Web3/selectors";
+import {
+  selectGovernanceTokenContract,
+  selectProposals,
+  selectSyncedProposalsWithBlockChain,
+} from "./selectors";
 import { GovernanceActions, useGovernanceSlice } from "./slice";
 
 export const Governance = ({
@@ -24,6 +29,7 @@ export const Governance = ({
       process.env.REACT_APP_GOVERNANCE_TOKEN_CONTRACT_ADDRESS,
     GOVERNANCE_TOKEN_LOGO_ADDRESS:
       process.env.REACT_APP_GOVERNANCE_TOKEN_LOGO_ADDRESS,
+    VOTING_CONTRACT_ADDRESS: process.env.REACT_APP_VOTING_CONTRACT_ADDRESS,
   };
 
   for (let key in variables) {
@@ -31,10 +37,17 @@ export const Governance = ({
       throw new Error(`REACT_APP_${key} is not set in .env for the governance`);
     }
   }
+  if (!governanceABI) {
+    throw new Error("governanceABI is not Provided for Blockchain module");
+  }
   useGovernanceSlice();
   const dispatch = useDispatch();
   const governanceToken = useSelector(selectGovernanceTokenContract);
-
+  const library = useSelector(selectLibrary);
+  const proposals = useSelector(selectProposals);
+  const syncedProposalsWithBlockChain = useSelector(
+    selectSyncedProposalsWithBlockChain
+  );
   useEffect(() => {
     if (governanceToken) {
       dispatch(GovernanceActions.setGovernanceTokenContract(governanceToken));
@@ -47,6 +60,17 @@ export const Governance = ({
     dispatch(GovernanceActions.getProposals({ query: proposalsQuery }));
     return () => {};
   }, []);
+
+  useEffect(() => {
+    if (
+      library &&
+      proposals &&
+      proposals.length &&
+      !syncedProposalsWithBlockChain
+    ) {
+      dispatch(GovernanceActions.syncProposalsWithBlockchain());
+    }
+  }, [library, proposals, syncedProposalsWithBlockChain]);
 
   return <></>;
 };

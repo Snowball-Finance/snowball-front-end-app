@@ -16,7 +16,7 @@ const selectGovernanceDomain = (state: RootState) =>
 const selectSelectedProposalFilterDomain = (state: RootState) =>
   state.governance?.selectedProposalFilter ||
   initialState.selectedProposalFilter;
-const selectProposalsDomain = (state: RootState) =>
+export const selectProposalsDomain = (state: RootState) =>
   state.governance?.proposals || [];
 const selectSelectedProposalDomain = (state: RootState) =>
   state.governance?.selectedProposal || initialState.selectedProposal;
@@ -31,6 +31,14 @@ const selectIsVotingAgainstDomain = (state: RootState) =>
   state.governance?.isVotingAgainst || initialState.isVotingAgainst;
 const selectIsNewProposalFormOpenDomain = (state: RootState) =>
   state.governance?.isNewProposalFormOpen || initialState.isNewProposalFormOpen;
+const selectSyncedProposalsWithBlockchainDomain = (state: RootState) =>
+  state.governance?.syncedProposalsWithBlockchain || false;
+
+export const selectSyncedProposalsWithBlockChain = createSelector(
+  selectSyncedProposalsWithBlockchainDomain,
+  (syncedProposalsWithBlockchain) => syncedProposalsWithBlockchain
+);
+
 export const selectNewProposalFieldsDomain = (state: RootState) =>
   state.governance?.newProposalFields || {
     ...initialState.newProposalFields,

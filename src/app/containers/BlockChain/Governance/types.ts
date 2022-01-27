@@ -44,6 +44,7 @@ export interface GovernanceState {
   selectedProposalFilter: ProposalFilters;
   isLoadingProposals: boolean;
   proposals: Proposal[];
+  syncedProposalsWithBlockchain: boolean;
   selectedProposal: Proposal | undefined;
   isVotingFor: boolean;
   isVotingAgainst: boolean;

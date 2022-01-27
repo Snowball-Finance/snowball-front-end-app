@@ -8,11 +8,11 @@ import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import { GetProposalsAPI } from "../../pages/Governance/providers/proposals";
 import { GovernanceActions } from "./slice";
 import { ContainerState, Proposal } from "./types";
-import { CONTRACTS } from "config";
 import {
   selectGovernanceABIDomain,
   selectGovernanceTokenContractDomain,
   selectNewProposalFieldsDomain,
+  selectProposalsDomain,
 } from "./selectors";
 import { BNToFloat } from "common/format";
 import {
@@ -20,6 +20,7 @@ import {
   totalSupplyProvider,
 } from "app/containers/BlockChain/providers/balanceAPI";
 import { env } from "environment";
+import { parseProposalFromRawBlockchainResponse } from "./utils/proposalParser";
 
 export function* getProposals(action: {
   type: string;
@@ -31,9 +32,8 @@ export function* getProposals(action: {
   }
   try {
     const response = yield call(GetProposalsAPI, query);
-    yield put(
-      GovernanceActions.setProposals(response.data.ProposalList.proposals)
-    );
+    const proposals: Proposal[] = response.data.ProposalList.proposals;
+    yield put(GovernanceActions.setProposals(proposals));
   } catch (error) {
     toast.error("error while getting proposals");
   } finally {
@@ -73,6 +73,7 @@ export function* vote(action: {
       );
     }
     yield put(GovernanceActions.getVotingReceipt({ proposal }));
+    yield put(GovernanceActions.setSyncedProposalsWithBlockchain(false));
   } catch (error) {
     toast.error("error while voting");
   } finally {
@@ -94,8 +95,10 @@ export function* submitNewProposal() {
   try {
     const library = yield select(selectLibraryDomain);
     const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
+    const voteContractAddress = env.VOTING_CONTRACT_ADDRESS;
     const governanceContract = new ethers.Contract(
-      CONTRACTS.VOTE.GOVERNANCE_V2,
+      //using ||'' because we made sure env.VOTING_CONTRACT_ADDRESS exists in the index of module,and want to ignore the ts error
+      voteContractAddress || "",
       GOVERNANCE_ABI,
       library.getSigner()
     );
@@ -109,6 +112,7 @@ export function* submitNewProposal() {
       0,
       0x00
     );
+    yield put(GovernanceActions.setSyncedProposalsWithBlockchain(false));
   } catch (error: any) {
     const message = error?.data?.message;
     if (message) {
@@ -134,8 +138,10 @@ export function* getVotingReceipt(action: {
     );
     const library = yield select(selectLibraryDomain);
     const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
+    const voteContractAddress = env.VOTING_CONTRACT_ADDRESS;
     const governanceContract = new ethers.Contract(
-      CONTRACTS.VOTE.GOVERNANCE_V2,
+      //using ||'' because we made sure env.VOTING_CONTRACT_ADDRESS exists in the index of module,and want to ignore the ts error
+      voteContractAddress || "",
       GOVERNANCE_ABI,
       library.getSigner()
     );
@@ -180,6 +186,70 @@ export function* getTotalGovernanceTokenSupply() {
   yield put(GovernanceActions.setTotalGovernanceTokenSupply(response));
 }
 
+export function* syncProposalsWithBlockchain() {
+  try {
+    const library = yield select(selectLibraryDomain);
+    const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
+    const voteContractAddress = env.VOTING_CONTRACT_ADDRESS;
+    const governanceContract = new ethers.Contract(
+      //using ||'' because we made sure env.VOTING_CONTRACT_ADDRESS exists in the index of module,and want to ignore the ts error
+      voteContractAddress || "",
+      GOVERNANCE_ABI,
+      library.getSigner()
+    );
+    const numberOfProposalsOnBlockChain = yield call(
+      governanceContract.proposalCount
+    );
+    const num = Number(numberOfProposalsOnBlockChain.toString());
+    const proposals = yield select(selectProposalsDomain);
+    let proposalsInstance = [...proposals];
+    let offsetEnv: string | number | undefined = env.PROPOSALS_OFFSET_NUMBER;
+    if (!offsetEnv) {
+      offsetEnv = "0";
+    }
+    const offset = Number(offsetEnv);
+
+    for (let i = 0; i < proposalsInstance.length; i++) {
+      let item = proposalsInstance[i];
+      if (item.state === "Active") {
+        const tmp = yield call(
+          governanceContract.proposals,
+          item.index - offset
+        );
+        console.log(tmp);
+        const tmpProposal = yield call(parseProposalFromRawBlockchainResponse, {
+          item: tmp,
+          alreadyHasMetadata: true,
+        });
+        proposalsInstance[i] = { ...proposals[i], ...tmpProposal };
+      }
+    }
+
+    if (num > proposalsInstance.length - offset) {
+      const dif = num - (proposalsInstance.length - offset);
+      const newProposals: Proposal[] = [];
+      for (let i = 0; i < dif; i++) {
+        const newIdx = proposalsInstance[0].index + i + 1;
+        const tmp = yield call(governanceContract.proposals, newIdx);
+        const proposal = { ...tmp };
+        const tmpProposal = yield call(parseProposalFromRawBlockchainResponse, {
+          item: proposal,
+        });
+        tmpProposal.index = newIdx;
+        tmpProposal.state = "Active";
+        newProposals.unshift(tmpProposal);
+      }
+      //order here is important, because we want to make sure syncedProposal field is updated first, and we don't end up requesting again and again, because what triggers syncProposalsWithBlockchain is useEffect on the index of this module
+      yield put(GovernanceActions.setSyncedProposalsWithBlockchain(true));
+      yield put(
+        GovernanceActions.setProposals([...newProposals, ...proposalsInstance])
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 //get balances whenever contract is set
 export function* setGovernanceTokenContract(action: {
   type: string;
@@ -204,6 +274,10 @@ export function* governanceSaga() {
   yield takeLatest(GovernanceActions.vote.type, vote);
   yield takeLatest(GovernanceActions.submitNewProposal.type, submitNewProposal);
   yield takeLatest(GovernanceActions.getVotingReceipt.type, getVotingReceipt);
+  yield takeLatest(
+    GovernanceActions.syncProposalsWithBlockchain.type,
+    syncProposalsWithBlockchain
+  );
   yield takeLatest(
     GovernanceActions.setGovernanceTokenContract.type,
     setGovernanceTokenContract
