@@ -9,7 +9,7 @@ import { geckoPrice } from "services/coinGecko";
 import { env } from "environment";
 
 export function* getSnobBalance() {
-  yield put(BlockChainActions.setIsGettingSnobBalance(true));
+  yield put(BlockChainActions.setIsGettingMainTokenBalance(true));
   const account = yield select(selectAccountDomain);
   const { mainTokenContract } = yield select(selectContractsDomain);
   const contract = mainTokenContract;
@@ -19,7 +19,7 @@ export function* getSnobBalance() {
   } catch (error) {
     toast.error(`Error getting ${env.MAIN_TOKEN_NAME} balance`);
   } finally {
-    yield put(BlockChainActions.setIsGettingSnobBalance(false));
+    yield put(BlockChainActions.setIsGettingMainTokenBalance(false));
   }
 }
 

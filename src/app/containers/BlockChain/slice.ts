@@ -45,7 +45,7 @@ const blockChainSlice = createSlice({
       };
     },
     getGovernanceTokenBalance(state, action: PayloadAction<void>) {},
-    setIsGettingSnobBalance(state, action: PayloadAction<boolean>) {
+    setIsGettingMainTokenBalance(state, action: PayloadAction<boolean>) {
       state.isGettingSnobBalance = action.payload;
     },
     setMainTokenBalance(state, action: PayloadAction<BigNumber>) {
@@ -56,7 +56,6 @@ const blockChainSlice = createSlice({
       action: PayloadAction<{ mainTokenKeyForCoinGecko: string }>
     ) {},
     getTotalGovernanceTokenSupply(state, action: PayloadAction<void>) {},
-
     setPrices(state, action: PayloadAction<ContainerState["prices"]>) {
       state.prices = action.payload;
     },
