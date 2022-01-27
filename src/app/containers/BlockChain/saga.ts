@@ -42,7 +42,6 @@ export function* getPrices(action: {
       include_24hr_change: [true],
     });
     const prices: BlockChainState["prices"] = {
-      //FIXME: this is a hack to get the price of the main token, naming should be changed
       MainToken: data[mainTokenKeyForCoinGecko]?.usd || 0,
       mainToken24hChange: data[mainTokenKeyForCoinGecko]?.usd_24h_change || 0,
     };
