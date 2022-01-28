@@ -8,7 +8,7 @@ import { selectContractsDomain } from "./selectors";
 import { geckoPrice } from "services/coinGecko";
 import { env } from "environment";
 
-export function* getSnobBalance() {
+export function* getMainTokenBalance() {
   yield put(BlockChainActions.setIsGettingMainTokenBalance(true));
   const account = yield select(selectAccountDomain);
   const { mainTokenContract } = yield select(selectContractsDomain);
@@ -68,7 +68,10 @@ export function* setContracts(action: {
 }
 
 export function* blockChainSaga() {
-  yield takeLatest(BlockChainActions.getMainTokenBalance.type, getSnobBalance);
+  yield takeLatest(
+    BlockChainActions.getMainTokenBalance.type,
+    getMainTokenBalance
+  );
   yield takeLatest(BlockChainActions.setContracts.type, setContracts);
   yield takeLatest(BlockChainActions.getPrices.type, getPrices);
 }

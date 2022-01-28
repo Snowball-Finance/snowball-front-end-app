@@ -31,6 +31,8 @@ export const VoteStatus: FC<Props> = ({ proposal }) => {
   const { t } = useTranslation();
   const isLoading = useSelector(selectIsLoadingReceipt);
   const receipt = useSelector(selectReceipt);
+  const isFor = receipt?.support || false;
+  const hasVoted = receipt?.hasVoted || false;
   const isVotingFor = useSelector(selectIsVotingFor);
   const isVotingAgainst = useSelector(selectIsVotingAgainst);
   useEffect(() => {
@@ -38,8 +40,6 @@ export const VoteStatus: FC<Props> = ({ proposal }) => {
     return () => {};
   }, []);
 
-  const isFor = receipt?.support || false;
-  const hasVoted = receipt?.hasVoted || false;
   const longMessage = t(
     translations.GovernancePage.youVotedForAgainstThisProposalWithAmountGovernanceToken(),
     {
@@ -67,9 +67,9 @@ export const VoteStatus: FC<Props> = ({ proposal }) => {
   const icon = !hasVoted ? (
     <DangerIcon />
   ) : isFor ? (
-    <ThumbsUpIcon />
+    <ThumbsUpIcon color={CssVariables.white} />
   ) : (
-    <ThumbsDownIcon />
+    <ThumbsDownIcon color={CssVariables.white} />
   );
   const isActive = proposal.state === ProposalStates.active;
 

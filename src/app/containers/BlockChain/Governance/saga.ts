@@ -52,7 +52,8 @@ export function* vote(action: {
   const { proposal, voteFor } = action.payload;
   try {
     const votingContract = new ethers.Contract(
-      proposal.origin,
+      //|| '' is added because the error of not existing env var is handled in index file of this module
+      env.VOTING_CONTRACT_ADDRESS || "",
       GOVERNANCE_ABI,
       library.getSigner()
     );
@@ -216,7 +217,6 @@ export function* syncProposalsWithBlockchain() {
           governanceContract.proposals,
           item.index - offset
         );
-        console.log(tmp);
         const tmpProposal = yield call(parseProposalFromRawBlockchainResponse, {
           item: tmp,
           alreadyHasMetadata: true,
@@ -230,12 +230,13 @@ export function* syncProposalsWithBlockchain() {
       const newProposals: Proposal[] = [];
       for (let i = 0; i < dif; i++) {
         const newIdx = proposalsInstance[0].index + i + 1;
-        const tmp = yield call(governanceContract.proposals, newIdx);
+        const tmp = yield call(governanceContract.proposals, newIdx - offset);
         const proposal = { ...tmp };
         const tmpProposal = yield call(parseProposalFromRawBlockchainResponse, {
           item: proposal,
         });
         tmpProposal.index = newIdx;
+        tmpProposal.offset = newIdx - offset;
         tmpProposal.state = "Active";
         newProposals.unshift(tmpProposal);
       }

@@ -9,9 +9,15 @@ import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 import { HomePageReducer, sliceKey } from "./slice";
 import { homePageSaga } from "./saga";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { push } from "connected-react-router";
 import { AppPages } from "app/types";
+import {
+  selectIsStaking,
+  selectReadyForStaking,
+} from "app/containers/BlockChain/Governance/Staking/selectors";
+import { WalletToggle } from "app/components/common/walletToggle";
+import { StakingActions } from "app/containers/BlockChain/Governance/Staking/slice";
 
 export const HomePage = () => {
   useInjectReducer({ key: sliceKey, reducer: HomePageReducer });
@@ -23,9 +29,31 @@ export const HomePage = () => {
     dispatch(push(AppPages.GovernancePage));
   };
 
+  const handleTestStakingClick = () => {
+    dispatch(
+      StakingActions.createLock({
+        duration: "1200",
+        date: new Date().toISOString(),
+        balance: "0",
+      })
+    );
+  };
+  const readyForStaking = useSelector(selectReadyForStaking);
+  const isStaking = useSelector(selectIsStaking);
+
   return (
-    <ContainedButton onClick={handleNavigateClick}>
-      Go To Governance
-    </ContainedButton>
+    <>
+      <ContainedButton onClick={handleNavigateClick}>
+        Go To Governance
+      </ContainedButton>
+      <WalletToggle />
+      <ContainedButton
+        loading={isStaking}
+        disabled={!readyForStaking}
+        onClick={handleTestStakingClick}
+      >
+        test Staking
+      </ContainedButton>
+    </>
   );
 };

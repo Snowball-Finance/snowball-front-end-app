@@ -32,9 +32,11 @@ export const ProposalDetails = () => {
     return <>Loading</>;
   }
   const proposal = proposals.find((item) => item.index === index);
+
   if (proposal === undefined) {
     return <>proposal not found</>;
   }
+
   const { forVotes, againstVotes } = forAndAgainst({ proposal });
 
   const { state } = proposal;
@@ -144,6 +146,8 @@ const Right = styled(Box)({
   display: "flex",
   flexDirection: "column",
   gap: "16px",
+  minWidth: "420px",
+  maxWidth: "420px",
 });
 
 const Votes = styled(SnowPaper)({

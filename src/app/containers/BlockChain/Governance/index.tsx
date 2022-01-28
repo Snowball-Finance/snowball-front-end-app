@@ -7,15 +7,18 @@ import {
   selectSyncedProposalsWithBlockChain,
 } from "./selectors";
 import { GovernanceActions, useGovernanceSlice } from "./slice";
+import { Staking } from "./Staking/Loadable";
 
 export const Governance = ({
   tokenABI,
   proposalsQuery,
   governanceABI,
+  includeStaking,
 }: {
   tokenABI: any;
   governanceABI: any;
   proposalsQuery: string;
+  includeStaking?: boolean;
 }) => {
   const variables = {
     MINIMUM_TOKEN_FOR_VOTING: process.env.REACT_APP_MINIMUM_TOKEN_FOR_VOTING,
@@ -72,5 +75,5 @@ export const Governance = ({
     }
   }, [library, proposals, syncedProposalsWithBlockChain]);
 
-  return <></>;
+  return <>{includeStaking && <Staking />}</>;
 };

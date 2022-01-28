@@ -7,6 +7,7 @@ import { EthersState } from "app/containers/BlockChain/Ethers/types";
 import { GovernanceState } from "app/containers/BlockChain/Governance/types";
 import { PoolsAndGaugesState } from "app/containers/PoolsAndGauges/types";
 import { GovernancePageState } from "app/containers/pages/Governance/types";
+import { StakingState } from "app/containers/BlockChain/Governance/Staking/types";
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -26,5 +27,6 @@ export interface RootState {
   governance?: GovernanceState;
   poolsAndGauges?: PoolsAndGaugesState;
   governancePage?: GovernancePageState;
+  staking?: StakingState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

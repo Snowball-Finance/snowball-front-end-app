@@ -41,6 +41,7 @@ export function App() {
           tokenABI: SNOWCONE_ABI,
           governanceABI: GOVERNANCE_ABI,
           proposalsQuery: PROPOSAL_QUERY,
+          includeStaking: true,
         }}
       />
       <PoolsAndGauges abi={GAUGE_PROXY_ABI} initialDataQuery={INFO_QUERY} />
