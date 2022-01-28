@@ -90,7 +90,7 @@ export const selectIsReadyToGetUserData = createSelector(
   ],
   (account, pools, provider, contract, prices) => {
     return (
-      account && pools.length > 0 && provider && contract && !!prices.MainToken
+      account && pools.length > 0 && provider && contract && !!prices.mainToken
     );
   }
 );

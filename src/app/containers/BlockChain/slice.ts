@@ -13,7 +13,7 @@ export const initialState: ContainerState = {
   includesGovernance: false,
   mainTokenABI: undefined,
   prices: {
-    MainToken: 0,
+    mainToken: 0,
     mainToken24hChange: 0,
   },
   contracts: {

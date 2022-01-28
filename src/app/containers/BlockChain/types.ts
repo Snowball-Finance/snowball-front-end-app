@@ -8,7 +8,7 @@ export interface BlockChainState {
   mainTokenABI: any;
   includesGovernance: boolean;
   prices: {
-    MainToken: number;
+    mainToken: number;
     mainToken24hChange: number;
   };
   contracts: {

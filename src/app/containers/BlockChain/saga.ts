@@ -40,13 +40,17 @@ export function* getPrices() {
         include_24hr_change: [true],
       });
       const prices: BlockChainState["prices"] = {
-        MainToken: data[mainTokenKeyForCoinGecko]?.usd || 0,
+        mainToken: data[mainTokenKeyForCoinGecko]?.usd || 0,
         mainToken24hChange: data[mainTokenKeyForCoinGecko]?.usd_24h_change || 0,
       };
       yield put(BlockChainActions.setPrices(prices));
+    } else {
+      console.log(
+        "REACT_APP_MAIN_TOKEN_KEY_FOR_COIN_GECKO is not defined in env, hence 24hChange and price will not be fetched"
+      );
     }
   } catch (error) {
-    toast.error("Error getting Latest Prices balance");
+    toast.error("Error getting Latest Prices");
   } finally {
   }
 }
