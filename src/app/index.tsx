@@ -24,6 +24,7 @@ import { INFO_QUERY } from "services/apollo/queries/snowballInfo";
 import { PROPOSAL_QUERY } from "services/apollo/queries/proposalList";
 import GOVERNANCE_ABI from "libs/abis/vote-governance.json";
 import SNOWBALL_ABI from "libs/abis/snowball.json";
+import FEE_DISTRIBUTOR_ABI from "libs/abis/fee-distributor.json";
 
 export function App() {
   const { t } = useTranslation();
@@ -41,7 +42,9 @@ export function App() {
           tokenABI: SNOWCONE_ABI,
           governanceABI: GOVERNANCE_ABI,
           proposalsQuery: PROPOSAL_QUERY,
-          includeStaking: true,
+          staking: {
+            feeDistributorABI: FEE_DISTRIBUTOR_ABI,
+          },
         }}
       />
       <PoolsAndGauges abi={GAUGE_PROXY_ABI} initialDataQuery={INFO_QUERY} />

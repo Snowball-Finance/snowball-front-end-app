@@ -2,6 +2,7 @@ import { Box, styled } from "@mui/material";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { selectLibrary } from "app/containers/BlockChain/Web3/selectors";
 import {
+  selectIsLoadingReceipt,
   selectIsVotingAgainst,
   selectIsVotingFor,
   selectReceipt,
@@ -23,7 +24,9 @@ export const VoteButtons: FC<{ proposal: Proposal }> = ({ proposal }) => {
   const isLoadingFor = useSelector(selectIsVotingFor);
   const isLoadingAgainst = useSelector(selectIsVotingAgainst);
   const receipt = useSelector(selectReceipt);
-  const hasVoted = receipt?.hasVoted || false;
+  const isGettingReceipt = useSelector(selectIsLoadingReceipt);
+
+  const disabled = receipt?.hasVoted || isGettingReceipt || false;
   const handleForClick = () => {
     if (library) {
       dispatch(GovernanceActions.vote({ proposal, voteFor: true }));
@@ -39,7 +42,7 @@ export const VoteButtons: FC<{ proposal: Proposal }> = ({ proposal }) => {
   return (
     <ButtonsWrapper>
       <ForButton
-        disabled={hasVoted}
+        disabled={disabled}
         loading={isLoadingFor}
         onClick={handleForClick}
       >
@@ -49,7 +52,7 @@ export const VoteButtons: FC<{ proposal: Proposal }> = ({ proposal }) => {
         {t(translations.GovernancePage.VoteFor())}
       </ForButton>
       <AgainstButton
-        disabled={hasVoted}
+        disabled={disabled}
         loading={isLoadingAgainst}
         onClick={handleAgainstClick}
       >

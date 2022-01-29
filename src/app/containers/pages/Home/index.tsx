@@ -18,6 +18,8 @@ import {
 } from "app/containers/BlockChain/Governance/Staking/selectors";
 import { WalletToggle } from "app/components/common/walletToggle";
 import { StakingActions } from "app/containers/BlockChain/Governance/Staking/slice";
+import { selectSyncedProposalsWithBlockChain } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceActions } from "app/containers/BlockChain/Governance/slice";
 
 export const HomePage = () => {
   useInjectReducer({ key: sliceKey, reducer: HomePageReducer });
@@ -41,12 +43,20 @@ export const HomePage = () => {
   const readyForStaking = useSelector(selectReadyForStaking);
   const isStaking = useSelector(selectIsStaking);
 
+  const synced = useSelector(selectSyncedProposalsWithBlockChain);
+  const handleSetSyncProposals = () => {
+    dispatch(GovernanceActions.setSyncedProposalsWithBlockchain(false));
+  };
+
   return (
     <>
       <ContainedButton onClick={handleNavigateClick}>
         Go To Governance
       </ContainedButton>
       <WalletToggle />
+      <ContainedButton loading={isStaking} onClick={handleSetSyncProposals}>
+        Synced Proposals {synced.toString()}
+      </ContainedButton>
       <ContainedButton
         loading={isStaking}
         disabled={!readyForStaking}

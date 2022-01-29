@@ -12,7 +12,11 @@ import { getEpochSecondForDay } from "./helpers/date";
 import { selectGovernanceTokenContract } from "../selectors";
 import { BlockChainActions } from "../../slice";
 import { toast } from "react-toastify";
-import { selectLibraryDomain } from "app/containers/BlockChain/Web3/selectors";
+import {
+  selectAccountDomain,
+  selectLibraryDomain,
+} from "app/containers/BlockChain/Web3/selectors";
+import { selectFeeDistributorABIDomain } from "./selectors";
 
 export function* createLock(action: { type: string; payload: CreateLockData }) {
   const { balance, date } = action.payload;
@@ -73,6 +77,65 @@ export function* createLock(action: { type: string; payload: CreateLockData }) {
   }
 }
 
+export function* claim() {
+  const feeDistributorABI = yield select(selectFeeDistributorABIDomain);
+  const library = yield select(selectLibraryDomain);
+  try {
+    yield put(StakingActions.setIsClaiming(true));
+    const feeDistributorContract = new ethers.Contract(
+      // || '' is used because if .env is not set,we will fetch the error in early stages
+      env.FEE_DISTRIBUTOR_CONTRACT_ADDRESS || "",
+      feeDistributorABI,
+      library.getSigner()
+    );
+    const gasLimit = yield call(feeDistributorContract.estimateGas["claim()"]);
+    const tokenClaim = yield call(feeDistributorContract["claim()"], {
+      gasLimit,
+    });
+    const transactionResponse = yield call(tokenClaim.wait, 1);
+    if (transactionResponse.status) {
+    }
+  } catch (error) {
+    console.debug(error);
+  } finally {
+    yield put(StakingActions.setIsClaiming(false));
+  }
+}
+
+export function* getFeeDistributionInfo() {
+  const library = yield select(selectLibraryDomain);
+  try {
+    yield put(StakingActions.setIsGettingFeeDistributionInfo(true));
+    const account = yield select(selectAccountDomain);
+    const feeDistributorABI = yield select(selectFeeDistributorABIDomain);
+    const feeDistributorContract = new ethers.Contract(
+      // || '' is used because if .env is not set,we will fetch the error in early stages
+      env.FEE_DISTRIBUTOR_CONTRACT_ADDRESS || "",
+      feeDistributorABI,
+      library.getSigner()
+    );
+    const userClaimable = yield call(
+      feeDistributorContract.callStatic["claim(address)"],
+      account,
+      { gasLimit: 1000000 }
+    );
+    yield put(
+      StakingActions.setClaimable({
+        userClaimable: userClaimable,
+      })
+    );
+  } catch (error) {
+    console.debug(error);
+  } finally {
+    yield put(StakingActions.setIsGettingFeeDistributionInfo(false));
+  }
+}
+
 export function* stakingSaga() {
   yield takeLatest(StakingActions.createLock.type, createLock);
+  yield takeLatest(StakingActions.claim.type, claim);
+  yield takeLatest(
+    StakingActions.getFeeDistributionInfo.type,
+    getFeeDistributionInfo
+  );
 }

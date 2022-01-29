@@ -12,6 +12,7 @@ import {
   Proposal,
   ProposalStates,
 } from "app/containers/BlockChain/Governance/types";
+import { selectLibrary } from "app/containers/BlockChain/Web3/selectors";
 import DangerIcon from "assets/images/iconComponents/dangerIcon";
 import ThumbsDownIcon from "assets/images/iconComponents/thumbsDown";
 import ThumbsUpIcon from "assets/images/iconComponents/thumbsUp";
@@ -35,10 +36,14 @@ export const VoteStatus: FC<Props> = ({ proposal }) => {
   const hasVoted = receipt?.hasVoted || false;
   const isVotingFor = useSelector(selectIsVotingFor);
   const isVotingAgainst = useSelector(selectIsVotingAgainst);
+  const library = useSelector(selectLibrary);
+
   useEffect(() => {
-    dispatch(GovernanceActions.getVotingReceipt({ proposal }));
+    if (library) {
+      dispatch(GovernanceActions.getVotingReceipt({ proposal }));
+    }
     return () => {};
-  }, []);
+  }, [library]);
 
   const longMessage = t(
     translations.GovernancePage.youVotedForAgainstThisProposalWithAmountGovernanceToken(),
@@ -108,7 +113,9 @@ const StyledSkeleton = styled(Skeleton)({
   height: "40px",
 });
 
-const StyledContainedButton = styled(ContainedButton)({});
+const StyledContainedButton = styled(ContainedButton)({
+  minHeight: "36px",
+});
 
 const Message = styled("p")({
   fontSize: "16px",
@@ -123,6 +130,6 @@ const StyledSnowPaper = styled(SnowPaper)<{
   alignItems: "center",
   padding: "0 12px",
   color: color,
-  minHeight: "56px",
+  minHeight: "80px",
   minWidth: "330px",
 }));

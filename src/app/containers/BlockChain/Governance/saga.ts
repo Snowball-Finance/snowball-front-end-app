@@ -225,9 +225,9 @@ export function* syncProposalsWithBlockchain() {
       }
     }
 
+    const newProposals: Proposal[] = [];
     if (num > proposalsInstance.length - offset) {
       const dif = num - (proposalsInstance.length - offset);
-      const newProposals: Proposal[] = [];
       for (let i = 0; i < dif; i++) {
         const newIdx = proposalsInstance[0].index + i + 1;
         const tmp = yield call(governanceContract.proposals, newIdx - offset);
@@ -236,16 +236,16 @@ export function* syncProposalsWithBlockchain() {
           item: proposal,
         });
         tmpProposal.index = newIdx;
-        tmpProposal.offset = newIdx - offset;
         tmpProposal.state = "Active";
+        tmpProposal.offset = newIdx - offset;
         newProposals.unshift(tmpProposal);
       }
-      //order here is important, because we want to make sure syncedProposal field is updated first, and we don't end up requesting again and again, because what triggers syncProposalsWithBlockchain is useEffect on the index of this module
-      yield put(GovernanceActions.setSyncedProposalsWithBlockchain(true));
-      yield put(
-        GovernanceActions.setProposals([...newProposals, ...proposalsInstance])
-      );
     }
+    //order here is important, because we want to make sure syncedProposal field is updated first, and we don't end up requesting again and again, because what triggers syncProposalsWithBlockchain is useEffect on the index of this module
+    yield put(GovernanceActions.setSyncedProposalsWithBlockchain(true));
+    yield put(
+      GovernanceActions.setProposals([...newProposals, ...proposalsInstance])
+    );
   } catch (error) {
     console.log(error);
   }

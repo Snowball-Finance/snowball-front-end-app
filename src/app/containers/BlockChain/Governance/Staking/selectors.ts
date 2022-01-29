@@ -7,6 +7,9 @@ import { initialState } from "./slice";
 
 const selectDomain = (state: RootState) => state.staking || initialState;
 const selectIsStakingDomain = (state: RootState) => state.staking?.isStaking;
+export const selectFeeDistributorABIDomain = (state: RootState) =>
+  state.staking?.feeDistributorABI;
+
 export const selectStaking = createSelector(
   [selectDomain],
   (stakingState) => stakingState

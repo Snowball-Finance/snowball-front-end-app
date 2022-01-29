@@ -13,12 +13,14 @@ export const Governance = ({
   tokenABI,
   proposalsQuery,
   governanceABI,
-  includeStaking,
+  staking,
 }: {
   tokenABI: any;
   governanceABI: any;
   proposalsQuery: string;
-  includeStaking?: boolean;
+  staking?: {
+    feeDistributorABI: any;
+  };
 }) => {
   const variables = {
     MINIMUM_TOKEN_FOR_VOTING: process.env.REACT_APP_MINIMUM_TOKEN_FOR_VOTING,
@@ -69,11 +71,13 @@ export const Governance = ({
       library &&
       proposals &&
       proposals.length &&
-      !syncedProposalsWithBlockChain
+      syncedProposalsWithBlockChain === false
     ) {
       dispatch(GovernanceActions.syncProposalsWithBlockchain());
     }
   }, [library, proposals, syncedProposalsWithBlockChain]);
 
-  return <>{includeStaking && <Staking />}</>;
+  return (
+    <>{staking && <Staking feeDistributorABI={staking.feeDistributorABI} />}</>
+  );
 };

@@ -18,7 +18,9 @@ interface BlockChainProps {
     tokenABI: any;
     proposalsQuery: string;
     governanceABI: any;
-    includeStaking?: boolean;
+    staking?: {
+      feeDistributorABI: any;
+    };
   };
 }
 
@@ -70,7 +72,9 @@ export const BlockChain: FC<BlockChainProps> = ({
           proposalsQuery={governance.proposalsQuery}
           tokenABI={governance.tokenABI}
           governanceABI={governance.governanceABI}
-          includeStaking={governance.includeStaking}
+          staking={{
+            feeDistributorABI: governance.staking?.feeDistributorABI,
+          }}
         />
       )}
     </>
