@@ -1,4 +1,6 @@
 /* --- STATE --- */
-export interface StakingPageState {}
+export interface StakingPageState {
+  enteredMainTokenToStake: string;
+}
 
 export type ContainerState = StakingPageState;

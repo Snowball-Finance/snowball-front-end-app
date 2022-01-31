@@ -1,20 +1,22 @@
 import { CircularProgress, styled } from "@mui/material";
 import {
   selectIsLoadingSnobBalance,
-  selectSnobBalance,
+  selectMainTokenBalance,
 } from "app/containers/BlockChain/selectors";
 import { FC } from "react";
 import { useSelector } from "react-redux";
 import { BNToFloat } from "common/format";
+import { env } from "environment";
 
 export const SnobBalance: FC = () => {
   const isLoading = useSelector(selectIsLoadingSnobBalance);
-  const balance = useSelector(selectSnobBalance);
+  const balance = useSelector(selectMainTokenBalance);
+  const mainTokenName = env.MAIN_TOKEN_NAME;
 
   return (
     <Wrapper>
       <h5>
-        SNOB:{" "}
+        {mainTokenName?.toUpperCase()}:{" "}
         {isLoading ? <CircularProgress /> : balance ? BNToFloat(balance) : "-"}
       </h5>
     </Wrapper>

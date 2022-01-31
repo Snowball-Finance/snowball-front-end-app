@@ -25,7 +25,7 @@ export const selectPrices = createSelector(
   (prices) => prices
 );
 
-export const selectSnobBalance = createSelector(
+export const selectMainTokenBalance = createSelector(
   [selectBlockChainDomain],
   (blockChainState) => blockChainState.mainTokenBalance
 );

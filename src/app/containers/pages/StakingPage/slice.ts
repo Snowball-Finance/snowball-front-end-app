@@ -6,13 +6,17 @@ import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 import { stakingPageSaga } from "./saga";
 
 // The initial state of the StakingPage container
-export const initialState: ContainerState = {};
+export const initialState: ContainerState = {
+  enteredMainTokenToStake: "",
+};
 
 const stakingPageSlice = createSlice({
   name: "stakingPage",
   initialState,
   reducers: {
-    someAction(state, action: PayloadAction<any>) {},
+    setEnteredMainTokenToStake(state, action: PayloadAction<string>) {
+      state.enteredMainTokenToStake = action.payload;
+    },
   },
 });
 
