@@ -11,6 +11,7 @@ import { Web3 } from "./Web3";
 import { selectCalculatedContracts } from "./selectors";
 import { BlockChainActions, useBlockChainSlice } from "./slice";
 import { Governance } from "./Governance";
+import { DistributorData } from "./Governance/Staking/types";
 
 interface BlockChainProps {
   mainTokenABI: any;
@@ -20,6 +21,7 @@ interface BlockChainProps {
     governanceABI: any;
     staking?: {
       feeDistributorABI: any;
+      otherDistributors?: DistributorData[];
     };
   };
 }
@@ -74,6 +76,7 @@ export const BlockChain: FC<BlockChainProps> = ({
           governanceABI={governance.governanceABI}
           staking={{
             feeDistributorABI: governance.staking?.feeDistributorABI,
+            otherDistributors: governance.staking?.otherDistributors,
           }}
         />
       )}

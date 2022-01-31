@@ -8,6 +8,7 @@ import {
 } from "./selectors";
 import { GovernanceActions, useGovernanceSlice } from "./slice";
 import { Staking } from "./Staking/Loadable";
+import { DistributorData } from "./Staking/types";
 
 export const Governance = ({
   tokenABI,
@@ -20,6 +21,7 @@ export const Governance = ({
   proposalsQuery: string;
   staking?: {
     feeDistributorABI: any;
+    otherDistributors?: DistributorData[];
   };
 }) => {
   const variables = {
@@ -78,6 +80,13 @@ export const Governance = ({
   }, [library, proposals, syncedProposalsWithBlockChain]);
 
   return (
-    <>{staking && <Staking feeDistributorABI={staking.feeDistributorABI} />}</>
+    <>
+      {staking && (
+        <Staking
+          feeDistributorABI={staking.feeDistributorABI}
+          otherDistributors={staking.otherDistributors}
+        />
+      )}
+    </>
   );
 };

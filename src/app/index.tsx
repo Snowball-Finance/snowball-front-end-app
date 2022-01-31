@@ -25,6 +25,7 @@ import { PROPOSAL_QUERY } from "services/apollo/queries/proposalList";
 import GOVERNANCE_ABI from "libs/abis/vote-governance.json";
 import SNOWBALL_ABI from "libs/abis/snowball.json";
 import FEE_DISTRIBUTOR_ABI from "libs/abis/fee-distributor.json";
+import { CONTRACTS } from "config";
 
 export function App() {
   const { t } = useTranslation();
@@ -44,6 +45,20 @@ export function App() {
           proposalsQuery: PROPOSAL_QUERY,
           staking: {
             feeDistributorABI: FEE_DISTRIBUTOR_ABI,
+            otherDistributors: [
+              {
+                address: CONTRACTS.SHERPA_FEE_DISTRIBUTOR,
+                name: "Sherpa",
+                symbol: "SHP",
+                decimals: 18,
+              },
+              {
+                address: CONTRACTS.AXIAL_FEE_DISTRIBUTOR,
+                name: "Axial",
+                symbol: "AXL",
+                decimals: 18,
+              },
+            ],
           },
         }}
       />

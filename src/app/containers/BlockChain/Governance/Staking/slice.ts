@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ContainerState, CreateLockData } from "./types";
+import { ContainerState, CreateLockData, DistributorData } from "./types";
 import { createSlice } from "store/toolkit";
 import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 
@@ -21,8 +21,17 @@ const stakingSlice = createSlice({
   name: "staking",
   initialState,
   reducers: {
-    setFeeDistributorABI(state, action: PayloadAction<any>) {
+    setFeeDistributorData(
+      state,
+      action: PayloadAction<{
+        feeDistributorABI: any;
+        otherDistributors?: DistributorData[];
+      }>
+    ) {
       state.feeDistributorABI = action.payload;
+      if (action.payload.otherDistributors) {
+        state.otherDistributors = action.payload.otherDistributors;
+      }
     },
     createLock(state, action: PayloadAction<CreateLockData>) {},
     setIsStaking(state, action: PayloadAction<boolean>) {

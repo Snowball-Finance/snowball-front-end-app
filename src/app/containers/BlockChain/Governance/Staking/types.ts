@@ -9,6 +9,14 @@ export interface StakingState {
   claimable: {
     userClaimable: BigNumber;
   };
+  otherDistributors?: DistributorData[];
+}
+
+export interface DistributorData {
+  address: string;
+  name: string;
+  symbol: string;
+  decimals: number;
 }
 
 export interface CreateLockData {

@@ -8,11 +8,13 @@ import { env } from "environment";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { StakingActions, useStakingSlice } from "./slice";
+import { DistributorData } from "./types";
 
 interface Props {
   feeDistributorABI: any;
+  otherDistributors?: DistributorData[];
 }
-export function Staking({ feeDistributorABI }: Props) {
+export function Staking({ feeDistributorABI, otherDistributors }: Props) {
   useStakingSlice();
   const dispatch = useDispatch();
   if (!env.FEE_DISTRIBUTOR_CONTRACT_ADDRESS) {
@@ -22,7 +24,12 @@ export function Staking({ feeDistributorABI }: Props) {
   }
 
   useEffect(() => {
-    dispatch(StakingActions.setFeeDistributorABI(feeDistributorABI));
+    dispatch(
+      StakingActions.setFeeDistributorData({
+        feeDistributorABI,
+        otherDistributors,
+      })
+    );
     return () => {};
   }, []);
 
