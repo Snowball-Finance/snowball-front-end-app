@@ -8,6 +8,9 @@ export interface StakingState {
   isGettingFeeDistributionInfo: boolean;
   claimable: {
     userClaimable: BigNumber;
+    otherClaimables?: {
+      [key: string]: BigNumber;
+    };
   };
   otherDistributors?: DistributorData[];
 }

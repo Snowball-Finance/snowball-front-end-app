@@ -5,7 +5,7 @@ import { parseEther } from "ethers/lib/utils";
 import { call, put, select, takeLatest } from "redux-saga/effects";
 import { selectMainTokenABIDomain } from "app/containers/BlockChain/selectors";
 import { StakingActions } from "./slice";
-import { CreateLockData } from "./types";
+import { CreateLockData, DistributorData } from "./types";
 import { ethers } from "ethers";
 import { env } from "environment";
 import { getEpochSecondForDay } from "./helpers/date";
@@ -16,7 +16,10 @@ import {
   selectAccountDomain,
   selectLibraryDomain,
 } from "app/containers/BlockChain/Web3/selectors";
-import { selectFeeDistributorABIDomain } from "./selectors";
+import {
+  selectFeeDistributorABIDomain,
+  selectOtherDistributorsDomain,
+} from "./selectors";
 
 export function* createLock(action: { type: string; payload: CreateLockData }) {
   const { balance, date } = action.payload;
@@ -78,8 +81,14 @@ export function* createLock(action: { type: string; payload: CreateLockData }) {
 }
 
 export function* claim() {
+  const account = yield select(selectAccountDomain);
+  if (!account) {
+    toast.warn("connect to your wallet please");
+    return;
+  }
   const feeDistributorABI = yield select(selectFeeDistributorABIDomain);
   const library = yield select(selectLibraryDomain);
+  const otherDistributors = yield select(selectOtherDistributorsDomain);
   try {
     yield put(StakingActions.setIsClaiming(true));
     const feeDistributorContract = new ethers.Contract(
@@ -93,7 +102,26 @@ export function* claim() {
       gasLimit,
     });
     const transactionResponse = yield call(tokenClaim.wait, 1);
-    if (transactionResponse.status) {
+    if (transactionResponse.status && otherDistributors) {
+      const tmp = {};
+      for (let i = 0; i < otherDistributors.length; i++) {
+        const element: DistributorData = otherDistributors[i];
+        const contract = new ethers.Contract(
+          element.address,
+          feeDistributorABI,
+          library.getSigner()
+        );
+        tmp[element.name] = yield call(
+          contract.callStatic["claim(address)"],
+          account,
+          { gasLimit: 1000000 }
+        );
+      }
+      yield put(
+        StakingActions.setOtherClaimables({
+          ...tmp,
+        })
+      );
     }
   } catch (error) {
     console.debug(error);
@@ -119,11 +147,7 @@ export function* getFeeDistributionInfo() {
       account,
       { gasLimit: 1000000 }
     );
-    yield put(
-      StakingActions.setClaimable({
-        userClaimable: userClaimable,
-      })
-    );
+    yield put(StakingActions.setUserClaimable(userClaimable));
   } catch (error) {
     console.debug(error);
   } finally {

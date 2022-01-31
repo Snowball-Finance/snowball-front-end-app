@@ -11,6 +11,10 @@ export const selectFeeDistributorABIDomain = (state: RootState) =>
   state.staking?.feeDistributorABI;
 export const selectOtherDistributorsDomain = (state: RootState) =>
   state.staking?.otherDistributors;
+export const selectUserClaimableDomain = (state: RootState) =>
+  state.staking?.claimable?.userClaimable;
+export const selectOtherClaimablesDomain = (state: RootState) =>
+  state.staking?.claimable?.otherClaimables;
 
 export const selectStaking = createSelector(
   [selectDomain],
@@ -25,6 +29,16 @@ export const selectIsStaking = createSelector(
 export const selectOtherDistributors = createSelector(
   [selectOtherDistributorsDomain],
   (otherDistributors) => otherDistributors
+);
+
+export const selectUserClaimable = createSelector(
+  [selectUserClaimableDomain],
+  (userClaimable) => userClaimable
+);
+
+export const selectOtherClaimables = createSelector(
+  [selectOtherClaimablesDomain],
+  (otherClaimables) => otherClaimables
 );
 
 export const selectReadyForStaking = createSelector(

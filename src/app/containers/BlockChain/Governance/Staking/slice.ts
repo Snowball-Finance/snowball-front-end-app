@@ -45,8 +45,11 @@ const stakingSlice = createSlice({
     setIsGettingFeeDistributionInfo(state, action: PayloadAction<boolean>) {
       state.isGettingFeeDistributionInfo = action.payload;
     },
-    setClaimable(state, action: PayloadAction<any>) {
-      state.claimable = action.payload;
+    setUserClaimable(state, action: PayloadAction<BigNumber>) {
+      state.claimable.userClaimable = action.payload;
+    },
+    setOtherClaimables(state, action: PayloadAction<any>) {
+      state.claimable.otherClaimables = action.payload;
     },
   },
 });
