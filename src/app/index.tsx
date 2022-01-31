@@ -26,6 +26,7 @@ import GOVERNANCE_ABI from "libs/abis/vote-governance.json";
 import SNOWBALL_ABI from "libs/abis/snowball.json";
 import FEE_DISTRIBUTOR_ABI from "libs/abis/fee-distributor.json";
 import { CONTRACTS } from "config";
+import { StakingPage } from "./containers/pages/StakingPage";
 
 export function App() {
   const { t } = useTranslation();
@@ -68,6 +69,9 @@ export function App() {
         {IS_DEV && <Route exact path={AppPages.Example} component={Example} />}
         <Route path={AppPages.GovernancePage}>
           <GovernancePage />
+        </Route>
+        <Route path={AppPages.StakingPage}>
+          <StakingPage />
         </Route>
         <Route component={NotFoundPage} />
       </Switch>

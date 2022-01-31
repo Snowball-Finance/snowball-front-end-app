@@ -5,6 +5,7 @@ export enum AppPages {
   RootPage = "/",
   HomePage = "/home",
   GovernancePage = "/governance",
+  StakingPage = "/staking",
   Example = "/example",
 }
 export type PrivateProvider = ethers.providers.StaticJsonRpcProvider;

@@ -27,8 +27,12 @@ export const HomePage = () => {
 
   const dispatch = useDispatch();
 
-  const handleNavigateClick = () => {
+  const handleNavigateToGovernanceClick = () => {
     dispatch(push(AppPages.GovernancePage));
+  };
+
+  const handleNavigateToStakingClick = () => {
+    dispatch(push(AppPages.StakingPage));
   };
 
   const handleTestStakingClick = () => {
@@ -50,8 +54,11 @@ export const HomePage = () => {
 
   return (
     <>
-      <ContainedButton onClick={handleNavigateClick}>
+      <ContainedButton onClick={handleNavigateToGovernanceClick}>
         Go To Governance
+      </ContainedButton>
+      <ContainedButton onClick={handleNavigateToStakingClick}>
+        Go To Staking
       </ContainedButton>
       <WalletToggle />
       <ContainedButton loading={isStaking} onClick={handleSetSyncProposals}>
