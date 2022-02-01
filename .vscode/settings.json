@@ -1,9 +1,19 @@
 {
   "cSpell.words": [
+    "browserslist",
+    "Claimables",
+    "ethersproject",
+    "fontfaceobserver",
+    "formik",
     "isloading",
     "isopen",
+    "languagedetector",
     "Matomo",
+    "multicall",
+    "plopfile",
+    "reduxjs",
     "snowcone",
-    "toastify"
+    "toastify",
+    "walletlink"
   ]
 }

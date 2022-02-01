@@ -1,21 +1,21 @@
-import { styled } from "@mui/material"
-import { SnowPaper } from "app/components/base/SnowPaper"
-import { SnowSelect } from "app/components/base/SnowSelect"
-import { useDispatch, useSelector } from "react-redux"
-import { selectPoolOptions, selectSelectedPool } from "../../selectors"
-import { ExampleActions } from "../../slice"
+import { styled } from "@mui/material";
+import { SnowPaper } from "app/components/base/SnowPaper";
+import { SnowSelect } from "app/components/base/SnowSelect";
+import { useDispatch, useSelector } from "react-redux";
+import { selectPoolOptions, selectSelectedPool } from "../../selectors";
+import { ExampleActions } from "../../slice";
 
 export const PoolSelect = () => {
-  const options = useSelector(selectPoolOptions)
-  const selectedPool = useSelector(selectSelectedPool)
-  const dispatch = useDispatch()
+  const options = useSelector(selectPoolOptions);
+  const selectedPool = useSelector(selectSelectedPool);
+  const dispatch = useDispatch();
 
   const handleSelectChange = (v: string) => {
-    dispatch(ExampleActions.setSelectedPool(v))
-  }
+    dispatch(ExampleActions.setSelectedPool(v));
+  };
 
   return (
-    <SnowPaper >
+    <SnowPaper>
       <Wrapper>
         <SnowSelect
           options={options}
@@ -24,9 +24,9 @@ export const PoolSelect = () => {
         />
       </Wrapper>
     </SnowPaper>
-  )
-}
+  );
+};
 
-const Wrapper = styled('div')({
-  width: '200px'
-})
+const Wrapper = styled("div")({
+  width: "200px",
+});

@@ -1,7 +1,11 @@
 import { AppPages } from "app/types";
 
-export const GovernanceSubPages = {
-  active:`${AppPages.GovernancePage}/active`,
-  all:`${AppPages.GovernancePage}/all`,
-  newProposal:`${AppPages.GovernancePage}/new-proposal`,
+export enum GovernancePathQueries {
+  proposalIndex = "proposalIndex",
 }
+
+export const GovernanceSubPages = {
+  proposals: `${AppPages.GovernancePage}/proposals`,
+  proposal: `${AppPages.GovernancePage}/proposals/:${GovernancePathQueries.proposalIndex}`,
+  voteAllocation: `${AppPages.GovernancePage}/vote-allocation`,
+};

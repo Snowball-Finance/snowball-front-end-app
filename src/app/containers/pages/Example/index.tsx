@@ -1,15 +1,14 @@
 /**
-*
-* Example
-*
-*/
+ *
+ * Example
+ *
+ */
 
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
-
-import { useExampleSlice } from './slice';
-import 'ag-grid-community/dist/styles/ag-grid.css'
-import 'ag-grid-community/dist/styles/ag-theme-balham.min.css'
+import React from "react";
+import { Helmet } from "react-helmet-async";
+import { useExampleSlice } from "./slice";
+import "ag-grid-community/dist/styles/ag-grid.css";
+import "ag-grid-community/dist/styles/ag-theme-balham.min.css";
 import { Grid, styled } from "@mui/material";
 import { AddSnowballToMetamaskButton } from "./components/addSnobToMetamaskButton";
 import { ConnectToWalletButton } from "./components/connetcToWalletButton";
@@ -17,11 +16,9 @@ import { Wallet } from "./components/wallet";
 import { Balances } from "./components/balances";
 import { Pools } from "./components/pools/pools";
 
-interface Props { }
-
-
+interface Props {}
 export function Example(props: Props) {
-  useExampleSlice()
+  useExampleSlice();
 
   return (
     <>
@@ -48,12 +45,5 @@ export function Example(props: Props) {
       </Wrapper>
     </>
   );
-
-};
-
-
-
-const Wrapper = styled('div')`
-
-
-`
+}
+const Wrapper = styled("div")``;

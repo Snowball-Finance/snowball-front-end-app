@@ -1,6 +1,9 @@
 import { BigNumber } from "@ethersproject/bignumber";
 import { selectPrivateProviderDomain } from "app/containers/BlockChain/Ethers/selectors";
-import { selectContractsDomain, selectPricesDomain } from "app/containers/BlockChain/selectors";
+import {
+  selectContractsDomain,
+  selectPricesDomain,
+} from "app/containers/BlockChain/selectors";
 import { selectAccountDomain } from "app/containers/BlockChain/Web3/selectors";
 import { getGaugeCalls, getPoolCalls } from "services/multicall-queries";
 import { toast } from "react-toastify";
@@ -8,22 +11,21 @@ import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import { query } from "services/apollo/client";
 import { LAST_SNOWBALL_INFO } from "services/apollo/queries/snowballInfo";
 import { requestToAddSnobToMetamask } from "services/global_data";
-import { retrieveGauge } from "./components/providers/gauge";
-import { selectPoolsArrayDomain, selectPoolsObjDomain } from "./selectors";
+import { retrieveGauge } from "./providers/gauge";
+import { selectPoolsArrayDomain } from "./selectors";
 import { ExampleActions, initialState } from "./slice";
 import { LastSnowballInfo, PoolInfoItem } from "./types";
 import { generatePoolInfo, getMultiContractData } from "services/multicall";
-import {analytics} from '@snowball-finance/snowball-analytics/lib'
+import { analytics } from "@snowball-finance/snowball-analytics";
+import { selectPoolsObjDomain } from "app/containers/PoolsAndGauges/selectors";
 
 export function* addSnobToWallet() {
   try {
     yield put(ExampleActions.setIsAddingSnobToWallet(true));
     yield call(requestToAddSnobToMetamask);
-  }
-  catch (error) {
+  } catch (error) {
     toast.error("failed to add snob to wallet");
-  }
-  finally {
+  } finally {
     yield put(ExampleActions.setIsAddingSnobToWallet(false));
   }
 }
@@ -31,37 +33,36 @@ export function* addSnobToWallet() {
 export function* getLastSnowballInfo() {
   try {
     yield put(ExampleActions.setIsLoadingLastSnowballInfo(true));
-    const { data } = yield call(query, { query: LAST_SNOWBALL_INFO })
+    const { data } = yield call(query, { query: LAST_SNOWBALL_INFO });
     yield put(ExampleActions.setLastSnowballInfo(data.LastSnowballInfo));
-    const lastSnowballInfo: LastSnowballInfo = data.LastSnowballInfo
-    const pools = lastSnowballInfo.poolsInfo.map(pool => {
-      return (
-        {
-          ...pool,
-          userLPBalance: BigNumber.from(0.0)
-        }
-      )
-    })
-    const tmp = {}
+    const lastSnowballInfo: LastSnowballInfo = data.LastSnowballInfo;
+    const pools = lastSnowballInfo.poolsInfo.map((pool) => {
+      return {
+        ...pool,
+        userLPBalance: BigNumber.from(0.0),
+      };
+    });
+    const tmp = {};
     const poolOptionsObj = {
       all: { ...initialState.poolOptions[0] },
-    }
-    pools.forEach(item => {
+    };
+    pools.forEach((item) => {
       if (!poolOptionsObj[item.source]) {
-        poolOptionsObj[item.source] = { value: item.source, label: item.source }
+        poolOptionsObj[item.source] = {
+          value: item.source,
+          label: item.source,
+        };
       }
-      tmp[item.address] = item
-    })
+      tmp[item.address] = item;
+    });
 
     yield all([
       put(ExampleActions.setPools(tmp)),
       put(ExampleActions.setPoolOptions(Object.values(poolOptionsObj))),
-    ])
-  }
-  catch (error) {
+    ]);
+  } catch (error) {
     toast.error("failed to get Snowball Info");
-  }
-  finally {
+  } finally {
     yield put(ExampleActions.setIsLoadingLastSnowballInfo(false));
   }
 }
@@ -69,44 +70,53 @@ export function* getLastSnowballInfo() {
 export function* getAndSetUserPools() {
   try {
     yield put(ExampleActions.setIsGettingUserPools(true));
-    const { gaugeProxy } = yield select(selectContractsDomain)
-    const account = yield select(selectAccountDomain)
-    const provider = yield select(selectPrivateProviderDomain)
-    const prices = yield select(selectPricesDomain)
-    const pools = yield select(selectPoolsArrayDomain)
-    const gaugeProxyContract = gaugeProxy
+    const { gaugeProxy } = yield select(selectContractsDomain);
+    const account = yield select(selectAccountDomain);
+    const provider = yield select(selectPrivateProviderDomain);
+    const prices = yield select(selectPricesDomain);
+    const pools = yield select(selectPoolsArrayDomain);
+    const gaugeProxyContract = gaugeProxy;
     let poolsCalls = [];
     let contractCalls = [];
-    pools.forEach(item => {
+    pools.forEach((item) => {
       //@ts-ignore
       poolsCalls = poolsCalls.concat(getPoolCalls({ item, account }));
     });
-    //@ts-ignore
-    pools.forEach(item => { contractCalls = contractCalls.concat(getGaugeCalls(item, account)) });
+    pools.forEach((item) => {
+      //@ts-ignore
+      contractCalls = contractCalls.concat(getGaugeCalls(item, account));
+    });
     const [gaugesData, poolsData, totalWeight] = yield all([
       call(getMultiContractData, provider, contractCalls),
       call(getMultiContractData, provider, poolsCalls),
-      call(gaugeProxyContract.totalWeight)
+      call(gaugeProxyContract.totalWeight),
     ]);
-    const gauges = pools.map((item) => retrieveGauge({ pool: item, gaugesData, totalWeight }))
-    const poolInfo = pools.map(item => generatePoolInfo({ item, gauges, contractData: poolsData, prices }));
-    yield put(ExampleActions.setGauges(gauges))
-    const tmp = {}
+    const gauges = pools.map((item) =>
+      retrieveGauge({ pool: item, gaugesData, totalWeight })
+    );
+    const poolInfo = pools.map((item) =>
+      generatePoolInfo({ item, gauges, contractData: poolsData, prices })
+    );
+    yield put(ExampleActions.setGauges(gauges));
+    const tmp = {};
     const poolOptionsObj = {
       all: { ...initialState.poolOptions[0] },
-      myPools: { value: 'myPools', label: 'My Pools' },
-    }
+      myPools: { value: "myPools", label: "My Pools" },
+    };
     poolInfo.forEach((item: PoolInfoItem) => {
       if (!poolOptionsObj[item.source]) {
-        poolOptionsObj[item.source] = { value: item.source, label: item.source }
+        poolOptionsObj[item.source] = {
+          value: item.source,
+          label: item.source,
+        };
       }
-      tmp[item.address] = item
-    })
+      tmp[item.address] = item;
+    });
     yield all([
       put(ExampleActions.setPools(tmp)),
       put(ExampleActions.setGotUserPools(true)),
       put(ExampleActions.setPoolOptions(Object.values(poolOptionsObj))),
-    ])
+    ]);
   } catch (error) {
     toast.error("failed to get user pools");
   } finally {
@@ -115,31 +125,36 @@ export function* getAndSetUserPools() {
 }
 
 export function* toggleIsDetailsOpen(action: {
-  type: string,
-  payload: string
+  type: string;
+  payload: string;
 }) {
   try {
-    const address = action.payload
-    const pools = { ...yield select(selectPoolsObjDomain) }
-    const selectedPool = { ...pools[address] }
-    selectedPool.isDetailsOpen = !pools[address].isDetailsOpen
-    pools[address] = selectedPool
+    const address = action.payload;
+    const pools = { ...(yield select(selectPoolsObjDomain)) };
+    const selectedPool = { ...pools[address] };
+    selectedPool.isDetailsOpen = !pools[address].isDetailsOpen;
+    pools[address] = selectedPool;
     analytics.trackEvent({
-      category: 'toggle_details',
-      action: selectedPool.isDetailsOpen ? 'open' : 'close',
+      category: "toggle_details",
+      action: selectedPool.isDetailsOpen ? "open" : "close",
       name: selectedPool.name,
-    })
-    yield put(ExampleActions.setPools(pools))
+    });
+    yield put(ExampleActions.setPools(pools));
+  } catch (error) {
+    console.error(error);
+  } finally {
   }
-  catch (error) {
-    console.log(error)
-  }
-  finally { }
 }
 
 export function* exampleSaga() {
   yield takeLatest(ExampleActions.addSnobToWallet.type, addSnobToWallet);
-  yield takeLatest(ExampleActions.getLastSnowballInfo.type, getLastSnowballInfo);
+  yield takeLatest(
+    ExampleActions.getLastSnowballInfo.type,
+    getLastSnowballInfo
+  );
   yield takeLatest(ExampleActions.getAndSetUserPools.type, getAndSetUserPools);
-  yield takeLatest(ExampleActions.toggleIsDetailsOpen.type, toggleIsDetailsOpen);
+  yield takeLatest(
+    ExampleActions.toggleIsDetailsOpen.type,
+    toggleIsDetailsOpen
+  );
 }

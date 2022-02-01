@@ -1,84 +1,85 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-
-export const LAST_SNOWBALL_INFO = gql`
-  query {
-    LastSnowballInfo{
-      createdAt
-      snowballTVL
-      blocksPast24hrs
-      snowballTVL
-      snobPerBlock
-      blockHeight
-      snobNextPhase
-      snowballToken {
-        supply
-        totalSupply
-        pangolinPrice
-      }
-      poolsInfo{
+export const INFO_QUERY = `
+{
+  LastSnowballInfo{
+    createdAt
+    snowballTVL
+    blocksPast24hrs
+    snowballTVL
+    snobPerBlock
+    blockHeight
+    snobNextPhase
+    snowballToken {
+      supply
+      totalSupply
+      pangolinPrice
+    }
+    poolsInfo{
+      address
+      lpAddress
+      name
+      kind
+      source
+      symbol
+      tvlStaked
+      dailyAPR
+      dailyAPY
+      weeklyAPY
+      yearlyAPY
+      pricePoolToken
+      deprecated
+      token0{
         address
-        lpAddress
         name
-        kind
-        source
         symbol
+        pangolinPrice
+        supply
+        decimals
+      }
+      token1{
+        address
+        name
+        symbol
+        pangolinPrice
+        supply
+        decimals
+      }
+      token2{
+        address
+        name
+        symbol
+        pangolinPrice
+        supply
+        decimals
+      }
+      token3{
+        address
+        name
+        symbol
+        pangolinPrice
+        supply
+        decimals
+      }
+      gaugeInfo{
+        address
         tvlStaked
-        dailyAPR
-        dailyAPY
-        weeklyAPY
-        yearlyAPY
-        pricePoolToken
-        deprecated
-        token0{
-          address
-          name
-          symbol
-          pangolinPrice
-          supply
-          decimals
-        }
-        token1{
-          address
-          name
-          symbol
-          pangolinPrice
-          supply
-          decimals
-        }
-        token2{
-          address
-          name
-          symbol
-          pangolinPrice
-          supply
-          decimals
-        }
-        token3{
-          address
-          name
-          symbol
-          pangolinPrice
-          supply
-          decimals
-        }
-        gaugeInfo{
-          address
-          tvlStaked
-          snobDailyAPR
-          snobWeeklyAPR
-          snobYearlyAPR
-          fullDailyAPY
-          fullWeeklyAPY
-          fullYearlyAPY
-          snobAllocation
-        }
+        snobDailyAPR
+        snobWeeklyAPR
+        snobYearlyAPR
+        fullDailyAPY
+        fullWeeklyAPY
+        fullYearlyAPY
+        snobAllocation
       }
     }
   }
+}
 `;
 
-
+export const LAST_SNOWBALL_INFO = gql`
+  query ${INFO_QUERY}
+`;
 export const GET_TVL_INFO_LAST_SNOWBALL = gql`
   query {
     LastSnowballInfo {
@@ -97,4 +98,3 @@ export const GET_TVL_INFO_LAST_SNOWBALL = gql`
     }
   }
 `;
-

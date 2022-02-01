@@ -1,61 +1,30 @@
 import { Route, Switch } from "react-router-dom";
-import { NavigationTabs } from "./components/navigationTabs";
 import { Proposals } from "./subPages/proposals";
-import { NewProposal } from "./subPages/newProposal";
-import { replace } from "connected-react-router";
-import { GovernanceSubPages } from "./subPages/routes";
-import { translations } from "locales/i18n";
-import { useDispatch } from "react-redux";
-import { useTranslation } from "react-i18next";
+import { GovernanceSubPages } from "./routes";
 import { AppPages } from "app/types";
 import { styled } from "@mui/material";
+import { VoteAllocation } from "./subPages/voteAllocation";
+import { ProposalDetails } from "./subPages/details";
 
-const pages = ({ t }) => [{
-  path: GovernanceSubPages.active,
-  title: t(translations.GovernancePage.Tabs.Active()),
-},
-{
-  path: GovernanceSubPages.all,
-  title: t(translations.GovernancePage.Tabs.All()),
-},
-{
-  path: GovernanceSubPages.newProposal,
-  title: t(translations.GovernancePage.Tabs.NewProposal()),
-},
-]
-
-export const GovernanceBody=()=>{
-
-  const dispatch = useDispatch()
-  const path = window.location.pathname
-  const { t } = useTranslation()
-  const handleTabChange = (page: string) => {
-    dispatch(replace(page))
-  }
-
+export const GovernanceBody = () => {
   return (
     <PageWrapper>
-        <NavigationTabs
-          onTabChange={handleTabChange}
-          activePage={path!==AppPages.GovernancePage ? path : GovernanceSubPages.active}
-          pages={pages({ t })}
-        />
-        <Switch>
-          <Route exact path={AppPages.GovernancePage} >
-            <Proposals filter="active" />
-          </Route>
-          <Route path={`${GovernanceSubPages.active}`} >
-            <Proposals filter="active" />
-          </Route>
-          <Route path={`${GovernanceSubPages.all}`} >
-            <Proposals filter="all" />
-          </Route>
-          <Route path={`${GovernanceSubPages.newProposal}`} >
-            <NewProposal />
-          </Route>
-        </Switch>
-      </PageWrapper>
-  )
-}
+      <Switch>
+        <Route exact path={AppPages.GovernancePage}>
+          <Proposals />
+        </Route>
+        <Route exact path={`${GovernanceSubPages.proposals}`}>
+          <Proposals />
+        </Route>
+        <Route path={`${GovernanceSubPages.proposal}`}>
+          <ProposalDetails />
+        </Route>
+        <Route path={`${GovernanceSubPages.voteAllocation}`}>
+          <VoteAllocation />
+        </Route>
+      </Switch>
+    </PageWrapper>
+  );
+};
 
-const PageWrapper = styled('div')({})
+const PageWrapper = styled("div")({});

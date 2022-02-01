@@ -1,90 +1,112 @@
-import { styled } from "@mui/material"
-import { ColDef, GridApi, GridReadyEvent, RowClickedEvent } from "ag-grid-community";
+import { styled } from "@mui/material";
+import {
+  ColDef,
+  GridApi,
+  GridReadyEvent,
+  RowClickedEvent,
+} from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { PoolInfoItem } from "../../types";
 import { IsGettingUserPoolsIndicator } from "./isGettingUserPoolsIndicator";
 import { useDispatch, useSelector } from "react-redux";
-import { selectGauges, selectGotUserPools, selectIsLoadingPools, selectIsReadyToGetUserData, selectPoolsToShow } from "../../selectors";
+import { selectPoolsToShow } from "../../selectors";
 import { SnowPairsIcon } from "app/components/base/snowPairsIcon";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
-import { ItemContainer, Left, PoolName, PoolNameAndProvider, PoolProvider, Right, StyledSnowPaper } from "./components";
-import { selectPrivateProvider } from "app/containers/BlockChain/Ethers/selectors";
+import {
+  ItemContainer,
+  Left,
+  PoolName,
+  PoolNameAndProvider,
+  PoolProvider,
+  Right,
+  StyledSnowPaper,
+} from "./components";
 import { ExampleActions } from "../../slice";
 import { isEmpty } from "common/utility";
 import getUserBoost from "../../helpers/getUserBoost";
-import { selectSnowConeBalance, selectTotalSnowConeSupply } from "app/containers/BlockChain/selectors";
 import { formatNumber } from "common/format";
+import {
+  selectGovernanceTokenBalance,
+  selectTotalGovernanceTokenSupply,
+} from "app/containers/BlockChain/Governance/selectors";
 
 interface GridConfigTypes {
   columnDefs: ColDef[];
   rowData: PoolInfoItem[];
 }
 
-const Col = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  'p': {
+const Col = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  p: {
     margin: 0,
-  }
-})
+  },
+});
 
 const PoolRow = (params) => {
-  const { data }: { data: PoolInfoItem } = params
-  const snowconeBalance = useSelector(selectSnowConeBalance)
-  const totalSnowcone = useSelector(selectTotalSnowConeSupply)
+  const { data }: { data: PoolInfoItem } = params;
+  const governanceTokenBalance = useSelector(selectGovernanceTokenBalance);
+  const totalGovernanceToken = useSelector(selectTotalGovernanceTokenSupply);
   const boost = () => {
     if (isEmpty(data.gauge) || (data.gauge?.staked?.toNumber() || 0) <= 0) {
-      return 1.0
+      return 1.0;
     }
     const boostValue = getUserBoost(
-      totalSnowcone.toNumber() / 1e18,
+      totalGovernanceToken.toNumber() / 1e18,
       //@ts-ignore
       selectedGauge.totalSupply / 1e18,
       //@ts-ignore
       selectedGauge.staked / 1e18,
-      snowconeBalance
+      governanceTokenBalance
     );
     return boostValue;
-  }
+  };
 
   const userBoost = `${(boost() ? boost() * 1.0 : 1.0).toFixed(2)}x`;
-
-
   const totalAPY = () => {
     if (data.gaugeInfo) {
-      let total = (boost() * data.gaugeInfo.snobYearlyAPR) + data.yearlyAPY;
-      total = total > 999999 ? 999999 : total
-      return total
+      let total = boost() * data.gaugeInfo.snobYearlyAPR + data.yearlyAPY;
+      total = total > 999999 ? 999999 : total;
+      return total;
     } else {
-      return 0
+      return 0;
     }
-  }
+  };
 
-  const handleEndButtonClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.stopPropagation()
-    console.log('handle end button clicked')
-  }
+  const handleEndButtonClick: React.MouseEventHandler<HTMLButtonElement> = (
+    e
+  ) => {
+    e.stopPropagation();
+    console.log("handle end button clicked");
+  };
 
   return (
-    <StyledSnowPaper isopen={data.isDetailsOpen ? 'open' : ''}>
-      <ItemContainer >
+    <StyledSnowPaper isopen={data.isDetailsOpen ? "open" : ""}>
+      <ItemContainer>
         <Left>
           <SnowPairsIcon
             addresses={[
               data.token0.address,
-              data.token1?.address ?? '',
-              data.token2?.address ?? '',
-              data.token3?.address ?? '',
-              data.token4?.address ?? ''
-            ]} />
+              data.token1?.address ?? "",
+              data.token2?.address ?? "",
+              data.token3?.address ?? "",
+              data.token4?.address ?? "",
+            ]}
+          />
           <PoolNameAndProvider>
             <PoolName>{data.name}</PoolName>
             <PoolProvider name={data.source}>{data.source}</PoolProvider>
           </PoolNameAndProvider>
           <Col>
-            <p> {data.kind === 'Snowglobe' ? 'APY ' : 'APR '}</p>
-            <p> {typeof totalAPY() === 'number' ? totalAPY()?.toFixed(2) : totalAPY()}%</p>
+            <p> {data.kind === "Snowglobe" ? "APY " : "APR "}</p>
+            <p>
+              {" "}
+              {typeof totalAPY() === "number"
+                ? totalAPY()?.toFixed(2)
+                : totalAPY()}
+              %
+            </p>
           </Col>
           <Col>
             <p>TVL</p>
@@ -96,7 +118,7 @@ const PoolRow = (params) => {
           </Col>
         </Left>
         <Right>
-          <ContainedButton color="primary" onClick={handleEndButtonClick} >
+          <ContainedButton color="primary" onClick={handleEndButtonClick}>
             Do Something
           </ContainedButton>
         </Right>
@@ -104,56 +126,27 @@ const PoolRow = (params) => {
       {data.isDetailsOpen && <>Other contents</>}
     </StyledSnowPaper>
   );
-}
-
-
-
+};
 
 export const PoolsList = () => {
-  const dispatch = useDispatch()
-
-  const pools = useSelector(selectPoolsToShow)
-
-  const provider = useSelector(selectPrivateProvider)
-  const isReadyToGetUserPools = useSelector(selectIsReadyToGetUserData)
-  const alreadyGotUserPools = useSelector(selectGotUserPools)
-
-  useEffect(() => {
-    if (isReadyToGetUserPools && !alreadyGotUserPools) {
-      dispatch(ExampleActions.getAndSetUserPools())
-    }
-    return () => {
-    }
-  }, [isReadyToGetUserPools, alreadyGotUserPools])
-
-  useEffect(() => {
-    if (provider && !alreadyGotUserPools) {
-      dispatch(ExampleActions.getLastSnowballInfo())
-    }
-  }, [provider, alreadyGotUserPools])
-
-
-
-
-  const isLoading = useSelector(selectIsLoadingPools)
-
+  const dispatch = useDispatch();
+  const pools = useSelector(selectPoolsToShow);
   const gridApi = useRef<GridApi | null>(null);
-  const GridData: PoolInfoItem[] = pools
+  const GridData: PoolInfoItem[] = pools;
 
   const rowsConfig = useRef<ColDef[]>([
     {
-      headerName: 'Pair',
-      field: 'name',
+      headerName: "Pair",
+      field: "name",
       cellStyle: {
-        'padding-left': '0px',
+        "padding-left": "0px",
       },
 
       flex: 1,
       minWidth: 100,
-      cellRendererFramework: PoolRow
+      cellRendererFramework: PoolRow,
     },
-
-  ])
+  ]);
 
   const gridConfig: GridConfigTypes = {
     columnDefs: [...rowsConfig.current],
@@ -164,11 +157,11 @@ export const PoolsList = () => {
     gridApi.current = e.api;
   };
 
-
   const handleRowClick = (e: RowClickedEvent) => {
-    const { data }: { data: PoolInfoItem } = e
-    const { address } = data
-    dispatch(ExampleActions.toggleIsDetailsOpen(address))
+    const { data }: { data: PoolInfoItem } = e;
+    const { address } = data;
+    dispatch(ExampleActions.toggleIsDetailsOpen(address));
+
     setTimeout(() => {
       gridApi.current?.forEachNode((node, index) => {
         if (node.data.address === address) {
@@ -177,13 +170,10 @@ export const PoolsList = () => {
         }
       });
     }, 0);
-  }
+  };
 
   return (
-    <GridWrapper
-      id='marketWatchGridWrapper'
-      className={`ag-theme-balham`}
-    >
+    <GridWrapper id="marketWatchGridWrapper" className={`ag-theme-balham`}>
       <IsGettingUserPoolsIndicator />
       <AgGridReact
         onGridReady={gridRendered}
@@ -197,36 +187,32 @@ export const PoolsList = () => {
           suppressMenu: true,
           sortable: true,
           cellStyle: {
-            'font-size': '12px',
-            'line-height': '32px'
-          }
+            "font-size": "12px",
+            "line-height": "32px",
+          },
         }}
         immutableData
         getRowNodeId={(data: PoolInfoItem) => {
           return data.address + data.userLPBalance + data.isDetailsOpen;
         }}
-        overlayNoRowsTemplate={
-          `<div>loading...</div>`
-        }
+        overlayNoRowsTemplate={`<div>loading...</div>`}
       />
     </GridWrapper>
-  )
-}
-
-
-const GridWrapper = styled('div')({
-  height: 'calc(100vh - 310px)',
-  '.ag-header,.ag-row': {
-    border: 'none !important',
+  );
+};
+const GridWrapper = styled("div")({
+  height: "calc(100vh - 310px)",
+  ".ag-header,.ag-row": {
+    border: "none !important",
   },
-  '.ag-cell': {
-    outline: 'none !important',
-    border: 'none !important',
+  ".ag-cell": {
+    outline: "none !important",
+    border: "none !important",
   },
-  '.ag-root-wrapper': {
-    border: 'none !important',
+  ".ag-root-wrapper": {
+    border: "none !important",
   },
-  '.ag-row-hover': {
-    backgroundColor: 'transparent !important',
-  }
-})
+  ".ag-row-hover": {
+    backgroundColor: "transparent !important",
+  },
+});

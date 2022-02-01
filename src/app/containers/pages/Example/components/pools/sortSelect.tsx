@@ -1,9 +1,9 @@
-import { styled } from "@mui/material"
-import { SnowPaper } from "app/components/base/SnowPaper"
-import { SnowSelect } from "app/components/base/SnowSelect"
-import { useDispatch, useSelector } from "react-redux"
-import { selectSelectedSort } from "../../selectors"
-import { ExampleActions } from "../../slice"
+import { styled } from "@mui/material";
+import { SnowPaper } from "app/components/base/SnowPaper";
+import { SnowSelect } from "app/components/base/SnowSelect";
+import { useDispatch, useSelector } from "react-redux";
+import { selectSelectedSort } from "../../selectors";
+import { ExampleActions } from "../../slice";
 
 const options = [
   {
@@ -18,15 +18,15 @@ const options = [
     label: "Claimable",
     value: "claimable",
   },
-]
+];
 
 export const SortSelect = () => {
-  const dispatch = useDispatch()
-  const selectedSort = useSelector(selectSelectedSort)
+  const dispatch = useDispatch();
+  const selectedSort = useSelector(selectSelectedSort);
 
   const handleSelectChange = (v: string) => {
-    dispatch(ExampleActions.setSelectedSort(v))
-  }
+    dispatch(ExampleActions.setSelectedSort(v));
+  };
 
   return (
     <SnowPaper>
@@ -38,9 +38,9 @@ export const SortSelect = () => {
         />
       </Wrapper>
     </SnowPaper>
-  )
-}
+  );
+};
 
-const Wrapper = styled('div')({
-  width: '200px'
-})
+const Wrapper = styled("div")({
+  width: "200px",
+});
