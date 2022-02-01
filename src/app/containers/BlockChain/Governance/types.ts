@@ -13,6 +13,8 @@ export enum ProposalStates {
   defeated = "Defeated",
   readyForExecution = "Ready For Execution",
   executed = "Executed",
+  vetoed = "Vetoed",
+  passed = "Passed",
 }
 
 interface ProposalMetadata {

@@ -49,7 +49,14 @@ export const ProposalListItem: FC<ProposalListItemProps> = ({
         >
           <DarkText size={12}>#{proposal.index}</DarkText>
           <DarkText size={16}>{proposal.title}</DarkText>
-          <StatusChip state={proposal.state} label={proposal.state} />
+          <StatusChip
+            state={proposal.state}
+            label={
+              proposal.state === ProposalStates.vetoed
+                ? ProposalStates.passed
+                : proposal.state
+            }
+          />
         </IndexNameAndStatusWrapper>
         <DividerOnMobile />
         <DateAndMiscWrapper short={short ? "true" : ""}>
