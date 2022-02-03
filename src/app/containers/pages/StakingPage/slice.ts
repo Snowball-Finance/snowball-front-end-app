@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ContainerState } from "./types";
+import { ContainerState, DepositAndWithdrawTab } from "./types";
 import { createSlice } from "store/toolkit";
 import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 
@@ -10,6 +10,7 @@ import { getDayOffset } from "app/containers/BlockChain/Governance/Staking/helpe
 export const initialState: ContainerState = {
   enteredMainTokenToStake: "",
   selectedEpoch: undefined,
+  selectedDepositAndWithdrawTab: DepositAndWithdrawTab.Deposit,
 };
 
 const stakingPageSlice = createSlice({
@@ -18,6 +19,12 @@ const stakingPageSlice = createSlice({
   reducers: {
     setEnteredMainTokenToStake(state, action: PayloadAction<string>) {
       state.enteredMainTokenToStake = action.payload;
+    },
+    setSelectedDepositAndWithdrawTab(
+      state,
+      action: PayloadAction<DepositAndWithdrawTab>
+    ) {
+      state.selectedDepositAndWithdrawTab = action.payload;
     },
     setSelectedEpoch(state, action: PayloadAction<number>) {
       let selectedEpoch;

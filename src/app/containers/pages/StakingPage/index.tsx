@@ -7,8 +7,7 @@
 import React from "react";
 import { useStakingPageSlice } from "./slice";
 import { styled } from "@mui/material";
-import { LockSection } from "./components/lockSection";
-import { ClaimSection } from "./components/claimSection";
+import { DepositAndWithdraw } from "./components/depositAndWithdraw";
 
 interface Props {}
 export function StakingPage(props: Props) {
@@ -16,8 +15,7 @@ export function StakingPage(props: Props) {
 
   return (
     <Wrapper>
-      <LockSection />
-      <ClaimSection />
+      <DepositAndWithdraw />
     </Wrapper>
   );
 }
