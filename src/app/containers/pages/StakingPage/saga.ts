@@ -1,8 +1,20 @@
-// import { take, call, put, select, takeLatest } from 'redux-saga/effects';
-// import { actions } from './slice';
+import { selectMainTokenBalanceDomain } from "app/containers/BlockChain/selectors";
+import { put, select, takeLatest } from "redux-saga/effects";
 
-// export function* doSomething() {}
+import { StakingPageActions } from "./slice";
+
+export function* stakeAllTheBalances() {
+  const mainTokenBalance = yield select(selectMainTokenBalanceDomain);
+  if (mainTokenBalance) {
+    yield put(
+      StakingPageActions.setEnteredMainTokenToStake(mainTokenBalance.toString())
+    );
+  }
+}
 
 export function* stakingPageSaga() {
-  // yield takeLatest(actions.someAction.type, doSomething);
+  yield takeLatest(
+    StakingPageActions.stakeAllTheBalances.type,
+    stakeAllTheBalances
+  );
 }

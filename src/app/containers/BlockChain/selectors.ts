@@ -15,6 +15,9 @@ export const selectContractsDomain = (state: RootState) =>
 export const selectPricesDomain = (state: RootState) =>
   state.blockChain?.prices || { ...initialState.prices };
 
+export const selectMainTokenBalanceDomain = (state: RootState) =>
+  state.blockChain?.mainTokenBalance || undefined;
+
 export const selectBlockChain = createSelector(
   [selectBlockChainDomain],
   (blockChainState) => blockChainState

@@ -1,5 +1,5 @@
 import { styled, Tab, Tabs } from "@mui/material";
-import { selectSelectedWithdrawAndDepositTab } from "app/containers/pages/StakingPage/selectors";
+import { StakingPageSelectors } from "app/containers/pages/StakingPage/selectors";
 import { StakingPageActions } from "app/containers/pages/StakingPage/slice";
 import { DepositAndWithdrawTab } from "app/containers/pages/StakingPage/types";
 import { useTranslation } from "react-i18next";
@@ -21,7 +21,7 @@ export const StakingTabs = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const selectedTab: DepositAndWithdrawTab = useSelector(
-    selectSelectedWithdrawAndDepositTab
+    StakingPageSelectors.selectSelectedWithdrawAndDepositTab
   );
 
   const handleTabChange = (tab: DepositAndWithdrawTab) => {

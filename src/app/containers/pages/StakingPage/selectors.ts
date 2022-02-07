@@ -3,36 +3,52 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "store/types";
 import { initialState } from "./slice";
 
-const selectDomain = (state: RootState) => state.stakingPage || initialState;
+export const StakingPageDomains = {
+  selectDomain: (state: RootState) => state.stakingPage || initialState,
 
-export const selectEnteredMainTokenToStakeDomain = (state: RootState) =>
-  state.stakingPage?.enteredMainTokenToStake ||
-  initialState.enteredMainTokenToStake;
+  selectEnteredMainTokenToStakeDomain: (state: RootState) =>
+    state.stakingPage?.enteredMainTokenToStake ||
+    initialState.enteredMainTokenToStake,
 
-const selectSelectedWithdrawAndDepositTabDomain = (state: RootState) =>
-  state.stakingPage?.selectedDepositAndWithdrawTab ||
-  initialState.selectedDepositAndWithdrawTab;
+  selectSelectedWithdrawAndDepositTabDomain: (state: RootState) =>
+    state.stakingPage?.selectedDepositAndWithdrawTab ||
+    initialState.selectedDepositAndWithdrawTab,
 
-const selectSelectedDepositUnlockPeriodDomain = (state: RootState) =>
-  state.stakingPage?.selectedDepositUnlockPeriod ||
-  initialState.selectedDepositUnlockPeriod;
+  selectSelectedDepositUnlockPeriodDomain: (state: RootState) =>
+    state.stakingPage?.selectedDepositUnlockPeriod ||
+    initialState.selectedDepositUnlockPeriod,
 
-export const selectedDepositUnlockPeriod = createSelector(
-  selectSelectedDepositUnlockPeriodDomain,
-  (selectedDepositUnlockPeriod) => selectedDepositUnlockPeriod
-);
+  selectSelectedEpochDomain: (state: RootState) =>
+    state.stakingPage?.selectedEpoch || initialState.selectedEpoch,
 
-export const selectSelectedWithdrawAndDepositTab = createSelector(
-  selectSelectedWithdrawAndDepositTabDomain,
-  (selectedDepositAndWithdrawTab) => selectedDepositAndWithdrawTab
-);
+  selectSelectedDepositSliderValueDomain: (state: RootState) =>
+    state.stakingPage?.selectedDepositSliderValue ||
+    initialState.selectedDepositSliderValue,
+};
 
-export const selectEnteredMainTokenToStake = createSelector(
-  [selectEnteredMainTokenToStakeDomain],
-  (enteredMainTokenToStake) => enteredMainTokenToStake
-);
-
-export const selectStakingPage = createSelector(
-  [selectDomain],
-  (stakingPageState) => stakingPageState
-);
+export const StakingPageSelectors = {
+  selectedDepositUnlockPeriod: createSelector(
+    StakingPageDomains.selectSelectedDepositUnlockPeriodDomain,
+    (selectedDepositUnlockPeriod) => selectedDepositUnlockPeriod
+  ),
+  selectSelectedWithdrawAndDepositTab: createSelector(
+    StakingPageDomains.selectSelectedWithdrawAndDepositTabDomain,
+    (selectedDepositAndWithdrawTab) => selectedDepositAndWithdrawTab
+  ),
+  selectEnteredMainTokenToStake: createSelector(
+    StakingPageDomains.selectEnteredMainTokenToStakeDomain,
+    (enteredMainTokenToStake) => enteredMainTokenToStake
+  ),
+  selectStakingPage: createSelector(
+    StakingPageDomains.selectDomain,
+    (stakingPageState) => stakingPageState
+  ),
+  selectSelectedDepositSliderValue: createSelector(
+    StakingPageDomains.selectSelectedDepositSliderValueDomain,
+    (selectedDepositSliderValue) => selectedDepositSliderValue
+  ),
+  selectSelectedEpoch: createSelector(
+    StakingPageDomains.selectSelectedEpochDomain,
+    (selectedEpoch) => selectedEpoch
+  ),
+};

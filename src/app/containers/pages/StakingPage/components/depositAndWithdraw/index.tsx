@@ -5,10 +5,12 @@ import { StakingTabs } from "./components/tabs";
 
 export const DepositAndWithdraw = () => {
   return (
-    <StyledSnowPaper>
-      <StakingTabs />
-      <DepositAndWithdrawBody />
-    </StyledSnowPaper>
+    <>
+      <StyledSnowPaper>
+        <StakingTabs />
+        <DepositAndWithdrawBody />
+      </StyledSnowPaper>
+    </>
   );
 };
 

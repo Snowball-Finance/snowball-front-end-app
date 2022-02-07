@@ -4,10 +4,13 @@ import { translations } from "locales/i18n";
 import { useTranslation } from "react-i18next";
 import { CssVariables } from "styles/cssVariables/cssVariables";
 import { Balance } from "./balance";
+import { StakingBottomDescriptions } from "./bottomDescriptions";
 import { LockPeriod } from "./lockPeriod";
 import { BalanceSlider } from "./slider";
+import { StakeButton } from "./stakeButton";
 import { StakeOptions } from "./stakeOptions";
 import { StakingAmount } from "./stakingAmount";
+import { DepositYouWillGet } from "./youWillGet";
 
 export const Deposit = () => {
   const { t } = useTranslation();
@@ -24,6 +27,9 @@ export const Deposit = () => {
       <LockPeriod />
       <BalanceSlider />
       <StakeOptions />
+      <StakeButton />
+      <DepositYouWillGet />
+      <StakingBottomDescriptions />
     </Wrapper>
   );
 };

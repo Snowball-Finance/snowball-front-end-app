@@ -12,6 +12,7 @@ export interface StakingPageState {
   selectedEpoch: Date | undefined;
   selectedDepositAndWithdrawTab: DepositAndWithdrawTab;
   selectedDepositUnlockPeriod: DepositUnlockPeriod;
+  selectedDepositSliderValue: number;
 }
 
 export type ContainerState = StakingPageState;

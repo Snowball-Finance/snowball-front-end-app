@@ -22,6 +22,8 @@
     "Cancel": "Cancel",
     "Submit": "Submit",
     "Close": "Close",
+    "Max": "Max",
+    "Min": "Min",
     "Details": "Details",
     "Detail": "Detail",
     "Description": "Description",
@@ -109,6 +111,18 @@
     "LockPeriod": "Lock Period",
     "StakeOptions": "Stake Options",
     "UnlockTokensDaily": "Unlock Tokens Daily",
-    "UnlockTokensAtTheEndOfTheLockingPeriod": "Unlock Tokens At The End Of The Locking Period"
-      }
+    "UnlockTokensAtTheEndOfTheLockingPeriod": "Unlock Tokens At The End Of The Locking Period",
+    "YouWillGet_AMOUNT_TOKEN": "You will get {{amount}} {{token}}",
+    "StakeMyTokens": "Stake My Tokens",
+    "StakingBottomDescriptions_GOVERNANCETOKENNAME_MAINTOKENNAME":
+    "Your {{governanceTokenName}} tokens will linearly decrease in amount and will be unlocked daily. Daily you can withdraw your {{mainTokenName}} tokens.",
+    "epochs":{
+      "oneDay": "1 Day",
+      "oneWeek": "1 Week",
+      "oneMonth": "1 Month",
+      "oneYear": "1 Year",
+      "twoYears": "2 Years"
+    }
+    
+  }
 }
