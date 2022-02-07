@@ -1,5 +1,9 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ContainerState, DepositAndWithdrawTab } from "./types";
+import {
+  ContainerState,
+  DepositAndWithdrawTab,
+  DepositUnlockPeriod,
+} from "./types";
 import { createSlice } from "store/toolkit";
 import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 
@@ -11,6 +15,7 @@ export const initialState: ContainerState = {
   enteredMainTokenToStake: "",
   selectedEpoch: undefined,
   selectedDepositAndWithdrawTab: DepositAndWithdrawTab.Deposit,
+  selectedDepositUnlockPeriod: DepositUnlockPeriod.end,
 };
 
 const stakingPageSlice = createSlice({
@@ -25,6 +30,12 @@ const stakingPageSlice = createSlice({
       action: PayloadAction<DepositAndWithdrawTab>
     ) {
       state.selectedDepositAndWithdrawTab = action.payload;
+    },
+    setSelectedDepositUnlockPeriod(
+      state,
+      action: PayloadAction<DepositUnlockPeriod>
+    ) {
+      state.selectedDepositUnlockPeriod = action.payload;
     },
     setSelectedEpoch(state, action: PayloadAction<number>) {
       let selectedEpoch;

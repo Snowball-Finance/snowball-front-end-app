@@ -13,6 +13,15 @@ const selectSelectedWithdrawAndDepositTabDomain = (state: RootState) =>
   state.stakingPage?.selectedDepositAndWithdrawTab ||
   initialState.selectedDepositAndWithdrawTab;
 
+const selectSelectedDepositUnlockPeriodDomain = (state: RootState) =>
+  state.stakingPage?.selectedDepositUnlockPeriod ||
+  initialState.selectedDepositUnlockPeriod;
+
+export const selectedDepositUnlockPeriod = createSelector(
+  selectSelectedDepositUnlockPeriodDomain,
+  (selectedDepositUnlockPeriod) => selectedDepositUnlockPeriod
+);
+
 export const selectSelectedWithdrawAndDepositTab = createSelector(
   selectSelectedWithdrawAndDepositTabDomain,
   (selectedDepositAndWithdrawTab) => selectedDepositAndWithdrawTab

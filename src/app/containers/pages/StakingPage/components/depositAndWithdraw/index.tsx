@@ -1,11 +1,13 @@
 import { styled } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
+import { DepositAndWithdrawBody } from "./components/body";
 import { StakingTabs } from "./components/tabs";
 
 export const DepositAndWithdraw = () => {
   return (
     <StyledSnowPaper>
       <StakingTabs />
+      <DepositAndWithdrawBody />
     </StyledSnowPaper>
   );
 };
