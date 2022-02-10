@@ -3,6 +3,7 @@ import { SnowPaper } from "app/components/base/SnowPaper";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { OutlinedButton } from "app/components/common/buttons/outlinedButton";
 import { selectGovernanceTokenBalance } from "app/containers/BlockChain/Governance/selectors";
+import { selectLockedGovernanceTokenAmount } from "app/containers/BlockChain/Governance/Staking/selectors";
 import { BNToFloat } from "common/format";
 import { env } from "environment";
 import { BigNumber } from "ethers";
@@ -15,8 +16,10 @@ import { Info } from "./info";
 
 export const OverallInfoCard = () => {
   const { t } = useTranslation();
-  const dispatch=useDispatch()
-  const lockedTokenAmount = "0.00";
+  const dispatch = useDispatch();
+  const rawLockedTokenAmount = useSelector(selectLockedGovernanceTokenAmount);
+  const lockedTokenAmount = BNToFloat(rawLockedTokenAmount, 18)?.toFixed(3);
+
   const earnedTokensAmount = "0.00";
   const dailyUnlockedAmount = "0.00";
   const rawGovernanceTokenBalance = useSelector(selectGovernanceTokenBalance);
@@ -25,10 +28,13 @@ export const OverallInfoCard = () => {
     18
   )?.toFixed(3);
 
-const handleStakeClick=()=>{
-  dispatch(StakingPageActions.setSelectedDepositAndWithdrawTab(DepositAndWithdrawTab.Deposit))
-  
-}
+  const handleStakeClick = () => {
+    dispatch(
+      StakingPageActions.setSelectedDepositAndWithdrawTab(
+        DepositAndWithdrawTab.Deposit
+      )
+    );
+  };
 
   return (
     <StyledSnowPaper>

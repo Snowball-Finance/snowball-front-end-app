@@ -23,6 +23,7 @@ export const StakingAmount = () => {
 
   const handleAmountInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     dispatch(StakingPageActions.setEnteredMainTokenToStake(e.target.value));
+    document.getElementById("stakeButton")?.scrollIntoView();
   };
 
   return (

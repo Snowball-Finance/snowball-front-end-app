@@ -17,7 +17,7 @@ const InfoIcon: FC<IconProps> = ({ color }) => {
         stroke={fill}
         strokeWidth="2"
         strokeLinecap="round"
-        stroke-linejoin="round"
+        strokeLinejoin="round"
       />
       <path
         d="M8 11.0333V8.5"

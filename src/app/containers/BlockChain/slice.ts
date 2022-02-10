@@ -25,7 +25,6 @@ const blockChainSlice = createSlice({
   name: "blockChain",
   initialState,
   reducers: {
-    getBalance(state, action: PayloadAction<Contract>) {},
     setMainTokenABI(state, action: PayloadAction<any>) {
       state.mainTokenABI = action.payload;
     },

@@ -9,7 +9,11 @@ import { CreateLockData, DistributorData } from "./types";
 import { ethers } from "ethers";
 import { env } from "environment";
 import { getEpochSecondForDay } from "./helpers/date";
-import { selectGovernanceTokenContract } from "../selectors";
+import {
+  selectGovernanceTokenABIDomain,
+  selectGovernanceTokenContract,
+  selectGovernanceTokenContractDomain,
+} from "../selectors";
 import { BlockChainActions } from "../../slice";
 import { toast } from "react-toastify";
 import {
@@ -20,6 +24,7 @@ import {
   selectFeeDistributorABIDomain,
   selectOtherDistributorsDomain,
 } from "./selectors";
+import { selectPrivateProviderDomain } from "../../Ethers/selectors";
 
 export function* createLock(action: { type: string; payload: CreateLockData }) {
   const { balance, date } = action.payload;
@@ -155,6 +160,58 @@ export function* getFeeDistributionInfo() {
   }
 }
 
+export function* getLockedGovernanceTokenInfo() {
+  const governanceTokenABI = yield select(selectGovernanceTokenABIDomain);
+  const provider = yield select(selectPrivateProviderDomain);
+  const governanceTokenContract = new ethers.Contract(
+    env.GOVERNANCE_TOKEN_CONTRACT_ADDRESS || "",
+    governanceTokenABI,
+    provider
+  );
+  const account = yield select(selectAccountDomain);
+  try {
+    yield put(StakingActions.setIsGettingGovernanceTokenInfo(true));
+    const info = yield call(governanceTokenContract.locked, account, {
+      gasLimit: 1000000,
+    });
+    yield put(StakingActions.setGovernanceTokenInfo(info));
+  } catch (error) {
+    console.log(error);
+  } finally {
+    yield put(StakingActions.setIsGettingGovernanceTokenInfo(false));
+  }
+}
+
+export function* withdraw() {
+  yield put(StakingActions.setIsWithdrawing(true));
+
+  try {
+    const governanceTokenABI = yield select(selectGovernanceTokenABIDomain);
+    const library = yield select(selectLibraryDomain);
+    const snowconeContractWithdraw = new ethers.Contract(
+      env.GOVERNANCE_TOKEN_CONTRACT_ADDRESS || "",
+      governanceTokenABI,
+      library.getSigner()
+    );
+    const gasLimit = yield call(snowconeContractWithdraw.estimateGas.withdraw);
+    const tokenWithdraw = yield call(snowconeContractWithdraw.withdraw, {
+      gasLimit,
+    });
+    const transactionWithdraw = yield call(tokenWithdraw.wait, 1);
+
+    if (transactionWithdraw.status) {
+      yield all([
+        put(BlockChainActions.getMainTokenBalance()),
+        put(BlockChainActions.getGovernanceTokenBalance()),
+      ]);
+    }
+  } catch (e) {
+    console.log(e);
+  } finally {
+    yield put(StakingActions.setIsWithdrawing(false));
+  }
+}
+
 export function* stakingSaga() {
   yield takeLatest(StakingActions.createLock.type, createLock);
   yield takeLatest(StakingActions.claim.type, claim);
@@ -162,4 +219,9 @@ export function* stakingSaga() {
     StakingActions.getFeeDistributionInfo.type,
     getFeeDistributionInfo
   );
+  yield takeLatest(
+    StakingActions.getLockedGovernanceTokenInfo.type,
+    getLockedGovernanceTokenInfo
+  );
+  yield takeLatest(StakingActions.withdraw.type, withdraw);
 }

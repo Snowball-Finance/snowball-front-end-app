@@ -15,6 +15,20 @@ export const selectUserClaimableDomain = (state: RootState) =>
   state.staking?.claimable?.userClaimable;
 export const selectOtherClaimablesDomain = (state: RootState) =>
   state.staking?.claimable?.otherClaimables;
+export const selectLockedAmountDomain = (state: RootState) =>
+  state.staking?.lockedAmount || initialState.lockedAmount;
+export const selectEndDateDomain = (state: RootState) =>
+  state.staking?.endDate || initialState.endDate;
+
+export const selectLockedGovernanceTokenAmount = createSelector(
+  selectLockedAmountDomain,
+  (lockedAmount) => lockedAmount
+);
+
+export const selectEndDate = createSelector(
+  selectEndDateDomain,
+  (endDate) => endDate
+);
 
 export const selectStaking = createSelector(
   [selectDomain],

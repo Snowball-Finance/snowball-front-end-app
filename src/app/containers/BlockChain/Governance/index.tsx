@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { selectPrivateProvider } from "../Ethers/selectors";
 import { selectLibrary } from "../Web3/selectors";
 import {
   selectGovernanceTokenContract,
@@ -49,17 +50,19 @@ export const Governance = ({
   }
   useGovernanceSlice();
   const dispatch = useDispatch();
-  const governanceToken = useSelector(selectGovernanceTokenContract);
+  const governanceTokenContract = useSelector(selectGovernanceTokenContract);
   const library = useSelector(selectLibrary);
   const proposals = useSelector(selectProposals);
   const syncedProposalsWithBlockChain = useSelector(
     selectSyncedProposalsWithBlockChain
   );
   useEffect(() => {
-    if (governanceToken) {
-      dispatch(GovernanceActions.setGovernanceTokenContract(governanceToken));
+    if (governanceTokenContract !== undefined) {
+      dispatch(
+        GovernanceActions.setGovernanceTokenContract(governanceTokenContract)
+      );
     }
-  }, [governanceToken]);
+  }, [governanceTokenContract]);
 
   useEffect(() => {
     dispatch(GovernanceActions.setGovernanceABI(governanceABI));
