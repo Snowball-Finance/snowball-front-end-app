@@ -2,7 +2,7 @@ import { StakingActions } from "app/containers/BlockChain/Governance/Staking/sli
 import { selectMainTokenBalanceDomain } from "app/containers/BlockChain/selectors";
 import { BNToString } from "common/format";
 import { BigNumber } from "ethers";
-import { put, select, takeLatest } from "redux-saga/effects";
+import { all, put, select, takeLatest } from "redux-saga/effects";
 import { StakingPageDomains } from "./selectors";
 
 import { StakingPageActions } from "./slice";
@@ -27,7 +27,7 @@ export function* stake() {
   let duration = yield select(
     StakingPageDomains.selectSelectedDepositSliderValueDomain
   );
-  duration = (Number(duration) / 4 + 1).toFixed(0);
+  duration = (Number(duration) / 25 + 1).toFixed(0);
   yield put(
     StakingActions.createLock({ balance: enteredBalance, duration, date })
   );

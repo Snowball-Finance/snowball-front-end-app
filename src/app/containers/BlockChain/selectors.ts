@@ -1,10 +1,10 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { selectPrivateProviderDomain } from "./Ethers/selectors";
 import { selectLibraryDomain } from "./Web3/selectors";
 import { initialState } from "./slice";
 import { ethers } from "ethers";
 import { RootState } from "store/types";
 import { env } from "environment";
+import { EthersDomains } from "./Ethers/selectors";
 
 export const selectBlockChainDomain = (state: RootState) =>
   state.blockChain || initialState;
@@ -44,7 +44,11 @@ export const selectContracts = createSelector(
 );
 
 export const selectCalculatedContracts = createSelector(
-  [selectPrivateProviderDomain, selectLibraryDomain, selectMainTokenABIDomain],
+  [
+    EthersDomains.selectPrivateProviderDomain,
+    selectLibraryDomain,
+    selectMainTokenABIDomain,
+  ],
   (provider, library, mainTokenABI) => {
     if (provider && library && mainTokenABI) {
       return {

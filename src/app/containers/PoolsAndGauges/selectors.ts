@@ -3,7 +3,7 @@ import { env } from "environment";
 import { Contract, ethers } from "ethers";
 
 import { RootState } from "store/types";
-import { selectPrivateProviderDomain } from "../BlockChain/Ethers/selectors";
+import { EthersDomains, EthersSelectors } from "../BlockChain/Ethers/selectors";
 import { selectPricesDomain } from "../BlockChain/selectors";
 import {
   selectAccountDomain,
@@ -48,7 +48,11 @@ export const selectPoolsArray = createSelector(
 );
 let contract: Contract | undefined;
 export const selectGaugeContract = createSelector(
-  [selectPrivateProviderDomain, selectLibraryDomain, selectGaugeProxyABIDomain],
+  [
+    EthersDomains.selectPrivateProviderDomain,
+    selectLibraryDomain,
+    selectGaugeProxyABIDomain,
+  ],
   (provider, library, abi) => {
     if (!env.GAUGE_PROXY_ADDRESS) {
       throw new Error(
@@ -84,7 +88,7 @@ export const selectIsReadyToGetUserData = createSelector(
   [
     selectAccountDomain,
     selectPoolsArrayDomain,
-    selectPrivateProviderDomain,
+    EthersDomains.selectPrivateProviderDomain,
     selectGaugeContractDomain,
     selectPricesDomain,
   ],

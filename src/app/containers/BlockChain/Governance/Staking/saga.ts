@@ -24,11 +24,12 @@ import {
   selectFeeDistributorABIDomain,
   selectOtherDistributorsDomain,
 } from "./selectors";
-import { selectPrivateProviderDomain } from "../../Ethers/selectors";
+import { EthersDomains } from "../../Ethers/selectors";
 
 export function* createLock(action: { type: string; payload: CreateLockData }) {
   const { balance, date } = action.payload;
   const amount = parseEther(balance.toString());
+  const lockedDate = getEpochSecondForDay(new Date(date));
   yield put(StakingActions.setIsStaking(true));
   const library = yield select(selectLibraryDomain);
   //|| is used because if .env is not set,we will fetch the error in early stages
@@ -41,7 +42,16 @@ export function* createLock(action: { type: string; payload: CreateLockData }) {
       library.getSigner()
     );
     if (mainTokenContract) {
-      const governanceTokenAddress = env.GOVERNANCE_TOKEN_CONTRACT_ADDRESS;
+      //|| is used because if .env is not set,we will fetch the error in early stages
+      const governanceTokenAddress =
+        env.GOVERNANCE_TOKEN_CONTRACT_ADDRESS || "";
+      const governanceTokenABI = yield select(selectGovernanceTokenABIDomain);
+      const governanceTokenContract = new ethers.Contract(
+        governanceTokenAddress,
+        governanceTokenABI,
+        library.getSigner()
+      );
+
       const approveGovernanceTokenContractHasAccessToMainTokenAssets =
         yield call(
           mainTokenContract.approve,
@@ -56,30 +66,36 @@ export function* createLock(action: { type: string; payload: CreateLockData }) {
         console.debug("transaction not approved");
         return;
       }
-      const lockedDate = getEpochSecondForDay(new Date(date));
-      const governanceTokenContract = yield select(
-        selectGovernanceTokenContract
-      );
+
       const gasLimit = yield call(
         governanceTokenContract.estimateGas.create_lock,
         amount,
         lockedDate
       );
+
       const tokenLock = yield call(
         governanceTokenContract.create_lock,
         amount,
         lockedDate,
         { gasLimit }
       );
+
       const transactionResponse = yield call(tokenLock.wait, 1);
       if (transactionResponse.status) {
-        yield put(BlockChainActions.getMainTokenBalance());
+        yield all([
+          put(BlockChainActions.getMainTokenBalance()),
+          put(BlockChainActions.getGovernanceTokenBalance()),
+          put(StakingActions.getLockedGovernanceTokenInfo()),
+        ]);
       }
     } else {
       toast("Main Token Contract is not set");
     }
-  } catch (error) {
+  } catch (error: any) {
     console.debug(error);
+    if (error?.data?.message) {
+      toast.error(error.data.message);
+    }
   } finally {
     yield put(StakingActions.setIsStaking(false));
   }
@@ -162,7 +178,7 @@ export function* getFeeDistributionInfo() {
 
 export function* getLockedGovernanceTokenInfo() {
   const governanceTokenABI = yield select(selectGovernanceTokenABIDomain);
-  const provider = yield select(selectPrivateProviderDomain);
+  const provider = yield select(EthersDomains.selectPrivateProviderDomain);
   const governanceTokenContract = new ethers.Contract(
     env.GOVERNANCE_TOKEN_CONTRACT_ADDRESS || "",
     governanceTokenABI,
@@ -205,8 +221,11 @@ export function* withdraw() {
         put(BlockChainActions.getGovernanceTokenBalance()),
       ]);
     }
-  } catch (e) {
-    console.log(e);
+  } catch (e: any) {
+    console.debug(e);
+    if (e?.data?.message) {
+      toast.error(e.data.message);
+    }
   } finally {
     yield put(StakingActions.setIsWithdrawing(false));
   }

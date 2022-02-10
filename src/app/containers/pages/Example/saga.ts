@@ -1,5 +1,4 @@
 import { BigNumber } from "@ethersproject/bignumber";
-import { selectPrivateProviderDomain } from "app/containers/BlockChain/Ethers/selectors";
 import {
   selectContractsDomain,
   selectPricesDomain,
@@ -18,6 +17,7 @@ import { LastSnowballInfo, PoolInfoItem } from "./types";
 import { generatePoolInfo, getMultiContractData } from "services/multicall";
 import { analytics } from "@snowball-finance/snowball-analytics";
 import { selectPoolsObjDomain } from "app/containers/PoolsAndGauges/selectors";
+import { EthersDomains } from "app/containers/BlockChain/Ethers/selectors";
 
 export function* addSnobToWallet() {
   try {
@@ -72,7 +72,7 @@ export function* getAndSetUserPools() {
     yield put(ExampleActions.setIsGettingUserPools(true));
     const { gaugeProxy } = yield select(selectContractsDomain);
     const account = yield select(selectAccountDomain);
-    const provider = yield select(selectPrivateProviderDomain);
+    const provider = yield select(EthersDomains.selectPrivateProviderDomain);
     const prices = yield select(selectPricesDomain);
     const pools = yield select(selectPoolsArrayDomain);
     const gaugeProxyContract = gaugeProxy;

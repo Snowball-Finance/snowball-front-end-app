@@ -19,6 +19,13 @@ export const selectLockedAmountDomain = (state: RootState) =>
   state.staking?.lockedAmount || initialState.lockedAmount;
 export const selectEndDateDomain = (state: RootState) =>
   state.staking?.endDate || initialState.endDate;
+export const selectIsWithdrawingDomain = (state: RootState) =>
+  state.staking?.isWithdrawing;
+
+export const selectIsWithdrawing = createSelector(
+  selectIsWithdrawingDomain,
+  (isWithdrawing) => isWithdrawing
+);
 
 export const selectLockedGovernanceTokenAmount = createSelector(
   selectLockedAmountDomain,

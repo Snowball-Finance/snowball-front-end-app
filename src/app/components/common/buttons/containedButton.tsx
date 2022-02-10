@@ -9,6 +9,7 @@ export const ContainedButton: FC<SnowButtonProps> = (props) => {
 
 const StyledButton = styled(SnowButton)(({ theme }) => ({
   borderRadius: CssVariables.paperBorderRadius,
+  minHeight: "36px",
   "&.Mui-disabled": {
     color: CssVariables.grey,
   },

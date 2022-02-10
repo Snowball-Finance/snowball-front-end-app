@@ -11,7 +11,9 @@ export const LockPeriod = () => {
   return (
     <Wrapper>
       <Title>{t(translations.Staking.LockPeriod())}</Title>
-      <InputWrapper>{selectedEpoch?.toLocaleString()}</InputWrapper>
+      <InputWrapper>
+        {selectedEpoch?.toLocaleString().split(",")[0]}
+      </InputWrapper>
     </Wrapper>
   );
 };

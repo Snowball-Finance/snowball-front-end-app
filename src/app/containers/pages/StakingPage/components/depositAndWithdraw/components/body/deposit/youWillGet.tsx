@@ -17,7 +17,7 @@ export const DepositYouWillGet = () => {
     <Amount>
       {t(translations.Staking.YouWillGet_AMOUNT_TOKEN(), {
         token: governanceTokenName,
-        amount: Number(youWillGet).toFixed(3),
+        amount: Number(youWillGet).toFixed(4),
       })}
     </Amount>
   );

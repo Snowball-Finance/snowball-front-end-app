@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectPrivateProvider } from "../Ethers/selectors";
 import { selectLibrary } from "../Web3/selectors";
 import {
   selectGovernanceTokenContract,
