@@ -2,7 +2,7 @@
 // import { actions } from './slice';
 
 import { parseEther } from "ethers/lib/utils";
-import { call, put, select, takeLatest } from "redux-saga/effects";
+import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import { selectMainTokenABIDomain } from "app/containers/BlockChain/selectors";
 import { StakingActions } from "./slice";
 import { CreateLockData, DistributorData } from "./types";
