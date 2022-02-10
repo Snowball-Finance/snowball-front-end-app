@@ -34,6 +34,7 @@ const stakingPageSlice = createSlice({
       state.selectedDepositAndWithdrawTab = action.payload;
     },
     stakeAllTheBalances(state) {},
+    stake(){},
     setSelectedDepositUnlockPeriod(
       state,
       action: PayloadAction<DepositUnlockPeriod>

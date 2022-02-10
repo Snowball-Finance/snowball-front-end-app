@@ -2,6 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 
 import { RootState } from "store/types";
 import { initialState } from "./slice";
+import { estimateXSnobForDate } from "./utils/stakeDate";
 
 export const StakingPageDomains = {
   selectDomain: (state: RootState) => state.stakingPage || initialState,
@@ -51,4 +52,14 @@ export const StakingPageSelectors = {
     StakingPageDomains.selectSelectedEpochDomain,
     (selectedEpoch) => selectedEpoch
   ),
+  selectYouWillGet: createSelector(
+    [StakingPageDomains.selectEnteredMainTokenToStakeDomain,
+    StakingPageDomains.selectSelectedEpochDomain
+    ],
+    (amount, epoch) => {
+      if (isNaN(Number(amount))) return
+      const calculatedYouWillGet = estimateXSnobForDate(amount, epoch)
+      return calculatedYouWillGet
+    }
+  )
 };
