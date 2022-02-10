@@ -13,7 +13,7 @@ export const StakeButton = () => {
   };
 
   return (
-    <ContainedButton onClick={handleStakeButtonClick}>
+    <ContainedButton id="stakeButton" onClick={handleStakeButtonClick}>
       {t(translations.Staking.StakeMyTokens())}
     </ContainedButton>
   );

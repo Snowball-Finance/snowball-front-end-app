@@ -8,11 +8,14 @@ import { env } from "environment";
 import { BigNumber } from "ethers";
 import { translations } from "locales/i18n";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { StakingPageActions } from "../../slice";
+import { DepositAndWithdrawTab } from "../../types";
 import { Info } from "./info";
 
 export const OverallInfoCard = () => {
   const { t } = useTranslation();
+  const dispatch=useDispatch()
   const lockedTokenAmount = "0.00";
   const earnedTokensAmount = "0.00";
   const dailyUnlockedAmount = "0.00";
@@ -21,6 +24,11 @@ export const OverallInfoCard = () => {
     rawGovernanceTokenBalance ?? BigNumber.from(0),
     18
   )?.toFixed(3);
+
+const handleStakeClick=()=>{
+  dispatch(StakingPageActions.setSelectedDepositAndWithdrawTab(DepositAndWithdrawTab.Deposit))
+  
+}
 
   return (
     <StyledSnowPaper>
@@ -51,7 +59,7 @@ export const OverallInfoCard = () => {
           value={`${dailyUnlockedAmount} ${env.MAIN_TOKEN_NAME}`}
         />
         <Filler />
-        <ContainedButton>
+        <ContainedButton onClick={handleStakeClick}>
           {t(translations.Staking.Stake_MAINTOKENNAME(), {
             mainTokenName: env.MAIN_TOKEN_NAME,
           })}
