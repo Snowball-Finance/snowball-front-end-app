@@ -13,18 +13,22 @@ import { WithdrawButton } from "./withdrawButton";
 export const Withdraw = () => {
   const { t } = useTranslation();
   const governanceTokenName = env.GOVERNANCE_TOKEN_NAME;
-  const rawGovernanceTokenBalance = useSelector(selectGovernanceTokenBalance)
-  const governanceTokenBalance = BNToFloat(rawGovernanceTokenBalance ?? BigNumber.from(0), 18)?.toFixed(3)
+  const rawGovernanceTokenBalance = useSelector(selectGovernanceTokenBalance);
+  const governanceTokenBalance = BNToFloat(
+    rawGovernanceTokenBalance ?? BigNumber.from(0),
+    18
+  )?.toFixed(3);
   return (
     <Wrapper>
-      <Title>
-        {t(translations.Staking.WithdrawTokens())}
-      </Title>
+      <Title>{t(translations.Staking.WithdrawTokens())}</Title>
       <Amount>
-        {t(translations.Staking.AvailableToWithdraw_AMOUNT_GOVERNANCETOKENNAME(), {
-          amount: governanceTokenBalance,
-          governanceTokenName
-        })}
+        {t(
+          translations.Staking.AvailableToWithdraw_AMOUNT_GOVERNANCETOKENNAME(),
+          {
+            amount: governanceTokenBalance,
+            governanceTokenName,
+          }
+        )}
       </Amount>
       <WithdrawBottomDescriptions />
       <WithdrawButton />

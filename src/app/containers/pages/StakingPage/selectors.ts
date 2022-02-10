@@ -53,13 +53,14 @@ export const StakingPageSelectors = {
     (selectedEpoch) => selectedEpoch
   ),
   selectYouWillGet: createSelector(
-    [StakingPageDomains.selectEnteredMainTokenToStakeDomain,
-    StakingPageDomains.selectSelectedEpochDomain
+    [
+      StakingPageDomains.selectEnteredMainTokenToStakeDomain,
+      StakingPageDomains.selectSelectedEpochDomain,
     ],
     (amount, epoch) => {
-      if (isNaN(Number(amount))) return
-      const calculatedYouWillGet = estimateXSnobForDate(amount, epoch)
-      return calculatedYouWillGet
+      if (isNaN(Number(amount))) return;
+      const calculatedYouWillGet = estimateXSnobForDate(amount, epoch);
+      return calculatedYouWillGet;
     }
-  )
+  ),
 };

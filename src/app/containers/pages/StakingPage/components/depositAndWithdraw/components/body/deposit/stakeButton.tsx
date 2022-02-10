@@ -6,13 +6,15 @@ import { useDispatch } from "react-redux";
 
 export const StakeButton = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleStakeButtonClick = () => {
-    dispatch(StakingPageActions.stake())
-  }
+    dispatch(StakingPageActions.stake());
+  };
 
   return (
-    <ContainedButton onClick={handleStakeButtonClick} >{t(translations.Staking.StakeMyTokens())}</ContainedButton>
+    <ContainedButton onClick={handleStakeButtonClick}>
+      {t(translations.Staking.StakeMyTokens())}
+    </ContainedButton>
   );
 };

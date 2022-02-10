@@ -14,7 +14,7 @@ export const getEpochSecondForDay = (date) => {
 
 export const getWeekDiff = (date1, date2) => {
   return Math.ceil(
-    (date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24 * 7),
+    (date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24 * 7)
   );
 };
 
@@ -23,7 +23,7 @@ export const getTimeEpoch = () => {
 };
 
 export const formatDate = (date) => {
-  const value = new Date(date)
+  const value = new Date(date);
   return `${value.getFullYear()}-${value.getMonth() + 1}-${value.getDate()}`;
 };
 

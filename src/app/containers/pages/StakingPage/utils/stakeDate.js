@@ -1,4 +1,4 @@
-import { getDayOffset, getEpochSecondForDay } from './date';
+import { getDayOffset, getEpochSecondForDay } from "./date";
 
 const WEEK = 7 * 86400;
 const MAXTIME = 2 * 365 * 86400;

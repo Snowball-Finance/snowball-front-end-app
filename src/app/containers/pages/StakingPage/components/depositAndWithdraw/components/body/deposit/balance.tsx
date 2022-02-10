@@ -10,10 +10,14 @@ import { CssVariables } from "styles/cssVariables/cssVariables";
 export const Balance = () => {
   const { t } = useTranslation();
   const mainTokenBalance = useSelector(selectMainTokenBalance);
-  const stringMainTokenBalance = BNToString(mainTokenBalance??BigNumber.from(0),18);
+  const stringMainTokenBalance = BNToString(
+    mainTokenBalance ?? BigNumber.from(0),
+    18
+  );
   return (
     <BalanceText>
-      {t(translations.Common.Balance())}: {parseFloat(stringMainTokenBalance||'0').toFixed(3)}
+      {t(translations.Common.Balance())}:{" "}
+      {parseFloat(stringMainTokenBalance || "0").toFixed(3)}
     </BalanceText>
   );
 };

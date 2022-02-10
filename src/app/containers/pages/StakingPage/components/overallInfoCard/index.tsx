@@ -1,4 +1,4 @@
-import { styled } from "@mui/material"
+import { styled } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { OutlinedButton } from "app/components/common/buttons/outlinedButton";
@@ -12,12 +12,15 @@ import { useSelector } from "react-redux";
 import { Info } from "./info";
 
 export const OverallInfoCard = () => {
-  const { t } = useTranslation()
-  const lockedTokenAmount = '0.00'
-const earnedTokensAmount='0.00'
-const dailyUnlockedAmount='0.00'
-  const rawGovernanceTokenBalance = useSelector(selectGovernanceTokenBalance)
-  const governanceTokenBalance = BNToFloat(rawGovernanceTokenBalance ?? BigNumber.from(0), 18)?.toFixed(3)
+  const { t } = useTranslation();
+  const lockedTokenAmount = "0.00";
+  const earnedTokensAmount = "0.00";
+  const dailyUnlockedAmount = "0.00";
+  const rawGovernanceTokenBalance = useSelector(selectGovernanceTokenBalance);
+  const governanceTokenBalance = BNToFloat(
+    rawGovernanceTokenBalance ?? BigNumber.from(0),
+    18
+  )?.toFixed(3);
 
   return (
     <StyledSnowPaper>
@@ -29,19 +32,17 @@ const dailyUnlockedAmount='0.00'
         />
         <Info
           title={t(translations.Staking.GOVERNANCETOKENNAME_Balance(), {
-            governanceTokenName: env.GOVERNANCE_TOKEN_NAME
+            governanceTokenName: env.GOVERNANCE_TOKEN_NAME,
           })}
           value={`${governanceTokenBalance} ${env.GOVERNANCE_TOKEN_NAME}`}
           help={<>info</>}
         />
         <Filler />
 
-        <OutlinedButton >
-          {t(translations.Staking.HowItWorks())}
-        </OutlinedButton>
+        <OutlinedButton>{t(translations.Staking.HowItWorks())}</OutlinedButton>
       </LeftWrapper>
       <RightWrapper>
-      <Info
+        <Info
           title={t(translations.Staking.TokensEarned())}
           value={`${earnedTokensAmount} ${env.MAIN_TOKEN_NAME}`}
         />
@@ -50,42 +51,41 @@ const dailyUnlockedAmount='0.00'
           value={`${dailyUnlockedAmount} ${env.MAIN_TOKEN_NAME}`}
         />
         <Filler />
-        <ContainedButton >
-          {t(translations.Staking.Stake_MAINTOKENNAME(),{
-            mainTokenName: env.MAIN_TOKEN_NAME
+        <ContainedButton>
+          {t(translations.Staking.Stake_MAINTOKENNAME(), {
+            mainTokenName: env.MAIN_TOKEN_NAME,
           })}
         </ContainedButton>
       </RightWrapper>
     </StyledSnowPaper>
-  )
-}
+  );
+};
 
-const ButtonWrapper = styled('div')({
-  padding:'0 1'
-})
+const ButtonWrapper = styled("div")({
+  padding: "0 1",
+});
 
-const Filler=styled('div')({
-  flex:1
-})
-
-const LeftWrapper = styled('div')({
+const Filler = styled("div")({
   flex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: "24px",
-})
-const RightWrapper = styled('div')({
-  flex:1,
-  display: 'flex',
-  flexDirection: 'column',
-  gap: "24px",
+});
 
-})
+const LeftWrapper = styled("div")({
+  flex: 1,
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+});
+const RightWrapper = styled("div")({
+  flex: 1,
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+});
 const StyledSnowPaper = styled(SnowPaper)({
   padding: "24px 32px",
   position: "relative",
   maxWidth: "490px",
   display: "flex",
-  gap:'12px',
-  flex:1
+  gap: "12px",
+  flex: 1,
 });

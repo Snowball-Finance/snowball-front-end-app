@@ -10,7 +10,9 @@ import { StakingPageActions } from "./slice";
 export function* stakeAllTheBalances() {
   const mainTokenBalance = yield select(selectMainTokenBalanceDomain);
   if (mainTokenBalance) {
-    const stringMainTokenBalance = parseFloat(BNToString(mainTokenBalance ?? BigNumber.from(0), 18) || '0').toFixed(3);
+    const stringMainTokenBalance = parseFloat(
+      BNToString(mainTokenBalance ?? BigNumber.from(0), 18) || "0"
+    ).toFixed(3);
     yield put(
       StakingPageActions.setEnteredMainTokenToStake(stringMainTokenBalance)
     );
@@ -18,13 +20,17 @@ export function* stakeAllTheBalances() {
 }
 
 export function* stake() {
-  const enteredBalance = yield select(StakingPageDomains.selectEnteredMainTokenToStakeDomain)
-  const date = yield select(StakingPageDomains.selectSelectedEpochDomain)
-  let duration = yield select(StakingPageDomains.selectSelectedDepositSliderValueDomain)
-  duration = ((Number(duration) / 4) + 1).toFixed(0)
-  yield put(StakingActions.createLock({ balance: enteredBalance, duration, date }))
-
-
+  const enteredBalance = yield select(
+    StakingPageDomains.selectEnteredMainTokenToStakeDomain
+  );
+  const date = yield select(StakingPageDomains.selectSelectedEpochDomain);
+  let duration = yield select(
+    StakingPageDomains.selectSelectedDepositSliderValueDomain
+  );
+  duration = (Number(duration) / 4 + 1).toFixed(0);
+  yield put(
+    StakingActions.createLock({ balance: enteredBalance, duration, date })
+  );
 }
 
 export function* stakingPageSaga() {
@@ -32,8 +38,5 @@ export function* stakingPageSaga() {
     StakingPageActions.stakeAllTheBalances.type,
     stakeAllTheBalances
   );
-  yield takeLatest(
-    StakingPageActions.stake.type,
-    stake
-  );
+  yield takeLatest(StakingPageActions.stake.type, stake);
 }

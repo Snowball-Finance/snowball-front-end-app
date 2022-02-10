@@ -13,13 +13,13 @@ import { StakingDescription } from "./components/descriptions/stakingDescs";
 import { DepositAndWithdrawCardDescription } from "./components/descriptions/depositAndWithdrawCardDescs";
 import { Max1040 } from "app/components/wrappers/max1040";
 
-interface Props { }
+interface Props {}
 export function StakingPage(props: Props) {
   useStakingPageSlice();
 
   return (
     <Wrapper>
-      <InfoSection >
+      <InfoSection>
         <StakingDescription />
         <OverallInfoCard />
       </InfoSection>
@@ -32,22 +32,22 @@ export function StakingPage(props: Props) {
   );
 }
 
-const Spacer=styled('div')({
-  height:'128px'
-})
+const Spacer = styled("div")({
+  height: "128px",
+});
 
 const DepositAndWithdrawSection = styled("div")({
-  alignItems: 'center',
-  display: 'flex',
-justifyContent:'space-between',
-})
+  alignItems: "center",
+  display: "flex",
+  justifyContent: "space-between",
+});
 
-const InfoSection = styled('div')({
-  alignItems: 'center',
-  display: 'flex',
-  justifyContent:'space-between',
-})
+const InfoSection = styled("div")({
+  alignItems: "center",
+  display: "flex",
+  justifyContent: "space-between",
+});
 
 const Wrapper = styled(Max1040)({
-  margin: 'auto'
+  margin: "auto",
 });

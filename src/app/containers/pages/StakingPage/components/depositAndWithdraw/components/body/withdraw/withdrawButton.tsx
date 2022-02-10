@@ -5,12 +5,13 @@ import { useDispatch } from "react-redux";
 
 export const WithdrawButton = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const handleWithdrawButtonClick = () => {
-  }
+  const handleWithdrawButtonClick = () => {};
 
   return (
-    <ContainedButton onClick={handleWithdrawButtonClick} >{t(translations.Staking.WithdrawTokens())}</ContainedButton>
+    <ContainedButton onClick={handleWithdrawButtonClick}>
+      {t(translations.Staking.WithdrawTokens())}
+    </ContainedButton>
   );
 };

@@ -34,7 +34,11 @@ export const StakingAmount = () => {
           {t(translations.Common.Max())}
         </MaxButton>
       </NameIconAndMaxButtonWrapper>
-      <AmountInput onChange={handleAmountInputChange} value={enteredAmount} />
+      <AmountInput
+        autoFocus
+        onChange={handleAmountInputChange}
+        value={enteredAmount}
+      />
     </Wrapper>
   );
 };
