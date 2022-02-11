@@ -1,5 +1,5 @@
 import { styled } from "@mui/material";
-import { selectMainTokenBalance } from "app/containers/BlockChain/selectors";
+import { BlockChainSelectors } from "app/containers/BlockChain/selectors";
 import { BNToString } from "common/format";
 import { BigNumber } from "ethers";
 import { translations } from "locales/i18n";
@@ -9,7 +9,7 @@ import { CssVariables } from "styles/cssVariables/cssVariables";
 
 export const Balance = () => {
   const { t } = useTranslation();
-  const mainTokenBalance = useSelector(selectMainTokenBalance);
+  const mainTokenBalance = useSelector(BlockChainSelectors.selectMainTokenBalance);
   const stringMainTokenBalance = BNToString(
     mainTokenBalance ?? BigNumber.from(0),
     18

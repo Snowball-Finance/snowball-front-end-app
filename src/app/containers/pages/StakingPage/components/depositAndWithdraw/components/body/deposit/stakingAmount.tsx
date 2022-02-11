@@ -1,6 +1,5 @@
 import { styled } from "@mui/material";
 import { OutlinedButton } from "app/components/common/buttons/outlinedButton";
-import { selectMainTokenBalance } from "app/containers/BlockChain/selectors";
 import { StakingPageSelectors } from "app/containers/pages/StakingPage/selectors";
 import { StakingPageActions } from "app/containers/pages/StakingPage/slice";
 import { env } from "environment";

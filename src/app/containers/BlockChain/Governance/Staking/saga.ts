@@ -3,7 +3,6 @@
 
 import { parseEther } from "ethers/lib/utils";
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
-import { selectMainTokenABIDomain } from "app/containers/BlockChain/selectors";
 import { StakingActions } from "./slice";
 import { CreateLockData, DistributorData } from "./types";
 import { ethers } from "ethers";
@@ -15,6 +14,7 @@ import { EthersDomains } from "../../Ethers/selectors";
 import { Web3Domains } from "../../Web3/selectors";
 import { StakingDomains } from "./selectors";
 import { GovernanceDomains } from "../selectors";
+import { BlockChainDomains } from "../../selectors";
 
 export function* createLock(action: { type: string; payload: CreateLockData }) {
   const { balance, date } = action.payload;
@@ -24,7 +24,7 @@ export function* createLock(action: { type: string; payload: CreateLockData }) {
   const library = yield select(Web3Domains.selectLibraryDomain);
   //|| is used because if .env is not set,we will fetch the error in early stages
   const mainTokenAddress = env.MAIN_TOKEN_ADDRESS || "";
-  const mainTokenABI = yield select(selectMainTokenABIDomain);
+  const mainTokenABI = yield select(BlockChainDomains.selectMainTokenABIDomain);
   try {
     const mainTokenContract = new ethers.Contract(
       mainTokenAddress,

@@ -1,14 +1,14 @@
 import { StakingActions } from "app/containers/BlockChain/Governance/Staking/slice";
-import { selectMainTokenBalanceDomain } from "app/containers/BlockChain/selectors";
+import { BlockChainDomains } from "app/containers/BlockChain/selectors";
 import { BNToString } from "common/format";
 import { BigNumber } from "ethers";
-import { all, put, select, takeLatest } from "redux-saga/effects";
+import { put, select, takeLatest } from "redux-saga/effects";
 import { StakingPageDomains } from "./selectors";
 
 import { StakingPageActions } from "./slice";
 
 export function* stakeAllTheBalances() {
-  const mainTokenBalance = yield select(selectMainTokenBalanceDomain);
+  const mainTokenBalance = yield select(BlockChainDomains.selectMainTokenBalanceDomain);
   if (mainTokenBalance) {
     const stringMainTokenBalance = parseFloat(
       BNToString(mainTokenBalance ?? BigNumber.from(0), 18) || "0"

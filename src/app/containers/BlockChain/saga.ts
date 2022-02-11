@@ -3,15 +3,15 @@ import { BlockChainActions } from "./slice";
 import { balanceProvider } from "./providers/balanceAPI";
 import { toast } from "react-toastify";
 import { BlockChainState } from "./types";
-import { selectContractsDomain } from "./selectors";
 import { geckoPrice } from "services/coinGecko";
 import { env } from "environment";
 import { Web3Domains } from "./Web3/selectors";
+import { BlockChainDomains } from "./selectors";
 
 export function* getMainTokenBalance() {
   yield put(BlockChainActions.setIsGettingMainTokenBalance(true));
   const account = yield select(Web3Domains.selectAccountDomain);
-  const { mainTokenContract } = yield select(selectContractsDomain);
+  const { mainTokenContract } = yield select(BlockChainDomains.selectContractsDomain);
   const contract = mainTokenContract;
   try {
     const response = yield call(balanceProvider, { contract, account });

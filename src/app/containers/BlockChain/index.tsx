@@ -8,10 +8,10 @@ import React, { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Ethers } from "./Ethers";
 import { Web3 } from "./Web3";
-import { selectCalculatedContracts } from "./selectors";
 import { BlockChainActions, useBlockChainSlice } from "./slice";
 import { Governance } from "./Governance";
 import { DistributorData } from "./Governance/Staking/types";
+import { BlockChainSelectors } from "./selectors";
 
 interface BlockChainProps {
   mainTokenABI: any;
@@ -50,7 +50,7 @@ export const BlockChain: FC<BlockChainProps> = ({
     return () => {};
   }, []);
 
-  const { mainTokenContract } = useSelector(selectCalculatedContracts);
+  const { mainTokenContract } = useSelector(BlockChainSelectors.selectCalculatedContracts);
 
   useEffect(() => {
     if (governance) {

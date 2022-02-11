@@ -1,8 +1,4 @@
 import { BigNumber } from "@ethersproject/bignumber";
-import {
-  selectContractsDomain,
-  selectPricesDomain,
-} from "app/containers/BlockChain/selectors";
 import { getGaugeCalls, getPoolCalls } from "services/multicall-queries";
 import { toast } from "react-toastify";
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
@@ -18,6 +14,7 @@ import { analytics } from "@snowball-finance/snowball-analytics";
 import { selectPoolsObjDomain } from "app/containers/PoolsAndGauges/selectors";
 import { EthersDomains } from "app/containers/BlockChain/Ethers/selectors";
 import { Web3Domains } from "app/containers/BlockChain/Web3/selectors";
+import { BlockChainDomains } from "app/containers/BlockChain/selectors";
 
 export function* addSnobToWallet() {
   try {
@@ -70,10 +67,10 @@ export function* getLastSnowballInfo() {
 export function* getAndSetUserPools() {
   try {
     yield put(ExampleActions.setIsGettingUserPools(true));
-    const { gaugeProxy } = yield select(selectContractsDomain);
+    const { gaugeProxy } = yield select(BlockChainDomains.selectContractsDomain);
     const account = yield select(Web3Domains.selectAccountDomain);
     const provider = yield select(EthersDomains.selectPrivateProviderDomain);
-    const prices = yield select(selectPricesDomain);
+    const prices = yield select(BlockChainDomains.selectPricesDomain);
     const pools = yield select(selectPoolsArrayDomain);
     const gaugeProxyContract = gaugeProxy;
     let poolsCalls = [];
