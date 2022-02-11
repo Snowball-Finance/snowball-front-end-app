@@ -53,6 +53,6 @@ const Amount = styled("h6")({
   fontSize: "16px",
   fontWeight: "600",
   margin: 0,
-  color: CssVariables.primaryBlue,
+  color: CssVariables.primary,
   textAlign: "center",
 });

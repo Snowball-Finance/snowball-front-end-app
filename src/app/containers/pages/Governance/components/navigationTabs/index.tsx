@@ -70,7 +70,7 @@ export const NavigationTabs: FC = () => {
 
 const Wrapper = styled(SnowPaper)({
   ".MuiTabs-indicator": {
-    backgroundColor: CssVariables.primaryBlue,
+    backgroundColor: CssVariables.primary,
   },
   span: {
     textTransform: "none",
@@ -80,7 +80,7 @@ const Wrapper = styled(SnowPaper)({
   },
   ".Mui-selected": {
     span: {
-      color: CssVariables.primaryBlue,
+      color: CssVariables.primary,
     },
   },
   borderBottomLeftRadius: 0,

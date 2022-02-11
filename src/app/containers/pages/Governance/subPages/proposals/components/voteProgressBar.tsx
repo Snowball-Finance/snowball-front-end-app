@@ -37,7 +37,7 @@ const StyledLinearProgress = styled(LinearProgress)<{
   type: VoteProgressBarType;
   height: string;
 }>(({ type, height }) => {
-  let mainColor = CssVariables.primaryBlue;
+  let mainColor = CssVariables.primary;
   let bg = CssVariables.mildBlue;
 
   switch (type) {

@@ -3,7 +3,7 @@ import { CssVariables } from "styles/cssVariables/cssVariables";
 import { IconProps } from "./types";
 
 const InfoIcon: FC<IconProps> = ({ color }) => {
-  const fill = color ?? CssVariables.primaryBlue;
+  const fill = color ?? CssVariables.primary;
   return (
     <svg
       width="16"

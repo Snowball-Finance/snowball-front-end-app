@@ -56,7 +56,7 @@ export const StakingTabs = () => {
 };
 const Wrapper = styled("div")({
   ".MuiTabs-indicator": {
-    backgroundColor: CssVariables.primaryBlue,
+    backgroundColor: CssVariables.primary,
   },
   span: {
     textTransform: "none",
@@ -66,7 +66,7 @@ const Wrapper = styled("div")({
   },
   ".Mui-selected": {
     span: {
-      color: CssVariables.primaryBlue,
+      color: CssVariables.primary,
     },
   },
   borderBottomLeftRadius: 0,

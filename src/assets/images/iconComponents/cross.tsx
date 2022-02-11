@@ -3,7 +3,7 @@ import { CssVariables } from "styles/cssVariables/cssVariables";
 import { IconProps } from "./types";
 
 const CrossIcon: FC<IconProps> = ({ color, size }) => {
-  const fill = color ?? CssVariables.primaryBlue;
+  const fill = color ?? CssVariables.primary;
   return (
     <svg
       width={(size ?? 32) + ""}

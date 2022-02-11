@@ -13,7 +13,7 @@ export const RemoveButton = ({ data }: { data: GaugeItem }) => {
 
   return (
     <Wrapper onClick={handleRemoveClick}>
-      <CrossInCircle color={CssVariables.primaryBlue} />
+      <CrossInCircle color={CssVariables.primary} />
     </Wrapper>
   );
 };

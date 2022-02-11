@@ -75,7 +75,7 @@ const LogoWrapper = styled("div")({
 
 const Wrapper = styled(SnowPaper)({
   backgroundImage: `url(${xSnobBalanceBackground})`,
-  backgroundColor: CssVariables.primaryBlue,
+  backgroundColor: CssVariables.primary,
   backgroundSize: "cover",
   minWidth: "345px",
   minHeight: "160px",

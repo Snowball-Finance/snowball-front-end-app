@@ -112,7 +112,7 @@ const DateAndChip = styled("div")({});
 
 const DateChip = styled(Chip)({
   background: CssVariables.mildBlue,
-  color: CssVariables.primaryBlue,
+  color: CssVariables.primary,
   borderRadius: CssVariables.paperBorderRadius,
   fontSize: "12px",
   maxHeight: "24px",
@@ -121,12 +121,12 @@ const DateChip = styled(Chip)({
 });
 
 const StatusChip = styled(Chip)<{ state: ProposalStates }>(({ state }) => {
-  let background = CssVariables.primaryBlue;
+  let background = CssVariables.primary;
   let color = CssVariables.white;
   switch (state) {
     case ProposalStates.readyForExecution:
       background = CssVariables.mildBlue;
-      color = CssVariables.primaryBlue;
+      color = CssVariables.primary;
       break;
     default:
       break;
@@ -202,12 +202,12 @@ const StyledSnowPaper = styled(SnowPaper)<
 >(({ active, short }) => ({
   padding: "16px 23px",
   display: "flex",
-  ...(active && { borderLeft: `10px solid ${CssVariables.primaryBlue}` }),
+  ...(active && { borderLeft: `10px solid ${CssVariables.primary}` }),
   ...(short && { height: "160px" }),
   [mobile]: {
     ...(active && {
       borderLeft: "unset",
-      borderTop: `10px solid ${CssVariables.primaryBlue}`,
+      borderTop: `10px solid ${CssVariables.primary}`,
     }),
     flexDirection: "column",
     ...(short && {
