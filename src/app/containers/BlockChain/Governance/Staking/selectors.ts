@@ -2,7 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 
 import { RootState } from "store/types";
 import { selectContractsDomain } from "../../selectors";
-import { selectGovernanceTokenContractDomain } from "../selectors";
+import { GovernanceDomains } from "../selectors";
 import { initialState } from "./slice";
 
 export const StakingDomains = {
@@ -57,7 +57,10 @@ export const StakingSelectors = {
     (otherClaimables) => otherClaimables
   ),
   selectReadyForStaking: createSelector(
-    [selectContractsDomain, selectGovernanceTokenContractDomain],
+    [
+      selectContractsDomain,
+      GovernanceDomains.selectGovernanceTokenContractDomain,
+    ],
     (blockChainContracts, governanceTokenContract) => {
       return blockChainContracts.mainTokenContract && governanceTokenContract;
     }

@@ -1,6 +1,6 @@
 import { Box, styled } from "@mui/material";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
-import { selectCanAddNewProposal } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 import { GovernanceActions } from "app/containers/BlockChain/Governance/slice";
 import AddInCircleIcon from "assets/images/iconComponents/addInCircle";
 import { translations } from "locales/i18n";
@@ -10,7 +10,9 @@ import { CssVariables } from "styles/cssVariables/cssVariables";
 
 export const NewProposalButton = () => {
   const dispatch = useDispatch();
-  const canAddNewProposal = useSelector(selectCanAddNewProposal);
+  const canAddNewProposal = useSelector(
+    GovernanceSelectors.selectCanAddNewProposal
+  );
 
   const handleClick = () => {
     dispatch(GovernanceActions.setIsNewProposalFormOpen(true));

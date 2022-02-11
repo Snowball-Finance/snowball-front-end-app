@@ -1,5 +1,5 @@
 import { ContainedButton } from "app/components/common/buttons/containedButton";
-import { selectGovernanceTokenBalance } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 import { selectIsVotingForFarms } from "app/containers/pages/Governance/selectors";
 import { GovernancePageActions } from "app/containers/pages/Governance/slice";
 import { env } from "environment";
@@ -10,7 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 export const VoteAllocationSubmit = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const votingTokenBalance = useSelector(selectGovernanceTokenBalance);
+  const votingTokenBalance = useSelector(
+    GovernanceSelectors.selectGovernanceTokenBalance
+  );
   const isLoading = useSelector(selectIsVotingForFarms);
 
   let buttonContent = t(

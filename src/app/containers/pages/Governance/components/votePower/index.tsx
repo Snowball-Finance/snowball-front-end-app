@@ -8,11 +8,13 @@ import { useTranslation } from "react-i18next";
 import { translations } from "locales/i18n";
 import { mobile } from "styles/media";
 import { env } from "environment";
-import { selectGovernanceTokenBalance } from "app/containers/BlockChain/Governance/selectors";
 import { Web3Selectors } from "app/containers/BlockChain/Web3/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 
 export const VotePower: FC = () => {
-  const governanceTokenBalance = useSelector(selectGovernanceTokenBalance);
+  const governanceTokenBalance = useSelector(
+    GovernanceSelectors.selectGovernanceTokenBalance
+  );
   const account = useSelector(Web3Selectors.selectAccount);
   const { t } = useTranslation();
   const balance =

@@ -1,11 +1,6 @@
 import { Box, styled } from "@mui/material";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
-import {
-  selectIsLoadingReceipt,
-  selectIsVotingAgainst,
-  selectIsVotingFor,
-  selectReceipt,
-} from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 import { GovernanceActions } from "app/containers/BlockChain/Governance/slice";
 import { Proposal } from "app/containers/BlockChain/Governance/types";
 import { Web3Selectors } from "app/containers/BlockChain/Web3/selectors";
@@ -21,10 +16,14 @@ export const VoteButtons: FC<{ proposal: Proposal }> = ({ proposal }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const library = useSelector(Web3Selectors.selectLibrary);
-  const isLoadingFor = useSelector(selectIsVotingFor);
-  const isLoadingAgainst = useSelector(selectIsVotingAgainst);
-  const receipt = useSelector(selectReceipt);
-  const isGettingReceipt = useSelector(selectIsLoadingReceipt);
+  const isLoadingFor = useSelector(GovernanceSelectors.selectIsVotingFor);
+  const isLoadingAgainst = useSelector(
+    GovernanceSelectors.selectIsVotingAgainst
+  );
+  const receipt = useSelector(GovernanceSelectors.selectReceipt);
+  const isGettingReceipt = useSelector(
+    GovernanceSelectors.selectIsLoadingReceipt
+  );
 
   const disabled = receipt?.hasVoted || isGettingReceipt || false;
   const handleForClick = () => {

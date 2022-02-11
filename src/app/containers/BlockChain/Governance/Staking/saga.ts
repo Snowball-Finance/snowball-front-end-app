@@ -9,12 +9,12 @@ import { CreateLockData, DistributorData } from "./types";
 import { ethers } from "ethers";
 import { env } from "environment";
 import { getEpochSecondForDay } from "./helpers/date";
-import { selectGovernanceTokenABIDomain } from "../selectors";
 import { BlockChainActions } from "../../slice";
 import { toast } from "react-toastify";
 import { EthersDomains } from "../../Ethers/selectors";
 import { Web3Domains } from "../../Web3/selectors";
 import { StakingDomains } from "./selectors";
+import { GovernanceDomains } from "../selectors";
 
 export function* createLock(action: { type: string; payload: CreateLockData }) {
   const { balance, date } = action.payload;
@@ -35,7 +35,9 @@ export function* createLock(action: { type: string; payload: CreateLockData }) {
       //|| is used because if .env is not set,we will fetch the error in early stages
       const governanceTokenAddress =
         env.GOVERNANCE_TOKEN_CONTRACT_ADDRESS || "";
-      const governanceTokenABI = yield select(selectGovernanceTokenABIDomain);
+      const governanceTokenABI = yield select(
+        GovernanceDomains.selectGovernanceTokenABIDomain
+      );
       const governanceTokenContract = new ethers.Contract(
         governanceTokenAddress,
         governanceTokenABI,
@@ -173,7 +175,9 @@ export function* getFeeDistributionInfo() {
 }
 
 export function* getLockedGovernanceTokenInfo() {
-  const governanceTokenABI = yield select(selectGovernanceTokenABIDomain);
+  const governanceTokenABI = yield select(
+    GovernanceDomains.selectGovernanceTokenABIDomain
+  );
   const provider = yield select(EthersDomains.selectPrivateProviderDomain);
   const governanceTokenContract = new ethers.Contract(
     env.GOVERNANCE_TOKEN_CONTRACT_ADDRESS || "",
@@ -198,7 +202,9 @@ export function* withdraw() {
   yield put(StakingActions.setIsWithdrawing(true));
 
   try {
-    const governanceTokenABI = yield select(selectGovernanceTokenABIDomain);
+    const governanceTokenABI = yield select(
+      GovernanceDomains.selectGovernanceTokenABIDomain
+    );
     const library = yield select(Web3Domains.selectLibraryDomain);
     const snowconeContractWithdraw = new ethers.Contract(
       env.GOVERNANCE_TOKEN_CONTRACT_ADDRESS || "",

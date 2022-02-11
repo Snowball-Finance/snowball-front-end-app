@@ -1,5 +1,5 @@
 import { InputAdornment, TextField } from "@mui/material";
-import { selectNewProposalField } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 import { GovernanceActions } from "app/containers/BlockChain/Governance/slice";
 import { isInvalidPeriod } from "app/containers/pages/Governance/utils/period";
 import { env } from "environment";
@@ -11,7 +11,9 @@ export const VotingPeriodInput = () => {
   const fieldName = "votingPeriod";
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const votingPeriod = useSelector(selectNewProposalField(fieldName));
+  const votingPeriod = useSelector(
+    GovernanceSelectors.selectNewProposalField(fieldName)
+  );
 
   const handleInputChange = (value: string) => {
     dispatch(GovernanceActions.setNewProposalFields({ key: fieldName, value }));

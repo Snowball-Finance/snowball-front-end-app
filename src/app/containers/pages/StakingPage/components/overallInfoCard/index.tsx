@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { OutlinedButton } from "app/components/common/buttons/outlinedButton";
-import { selectGovernanceTokenBalance } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 import { StakingSelectors } from "app/containers/BlockChain/Governance/Staking/selectors";
 import { BNToFloat } from "common/format";
 import { env } from "environment";
@@ -24,7 +24,9 @@ export const OverallInfoCard = () => {
 
   const earnedTokensAmount = "0.00";
   const dailyUnlockedAmount = "0.00";
-  const rawGovernanceTokenBalance = useSelector(selectGovernanceTokenBalance);
+  const rawGovernanceTokenBalance = useSelector(
+    GovernanceSelectors.selectGovernanceTokenBalance
+  );
   const governanceTokenBalance = BNToFloat(
     rawGovernanceTokenBalance ?? BigNumber.from(0),
     18

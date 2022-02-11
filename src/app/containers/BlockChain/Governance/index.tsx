@@ -1,11 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Web3Selectors } from "../Web3/selectors";
-import {
-  selectGovernanceTokenContract,
-  selectProposals,
-  selectSyncedProposalsWithBlockChain,
-} from "./selectors";
+import { GovernanceSelectors } from "./selectors";
 import { GovernanceActions, useGovernanceSlice } from "./slice";
 import { Staking } from "./Staking/Loadable";
 import { DistributorData } from "./Staking/types";
@@ -49,11 +45,13 @@ export const Governance = ({
   }
   useGovernanceSlice();
   const dispatch = useDispatch();
-  const governanceTokenContract = useSelector(selectGovernanceTokenContract);
+  const governanceTokenContract = useSelector(
+    GovernanceSelectors.selectGovernanceTokenContract
+  );
   const library = useSelector(Web3Selectors.selectLibrary);
-  const proposals = useSelector(selectProposals);
+  const proposals = useSelector(GovernanceSelectors.selectProposals);
   const syncedProposalsWithBlockChain = useSelector(
-    selectSyncedProposalsWithBlockChain
+    GovernanceSelectors.selectSyncedProposalsWithBlockChain
   );
   useEffect(() => {
     if (governanceTokenContract !== undefined) {

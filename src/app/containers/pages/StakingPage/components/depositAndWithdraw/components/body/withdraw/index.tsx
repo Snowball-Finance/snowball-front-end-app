@@ -1,5 +1,5 @@
 import { styled } from "@mui/material";
-import { selectGovernanceTokenBalance } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 import { BNToFloat } from "common/format";
 import { env } from "environment";
 import { BigNumber } from "ethers";
@@ -13,7 +13,9 @@ import { WithdrawButton } from "./withdrawButton";
 export const Withdraw = () => {
   const { t } = useTranslation();
   const governanceTokenName = env.GOVERNANCE_TOKEN_NAME;
-  const rawGovernanceTokenBalance = useSelector(selectGovernanceTokenBalance);
+  const rawGovernanceTokenBalance = useSelector(
+    GovernanceSelectors.selectGovernanceTokenBalance
+  );
   const governanceTokenBalance = BNToFloat(
     rawGovernanceTokenBalance ?? BigNumber.from(0),
     18
