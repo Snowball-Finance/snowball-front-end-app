@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
 import { SnowSelect } from "app/components/base/SnowSelect";
 import { SnowSelectInterface } from "app/components/base/SnowSelect/types";
-import { selectSelectedProposalFilter } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 import { GovernanceActions } from "app/containers/BlockChain/Governance/slice";
 import { ProposalFilters } from "app/containers/BlockChain/Governance/types";
 import { translations } from "locales/i18n";
@@ -23,7 +23,9 @@ const selectOptions = ({ t }): SnowSelectInterface["options"] => [
 export const ProposalFilterSelect = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const selectedFilter = useSelector(selectSelectedProposalFilter);
+  const selectedFilter = useSelector(
+    GovernanceSelectors.selectSelectedProposalFilter
+  );
   const handleFilterChange = (v: ProposalFilters) => {
     dispatch(GovernanceActions.setProposalFilter(v));
   };

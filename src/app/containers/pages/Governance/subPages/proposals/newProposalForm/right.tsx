@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
-import { selectAccount } from "app/containers/BlockChain/Web3/selectors";
+import { Web3Selectors } from "app/containers/BlockChain/Web3/selectors";
 import { VotePower } from "app/containers/pages/Governance/components/votePower";
 import { translations } from "locales/i18n";
 import { useTranslation } from "react-i18next";
@@ -12,7 +12,7 @@ import { VotingPeriodInput } from "./inputs/votingPeriod";
 
 export const RightSection = () => {
   const { t } = useTranslation();
-  const account = useSelector(selectAccount);
+  const account = useSelector(Web3Selectors.selectAccount);
   const proposer = account;
   const censoredProposer = proposer
     ? proposer.substring(0, 6) +

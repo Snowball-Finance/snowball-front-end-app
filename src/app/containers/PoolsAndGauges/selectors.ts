@@ -3,12 +3,10 @@ import { env } from "environment";
 import { Contract, ethers } from "ethers";
 
 import { RootState } from "store/types";
-import { selectPrivateProviderDomain } from "../BlockChain/Ethers/selectors";
-import { selectPricesDomain } from "../BlockChain/selectors";
-import {
-  selectAccountDomain,
-  selectLibraryDomain,
-} from "../BlockChain/Web3/selectors";
+import { EthersDomains } from "../BlockChain/Ethers/selectors";
+import { BlockChainDomains } from "../BlockChain/selectors";
+import { Web3Domains } from "../BlockChain/Web3/selectors";
+
 import { initialState } from "./slice";
 
 const selectDomain = (state: RootState) => state.poolsAndGauges || initialState;
@@ -48,7 +46,11 @@ export const selectPoolsArray = createSelector(
 );
 let contract: Contract | undefined;
 export const selectGaugeContract = createSelector(
-  [selectPrivateProviderDomain, selectLibraryDomain, selectGaugeProxyABIDomain],
+  [
+    EthersDomains.selectPrivateProviderDomain,
+    Web3Domains.selectLibraryDomain,
+    selectGaugeProxyABIDomain,
+  ],
   (provider, library, abi) => {
     if (!env.GAUGE_PROXY_ADDRESS) {
       throw new Error(
@@ -82,11 +84,11 @@ export const selectGotUserPools = createSelector(
 
 export const selectIsReadyToGetUserData = createSelector(
   [
-    selectAccountDomain,
+    Web3Domains.selectAccountDomain,
     selectPoolsArrayDomain,
-    selectPrivateProviderDomain,
+    EthersDomains.selectPrivateProviderDomain,
     selectGaugeContractDomain,
-    selectPricesDomain,
+    BlockChainDomains.selectPricesDomain,
   ],
   (account, pools, provider, contract, prices) => {
     return (

@@ -6,6 +6,10 @@ export interface StakingState {
   isClaiming: boolean;
   feeDistributorABI: any;
   isGettingFeeDistributionInfo: boolean;
+  lockedAmount: BigNumber;
+  endDate: BigNumber;
+  isWithdrawing: boolean;
+  isGettingGovernanceTokenInfo: boolean;
   claimable: {
     userClaimable: BigNumber;
     otherClaimables?: {

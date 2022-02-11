@@ -3,14 +3,13 @@ import { FC } from "react";
 import { useSelector } from "react-redux";
 import { BNToFloat } from "common/format";
 import { env } from "environment";
-import {
-  selectGovernanceTokenBalance,
-  selectIsLoadingGovernanceTokenBalance,
-} from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 
 export const XSnobBalance: FC = () => {
-  const isLoading = useSelector(selectIsLoadingGovernanceTokenBalance);
-  const balance = useSelector(selectGovernanceTokenBalance);
+  const isLoading = useSelector(
+    GovernanceSelectors.selectIsLoadingGovernanceTokenBalance
+  );
+  const balance = useSelector(GovernanceSelectors.selectGovernanceTokenBalance);
 
   return (
     <Wrapper>

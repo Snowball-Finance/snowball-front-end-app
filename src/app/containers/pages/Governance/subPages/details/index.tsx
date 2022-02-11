@@ -1,7 +1,7 @@
 import { Box, styled } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
 import { Max1040 } from "app/components/wrappers/max1040";
-import { selectProposals } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 import { ProposalStates } from "app/containers/BlockChain/Governance/types";
 import { translations } from "locales/i18n";
 import { useTranslation } from "react-i18next";
@@ -27,7 +27,7 @@ export const ProposalDetails = () => {
     window.location.pathname.split(GovernanceSubPages.proposals + "/")[1]
   );
 
-  const proposals = useSelector(selectProposals);
+  const proposals = useSelector(GovernanceSelectors.selectProposals);
   if (proposals.length === 0) {
     return <>Loading</>;
   }

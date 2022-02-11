@@ -13,6 +13,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectPoolsToShow } from "../../selectors";
 import { SnowPairsIcon } from "app/components/base/snowPairsIcon";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
+import { ExampleActions } from "../../slice";
+import { isEmpty } from "common/utility";
+import getUserBoost from "../../helpers/getUserBoost";
+import { formatNumber } from "common/format";
 import {
   ItemContainer,
   Left,
@@ -22,14 +26,7 @@ import {
   Right,
   StyledSnowPaper,
 } from "./components";
-import { ExampleActions } from "../../slice";
-import { isEmpty } from "common/utility";
-import getUserBoost from "../../helpers/getUserBoost";
-import { formatNumber } from "common/format";
-import {
-  selectGovernanceTokenBalance,
-  selectTotalGovernanceTokenSupply,
-} from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 
 interface GridConfigTypes {
   columnDefs: ColDef[];
@@ -46,8 +43,12 @@ const Col = styled("div")({
 
 const PoolRow = (params) => {
   const { data }: { data: PoolInfoItem } = params;
-  const governanceTokenBalance = useSelector(selectGovernanceTokenBalance);
-  const totalGovernanceToken = useSelector(selectTotalGovernanceTokenSupply);
+  const governanceTokenBalance = useSelector(
+    GovernanceSelectors.selectGovernanceTokenBalance
+  );
+  const totalGovernanceToken = useSelector(
+    GovernanceSelectors.selectTotalGovernanceTokenSupply
+  );
   const boost = () => {
     if (isEmpty(data.gauge) || (data.gauge?.staked?.toNumber() || 0) <= 0) {
       return 1.0;

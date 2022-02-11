@@ -7,8 +7,11 @@
 import React from "react";
 import { useStakingPageSlice } from "./slice";
 import { styled } from "@mui/material";
-import { LockSection } from "./components/lockSection";
-import { ClaimSection } from "./components/claimSection";
+import { DepositAndWithdraw } from "./components/depositAndWithdraw";
+import { OverallInfoCard } from "./components/overallInfoCard";
+import { StakingDescription } from "./components/descriptions/stakingDescs";
+import { DepositAndWithdrawCardDescription } from "./components/descriptions/depositAndWithdrawCardDescs";
+import { Max1040 } from "app/components/wrappers/max1040";
 
 interface Props {}
 export function StakingPage(props: Props) {
@@ -16,10 +19,35 @@ export function StakingPage(props: Props) {
 
   return (
     <Wrapper>
-      <LockSection />
-      <ClaimSection />
+      <InfoSection>
+        <StakingDescription />
+        <OverallInfoCard />
+      </InfoSection>
+      <Spacer />
+      <DepositAndWithdrawSection>
+        <DepositAndWithdraw />
+        <DepositAndWithdrawCardDescription />
+      </DepositAndWithdrawSection>
     </Wrapper>
   );
 }
 
-const Wrapper = styled("div")({});
+const Spacer = styled("div")({
+  height: "128px",
+});
+
+const DepositAndWithdrawSection = styled("div")({
+  alignItems: "center",
+  display: "flex",
+  justifyContent: "space-between",
+});
+
+const InfoSection = styled("div")({
+  alignItems: "center",
+  display: "flex",
+  justifyContent: "space-between",
+});
+
+const Wrapper = styled(Max1040)({
+  margin: "auto",
+});

@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
-import { selectIsNewProposalFormOpen } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 import { GovernanceActions } from "app/containers/BlockChain/Governance/slice";
 import CrossIcon from "assets/images/iconComponents/cross";
 import { translations } from "locales/i18n";
@@ -15,7 +15,7 @@ import { RightSection } from "./right";
 export const NewProposalForm = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const isOpen = useSelector(selectIsNewProposalFormOpen);
+  const isOpen = useSelector(GovernanceSelectors.selectIsNewProposalFormOpen);
   const ref = useRef<any>(null);
 
   const handleCloseClick = () => {

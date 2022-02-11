@@ -3,7 +3,6 @@ import { createSlice } from "store/toolkit";
 import { ContainerState } from "./types";
 import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 import { blockChainSaga } from "./saga";
-import { Contract } from "app/types";
 import { BigNumber } from "@ethersproject/bignumber";
 
 // The initial state of the BlockChain container
@@ -25,7 +24,6 @@ const blockChainSlice = createSlice({
   name: "blockChain",
   initialState,
   reducers: {
-    getBalance(state, action: PayloadAction<Contract>) {},
     setMainTokenABI(state, action: PayloadAction<any>) {
       state.mainTokenABI = action.payload;
     },

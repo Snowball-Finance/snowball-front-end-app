@@ -1,7 +1,7 @@
 // import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 // import { actions } from './slice';
 
-import { selectLibraryDomain } from "app/containers/BlockChain/Web3/selectors";
+import { Web3Domains } from "app/containers/BlockChain/Web3/selectors";
 import { selectGaugeContractDomain } from "app/containers/PoolsAndGauges/selectors";
 import { PoolsAndGaugesActions } from "app/containers/PoolsAndGauges/slice";
 import { IS_DEV } from "environment";
@@ -16,7 +16,7 @@ export function* voteForFarms() {
   try {
     const selectedPairs = yield select(selectSelectedVoteAllocationPairsDomain);
     const gaugeProxyVoteContract = yield select(selectGaugeContractDomain);
-    const library = yield select(selectLibraryDomain);
+    const library = yield select(Web3Domains.selectLibraryDomain);
     //make them weight proportional if they are not
     let pairsObject = selectedPairs;
     // const arr: GaugeItem[] = Object.values(selectedPairs)

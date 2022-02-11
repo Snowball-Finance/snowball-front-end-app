@@ -84,6 +84,6 @@ export const bottomTableRowsConfig = ({
     headerClass: "blue",
     cellClass: "darkBold",
     valueFormatter: ({ data }: { data: GaugeItem }) =>
-      formatNumber(data.balance.toNumber(), 2),
+      formatNumber(Number(data.balance.toString()), 2),
   },
 ];

@@ -12,6 +12,10 @@ export const initialState: ContainerState = {
   feeDistributorABI: undefined,
   isClaiming: false,
   isGettingFeeDistributionInfo: false,
+  isWithdrawing: false,
+  endDate: BigNumber.from(0),
+  isGettingGovernanceTokenInfo: false,
+  lockedAmount: BigNumber.from(0),
   claimable: {
     userClaimable: BigNumber.from(0),
   },
@@ -38,6 +42,10 @@ const stakingSlice = createSlice({
       state.isStaking = action.payload;
     },
     claim() {},
+    withdraw() {},
+    setIsWithdrawing(state, action: PayloadAction<boolean>) {
+      state.isWithdrawing = action.payload;
+    },
     setIsClaiming(state, action: PayloadAction<boolean>) {
       state.isClaiming = action.payload;
     },
@@ -50,6 +58,14 @@ const stakingSlice = createSlice({
     },
     setOtherClaimables(state, action: PayloadAction<any>) {
       state.claimable.otherClaimables = action.payload;
+    },
+    getLockedGovernanceTokenInfo(state, action: PayloadAction<void>) {},
+    setGovernanceTokenInfo(state, action: PayloadAction<any>) {
+      state.lockedAmount = action.payload.amount;
+      state.endDate = action.payload.end;
+    },
+    setIsGettingGovernanceTokenInfo(state, action: PayloadAction<boolean>) {
+      state.isGettingGovernanceTokenInfo = action.payload;
     },
   },
 });

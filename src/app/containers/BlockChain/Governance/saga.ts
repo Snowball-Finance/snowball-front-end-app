@@ -1,19 +1,9 @@
-import {
-  selectAccountDomain,
-  selectLibraryDomain,
-} from "app/containers/BlockChain/Web3/selectors";
 import { ethers } from "ethers";
 import { toast } from "react-toastify";
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import { GetProposalsAPI } from "../../pages/Governance/providers/proposals";
 import { GovernanceActions } from "./slice";
 import { ContainerState, Proposal } from "./types";
-import {
-  selectGovernanceABIDomain,
-  selectGovernanceTokenContractDomain,
-  selectNewProposalFieldsDomain,
-  selectProposalsDomain,
-} from "./selectors";
 import { BNToFloat } from "common/format";
 import {
   balanceProvider,
@@ -21,6 +11,8 @@ import {
 } from "app/containers/BlockChain/providers/balanceAPI";
 import { env } from "environment";
 import { parseProposalFromRawBlockchainResponse } from "./utils/proposalParser";
+import { Web3Domains } from "../Web3/selectors";
+import { GovernanceDomains } from "./selectors";
 
 export function* getProposals(action: {
   type: string;
@@ -47,8 +39,10 @@ export function* vote(action: {
   type: string;
   payload: { proposal: Proposal; voteFor: boolean };
 }) {
-  const library = yield select(selectLibraryDomain);
-  const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
+  const library = yield select(Web3Domains.selectLibraryDomain);
+  const GOVERNANCE_ABI = yield select(
+    GovernanceDomains.selectGovernanceABIDomain
+  );
   const { proposal, voteFor } = action.payload;
   try {
     const votingContract = new ethers.Contract(
@@ -89,13 +83,15 @@ export function* vote(action: {
 export function* submitNewProposal() {
   yield put(GovernanceActions.setIsSubmittingNewProposal(true));
   const proposalFields: ContainerState["newProposalFields"] = yield select(
-    selectNewProposalFieldsDomain
+    GovernanceDomains.selectNewProposalFieldsDomain
   );
   const { title, votingPeriod, discussion } = proposalFields;
   const metadataURI = discussion;
   try {
-    const library = yield select(selectLibraryDomain);
-    const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
+    const library = yield select(Web3Domains.selectLibraryDomain);
+    const GOVERNANCE_ABI = yield select(
+      GovernanceDomains.selectGovernanceABIDomain
+    );
     const voteContractAddress = env.VOTING_CONTRACT_ADDRESS;
     const governanceContract = new ethers.Contract(
       //using ||'' because we made sure env.VOTING_CONTRACT_ADDRESS exists in the index of module,and want to ignore the ts error
@@ -103,7 +99,7 @@ export function* submitNewProposal() {
       GOVERNANCE_ABI,
       library.getSigner()
     );
-    const account = yield select(selectAccountDomain);
+    const account = yield select(Web3Domains.selectAccountDomain);
     yield call(
       governanceContract.propose,
       title,
@@ -137,8 +133,10 @@ export function* getVotingReceipt(action: {
       proposal.offset.toString(),
       0
     );
-    const library = yield select(selectLibraryDomain);
-    const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
+    const library = yield select(Web3Domains.selectLibraryDomain);
+    const GOVERNANCE_ABI = yield select(
+      GovernanceDomains.selectGovernanceABIDomain
+    );
     const voteContractAddress = env.VOTING_CONTRACT_ADDRESS;
     const governanceContract = new ethers.Contract(
       //using ||'' because we made sure env.VOTING_CONTRACT_ADDRESS exists in the index of module,and want to ignore the ts error
@@ -146,7 +144,7 @@ export function* getVotingReceipt(action: {
       GOVERNANCE_ABI,
       library.getSigner()
     );
-    const account = yield select(selectAccountDomain);
+    const account = yield select(Web3Domains.selectAccountDomain);
     const receipt = yield governanceContract.getReceipt(
       proposalIdValue,
       account
@@ -167,8 +165,10 @@ export function* getVotingReceipt(action: {
 
 export function* getGovernanceTokenBalance() {
   yield put(GovernanceActions.setIsGettingGovernanceTokenBalance(true));
-  const account = yield select(selectAccountDomain);
-  const governanceToken = yield select(selectGovernanceTokenContractDomain);
+  const account = yield select(Web3Domains.selectAccountDomain);
+  const governanceToken = yield select(
+    GovernanceDomains.selectGovernanceTokenContractDomain
+  );
   const contract = governanceToken;
   try {
     const response = yield call(balanceProvider, { contract, account });
@@ -181,7 +181,9 @@ export function* getGovernanceTokenBalance() {
 }
 
 export function* getTotalGovernanceTokenSupply() {
-  const governanceToken = yield select(selectGovernanceTokenContractDomain);
+  const governanceToken = yield select(
+    GovernanceDomains.selectGovernanceTokenContractDomain
+  );
   const contract = governanceToken;
   const response = yield call(totalSupplyProvider, { contract });
   yield put(GovernanceActions.setTotalGovernanceTokenSupply(response));
@@ -189,8 +191,10 @@ export function* getTotalGovernanceTokenSupply() {
 
 export function* syncProposalsWithBlockchain() {
   try {
-    const library = yield select(selectLibraryDomain);
-    const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
+    const library = yield select(Web3Domains.selectLibraryDomain);
+    const GOVERNANCE_ABI = yield select(
+      GovernanceDomains.selectGovernanceABIDomain
+    );
     const voteContractAddress = env.VOTING_CONTRACT_ADDRESS;
     const governanceContract = new ethers.Contract(
       //using ||'' because we made sure env.VOTING_CONTRACT_ADDRESS exists in the index of module,and want to ignore the ts error
@@ -202,7 +206,7 @@ export function* syncProposalsWithBlockchain() {
       governanceContract.proposalCount
     );
     const num = Number(numberOfProposalsOnBlockChain.toString());
-    const proposals = yield select(selectProposalsDomain);
+    const proposals = yield select(GovernanceDomains.selectProposalsDomain);
     let proposalsInstance = [...proposals];
     let offsetEnv: string | number | undefined = env.PROPOSALS_OFFSET_NUMBER;
     if (!offsetEnv) {

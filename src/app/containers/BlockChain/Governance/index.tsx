@@ -1,11 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLibrary } from "../Web3/selectors";
-import {
-  selectGovernanceTokenContract,
-  selectProposals,
-  selectSyncedProposalsWithBlockChain,
-} from "./selectors";
+import { Web3Selectors } from "../Web3/selectors";
+import { GovernanceSelectors } from "./selectors";
 import { GovernanceActions, useGovernanceSlice } from "./slice";
 import { Staking } from "./Staking/Loadable";
 import { DistributorData } from "./Staking/types";
@@ -49,17 +45,21 @@ export const Governance = ({
   }
   useGovernanceSlice();
   const dispatch = useDispatch();
-  const governanceToken = useSelector(selectGovernanceTokenContract);
-  const library = useSelector(selectLibrary);
-  const proposals = useSelector(selectProposals);
+  const governanceTokenContract = useSelector(
+    GovernanceSelectors.selectGovernanceTokenContract
+  );
+  const library = useSelector(Web3Selectors.selectLibrary);
+  const proposals = useSelector(GovernanceSelectors.selectProposals);
   const syncedProposalsWithBlockChain = useSelector(
-    selectSyncedProposalsWithBlockChain
+    GovernanceSelectors.selectSyncedProposalsWithBlockChain
   );
   useEffect(() => {
-    if (governanceToken) {
-      dispatch(GovernanceActions.setGovernanceTokenContract(governanceToken));
+    if (governanceTokenContract !== undefined) {
+      dispatch(
+        GovernanceActions.setGovernanceTokenContract(governanceTokenContract)
+      );
     }
-  }, [governanceToken]);
+  }, [governanceTokenContract]);
 
   useEffect(() => {
     dispatch(GovernanceActions.setGovernanceABI(governanceABI));

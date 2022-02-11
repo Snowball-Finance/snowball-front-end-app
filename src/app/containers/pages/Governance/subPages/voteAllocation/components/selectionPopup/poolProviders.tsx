@@ -56,7 +56,7 @@ const Item = styled("div")<{ selected: "true" | "" }>(({ selected }) => ({
   marginBottom: "12px",
   ...(selected && {
     color: CssVariables.white,
-    background: CssVariables.primaryBlue,
+    background: CssVariables.primary,
   }),
 }));
 

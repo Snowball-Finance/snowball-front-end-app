@@ -31,7 +31,7 @@ const StyledContainedButton = styled(ContainedButton)({
   display: "flex",
   gap: "8px",
   backgroundColor: CssVariables.mildBlue,
-  color: CssVariables.primaryBlue,
+  color: CssVariables.primary,
   borderRadius: CssVariables.paperBorderRadius,
   fontSize: "12px",
   "&:hover": {

@@ -6,9 +6,9 @@ import { toast } from "react-toastify";
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import { generatePoolInfo, getMultiContractData } from "services/multicall";
 import { getGaugeCalls, getPoolCalls } from "services/multicall-queries";
-import { selectPrivateProviderDomain } from "../BlockChain/Ethers/selectors";
-import { selectPricesDomain } from "../BlockChain/selectors";
-import { selectAccountDomain } from "../BlockChain/Web3/selectors";
+import { EthersDomains } from "../BlockChain/Ethers/selectors";
+import { BlockChainDomains } from "../BlockChain/selectors";
+import { Web3Domains } from "../BlockChain/Web3/selectors";
 import { getAllocations, httpQuery, retrieveGauge } from "./providers/gauge";
 import { selectGaugeContractDomain, selectPoolsArrayDomain } from "./selectors";
 import { PoolsAndGaugesActions } from "./slice";
@@ -49,9 +49,9 @@ export function* getAndSetUserPools() {
   try {
     yield put(PoolsAndGaugesActions.setIsGettingPoolsAndGauges(true));
     const gaugeProxyContract = yield select(selectGaugeContractDomain);
-    const account = yield select(selectAccountDomain);
-    const provider = yield select(selectPrivateProviderDomain);
-    const prices = yield select(selectPricesDomain);
+    const account = yield select(Web3Domains.selectAccountDomain);
+    const provider = yield select(EthersDomains.selectPrivateProviderDomain);
+    const prices = yield select(BlockChainDomains.selectPricesDomain);
     const pools = yield select(selectPoolsArrayDomain);
     let poolsCalls = [];
     let contractCalls = [];

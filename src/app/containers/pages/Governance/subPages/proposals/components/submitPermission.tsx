@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
-import { selectAccount } from "app/containers/BlockChain/Web3/selectors";
-import { selectGovernanceTokenBalance } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
+import { Web3Selectors } from "app/containers/BlockChain/Web3/selectors";
 import { formatNumber } from "common/format";
 import { env } from "environment";
 import { translations } from "locales/i18n";
@@ -10,8 +10,10 @@ import { CssVariables } from "styles/cssVariables/cssVariables";
 import { mobile } from "styles/media";
 
 export const SubmitPermission = () => {
-  const governanceTokenBalance = useSelector(selectGovernanceTokenBalance);
-  const account = useSelector(selectAccount);
+  const governanceTokenBalance = useSelector(
+    GovernanceSelectors.selectFloatedGovernanceTokenBalance
+  );
+  const account = useSelector(Web3Selectors.selectAccount);
   const minimum = Number(env.MINIMUM_TOKEN_FOR_VOTING);
   const { t } = useTranslation();
   let message = "";
@@ -19,7 +21,7 @@ export const SubmitPermission = () => {
     message = t(translations.Common.ConnectToWallet());
   }
   if (governanceTokenBalance && account) {
-    if (governanceTokenBalance.toNumber() < minimum) {
+    if (Number(governanceTokenBalance.toString()) < minimum) {
       message = t(
         translations.GovernancePage.MinGovernanceTokenToSubmitError(),
         {

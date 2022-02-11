@@ -1,12 +1,14 @@
 import { TextField } from "@mui/material";
-import { selectNewProposalField } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 import { GovernanceActions } from "app/containers/BlockChain/Governance/slice";
 import { useDispatch, useSelector } from "react-redux";
 
 export const DiscussionInput = () => {
   const fieldName = "discussion";
   const dispatch = useDispatch();
-  const discussion = useSelector(selectNewProposalField(fieldName));
+  const discussion = useSelector(
+    GovernanceSelectors.selectNewProposalField(fieldName)
+  );
 
   const handleInputChange = (value: string) => {
     dispatch(GovernanceActions.setNewProposalFields({ key: fieldName, value }));

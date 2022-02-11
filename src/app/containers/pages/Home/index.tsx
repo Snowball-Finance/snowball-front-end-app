@@ -12,14 +12,11 @@ import { ContainedButton } from "app/components/common/buttons/containedButton";
 import { useDispatch, useSelector } from "react-redux";
 import { push } from "connected-react-router";
 import { AppPages } from "app/types";
-import {
-  selectIsStaking,
-  selectReadyForStaking,
-} from "app/containers/BlockChain/Governance/Staking/selectors";
 import { WalletToggle } from "app/components/common/walletToggle";
 import { StakingActions } from "app/containers/BlockChain/Governance/Staking/slice";
-import { selectSyncedProposalsWithBlockChain } from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 import { GovernanceActions } from "app/containers/BlockChain/Governance/slice";
+import { StakingSelectors } from "app/containers/BlockChain/Governance/Staking/selectors";
 
 export const HomePage = () => {
   useInjectReducer({ key: sliceKey, reducer: HomePageReducer });
@@ -44,10 +41,12 @@ export const HomePage = () => {
       })
     );
   };
-  const readyForStaking = useSelector(selectReadyForStaking);
-  const isStaking = useSelector(selectIsStaking);
+  const readyForStaking = useSelector(StakingSelectors.selectReadyForStaking);
+  const isStaking = useSelector(StakingSelectors.selectIsStaking);
 
-  const synced = useSelector(selectSyncedProposalsWithBlockChain);
+  const synced = useSelector(
+    GovernanceSelectors.selectSyncedProposalsWithBlockChain
+  );
   const handleSetSyncProposals = () => {
     dispatch(GovernanceActions.setSyncedProposalsWithBlockchain(false));
   };

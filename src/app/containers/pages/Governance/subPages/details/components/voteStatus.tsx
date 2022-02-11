@@ -1,18 +1,13 @@
 import { Box, Skeleton, styled } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
-import {
-  selectIsLoadingReceipt,
-  selectIsVotingAgainst,
-  selectIsVotingFor,
-  selectReceipt,
-} from "app/containers/BlockChain/Governance/selectors";
+import { GovernanceSelectors } from "app/containers/BlockChain/Governance/selectors";
 import { GovernanceActions } from "app/containers/BlockChain/Governance/slice";
 import {
   Proposal,
   ProposalStates,
 } from "app/containers/BlockChain/Governance/types";
-import { selectLibrary } from "app/containers/BlockChain/Web3/selectors";
+import { Web3Selectors } from "app/containers/BlockChain/Web3/selectors";
 import DangerIcon from "assets/images/iconComponents/dangerIcon";
 import ThumbsDownIcon from "assets/images/iconComponents/thumbsDown";
 import ThumbsUpIcon from "assets/images/iconComponents/thumbsUp";
@@ -30,13 +25,15 @@ interface Props {
 export const VoteStatus: FC<Props> = ({ proposal }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const isLoading = useSelector(selectIsLoadingReceipt);
-  const receipt = useSelector(selectReceipt);
+  const isLoading = useSelector(GovernanceSelectors.selectIsLoadingReceipt);
+  const receipt = useSelector(GovernanceSelectors.selectReceipt);
   const isFor = receipt?.support || false;
   const hasVoted = receipt?.hasVoted || false;
-  const isVotingFor = useSelector(selectIsVotingFor);
-  const isVotingAgainst = useSelector(selectIsVotingAgainst);
-  const library = useSelector(selectLibrary);
+  const isVotingFor = useSelector(GovernanceSelectors.selectIsVotingFor);
+  const isVotingAgainst = useSelector(
+    GovernanceSelectors.selectIsVotingAgainst
+  );
+  const library = useSelector(Web3Selectors.selectLibrary);
 
   useEffect(() => {
     if (library) {
