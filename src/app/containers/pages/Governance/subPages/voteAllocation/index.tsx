@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
 import { SnowPaper } from "app/components/base/SnowPaper";
 import { Max1040 } from "app/components/wrappers/max1040";
-import { selectAccount } from "app/containers/BlockChain/Web3/selectors";
+import { Web3Selectors } from "app/containers/BlockChain/Web3/selectors";
 import { env } from "environment";
 import { translations } from "locales/i18n";
 import { useTranslation } from "react-i18next";
@@ -14,7 +14,7 @@ import { VoteAllocationSubmit } from "./components/submitButton";
 
 export const VoteAllocation = () => {
   const { t } = useTranslation();
-  const account = useSelector(selectAccount);
+  const account = useSelector(Web3Selectors.selectAccount);
 
   return (
     <StyledMax1040>

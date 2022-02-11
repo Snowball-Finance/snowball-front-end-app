@@ -1,7 +1,3 @@
-import {
-  selectAccountDomain,
-  selectLibraryDomain,
-} from "app/containers/BlockChain/Web3/selectors";
 import { ethers } from "ethers";
 import { toast } from "react-toastify";
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
@@ -21,6 +17,7 @@ import {
 } from "app/containers/BlockChain/providers/balanceAPI";
 import { env } from "environment";
 import { parseProposalFromRawBlockchainResponse } from "./utils/proposalParser";
+import { Web3Domains } from "../Web3/selectors";
 
 export function* getProposals(action: {
   type: string;
@@ -47,7 +44,7 @@ export function* vote(action: {
   type: string;
   payload: { proposal: Proposal; voteFor: boolean };
 }) {
-  const library = yield select(selectLibraryDomain);
+  const library = yield select(Web3Domains.selectLibraryDomain);
   const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
   const { proposal, voteFor } = action.payload;
   try {
@@ -94,7 +91,7 @@ export function* submitNewProposal() {
   const { title, votingPeriod, discussion } = proposalFields;
   const metadataURI = discussion;
   try {
-    const library = yield select(selectLibraryDomain);
+    const library = yield select(Web3Domains.selectLibraryDomain);
     const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
     const voteContractAddress = env.VOTING_CONTRACT_ADDRESS;
     const governanceContract = new ethers.Contract(
@@ -103,7 +100,7 @@ export function* submitNewProposal() {
       GOVERNANCE_ABI,
       library.getSigner()
     );
-    const account = yield select(selectAccountDomain);
+    const account = yield select(Web3Domains.selectAccountDomain);
     yield call(
       governanceContract.propose,
       title,
@@ -137,7 +134,7 @@ export function* getVotingReceipt(action: {
       proposal.offset.toString(),
       0
     );
-    const library = yield select(selectLibraryDomain);
+    const library = yield select(Web3Domains.selectLibraryDomain);
     const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
     const voteContractAddress = env.VOTING_CONTRACT_ADDRESS;
     const governanceContract = new ethers.Contract(
@@ -146,7 +143,7 @@ export function* getVotingReceipt(action: {
       GOVERNANCE_ABI,
       library.getSigner()
     );
-    const account = yield select(selectAccountDomain);
+    const account = yield select(Web3Domains.selectAccountDomain);
     const receipt = yield governanceContract.getReceipt(
       proposalIdValue,
       account
@@ -167,7 +164,7 @@ export function* getVotingReceipt(action: {
 
 export function* getGovernanceTokenBalance() {
   yield put(GovernanceActions.setIsGettingGovernanceTokenBalance(true));
-  const account = yield select(selectAccountDomain);
+  const account = yield select(Web3Domains.selectAccountDomain);
   const governanceToken = yield select(selectGovernanceTokenContractDomain);
   const contract = governanceToken;
   try {
@@ -189,7 +186,7 @@ export function* getTotalGovernanceTokenSupply() {
 
 export function* syncProposalsWithBlockchain() {
   try {
-    const library = yield select(selectLibraryDomain);
+    const library = yield select(Web3Domains.selectLibraryDomain);
     const GOVERNANCE_ABI = yield select(selectGovernanceABIDomain);
     const voteContractAddress = env.VOTING_CONTRACT_ADDRESS;
     const governanceContract = new ethers.Contract(

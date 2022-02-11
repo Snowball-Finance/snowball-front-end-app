@@ -1,8 +1,5 @@
 import { ContainedButton } from "app/components/common/buttons/containedButton";
-import {
-  selectAccount,
-  selectIsConnectingToWallet,
-} from "app/containers/BlockChain/Web3/selectors";
+import { Web3Selectors } from "app/containers/BlockChain/Web3/selectors";
 import { Web3Actions } from "app/containers/BlockChain/Web3/slice";
 import { ConnectorPayload } from "app/containers/BlockChain/Web3/types";
 import { translations } from "locales/i18n";
@@ -14,8 +11,8 @@ import { LocalStorageKeys, storage } from "store/storage";
 export const ConnectToWalletButton: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const isConnecting = useSelector(selectIsConnectingToWallet);
-  const account = useSelector(selectAccount);
+  const isConnecting = useSelector(Web3Selectors.selectIsConnectingToWallet);
+  const account = useSelector(Web3Selectors.selectAccount);
 
   const walletName: ConnectorPayload["walletName"] = "MetaMask";
 

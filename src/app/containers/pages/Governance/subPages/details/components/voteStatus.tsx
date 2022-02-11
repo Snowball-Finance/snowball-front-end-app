@@ -12,7 +12,7 @@ import {
   Proposal,
   ProposalStates,
 } from "app/containers/BlockChain/Governance/types";
-import { selectLibrary } from "app/containers/BlockChain/Web3/selectors";
+import { Web3Selectors } from "app/containers/BlockChain/Web3/selectors";
 import DangerIcon from "assets/images/iconComponents/dangerIcon";
 import ThumbsDownIcon from "assets/images/iconComponents/thumbsDown";
 import ThumbsUpIcon from "assets/images/iconComponents/thumbsUp";
@@ -36,7 +36,7 @@ export const VoteStatus: FC<Props> = ({ proposal }) => {
   const hasVoted = receipt?.hasVoted || false;
   const isVotingFor = useSelector(selectIsVotingFor);
   const isVotingAgainst = useSelector(selectIsVotingAgainst);
-  const library = useSelector(selectLibrary);
+  const library = useSelector(Web3Selectors.selectLibrary);
 
   useEffect(() => {
     if (library) {

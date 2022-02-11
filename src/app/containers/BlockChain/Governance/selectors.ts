@@ -1,13 +1,9 @@
 import { createSelector } from "@reduxjs/toolkit";
-import {
-  selectAccountDomain,
-  selectLibraryDomain,
-} from "app/containers/BlockChain/Web3/selectors";
 import { env } from "environment";
 import { ethers } from "ethers";
-
 import { RootState } from "store/types";
 import { EthersDomains } from "../Ethers/selectors";
+import { Web3Domains } from "../Web3/selectors";
 import { initialState } from "./slice";
 import { ContainerState, ProposalFilters, ProposalStates } from "./types";
 
@@ -142,7 +138,7 @@ export const selectFilteredProposalsProposals = createSelector(
 );
 
 export const selectCanAddNewProposal = createSelector(
-  [selectGovernanceDomain, selectAccountDomain],
+  [selectGovernanceDomain, Web3Domains.selectAccountDomain],
   (governance, account) => {
     if (
       governance.governanceTokenBalance &&
@@ -159,7 +155,7 @@ export const selectCanAddNewProposal = createSelector(
 export const selectGovernanceTokenContract = createSelector(
   [
     EthersDomains.selectPrivateProviderDomain,
-    selectLibraryDomain,
+    Web3Domains.selectLibraryDomain,
     selectGovernanceTokenABIDomain,
   ],
   (provider, library, governanceTokenABI) => {

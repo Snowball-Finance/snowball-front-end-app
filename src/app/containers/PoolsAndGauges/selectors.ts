@@ -5,10 +5,8 @@ import { Contract, ethers } from "ethers";
 import { RootState } from "store/types";
 import { EthersDomains, EthersSelectors } from "../BlockChain/Ethers/selectors";
 import { selectPricesDomain } from "../BlockChain/selectors";
-import {
-  selectAccountDomain,
-  selectLibraryDomain,
-} from "../BlockChain/Web3/selectors";
+import { Web3Domains } from "../BlockChain/Web3/selectors";
+
 import { initialState } from "./slice";
 
 const selectDomain = (state: RootState) => state.poolsAndGauges || initialState;
@@ -50,7 +48,7 @@ let contract: Contract | undefined;
 export const selectGaugeContract = createSelector(
   [
     EthersDomains.selectPrivateProviderDomain,
-    selectLibraryDomain,
+    Web3Domains.selectLibraryDomain,
     selectGaugeProxyABIDomain,
   ],
   (provider, library, abi) => {
@@ -86,7 +84,7 @@ export const selectGotUserPools = createSelector(
 
 export const selectIsReadyToGetUserData = createSelector(
   [
-    selectAccountDomain,
+    Web3Domains.selectAccountDomain,
     selectPoolsArrayDomain,
     EthersDomains.selectPrivateProviderDomain,
     selectGaugeContractDomain,

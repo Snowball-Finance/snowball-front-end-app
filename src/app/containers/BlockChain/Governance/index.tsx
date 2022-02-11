@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLibrary } from "../Web3/selectors";
+import { Web3Selectors } from "../Web3/selectors";
 import {
   selectGovernanceTokenContract,
   selectProposals,
@@ -50,7 +50,7 @@ export const Governance = ({
   useGovernanceSlice();
   const dispatch = useDispatch();
   const governanceTokenContract = useSelector(selectGovernanceTokenContract);
-  const library = useSelector(selectLibrary);
+  const library = useSelector(Web3Selectors.selectLibrary);
   const proposals = useSelector(selectProposals);
   const syncedProposalsWithBlockChain = useSelector(
     selectSyncedProposalsWithBlockChain

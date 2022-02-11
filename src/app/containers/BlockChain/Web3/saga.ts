@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import { call, put, select, takeLatest } from "redux-saga/effects";
 import { CONNECTORS } from "./constants";
-import { selectWeb3Domain } from "./selectors";
+import { Web3Domains } from "./selectors";
 import { Web3Actions } from "./slice";
 import { ConnectorPayload, Web3State } from "./types";
 
@@ -18,7 +18,7 @@ export function* connectToWallet(action: {
       return;
     }
   }
-  const web3State: Web3State = yield select(selectWeb3Domain);
+  const web3State: Web3State = yield select(Web3Domains.selectWeb3Domain);
   if (web3State.activate) {
     yield put(Web3Actions.setIsConnectingToWallet(true));
     try {
@@ -34,7 +34,7 @@ export function* connectToWallet(action: {
 }
 
 export function* disconnectFromWallet() {
-  const web3State: Web3State = yield select(selectWeb3Domain);
+  const web3State: Web3State = yield select(Web3Domains.selectWeb3Domain);
   if (web3State.deactivate) {
     yield call(web3State.deactivate);
   }

@@ -9,29 +9,19 @@ import { CreateLockData, DistributorData } from "./types";
 import { ethers } from "ethers";
 import { env } from "environment";
 import { getEpochSecondForDay } from "./helpers/date";
-import {
-  selectGovernanceTokenABIDomain,
-  selectGovernanceTokenContract,
-  selectGovernanceTokenContractDomain,
-} from "../selectors";
+import { selectGovernanceTokenABIDomain } from "../selectors";
 import { BlockChainActions } from "../../slice";
 import { toast } from "react-toastify";
-import {
-  selectAccountDomain,
-  selectLibraryDomain,
-} from "app/containers/BlockChain/Web3/selectors";
-import {
-  selectFeeDistributorABIDomain,
-  selectOtherDistributorsDomain,
-} from "./selectors";
 import { EthersDomains } from "../../Ethers/selectors";
+import { Web3Domains } from "../../Web3/selectors";
+import { StakingDomains } from "./selectors";
 
 export function* createLock(action: { type: string; payload: CreateLockData }) {
   const { balance, date } = action.payload;
   const amount = parseEther(balance.toString());
   const lockedDate = getEpochSecondForDay(new Date(date));
   yield put(StakingActions.setIsStaking(true));
-  const library = yield select(selectLibraryDomain);
+  const library = yield select(Web3Domains.selectLibraryDomain);
   //|| is used because if .env is not set,we will fetch the error in early stages
   const mainTokenAddress = env.MAIN_TOKEN_ADDRESS || "";
   const mainTokenABI = yield select(selectMainTokenABIDomain);
@@ -102,14 +92,18 @@ export function* createLock(action: { type: string; payload: CreateLockData }) {
 }
 
 export function* claim() {
-  const account = yield select(selectAccountDomain);
+  const account = yield select(Web3Domains.selectAccountDomain);
   if (!account) {
     toast.warn("connect to your wallet please");
     return;
   }
-  const feeDistributorABI = yield select(selectFeeDistributorABIDomain);
-  const library = yield select(selectLibraryDomain);
-  const otherDistributors = yield select(selectOtherDistributorsDomain);
+  const feeDistributorABI = yield select(
+    StakingDomains.selectFeeDistributorABIDomain
+  );
+  const library = yield select(Web3Domains.selectLibraryDomain);
+  const otherDistributors = yield select(
+    StakingDomains.selectOtherDistributorsDomain
+  );
   try {
     yield put(StakingActions.setIsClaiming(true));
     const feeDistributorContract = new ethers.Contract(
@@ -152,11 +146,13 @@ export function* claim() {
 }
 
 export function* getFeeDistributionInfo() {
-  const library = yield select(selectLibraryDomain);
+  const library = yield select(Web3Domains.selectLibraryDomain);
   try {
     yield put(StakingActions.setIsGettingFeeDistributionInfo(true));
-    const account = yield select(selectAccountDomain);
-    const feeDistributorABI = yield select(selectFeeDistributorABIDomain);
+    const account = yield select(Web3Domains.selectAccountDomain);
+    const feeDistributorABI = yield select(
+      StakingDomains.selectFeeDistributorABIDomain
+    );
     const feeDistributorContract = new ethers.Contract(
       // || '' is used because if .env is not set,we will fetch the error in early stages
       env.FEE_DISTRIBUTOR_CONTRACT_ADDRESS || "",
@@ -184,7 +180,7 @@ export function* getLockedGovernanceTokenInfo() {
     governanceTokenABI,
     provider
   );
-  const account = yield select(selectAccountDomain);
+  const account = yield select(Web3Domains.selectAccountDomain);
   try {
     yield put(StakingActions.setIsGettingGovernanceTokenInfo(true));
     const info = yield call(governanceTokenContract.locked, account, {
@@ -203,7 +199,7 @@ export function* withdraw() {
 
   try {
     const governanceTokenABI = yield select(selectGovernanceTokenABIDomain);
-    const library = yield select(selectLibraryDomain);
+    const library = yield select(Web3Domains.selectLibraryDomain);
     const snowconeContractWithdraw = new ethers.Contract(
       env.GOVERNANCE_TOKEN_CONTRACT_ADDRESS || "",
       governanceTokenABI,

@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
-import { selectAccount } from "app/containers/BlockChain/Web3/selectors";
 import { selectGovernanceTokenBalance } from "app/containers/BlockChain/Governance/selectors";
+import { Web3Selectors } from "app/containers/BlockChain/Web3/selectors";
 import { formatNumber } from "common/format";
 import { env } from "environment";
 import { translations } from "locales/i18n";
@@ -11,7 +11,7 @@ import { mobile } from "styles/media";
 
 export const SubmitPermission = () => {
   const governanceTokenBalance = useSelector(selectGovernanceTokenBalance);
-  const account = useSelector(selectAccount);
+  const account = useSelector(Web3Selectors.selectAccount);
   const minimum = Number(env.MINIMUM_TOKEN_FOR_VOTING);
   const { t } = useTranslation();
   let message = "";

@@ -1,6 +1,5 @@
 import { Box, styled } from "@mui/material";
 import { ContainedButton } from "app/components/common/buttons/containedButton";
-import { selectLibrary } from "app/containers/BlockChain/Web3/selectors";
 import {
   selectIsLoadingReceipt,
   selectIsVotingAgainst,
@@ -9,6 +8,7 @@ import {
 } from "app/containers/BlockChain/Governance/selectors";
 import { GovernanceActions } from "app/containers/BlockChain/Governance/slice";
 import { Proposal } from "app/containers/BlockChain/Governance/types";
+import { Web3Selectors } from "app/containers/BlockChain/Web3/selectors";
 import ThumbsDownIcon from "assets/images/iconComponents/thumbsDown";
 import ThumbsUpIcon from "assets/images/iconComponents/thumbsUp";
 import { translations } from "locales/i18n";
@@ -20,7 +20,7 @@ import { CssVariables } from "styles/cssVariables/cssVariables";
 export const VoteButtons: FC<{ proposal: Proposal }> = ({ proposal }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const library = useSelector(selectLibrary);
+  const library = useSelector(Web3Selectors.selectLibrary);
   const isLoadingFor = useSelector(selectIsVotingFor);
   const isLoadingAgainst = useSelector(selectIsVotingAgainst);
   const receipt = useSelector(selectReceipt);

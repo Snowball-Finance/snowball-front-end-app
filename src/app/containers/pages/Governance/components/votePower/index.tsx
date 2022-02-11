@@ -6,14 +6,14 @@ import xSnobBalanceBackground from "assets/images/vote-power.png";
 import { CssVariables } from "styles/cssVariables/cssVariables";
 import { useTranslation } from "react-i18next";
 import { translations } from "locales/i18n";
-import { selectAccount } from "app/containers/BlockChain/Web3/selectors";
 import { mobile } from "styles/media";
 import { env } from "environment";
 import { selectGovernanceTokenBalance } from "app/containers/BlockChain/Governance/selectors";
+import { Web3Selectors } from "app/containers/BlockChain/Web3/selectors";
 
 export const VotePower: FC = () => {
   const governanceTokenBalance = useSelector(selectGovernanceTokenBalance);
-  const account = useSelector(selectAccount);
+  const account = useSelector(Web3Selectors.selectAccount);
   const { t } = useTranslation();
   const balance =
     governanceTokenBalance && account
