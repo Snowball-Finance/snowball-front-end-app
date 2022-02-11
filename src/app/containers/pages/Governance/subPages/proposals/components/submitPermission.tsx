@@ -11,7 +11,7 @@ import { mobile } from "styles/media";
 
 export const SubmitPermission = () => {
   const governanceTokenBalance = useSelector(
-    GovernanceSelectors.selectGovernanceTokenBalance
+    GovernanceSelectors.selectFloatedGovernanceTokenBalance
   );
   const account = useSelector(Web3Selectors.selectAccount);
   const minimum = Number(env.MINIMUM_TOKEN_FOR_VOTING);
@@ -21,7 +21,7 @@ export const SubmitPermission = () => {
     message = t(translations.Common.ConnectToWallet());
   }
   if (governanceTokenBalance && account) {
-    if (governanceTokenBalance.toNumber() < minimum) {
+    if (Number(governanceTokenBalance.toString()) < minimum) {
       message = t(
         translations.GovernancePage.MinGovernanceTokenToSubmitError(),
         {

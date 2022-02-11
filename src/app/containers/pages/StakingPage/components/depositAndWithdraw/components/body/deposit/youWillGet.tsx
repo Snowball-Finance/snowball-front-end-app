@@ -1,9 +1,6 @@
 import { styled } from "@mui/material";
 import { StakingPageSelectors } from "app/containers/pages/StakingPage/selectors";
-import { estimateXSnobForDate } from "app/containers/pages/StakingPage/utils/stakeDate";
-import { BNToString } from "common/format";
 import { env } from "environment";
-import { BigNumber } from "ethers";
 import { translations } from "locales/i18n";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";

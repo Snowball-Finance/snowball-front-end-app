@@ -9,7 +9,9 @@ import { CssVariables } from "styles/cssVariables/cssVariables";
 
 export const Balance = () => {
   const { t } = useTranslation();
-  const mainTokenBalance = useSelector(BlockChainSelectors.selectMainTokenBalance);
+  const mainTokenBalance = useSelector(
+    BlockChainSelectors.selectMainTokenBalance
+  );
   const stringMainTokenBalance = BNToString(
     mainTokenBalance ?? BigNumber.from(0),
     18

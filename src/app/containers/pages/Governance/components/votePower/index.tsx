@@ -13,14 +13,15 @@ import { GovernanceSelectors } from "app/containers/BlockChain/Governance/select
 
 export const VotePower: FC = () => {
   const governanceTokenBalance = useSelector(
-    GovernanceSelectors.selectGovernanceTokenBalance
+    GovernanceSelectors.selectFloatedGovernanceTokenBalance
   );
   const account = useSelector(Web3Selectors.selectAccount);
   const { t } = useTranslation();
   const balance =
     governanceTokenBalance && account
-      ? governanceTokenBalance.toNumber()
+      ? governanceTokenBalance.toString()
       : "0.000";
+
   return (
     <Wrapper elevation={0}>
       <LogoWrapper>

@@ -8,7 +8,9 @@ import { StakingPageDomains } from "./selectors";
 import { StakingPageActions } from "./slice";
 
 export function* stakeAllTheBalances() {
-  const mainTokenBalance = yield select(BlockChainDomains.selectMainTokenBalanceDomain);
+  const mainTokenBalance = yield select(
+    BlockChainDomains.selectMainTokenBalanceDomain
+  );
   if (mainTokenBalance) {
     const stringMainTokenBalance = parseFloat(
       BNToString(mainTokenBalance ?? BigNumber.from(0), 18) || "0"

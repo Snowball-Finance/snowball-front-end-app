@@ -8,7 +8,6 @@ import { createSlice } from "store/toolkit";
 import { useInjectReducer, useInjectSaga } from "store/redux-injectors";
 
 import { stakingPageSaga } from "./saga";
-import { getDayOffset } from "app/containers/BlockChain/Governance/Staking/helpers/date";
 import { addDaysToTodayAndGetOnlyDate } from "./utils/addDays";
 
 // The initial state of the StakingPage container

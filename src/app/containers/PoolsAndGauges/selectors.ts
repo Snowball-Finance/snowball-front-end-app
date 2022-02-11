@@ -3,7 +3,7 @@ import { env } from "environment";
 import { Contract, ethers } from "ethers";
 
 import { RootState } from "store/types";
-import { EthersDomains, EthersSelectors } from "../BlockChain/Ethers/selectors";
+import { EthersDomains } from "../BlockChain/Ethers/selectors";
 import { BlockChainDomains } from "../BlockChain/selectors";
 import { Web3Domains } from "../BlockChain/Web3/selectors";
 

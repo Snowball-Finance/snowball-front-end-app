@@ -1,4 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
+import { BNToFloat } from "common/format";
 import { env } from "environment";
 import { ethers } from "ethers";
 import { RootState } from "store/types";
@@ -69,6 +70,17 @@ export const GovernanceSelectors = {
     GovernanceDomains.selectGovernanceDomain,
     (blockChainState) => blockChainState.governanceTokenBalance
   ),
+  selectFloatedGovernanceTokenBalance: createSelector(
+    GovernanceDomains.selectGovernanceDomain,
+    (blockChainState) => {
+      if (blockChainState.governanceTokenBalance) {
+        const floated =
+          BNToFloat(blockChainState.governanceTokenBalance, 18)?.toFixed(3) ||
+          "0.000";
+        return floated;
+      }
+    }
+  ),
   selectIsLoadingReceipt: createSelector(
     GovernanceDomains.selectIsLoadingReceiptDomain,
     (isLoadingReceipt) => isLoadingReceipt
@@ -134,13 +146,17 @@ export const GovernanceSelectors = {
   selectCanAddNewProposal: createSelector(
     [GovernanceDomains.selectGovernanceDomain, Web3Domains.selectAccountDomain],
     (governance, account) => {
-      if (
-        governance.governanceTokenBalance &&
-        governance.governanceTokenBalance.toNumber() >
-          Number(env.MINIMUM_TOKEN_FOR_VOTING) &&
-        account
-      ) {
-        return true;
+      if (governance.governanceTokenBalance) {
+        const floatedBalance = BNToFloat(
+          governance.governanceTokenBalance,
+          18
+        )?.toFixed(3);
+        if (
+          Number(floatedBalance) > Number(env.MINIMUM_TOKEN_FOR_VOTING) &&
+          account
+        ) {
+          return true;
+        }
       }
       return false;
     }

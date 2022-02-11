@@ -50,7 +50,9 @@ export const BlockChain: FC<BlockChainProps> = ({
     return () => {};
   }, []);
 
-  const { mainTokenContract } = useSelector(BlockChainSelectors.selectCalculatedContracts);
+  const { mainTokenContract } = useSelector(
+    BlockChainSelectors.selectCalculatedContracts
+  );
 
   useEffect(() => {
     if (governance) {

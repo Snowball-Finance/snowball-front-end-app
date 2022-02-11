@@ -21,7 +21,7 @@ export const VoteAllocationSubmit = () => {
   );
   let disabled = true;
 
-  if (votingTokenBalance && votingTokenBalance.toNumber() > 0) {
+  if (votingTokenBalance && Number(votingTokenBalance.toString()) > 0) {
     disabled = false;
     buttonContent = t(
       translations.GovernancePage.VoteAllocation.VoteAllocation()

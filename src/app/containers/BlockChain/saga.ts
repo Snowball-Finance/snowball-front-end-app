@@ -11,7 +11,9 @@ import { BlockChainDomains } from "./selectors";
 export function* getMainTokenBalance() {
   yield put(BlockChainActions.setIsGettingMainTokenBalance(true));
   const account = yield select(Web3Domains.selectAccountDomain);
-  const { mainTokenContract } = yield select(BlockChainDomains.selectContractsDomain);
+  const { mainTokenContract } = yield select(
+    BlockChainDomains.selectContractsDomain
+  );
   const contract = mainTokenContract;
   try {
     const response = yield call(balanceProvider, { contract, account });

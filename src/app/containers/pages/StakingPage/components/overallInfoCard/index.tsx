@@ -79,10 +79,6 @@ export const OverallInfoCard = () => {
   );
 };
 
-const ButtonWrapper = styled("div")({
-  padding: "0 1",
-});
-
 const Filler = styled("div")({
   flex: 1,
 });

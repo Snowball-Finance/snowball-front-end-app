@@ -67,7 +67,9 @@ export function* getLastSnowballInfo() {
 export function* getAndSetUserPools() {
   try {
     yield put(ExampleActions.setIsGettingUserPools(true));
-    const { gaugeProxy } = yield select(BlockChainDomains.selectContractsDomain);
+    const { gaugeProxy } = yield select(
+      BlockChainDomains.selectContractsDomain
+    );
     const account = yield select(Web3Domains.selectAccountDomain);
     const provider = yield select(EthersDomains.selectPrivateProviderDomain);
     const prices = yield select(BlockChainDomains.selectPricesDomain);
